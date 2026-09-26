@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  placeholder:
+    name: Nothing to build yet
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Confirm the repository is still a placeholder
+        run: |
+          if [ -f package.json ]; then
+            echo "package.json exists — replace this workflow with a real build."
+            exit 1
+          fi
+          echo "Placeholder repository; see README.md."
