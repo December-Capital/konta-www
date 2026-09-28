@@ -153,6 +153,13 @@ img {
   height: auto;
 }
 
+/* The hidden content attribute only maps to display:none for HTML elements, so an SVG carrying
+   it stays on screen. The theme control holds two icons and hides one; without this rule both
+   render, stacked, and the button grows to fit them. */
+[hidden] {
+  display: none !important;
+}
+
 .shell {
   width: 100%;
   max-width: 1060px;
@@ -400,14 +407,16 @@ img {
 .contrast dl {
   margin: 0;
   display: grid;
-  gap: 10px 0;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 10px 20px;
   font-size: 0.9375rem;
 }
 
+/* The rows are wrapped in divs so each label keeps its description, but the grid has to be the
+   dl's — one shared label column, or the two descriptions start at different places and the
+   comparison stops reading as a comparison. */
 .contrast dl > div {
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  gap: 0 20px;
+  display: contents;
 }
 
 .contrast dt {
@@ -430,13 +439,13 @@ img {
 }
 
 @media (max-width: 460px) {
-  .contrast dl > div {
+  .contrast dl {
     grid-template-columns: minmax(0, 1fr);
     gap: 2px 0;
   }
 
-  .contrast dl {
-    gap: 16px 0;
+  .contrast dd {
+    margin-bottom: 14px;
   }
 }
 
