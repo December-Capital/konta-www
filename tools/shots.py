@@ -31,6 +31,8 @@ WORK = os.path.join(OUT, '.pages')
 ELEMENT = re.compile(r'(<(\w+)(?:\s[^>]*?)?\sdata-t="([^"]+)"(?:\s[^>]*?)?>)(.*?)(</\2>)', re.S)
 META = re.compile(r'(<meta\b[^>]*?data-t="([^"]+)"[^>]*?>)', re.S)
 NEXT_LANG = {'ro': 'ru', 'ru': 'en', 'en': 'ro'}
+OWN_NAME = {'ro': 'Română', 'ru': 'Русский', 'en': 'English'}
+SWITCH_TO = {'ro': 'Treci la', 'ru': 'Переключить на', 'en': 'Switch to'}
 
 VARIANTS = [
     ('index.html', 'ro-light', 'ro', 'light', None, 1280),
@@ -83,8 +85,20 @@ def build(page, name, lang, theme, state):
         html = translate(html, words)
         html = html.replace('<html lang="ro" data-lang="ro">',
                             '<html lang="%s" data-lang="%s">' % (lang, lang))
-        html = re.sub(r'(data-lang-cycle[^>]*>)[A-Z]{2}(</button>)',
-                      r'\g<1>%s\g<2>' % NEXT_LANG[lang].upper(), html)
+        # The control shows the language you are in; site.js rewrites all four of these at
+        # runtime, so the pre-render has to as well or the screenshot lies about it.
+        nxt = NEXT_LANG[lang]
+        html = re.sub(
+            r'(data-lang-cycle[^>]*>)\s*[A-Z]{2}\s*(</button>)',
+            lambda m: '%s\n            %s\n          %s' % (m.group(1), lang.upper(), m.group(2)),
+            html,
+        )
+        html = html.replace('lang="ro"', 'lang="%s"' % lang, 1)
+        html = html.replace(
+            'aria-label="RO. Treci la %s"' % OWN_NAME['ru'],
+            'aria-label="%s. %s %s"' % (lang.upper(), SWITCH_TO[lang], OWN_NAME[nxt]),
+        )
+        html = html.replace('title="%s"' % OWN_NAME['ru'], 'title="%s"' % OWN_NAME[nxt])
 
     html = html.replace('<html lang=', '<html data-theme="%s" lang=' % theme)
 
@@ -103,7 +117,7 @@ def build(page, name, lang, theme, state):
             html = html.replace('data-t="st.checking">' + checking, 'data-t="st.down">' + down)
 
     # The scripts would undo the pre-render: site.js re-applies Romanian, status.js re-probes.
-    html = re.sub(r'\s*<script src="[^"]*(site|status)\.js"></script>', '', html)
+    html = re.sub(r'\s*<script src="[^"]*(site|status)\.js(\?[^"]*)?"></script>', '', html)
 
     # Keep the file at the same depth as the page it came from, so relative asset paths hold.
     out = os.path.join(WORK, os.path.dirname(page), name + '.html')

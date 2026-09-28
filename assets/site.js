@@ -53,12 +53,24 @@
 
   var logos = Array.prototype.slice.call(document.querySelectorAll('[data-logo]'));
 
+  // `hidden` is defined on HTMLElement, so assigning svg.hidden = true sets a plain JavaScript
+  // property and never touches the attribute — the icon stayed exactly as authored no matter how
+  // often the theme changed. Set the attribute.
+  function show(node, visible) {
+    if (!node) return;
+    if (visible) {
+      node.removeAttribute('hidden');
+    } else {
+      node.setAttribute('hidden', '');
+    }
+  }
+
   // The button shows the theme you would get by pressing it, not the one you are in. The mark
   // swaps too: the logo's aubergine disappears against a dark ground.
   function paintToggle() {
     var dark = isDark();
-    if (sun) sun.hidden = !dark;
-    if (moon) moon.hidden = dark;
+    show(sun, dark);
+    show(moon, !dark);
 
     logos.forEach(function (logo) {
       var wanted = dark ? 'logo-dark.png' : 'logo.png';
@@ -150,13 +162,16 @@
     root.lang = lang;
     root.dataset.lang = lang;
 
-    // The control shows the language you would get by pressing it, so it always reads as an
-    // instruction rather than as a label for the language you are already in.
+    // The control shows the language you are reading, and pressing it moves to the next one.
+    // The accessible name keeps the visible code in it, so a voice-control user can say what they
+    // can see, and then names where a press would take them.
     if (cycler) {
       var next = nextAfter(lang);
-      cycler.textContent = next.toUpperCase();
-      cycler.setAttribute('lang', next);
-      cycler.setAttribute('aria-label', NAMES[next]);
+      var hint = lang.toUpperCase() + '. ' + (words['lang.next'] || '') + ' ' + NAMES[next];
+
+      cycler.textContent = lang.toUpperCase();
+      cycler.setAttribute('lang', lang);
+      cycler.setAttribute('aria-label', hint.replace(/\s+/g, ' ').trim());
       cycler.setAttribute('title', NAMES[next]);
     }
 

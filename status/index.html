@@ -20,8 +20,8 @@
       media="(prefers-color-scheme: dark)"
     />
     <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
-    <link rel="stylesheet" href="../assets/fonts.css?v=2" />
-    <link rel="stylesheet" href="../assets/site.css?v=2" />
+    <link rel="stylesheet" href="../assets/fonts.css?v=3" />
+    <link rel="stylesheet" href="../assets/site.css?v=3" />
     <script>
       try {
         var saved = localStorage.getItem('konta.theme');
@@ -45,7 +45,16 @@
         </a>
 
         <div class="controls">
-          <button type="button" class="control" data-lang-cycle aria-label="Русский">RU</button>
+          <button
+            type="button"
+            class="control"
+            data-lang-cycle
+            lang="ro"
+            aria-label="RO. Treci la Русский"
+            title="Русский"
+          >
+            RO
+          </button>
 
           <button
             type="button"
@@ -127,9 +136,9 @@
     </footer>
 
     <script type="application/json" data-seed>
-      { "st.up": "Funcționează", "st.down": "Nu răspunde" }
+      { "st.up": "Funcționează", "st.down": "Nu răspunde", "lang.next": "Treci la" }
     </script>
-    <script src="../assets/site.js?v=2"></script>
-    <script src="../assets/status.js?v=2"></script>
+    <script src="../assets/site.js?v=3"></script>
+    <script src="../assets/status.js?v=3"></script>
   </body>
 </html>
