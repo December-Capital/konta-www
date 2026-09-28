@@ -76,9 +76,21 @@ neither. Look at the pictures.
 
 ## Deploying
 
-Hostinger's git integration serves this repository at the domain root. `konta.md` is canonical;
-`www.konta.md` redirects to it. Nothing here needs building, so what is committed is what is
-served.
+Uploaded by hand to `public_html` on Hostinger: `index.html`, `robots.txt`, `.htaccess`,
+`status/` and `assets/`, keeping the folder structure. Everything else in this repository is
+tooling and stays out. Nothing needs building, so what is committed is what is served.
+
+`.htaccess` is a dotfile and the file manager hides it by default — check it actually arrived,
+because it carries the canonical redirect, the woff2 media type, and the cache headers.
+
+**Caching is the thing that will waste an afternoon.** This host defaults css and js to a week,
+so a visitor who has loaded the site once keeps the old stylesheet and script while getting the
+new HTML — the page looks half-updated and nothing on the server is wrong. The `.htaccess` now
+revalidates html, json, css and js on every visit, and the asset links carry `?v=2` to break the
+copies cached before that rule existed. Bump that token only if long caching is ever
+reintroduced; with revalidation it is not needed again.
+
+`konta.md` is canonical and `www.konta.md` redirects to it.
 
 Where the site sits relative to the app, and why the app is not served from this host, is in the
 product repository: [`docs/architecture/deployment-topology.md`](https://github.com/December-Capital/konta/blob/main/docs/architecture/deployment-topology.md).

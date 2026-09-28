@@ -23,15 +23,26 @@
   AddType application/json .json
 </IfModule>
 
-# The fonts and the logo are content-addressed by name and never change in place, so they can be
-# cached hard. The pages and the language catalogues change whenever the copy does, so they are
-# revalidated every time.
+# Caching, and the reason for each tier.
+#
+# Everything that carries content or behaviour revalidates on every visit: a conditional request
+# is one round trip and a 304 is a few bytes, and the alternative is a visitor pinned to an old
+# stylesheet for a week with no way to know. This host defaults css and js to max-age=604800,
+# which is exactly how that happened once already, so they are named here explicitly.
+#
+# Fonts are the one exception. They are large, they are subset files, and they change only when
+# somebody deliberately regenerates them — at which point the CDN cache has to be purged or the
+# files renamed, because a year is a long time to serve the wrong one.
 <IfModule mod_headers.c>
-  <FilesMatch "\.(woff2|png)$">
+  <FilesMatch "\.woff2$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
 
-  <FilesMatch "\.(html|json)$">
+  <FilesMatch "\.png$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+
+  <FilesMatch "\.(html|json|css|js)$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
 
