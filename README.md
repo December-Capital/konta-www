@@ -12,7 +12,7 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `index.html` | `konta.md` and `www.konta.md` |
 | `status/index.html` | `konta.md/status` — reachability of the app, checked from the visitor's browser |
 | `assets/` | one stylesheet, two small scripts, the three language catalogues, the logo, the fonts |
-| `tools/` | three scripts that are run by hand, never served |
+| `tools/` | four scripts that are run by hand, never served |
 
 No build step and no framework. Plain files, served from the repository root, so a change is a
 commit and a deploy is a pull. Keep it that way until a page needs something a page cannot do.
@@ -76,9 +76,23 @@ neither. Look at the pictures.
 
 ## Deploying
 
-Uploaded by hand to `public_html` on Hostinger: `index.html`, `robots.txt`, `.htaccess`,
-`status/` and `assets/`, keeping the folder structure. Everything else in this repository is
-tooling and stays out. Nothing needs building, so what is committed is what is served.
+This repository is not the website. It also holds this README and `tools/`, none of which should
+ever be readable over HTTP. What is served is five entries: `index.html`, `robots.txt`,
+`.htaccess`, `status/` and `assets/`.
+
+Rather than remembering that, run:
+
+```bash
+python tools/package.py          # writes ../konta.md-upload/ - drag its contents into public_html
+python tools/package.py --zip    # the same, plus a zip, for upload-and-extract
+```
+
+The destination is emptied first, so it mirrors the repository instead of accumulating: a file
+deleted here disappears there, and you never re-upload something removed three commits ago. For
+a copy edit the changed files are usually just `index.html` and the two JSON catalogues, so the
+folder is easier to work from than the zip.
+
+Nothing needs building, so what is committed is what is served.
 
 `.htaccess` is a dotfile and the file manager hides it by default — check it actually arrived,
 because it carries the canonical redirect, the woff2 media type, and the cache headers.
