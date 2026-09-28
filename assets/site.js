@@ -65,12 +65,13 @@
     }
   }
 
-  // The button shows the theme you would get by pressing it, not the one you are in. The mark
-  // swaps too: the logo's aubergine disappears against a dark ground.
+  // The button shows the theme you are in: a moon in the dark, a sun in the light. It reads as
+  // state rather than as an instruction, which is what people expect of a theme control. The
+  // mark swaps too: the logo's aubergine disappears against a dark ground.
   function paintToggle() {
     var dark = isDark();
-    show(sun, dark);
-    show(moon, !dark);
+    show(moon, dark);
+    show(sun, !dark);
 
     logos.forEach(function (logo) {
       var wanted = dark ? 'logo-dark.png' : 'logo.png';
