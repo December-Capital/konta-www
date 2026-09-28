@@ -12,7 +12,7 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `index.html` | `konta.md` and `www.konta.md` |
 | `status/index.html` | `konta.md/status` — reachability of the app, checked from the visitor's browser |
 | `assets/` | one stylesheet, two small scripts, the three language catalogues, the logo, the fonts |
-| `tools/` | two scripts that are run by hand, never served |
+| `tools/` | three scripts that are run by hand, never served |
 
 No build step and no framework. Plain files, served from the repository root, so a change is a
 commit and a deploy is a pull. Keep it that way until a page needs something a page cannot do.
@@ -59,6 +59,20 @@ python tools/fetch-fonts.py        # rewrites assets/fonts.css and assets/fonts/
 ```
 
 Greek and Vietnamese subsets are dropped; they are a third of the bytes and nothing uses them.
+
+## Looking at it before it ships
+
+```bash
+python tools/shots.py     # renders eight variants to shots/ with headless Firefox
+```
+
+Both languages, both themes, desktop and phone, and the status page. Two bugs reached `main`
+before this existed and neither was visible in the source: the theme control rendered both its
+icons, because the `hidden` attribute does nothing to an SVG, and the hero comparison sized its
+two label columns independently so the descriptions did not line up. Reading the code found
+neither. Look at the pictures.
+
+`shots/` is not committed.
 
 ## Deploying
 
