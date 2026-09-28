@@ -16,6 +16,17 @@
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 </IfModule>
 
+# If the document root is ever a git checkout rather than a copied folder — which it is the
+# moment Hostinger's git integration is pointed at this repository — then the repository's own
+# files are sitting in the web root. None of them are meant to be fetched over HTTP.
+#
+# .git is the one that matters: a served .git directory hands over the full history, every
+# branch, and anything ever committed by mistake. 404 rather than 403, so a probe learns nothing
+# from the answer.
+RedirectMatch 404 (?i)/\.git(/|$)
+RedirectMatch 404 (?i)/tools/
+RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
+
 # Older Apache builds do not know woff2 and send it as text, which makes the browser refuse the
 # font and silently fall back. Declaring it costs nothing if the server already knew.
 <IfModule mod_mime.c>
