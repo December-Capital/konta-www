@@ -11,7 +11,7 @@
     />
     <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#f6f4f7" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#1b1524" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#16161a" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="../assets/favicon.png" type="image/png" />
     <link
       rel="icon"
@@ -45,15 +45,11 @@
         </a>
 
         <div class="controls">
-          <div class="langs" role="group" aria-label="Limbă" data-t-aria-label="lang.label">
-            <button type="button" data-lang-btn="ro" lang="ro" aria-pressed="true">RO</button>
-            <button type="button" data-lang-btn="ru" lang="ru" aria-pressed="false">RU</button>
-            <button type="button" data-lang-btn="en" lang="en" aria-pressed="false">EN</button>
-          </div>
+          <button type="button" class="control" data-lang-cycle aria-label="Русский">RU</button>
 
           <button
             type="button"
-            class="theme-toggle"
+            class="control"
             data-theme-btn
             aria-label="Schimbă tema"
             data-t-aria-label="theme.label"

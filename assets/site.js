@@ -92,7 +92,14 @@
 
   var nodes = Array.prototype.slice.call(document.querySelectorAll('[data-t]'));
   var labelled = Array.prototype.slice.call(document.querySelectorAll('[data-t-aria-label]'));
-  var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-lang-btn]'));
+  var cycler = document.querySelector('[data-lang-cycle]');
+
+  // Each language names itself, and never in translation.
+  var NAMES = { ro: 'Română', ru: 'Русский', en: 'English' };
+
+  function nextAfter(lang) {
+    return LANGS[(LANGS.indexOf(lang) + 1) % LANGS.length];
+  }
 
   // The Romanian already in the document is the fallback catalogue.
   var source = {};
@@ -143,9 +150,15 @@
     root.lang = lang;
     root.dataset.lang = lang;
 
-    buttons.forEach(function (button) {
-      button.setAttribute('aria-pressed', String(button.dataset.langBtn === lang));
-    });
+    // The control shows the language you would get by pressing it, so it always reads as an
+    // instruction rather than as a label for the language you are already in.
+    if (cycler) {
+      var next = nextAfter(lang);
+      cycler.textContent = next.toUpperCase();
+      cycler.setAttribute('lang', next);
+      cycler.setAttribute('aria-label', NAMES[next]);
+      cycler.setAttribute('title', NAMES[next]);
+    }
 
     document.dispatchEvent(new CustomEvent('konta:lang', { detail: { lang: lang } }));
   }
@@ -174,11 +187,11 @@
       });
   }
 
-  buttons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      select(button.dataset.langBtn, true);
+  if (cycler) {
+    cycler.addEventListener('click', function () {
+      select(nextAfter(current), true);
     });
-  });
+  }
 
   // Pages that rewrite a data-t at runtime call this to re-label in the current language.
   window.konta = {

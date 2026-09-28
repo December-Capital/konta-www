@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title data-t="meta.title">Konta — contabilitate moldovenească, cu legea ca date</title>
+    <title data-t="meta.title">Konta — contabilitate care nu cere un programator</title>
     <meta
       name="description"
       data-t="meta.description"
-      content="Platformă de contabilitate pentru companiile și firmele de contabilitate din Republica Moldova. Normele fiscale sunt date versionate și publicate deschis, nu cod scris pentru fiecare instalare."
+      content="Platformă de contabilitate pentru companiile și firmele de contabilitate din Republica Moldova. Când se schimbă legea, actualizarea vine de la noi: fără contractor, fără reconfigurare. În dezvoltare."
     />
     <meta name="theme-color" content="#f6f4f7" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#1b1524" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#16161a" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="assets/favicon.png" type="image/png" />
     <link
       rel="icon"
@@ -46,22 +46,17 @@
 
         <nav class="sections" aria-label="Secțiuni" data-t-aria-label="nav.label">
           <a href="#efactura" data-t="nav.efactura">e-Factura</a>
-          <a href="#rulebook" data-t="nav.rulebook">Legea ca date</a>
-          <a href="#pret" data-t="nav.price">Preț</a>
-          <a href="#transparenta" data-t="nav.transparency">Transparență</a>
+          <a href="#fara-programator" data-t="nav.noprog">Fără programator</a>
+          <a href="#parteneri" data-t="nav.partners">Parteneri</a>
           <a href="#contact" data-t="nav.contact">Contact</a>
         </nav>
 
         <div class="controls">
-          <div class="langs" role="group" aria-label="Limbă" data-t-aria-label="lang.label">
-            <button type="button" data-lang-btn="ro" lang="ro" aria-pressed="true">RO</button>
-            <button type="button" data-lang-btn="ru" lang="ru" aria-pressed="false">RU</button>
-            <button type="button" data-lang-btn="en" lang="en" aria-pressed="false">EN</button>
-          </div>
+          <button type="button" class="control" data-lang-cycle aria-label="Русский">RU</button>
 
           <button
             type="button"
-            class="theme-toggle"
+            class="control"
             data-theme-btn
             aria-label="Schimbă tema"
             data-t-aria-label="theme.label"
@@ -78,19 +73,26 @@
       </div>
     </header>
 
+    <div class="notice">
+      <div class="shell notice__bar">
+        <span class="notice__flag" data-t="dev.flag">În dezvoltare</span>
+        <p data-t="dev.text">
+          Konta se construiește acum. Pagina descrie produsul pe care îl facem și stadiul la care
+          am ajuns, nu unul pe care l-ați putea cumpăra astăzi.
+        </p>
+      </div>
+    </div>
+
     <main id="main">
       <section class="hero">
         <div class="shell hero__grid">
           <div>
-            <h1 data-t="hero.title">
-              Legea se schimbă în fiecare an. Konta se actualizează singură, fără contractor și fără
-              taxă.
-            </h1>
+            <h1 data-t="hero.title">Contabilitate care nu cere un programator.</h1>
 
             <p class="hero__lead" data-t="hero.lead">
-              Platformă de contabilitate pentru companiile și firmele de contabilitate din Republica
-              Moldova. Normele fiscale sunt date versionate și publicate deschis, nu cod scris
-              separat pentru fiecare instalare. Construită pe SNC, Codul fiscal și e-Factura.
+              Când se schimbă legea, actualizarea vine de la noi, în aceeași zi, pentru toată
+              lumea. Dumneavoastră deschideți programul și vă vedeți de lucru. Fără contractor,
+              fără reconfigurare, fără așteptare.
             </p>
 
             <div class="hero__actions">
@@ -98,9 +100,35 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
                   <path d="M6.2 3.5h3.1l1.6 4-2 1.3a12 12 0 0 0 5.6 5.6l1.3-2 4 1.6v3.1a1.8 1.8 0 0 1-2 1.8A16.5 16.5 0 0 1 4.4 5.5a1.8 1.8 0 0 1 1.8-2Z" stroke-linejoin="round" />
                 </svg>
-                <span>+373 79 189 805</span>
+                <span data-t="hero.demo">Rezervați un demo</span>
               </a>
-              <a class="btn btn--plain" href="mailto:mail@konta.md">mail@konta.md</a>
+              <a class="btn btn--plain" href="https://app.konta.md" data-t="hero.app">
+                Intrare în aplicație
+              </a>
+            </div>
+
+            <p class="hero__soon" data-t="hero.soon">
+              Aplicația se deschide în curând, întâi pentru firmele partenere.
+            </p>
+
+            <div class="contrast">
+              <p class="contrast__q" data-t="vs.q">Se schimbă o cotă la 1 ianuarie.</p>
+              <dl>
+                <div>
+                  <dt data-t="vs.old">Cu 1C</dt>
+                  <dd data-t="vs.oldBody">
+                    Sunați programatorul, plătiți vizita, așteptați. Pe fiecare instalare, în
+                    fiecare an.
+                  </dd>
+                </div>
+                <div class="ours">
+                  <dt data-t="vs.new">Cu Konta</dt>
+                  <dd data-t="vs.newBody">
+                    Nu faceți nimic. Cota nouă este deja acolo când deschideți programul luni
+                    dimineață.
+                  </dd>
+                </div>
+              </dl>
             </div>
           </div>
 
@@ -159,8 +187,9 @@
 
             <div class="ruleset__foot">
               <p data-t="set.note">
-                Setul este în verificare la un contabil licențiat și nu este încă aprobat pentru
-                producție. Până atunci îl puteți citi și verifica singur, valoare cu valoare.
+                Acesta este fișierul din care Konta își ia cotele. Este în verificare la un contabil
+                licențiat și nu este încă aprobat. Până atunci îl puteți citi și verifica singur,
+                valoare cu valoare.
               </p>
               <a href="https://github.com/December-Capital/konta-rulebook" rel="noopener" data-t="set.link">
                 Deschideți registrul public
@@ -206,109 +235,78 @@
         </div>
       </section>
 
-      <section class="band">
+      <section class="band" id="fara-programator">
         <div class="shell">
           <div class="band__head">
-            <h2 data-t="law.title">De ce datele, și nu codul</h2>
-            <p data-t="law.p1">
-              Într-un sistem unde regulile sunt programate, fiecare modificare de lege este o vizită
-              plătită a unui contractor, pe fiecare instalare separat. Reforma fiscală pentru 2027
-              este deja votată în primă lectură. Iată ce conține.
+            <h2 data-t="np.title">De ce nu veți mai avea nevoie de un programator</h2>
+            <p data-t="np.p1">
+              Într-un program unde regulile sunt scrise în cod, fiecare modificare de lege
+              înseamnă un om plătit care vine și rescrie, pe fiecare instalare separat. În Konta,
+              legea stă ca date: o schimbăm noi, o dată, pentru toți. Reforma fiscală pentru 2027
+              este deja votată în primă lectură — iată ce conține.
             </p>
           </div>
 
           <table class="changes">
             <thead>
               <tr>
-                <th data-t="law.col.change">Schimbarea</th>
-                <th data-t="law.col.since">În vigoare din</th>
+                <th data-t="np.col.change">Schimbarea</th>
+                <th data-t="np.col.since">În vigoare din</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td data-t="law.c1">Se închid înregistrările noi de Întreprindere Individuală și Gospodărie Țărănească</td>
+                <td data-t="np.c1">Se închid înregistrările noi de Întreprindere Individuală și Gospodărie Țărănească</td>
                 <td>01.01.2027</td>
               </tr>
               <tr>
-                <td data-t="law.c2">Impozitul pe venit al Gospodăriilor Țărănești crește de la 7% la 12%</td>
+                <td data-t="np.c2">Impozitul pe venit al Gospodăriilor Țărănești crește de la 7% la 12%</td>
                 <td>01.01.2027</td>
               </tr>
               <tr>
-                <td data-t="law.c3">Impozitul pe dividende crește de la 6% la 8% pentru profitul de după 2027</td>
+                <td data-t="np.c3">Impozitul pe dividende crește de la 6% la 8% pentru profitul de după 2027</td>
                 <td>01.01.2027</td>
               </tr>
               <tr>
-                <td data-t="law.c4">Cota preferențială pentru comerțul mic crește de la 1% la 3% din venit</td>
+                <td data-t="np.c4">Cota preferențială pentru comerțul mic crește de la 1% la 3% din venit</td>
                 <td>01.01.2027</td>
               </tr>
               <tr>
-                <td data-t="law.c5">CAEM revizia 2.1 re-codifică clasificarea activităților pentru fiecare entitate</td>
+                <td data-t="np.c5">CAEM revizia 2.1 re-codifică clasificarea activităților pentru fiecare entitate</td>
                 <td>01.01.2027</td>
               </tr>
             </tbody>
           </table>
 
           <div class="prose after-table">
-            <p data-t="law.p2">
-              Pentru noi, fiecare rând de mai sus este o înregistrare nouă în registru, publicată
-              tuturor clienților în aceeași zi și verificabilă de oricine. Nu o versiune
-              recompilată, instalare cu instalare, contra cost.
+            <p data-t="np.p2">
+              Cinci rânduri, cinci motive de a chema pe cineva. Pentru dumneavoastră, în Konta, vor
+              fi cinci rânduri care apar singure în registru, în aceeași zi, verificabile de
+              oricine. Nu ne plătiți pentru ele, niciodată — asta este toată ideea produsului.
             </p>
           </div>
         </div>
       </section>
 
-      <section class="band band--quiet" id="pret">
+      <section class="band band--quiet">
         <div class="shell">
           <div class="band__head">
-            <h2 data-t="price.title">Preț</h2>
-            <p data-t="price.p1">
-              Publicat, în lei, pe lună. Fără taxă de implementare și fără plată pentru
-              actualizările legislative, niciodată.
-            </p>
+            <h2 data-t="easy.title">Ușor de folosit, din prima zi</h2>
           </div>
 
-          <table class="tiers">
-            <thead>
-              <tr>
-                <th data-t="price.col.plan">Plan</th>
-                <th data-t="price.col.who">Pentru cine</th>
-                <th data-t="price.col.amount">Lei pe lună</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="tier" data-t="price.t1">Gratuit</td>
-                <td data-t="price.w1">O microîntreprindere neplătitoare de TVA, sub circa 50 de documente pe lună</td>
-                <td class="amount">0</td>
-              </tr>
-              <tr>
-                <td class="tier" data-t="price.t2">Start</td>
-                <td data-t="price.w2">Microîntreprindere plătitoare de TVA, un utilizator</td>
-                <td class="amount">199</td>
-              </tr>
-              <tr>
-                <td class="tier" data-t="price.t3">Standard</td>
-                <td data-t="price.w3">Companie mică, cu salarizare, stocuri și mai mulți utilizatori</td>
-                <td class="amount">449</td>
-              </tr>
-              <tr>
-                <td class="tier" data-t="price.t4">Pro</td>
-                <td data-t="price.w4">Companie mijlocie, mai multe entități, API, producție</td>
-                <td class="amount">899</td>
-              </tr>
-              <tr>
-                <td class="tier" data-t="price.t5">Firmă</td>
-                <td data-t="price.w5">Firme de contabilitate, per companie-client, în trepte de volum</td>
-                <td class="amount">99–149</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="aside">
-            <p data-t="price.note">
-              Prețuri orientative. Le confirmăm înainte de lansare și, odată publicate, nu cresc
-              pentru un client existent din cauza unei schimbări de lege.
+          <div class="prose">
+            <p data-t="easy.p1">
+              Konta arată a document, nu a tabel de bază de date. Deschideți o factură și vedeți o
+              factură. Ce trebuie completat se vede, ce se calculează singur nu vă cere atenția.
+            </p>
+            <p data-t="easy.p2">
+              Interfața este în română și rusă la paritate, nu tradusă pe jumătate. Tastele
+              numerice cu care lucrați în 1C rămân aceleași, ca reflexele de zece ani să nu se
+              piardă într-o săptămână. Termenii sunt cei din SNC și din Codul fiscal, așa cum îi
+              spuneți cu voce tare, nu traduși dintr-un ERP american.
+            </p>
+            <p data-t="easy.p3">
+              Iar când ceva nu merge, răspunde un om, la telefon, în română sau rusă.
             </p>
           </div>
         </div>
@@ -328,14 +326,45 @@
             </p>
             <p data-t="move.p2">
               Rulăm în paralel cât aveți nevoie, ca trecerea să se sprijine pe cifre reconciliate,
-              nu pe încredere. Tastele numerice cu care lucrați în 1C rămân aceleași, iar interfața
-              este în română și rusă la paritate, nu tradusă pe jumătate.
+              nu pe încredere. Nu vă cerem să renunțați la nimic până nu vedeți aceleași sume în
+              amândouă programele.
             </p>
           </div>
         </div>
       </section>
 
-      <section class="band band--quiet" id="transparenta">
+      <section class="band band--quiet" id="parteneri">
+        <div class="shell">
+          <div class="band__head">
+            <h2 data-t="part.title">Căutăm firme de contabilitate care vor să construiască cu noi</h2>
+            <p data-t="part.p1">
+              Konta se face împreună cu oamenii care o vor folosi. Dacă aveți o firmă de
+              contabilitate și sunteți dispuși să lucrați cu noi, sunteți bineveniți: ne arătați ce
+              vă mănâncă timpul astăzi, noi construim în jurul acelui lucru, iar dumneavoastră
+              vedeți rezultatul înaintea tuturor.
+            </p>
+          </div>
+
+          <div class="prose">
+            <p data-t="part.p2">
+              Ce primiți: migrarea primei companii făcută de noi, acces la produs înainte de
+              lansare, și cuvântul greu la ce se construiește în continuare. Ce vă cerem: câteva
+              ore din timpul dumneavoastră și sinceritate atunci când ceva nu este bun.
+            </p>
+            <p data-t="part.p3">
+              Un telefon de un sfert de oră este de ajuns ca să vedem dacă are sens pentru
+              amândoi.
+            </p>
+          </div>
+
+          <div class="hero__actions">
+            <a class="btn" href="tel:+37379189805" data-t="part.cta">Sunați-ne</a>
+            <a class="btn btn--plain" href="mailto:mail@konta.md">mail@konta.md</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="transparenta">
         <div class="shell">
           <div class="band__head">
             <h2 data-t="open.title">Transparență</h2>
@@ -385,13 +414,14 @@
         </div>
       </section>
 
-      <section class="band" id="contact">
+      <section class="band band--quiet" id="contact">
         <div class="shell">
           <div class="band__head">
             <h2 data-t="contact.title">Contact</h2>
             <p data-t="contact.p1">
               Vă răspunde un om, în română sau rusă. Dacă sunteți o firmă de contabilitate și vă
-              interesează mandatul e-Factura, sunați; discuția durează un sfert de oră.
+              interesează mandatul e-Factura sau un parteneriat, sunați; discuția durează un sfert
+              de oră.
             </p>
           </div>
 

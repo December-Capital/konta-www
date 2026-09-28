@@ -34,44 +34,44 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #1b1524;
-    --surface: #241d2f;
-    --sunken: #1f1829;
-    --ink: #ede8f1;
-    --ink-2: #b3a9bc;
-    --ink-3: #8b8194;
-    --rule: #372c45;
-    --rule-strong: #4c3d5d;
-    --accent: #c9b6da;
-    --btn-bg: #d6c9e0;
-    --btn-fg: #1b1524;
+    --bg: #16161a;
+    --surface: #1d1d22;
+    --sunken: #1a1a1f;
+    --ink: #e9e8ec;
+    --ink-2: #a5a3ad;
+    --ink-3: #79777f;
+    --rule: #2b2b32;
+    --rule-strong: #3c3b44;
+    --accent: #bda6d4;
+    --btn-bg: #c9b4dd;
+    --btn-fg: #17161b;
     --gold: #c9a46b;
-    --gold-rule: #a07f54;
-    --ok: #79a487;
-    --down: #d08a82;
-    --shade: rgba(0, 0, 0, 0.3);
+    --gold-rule: #96794f;
+    --ok: #77a385;
+    --down: #cd8880;
+    --shade: rgba(0, 0, 0, 0.4);
 
     color-scheme: dark;
   }
 }
 
 :root[data-theme='dark'] {
-  --bg: #1b1524;
-  --surface: #241d2f;
-  --sunken: #1f1829;
-  --ink: #ede8f1;
-  --ink-2: #b3a9bc;
-  --ink-3: #8b8194;
-  --rule: #372c45;
-  --rule-strong: #4c3d5d;
-  --accent: #c9b6da;
-  --btn-bg: #d6c9e0;
-  --btn-fg: #1b1524;
+  --bg: #16161a;
+  --surface: #1d1d22;
+  --sunken: #1a1a1f;
+  --ink: #e9e8ec;
+  --ink-2: #a5a3ad;
+  --ink-3: #79777f;
+  --rule: #2b2b32;
+  --rule-strong: #3c3b44;
+  --accent: #bda6d4;
+  --btn-bg: #c9b4dd;
+  --btn-fg: #17161b;
   --gold: #c9a46b;
-  --gold-rule: #a07f54;
-  --ok: #79a487;
-  --down: #d08a82;
-  --shade: rgba(0, 0, 0, 0.3);
+  --gold-rule: #96794f;
+  --ok: #77a385;
+  --down: #cd8880;
+  --shade: rgba(0, 0, 0, 0.4);
 
   color-scheme: dark;
 }
@@ -245,56 +245,32 @@ img {
   gap: 8px;
 }
 
-.langs {
-  display: flex;
-  border: 1px solid var(--rule-strong);
-  border-radius: 3px;
-  overflow: hidden;
-}
+/* One round control each, showing the state you would get by pressing it — a sun while you are
+   in the dark, RU while you are reading Romanian. A three-way segmented strip spent header width
+   on two options nobody had chosen yet; cycling reaches every language in at most two presses. */
 
-.langs button {
-  font: 500 0.8125rem/1 var(--sans);
-  padding: 7px 9px;
-  border: 0;
-  border-right: 1px solid var(--rule-strong);
-  background: transparent;
-  color: var(--ink-2);
-  cursor: pointer;
-}
-
-.langs button:last-child {
-  border-right: 0;
-}
-
-.langs button:hover {
-  background: var(--sunken);
-  color: var(--ink);
-}
-
-.langs button[aria-pressed='true'] {
-  background: var(--btn-bg);
-  color: var(--btn-fg);
-}
-
-.theme-toggle {
+.control {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   padding: 0;
   border: 1px solid var(--rule-strong);
-  border-radius: 3px;
+  border-radius: 50%;
   background: transparent;
   color: var(--ink-2);
+  font: 500 0.75rem/1 var(--sans);
+  letter-spacing: 0.02em;
   cursor: pointer;
 }
 
-.theme-toggle:hover {
+.control:hover {
   background: var(--sunken);
+  border-color: var(--accent);
   color: var(--ink);
 }
 
-.theme-toggle svg {
+.control svg {
   width: 17px;
   height: 17px;
 }
@@ -306,8 +282,33 @@ img {
 }
 
 /* ---------------------------------------------------------------------------
-   Hero
+   Notice and hero
    --------------------------------------------------------------------------- */
+
+.notice {
+  background: var(--sunken);
+  border-bottom: 1px solid var(--rule);
+}
+
+.notice__bar {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding-block: 11px;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.notice__flag {
+  flex: none;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.notice p {
+  max-width: none;
+}
+
 
 .hero {
   padding-block: clamp(48px, 7vw, 92px) clamp(40px, 6vw, 72px);
@@ -332,6 +333,12 @@ img {
   align-items: center;
   gap: 14px;
   margin-top: 30px;
+}
+
+.hero__soon {
+  margin-top: 12px;
+  font-size: 0.875rem;
+  color: var(--ink-3);
 }
 
 @media (max-width: 880px) {
@@ -374,6 +381,63 @@ img {
   width: 16px;
   height: 16px;
   flex: none;
+}
+
+/* Two rows, one question. This is the whole argument against the incumbent, and it belongs
+   above the fold rather than three sections down. */
+.contrast {
+  margin-top: 34px;
+  border-top: 1px solid var(--rule);
+}
+
+.contrast__q {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  padding-block: 16px 12px;
+}
+
+.contrast dl {
+  margin: 0;
+  display: grid;
+  gap: 10px 0;
+  font-size: 0.9375rem;
+}
+
+.contrast dl > div {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0 20px;
+}
+
+.contrast dt {
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.contrast dd {
+  margin: 0;
+  color: var(--ink-2);
+}
+
+.contrast .ours dt {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.contrast .ours dd {
+  color: var(--ink);
+}
+
+@media (max-width: 460px) {
+  .contrast dl > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px 0;
+  }
+
+  .contrast dl {
+    gap: 16px 0;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -569,93 +633,6 @@ img {
   border-bottom: 0;
 }
 
-/* Pricing */
-.tiers {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 4px;
-}
-
-.tiers th {
-  text-align: left;
-  font-weight: 500;
-  font-size: 0.78rem;
-  color: var(--ink-3);
-  padding: 0 0 8px;
-  border-bottom: 1px solid var(--rule-strong);
-}
-
-.tiers th:last-child,
-.tiers td:last-child {
-  text-align: right;
-  white-space: nowrap;
-  padding-left: 16px;
-}
-
-.tiers td {
-  padding: 14px 0;
-  border-bottom: 1px solid var(--rule);
-  vertical-align: baseline;
-  color: var(--ink-2);
-}
-
-.tiers tr:last-child td {
-  border-bottom: 0;
-}
-
-.tiers .tier {
-  color: var(--ink);
-  font-weight: 500;
-  padding-right: 20px;
-  white-space: nowrap;
-}
-
-.tiers .amount {
-  font-variant-numeric: tabular-nums;
-  color: var(--gold);
-  font-weight: 500;
-  font-size: 1.05rem;
-}
-
-.tiers .amount span {
-  color: var(--ink-3);
-  font-weight: 400;
-  font-size: 0.8125rem;
-  margin-left: 4px;
-}
-
-@media (max-width: 620px) {
-  .tiers thead {
-    display: none;
-  }
-
-  .tiers tr,
-  .tiers td {
-    display: block;
-    width: 100%;
-  }
-
-  .tiers td {
-    border-bottom: 0;
-    padding: 2px 0;
-  }
-
-  .tiers tr {
-    border-bottom: 1px solid var(--rule);
-    padding-block: 14px;
-  }
-
-  .tiers tr:last-child {
-    border-bottom: 0;
-  }
-
-  .tiers td:last-child {
-    text-align: left;
-    padding-left: 0;
-    padding-top: 6px;
-  }
-}
-
 /* Transparency: a claim, and the thing that backs it. */
 .claims {
   list-style: none;
@@ -668,7 +645,7 @@ img {
 }
 
 .claims li {
-  background: var(--surface);
+  background: var(--bg);
   padding: 20px 0;
 }
 

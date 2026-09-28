@@ -27,6 +27,10 @@ silently wrong.
 
 `?lang=ru` and `?lang=en` work as links. The chosen language is remembered per browser.
 
+The header carries one round control per choice rather than a row of options, and each shows
+the state you would get by pressing it: `RU` while you are reading Romanian, a sun while you
+are in the dark. Language cycles ro to ru to en, so every language is at most two presses away.
+
 ```bash
 python tools/check-catalogues.py   # every data-t key present in ru and en, nothing empty
 ```
@@ -36,7 +40,7 @@ strings get found.
 
 ## Theme
 
-Light and dark, following the system by default and overridable with the toggle in the header. The
+Light and dark, following the system by default and overridable from the header. The
 choice is stored per browser and applied before first paint, so an explicit choice never flashes
 the other theme. The logo swaps too: the aubergine in the mark disappears against a dark ground,
 so `assets/logo-dark.png` is the same file with that colour lifted.
@@ -67,10 +71,12 @@ product repository: [`docs/architecture/deployment-topology.md`](https://github.
 
 ## What the site still has to do
 
-Ordered by how much each one matters for the sale. The first four are on the page today.
+Ordered by how much each one matters for the sale. Items 2 to 4 are on the page today.
 
-1. ~~A published price list, in lei, per month.~~ Published, marked indicative until Phase 0
-   confirms the tiers.
+1. **A published price list, in lei, per month.** Deliberately absent: the tiers in the plan are
+   indicative and not decided, and a number that moves after launch costs more trust than no
+   number costs interest. Publish it the day it is settled — it is still the strongest single
+   thing this site could say.
 2. ~~Romanian and Russian at parity, English third.~~ Done, hand-written, not machine translated.
 3. ~~The migration promise, stated plainly.~~ On the page.
 4. ~~The transparency page.~~ A section rather than a page, which is enough at this size. It does
