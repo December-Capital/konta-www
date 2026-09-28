@@ -83,7 +83,7 @@ ever be readable over HTTP. What is served is five entries: `index.html`, `robot
 Rather than remembering that, run:
 
 ```bash
-python tools/package.py          # writes ../konta.md-upload/ - drag its contents into public_html
+python tools/package.py          # writes ../kontamd-deploy/ - drag its contents into public_html
 python tools/package.py --zip    # the same, plus a zip, for upload-and-extract
 ```
 

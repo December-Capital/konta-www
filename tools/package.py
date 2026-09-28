@@ -1,8 +1,8 @@
 """Copy exactly what belongs on the web server into a folder you can drag into public_html.
 
 Run from the repository root:
-    python tools/package.py            # writes ../konta.md-upload/
-    python tools/package.py --zip      # also writes ../konta.md-upload.zip
+    python tools/package.py            # writes ../kontamd-deploy/
+    python tools/package.py --zip      # also writes ../kontamd-deploy.zip
     python tools/package.py <path>     # somewhere else
 
 This repository is not the same thing as the website. It also holds the README and tools/ — the
@@ -25,7 +25,7 @@ import zipfile
 # Everything here is served. Everything not here is not.
 SERVED = ['index.html', 'robots.txt', '.htaccess', 'status', 'assets']
 
-DEFAULT = os.path.join('..', 'konta.md-upload')
+DEFAULT = os.path.join('..', 'kontamd-deploy')
 
 
 def main():
