@@ -12,7 +12,7 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `index.html` | `konta.md` and `www.konta.md` |
 | `status/index.html` | `konta.md/status` — reachability of the app, checked from the visitor's browser |
 | `assets/` | one stylesheet, two small scripts, the three language catalogues, the logo, the fonts |
-| `tools/` | four scripts that are run by hand, never served |
+| `tools/` | five scripts that are run by hand, never served |
 
 No build step and no framework. Plain files, served from the repository root, so a change is a
 commit and a deploy is a pull. Keep it that way until a page needs something a page cannot do.
@@ -80,19 +80,30 @@ This repository is not the website. It also holds this README and `tools/`, none
 ever be readable over HTTP. What is served is five entries: `index.html`, `robots.txt`,
 `.htaccess`, `status/` and `assets/`.
 
-Rather than remembering that, run:
+Those five are copied into `../kontamd-deploy/`, which is its own git repository
+(`systematiq-one/kontamd-deploy`) and is what Hostinger pulls. Nothing needs building, so what is
+committed here is what is served there.
 
 ```bash
-python tools/package.py          # writes ../kontamd-deploy/ - drag its contents into public_html
-python tools/package.py --zip    # the same, plus a zip, for upload-and-extract
+python tools/publish.py                        # package, commit, push - Hostinger pulls
+python tools/publish.py "Fix the price note"   # with your own message
+python tools/publish.py --dry-run              # package and show the diff, push nothing
 ```
 
-The destination is emptied first, so it mirrors the repository instead of accumulating: a file
-deleted here disappears there, and you never re-upload something removed three commits ago. For
-a copy edit the changed files are usually just `index.html` and the two JSON catalogues, so the
-folder is easier to work from than the zip.
+The deploy folder is emptied and rewritten on every publish, so it mirrors this repository
+instead of accumulating: a file deleted here disappears there. **Never edit anything in it** —
+the next publish silently discards it. Its `.git` is the one thing preserved.
 
-Nothing needs building, so what is committed is what is served.
+`tools/package.py` does the copy on its own if you want the folder without publishing, and takes
+`--zip` for the file manager's upload-and-extract route.
+
+### Two accounts, on purpose
+
+This repository pushes over `gh-alex` as `AlexBraguta` (December-Capital); the deploy repository
+pushes over `gh-system` as `systematiq-one`. The identity lives in each repository's own git
+config rather than in `publish.py`, so a publish cannot be authored by the wrong person because
+somebody passed the wrong flag. `publish.py` refuses to run if the deploy folder is not a git
+repository pointing at the expected remote.
 
 `.htaccess` is a dotfile and the file manager hides it by default — check it actually arrived,
 because it carries the canonical redirect, the woff2 media type, and the cache headers.

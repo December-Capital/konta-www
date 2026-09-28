@@ -28,11 +28,12 @@ SERVED = ['index.html', 'robots.txt', '.htaccess', 'status', 'assets']
 DEFAULT = os.path.join('..', 'kontamd-deploy')
 
 
-def main():
-    args = [a for a in sys.argv[1:] if a != '--zip']
-    make_zip = '--zip' in sys.argv[1:]
-    out = os.path.abspath(args[0] if args else DEFAULT)
+def build(out, make_zip=False):
+    """Mirror the served files into `out`.
 
+    Separate from main() so tools/publish.py can call it without its own flags being read as a
+    destination path — which is exactly what happened, and left a folder named --dry-run.
+    """
     if not os.path.exists('index.html') or not os.path.isdir('assets'):
         sys.exit('Run this from the repository root.')
 
@@ -40,12 +41,22 @@ def main():
     if missing:
         sys.exit('Missing from the repository: %s' % ', '.join(missing))
 
-    # Refuse to empty something that is not ours to empty.
-    if os.path.isdir(out) and not os.path.exists(os.path.join(out, 'index.html')):
-        if os.listdir(out):
+    # Refuse to empty something that is not ours to empty. A bare git repository counts as ours:
+    # that is what the destination looks like the first time it is packaged after being cloned.
+    if os.path.isdir(out):
+        stray = [n for n in os.listdir(out) if n != '.git']
+        if stray and not os.path.exists(os.path.join(out, 'index.html')):
             sys.exit('%s exists, is not empty, and does not look like a previous package.' % out)
-    shutil.rmtree(out, ignore_errors=True)
-    os.makedirs(out)
+
+    # Everything except .git: the destination is usually a git repository, and deleting its
+    # history to publish a copy of the site would be a memorable way to lose the deploy remote.
+    for name in os.listdir(out) if os.path.isdir(out) else []:
+        if name == '.git':
+            continue
+        path = os.path.join(out, name)
+        shutil.rmtree(path) if os.path.isdir(path) else os.remove(path)
+
+    os.makedirs(out, exist_ok=True)
 
     files = 0
     for name in SERVED:
@@ -57,8 +68,10 @@ def main():
             shutil.copy2(name, target)
             files += 1
 
-    total = sum(os.path.getsize(os.path.join(r, f))
-                for r, _d, fs in os.walk(out) for f in fs)
+    total = 0
+    for root, dirs, names in os.walk(out):
+        dirs[:] = [d for d in dirs if d != '.git']
+        total += sum(os.path.getsize(os.path.join(root, n)) for n in names)
     print('%s\n  %d files, %.0f KB' % (out, files, total / 1024))
     print('  contents go to public_html, keeping this structure:')
     for name in SERVED:
@@ -74,6 +87,11 @@ def main():
                     full = os.path.join(root, name)
                     z.write(full, os.path.relpath(full, out).replace(os.sep, '/'))
         print('\n%s\n  %.0f KB zipped' % (archive, os.path.getsize(archive) / 1024))
+
+
+def main():
+    args = [a for a in sys.argv[1:] if a != '--zip']
+    return build(os.path.abspath(args[0] if args else DEFAULT), '--zip' in sys.argv[1:])
 
 
 if __name__ == '__main__':
