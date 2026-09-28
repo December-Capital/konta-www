@@ -5,46 +5,89 @@ Marketing site and public documentation for [Konta](https://github.com/December-
 Separate from the product repository because it has a different deploy target, different
 contributors (design and marketing, not only engineers), and a much faster release cadence.
 
-## Status
+## What is here
 
-Not built yet. Phase 1 alongside the first design partner, because the site should describe a
-product that exists rather than one we intend.
+| Path | Serves |
+| --- | --- |
+| `index.html` | `konta.md` and `www.konta.md` |
+| `status/index.html` | `konta.md/status` — reachability of the app, checked from the visitor's browser |
+| `assets/` | one stylesheet, two small scripts, the three language catalogues, the logo, the fonts |
+| `tools/` | two scripts that are run by hand, never served |
 
-## What it has to do
+No build step and no framework. Plain files, served from the repository root, so a change is a
+commit and a deploy is a pull. Keep it that way until a page needs something a page cannot do.
 
-Ordered by how much each one matters for the sale.
+## Language
 
-1. **A published price list, in lei, per month.** The incumbent's real cost is opaque: a licence, a
-   contractor, a support contract, a fee per legal change. Publishing a plain number is itself a
-   competitive act in this market.
-2. **Romanian and Russian at parity**, English third. Not an afterthought and not machine
-   translated. A large share of Moldovan accountants work in Russian; shipping Romanian-only halves
-   the market and reads as a political statement rather than a better tool.
-3. **The migration promise, stated plainly.** Send us your 1C backup Monday, work in Konta
-   Wednesday.
-4. **The transparency page.** Links to the public [rulebook](https://github.com/December-Capital/konta-rulebook)
-   and [e-Factura client](https://github.com/December-Capital/konta-efactura), the security posture,
-   where data is hosted, and the one-click export guarantee. This is the answer to "how do we know
-   there is nothing fishy in here", and it should be a real page, not a paragraph.
-5. **Named references per regime**, quotable, with the accountant's permission.
-6. **The e-Factura landing page** — the wedge. A company arriving because of the B2B mandate should
-   find a page about the mandate, not a page about double-entry bookkeeping.
+Romanian is the source language and lives in the HTML. Russian and English are fetched on demand
+from `assets/ru.json` and `assets/en.json`, keyed by the `data-t` attributes in the markup, so a
+Romanian visitor downloads no translation file at all and a crawler reads real text rather than an
+empty shell. A key missing from a catalogue leaves the Romanian on screen — visible, rather than
+silently wrong.
+
+`?lang=ru` and `?lang=en` work as links. The chosen language is remembered per browser.
+
+```bash
+python tools/check-catalogues.py   # every data-t key present in ru and en, nothing empty
+```
+
+Run it before every commit that touches copy. It also lists unused keys, which is how stale
+strings get found.
+
+## Theme
+
+Light and dark, following the system by default and overridable with the toggle in the header. The
+choice is stored per browser and applied before first paint, so an explicit choice never flashes
+the other theme. The logo swaps too: the aubergine in the mark disappears against a dark ground,
+so `assets/logo-dark.png` is the same file with that colour lifted.
+
+## Fonts
+
+Literata for headings, IBM Plex Sans for everything else. Both cover Latin Extended and Cyrillic,
+which is the actual constraint — Romanian needs `ș ț ă î â` and Russian needs the whole alphabet,
+at parity, in the same two families.
+
+They are **self-hosted**. The transparency section promises that no request from the visitor's
+browser goes anywhere but `konta.md`, and a linked webfont would make that false. Regenerate with:
+
+```bash
+python tools/fetch-fonts.py        # rewrites assets/fonts.css and assets/fonts/
+```
+
+Greek and Vietnamese subsets are dropped; they are a third of the bytes and nothing uses them.
+
+## Deploying
+
+Hostinger's git integration serves this repository at the domain root. `konta.md` is canonical;
+`www.konta.md` redirects to it. Nothing here needs building, so what is committed is what is
+served.
+
+Where the site sits relative to the app, and why the app is not served from this host, is in the
+product repository: [`docs/architecture/deployment-topology.md`](https://github.com/December-Capital/konta/blob/main/docs/architecture/deployment-topology.md).
+
+## What the site still has to do
+
+Ordered by how much each one matters for the sale. The first four are on the page today.
+
+1. ~~A published price list, in lei, per month.~~ Published, marked indicative until Phase 0
+   confirms the tiers.
+2. ~~Romanian and Russian at parity, English third.~~ Done, hand-written, not machine translated.
+3. ~~The migration promise, stated plainly.~~ On the page.
+4. ~~The transparency page.~~ A section rather than a page, which is enough at this size. It does
+   not yet state where customer data is hosted, because that is not decided — see the deployment
+   topology. Say it the day it is true.
+5. **The e-Factura landing page.** Today the mandate is a section on the home page. A company
+   arriving because of the mandate deserves its own page to arrive at.
+6. **Named references per regime**, quotable, with the accountant's permission.
 7. **Public documentation and training material**, RO and RU, including the accountant
    certification programme.
-8. **Contact that reaches a human by phone.** This market does not run on chat widgets.
 
 ## Constraints
 
-- Fast on a 4G connection in a rural area. Static output, no heavy client framework needed.
-- Accessible: real contrast, keyboard navigation, sensible headings.
-- No third-party trackers that would put visitor data somewhere we cannot account for. We are about
-  to ask accountants to trust us with payroll data; the marketing site should not undermine that on
-  day one.
-
-## Stack
-
-Undecided. Astro or plain Vite with static output are both fine. Pick when someone starts building,
-and prefer whatever the person doing the design work is fastest in.
+- Fast on a 4G connection in a rural area. Static output, no client framework.
+- Accessible: real contrast, keyboard navigation, visible focus, sensible headings.
+- No third-party trackers, and no third-party requests at all. This is checkable by opening the
+  network tab, which is the point.
 
 ## Licence
 

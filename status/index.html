@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ro" data-lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-t="st.meta.title">Stare serviciu — Konta</title>
+    <meta
+      name="description"
+      data-t="st.meta.description"
+      content="Starea curentă a aplicației Konta, verificată din browserul dumneavoastră. Pagina este găzduită separat de aplicație."
+    />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#f6f4f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1b1524" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="../assets/favicon.png" type="image/png" />
+    <link
+      rel="icon"
+      href="../assets/favicon-dark.png"
+      type="image/png"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="../assets/fonts.css" />
+    <link rel="stylesheet" href="../assets/site.css" />
+    <script>
+      try {
+        var saved = localStorage.getItem('konta.theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.documentElement.dataset.theme = saved;
+        }
+      } catch (e) {
+        /* private mode: fall through to the system preference */
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main" data-t="skip">Sari la conținut</a>
+
+    <header class="masthead">
+      <div class="shell masthead__bar">
+        <a class="brand" href="/">
+          <img class="brand__mark" src="../assets/logo.png" alt="" width="40" height="30" data-logo />
+          <span class="brand__name">Konta</span>
+        </a>
+
+        <div class="controls">
+          <div class="langs" role="group" aria-label="Limbă" data-t-aria-label="lang.label">
+            <button type="button" data-lang-btn="ro" lang="ro" aria-pressed="true">RO</button>
+            <button type="button" data-lang-btn="ru" lang="ru" aria-pressed="false">RU</button>
+            <button type="button" data-lang-btn="en" lang="en" aria-pressed="false">EN</button>
+          </div>
+
+          <button
+            type="button"
+            class="theme-toggle"
+            data-theme-btn
+            aria-label="Schimbă tema"
+            data-t-aria-label="theme.label"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" data-theme-icon="light">
+              <circle cx="12" cy="12" r="4.2" />
+              <path d="M12 2.4v2.4M12 19.2v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.4 12h2.4M19.2 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7" stroke-linecap="round" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" data-theme-icon="dark" hidden>
+              <path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="shell">
+          <h1 data-t="st.title">Stare serviciu</h1>
+
+          <p class="hero__lead" data-t="st.lead">
+            Această pagină este găzduită pe alt server decât aplicația, tocmai ca să rămână
+            accesibilă atunci când aplicația nu este. Verificarea de mai jos se face din browserul
+            dumneavoastră, direct către serviciu.
+          </p>
+
+          <ul class="checks">
+            <li data-check="https://app.konta.md/" data-state="checking">
+              <span>
+                <span class="checks__name" data-t="st.app">Aplicația Konta</span>
+                <span class="checks__host">app.konta.md</span>
+              </span>
+              <span class="checks__state">
+                <span class="dot"></span>
+                <span data-state-text data-t="st.checking">Se verifică</span>
+              </span>
+            </li>
+            <li data-check="https://app.konta.md/health/ready" data-state="checking">
+              <span>
+                <span class="checks__name" data-t="st.api">Interfața de programare</span>
+                <span class="checks__host">app.konta.md/api</span>
+              </span>
+              <span class="checks__state">
+                <span class="dot"></span>
+                <span data-state-text data-t="st.checking">Se verifică</span>
+              </span>
+            </li>
+          </ul>
+
+          <div class="aside">
+            <p data-t="st.note">
+              Verificarea arată dacă serviciul răspunde din rețeaua dumneavoastră. Nu spune nimic
+              despre datele dumneavoastră și nu trece prin noi.
+            </p>
+            <p>
+              <span data-t="st.checked">Ultima verificare:</span>
+              <span data-checked-at>—</span>
+            </p>
+          </div>
+
+          <div class="hero__actions">
+            <a class="btn btn--plain" href="/" data-t="st.back">Înapoi la konta.md</a>
+            <a class="btn btn--plain" href="tel:+37379189805">+373 79 189 805</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="shell foot__bar">
+        <span data-t="foot.owner">© 2026 December Capital</span>
+        <a href="/" class="foot__spacer" data-t="foot.home">konta.md</a>
+      </div>
+    </footer>
+
+    <script type="application/json" data-seed>
+      { "st.up": "Funcționează", "st.down": "Nu răspunde" }
+    </script>
+    <script src="../assets/site.js"></script>
+    <script src="../assets/status.js"></script>
+  </body>
+</html>
