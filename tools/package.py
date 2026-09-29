@@ -5,14 +5,14 @@ Run from the repository root:
     python tools/package.py --zip      # also writes ../kontamd-deploy.zip
     python tools/package.py <path>     # somewhere else
 
-This repository is not the same thing as the website. It also holds the README and tools/ — the
-font fetcher, the catalogue checker, the screenshot renderer — none of which should ever be
-readable over HTTP. The site is the five entries in SERVED below, and nothing else.
+This repository is not the same thing as the website. It also holds the README and tools/, the
+font fetcher, the catalogue checker, the screenshot renderer, none of which should ever be
+readable over HTTP. The site is the entries in SERVED below, and nothing else.
 
 The destination is emptied first, so it is a mirror rather than an accumulation: a file deleted
 here disappears there, and you never upload something that was removed three commits ago.
 
-The folder is the useful shape for a partial upload, which is the normal case — a copy edit is
+The folder is the useful shape for a partial upload, which is the normal case, a copy edit is
 index.html and two JSON files. Use --zip when you want the file manager's upload-and-extract
 route instead, for a first deploy or after a lot has changed.
 """
@@ -23,7 +23,10 @@ import sys
 import zipfile
 
 # Everything here is served. Everything not here is not.
-SERVED = ['index.html', 'robots.txt', '.htaccess', 'status', 'assets']
+SERVED = [
+    'index.html', '404.html', 'robots.txt', 'sitemap.xml', '.htaccess', 'assets', 'status',
+    'e-factura', 'fara-programator', 'trecerea-de-la-1c', 'parteneri', 'transparenta', 'contact',
+]
 
 DEFAULT = os.path.join('..', 'kontamd-deploy')
 
@@ -32,7 +35,7 @@ def build(out, make_zip=False):
     """Mirror the served files into `out`.
 
     Separate from main() so tools/publish.py can call it without its own flags being read as a
-    destination path — which is exactly what happened, and left a folder named --dry-run.
+    destination path, which is exactly what happened, and left a folder named --dry-run.
     """
     if not os.path.exists('index.html') or not os.path.isdir('assets'):
         sys.exit('Run this from the repository root.')

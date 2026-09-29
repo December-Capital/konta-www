@@ -4,8 +4,8 @@
 /* ---------------------------------------------------------------------------
    Tokens. The two brand colours are read off the logo: #3D2C4B and #A07F54.
    Light is defined on bare :root so nothing has its only definition inside a
-   media query. Dark is declared twice — once for the system preference, once
-   for an explicit choice — so the toggle wins in both directions.
+   media query. Dark is declared twice, once for the system preference, once
+   for an explicit choice, so the toggle wins in both directions.
    --------------------------------------------------------------------------- */
 
 :root {
@@ -129,7 +129,7 @@ h3 {
 
 p {
   margin: 0;
-  max-width: 64ch;
+  max-width: 72ch;
 }
 
 a {
@@ -162,15 +162,9 @@ img {
 
 .shell {
   width: 100%;
-  max-width: 1060px;
+  max-width: 1320px;
   margin-inline: auto;
-  padding-inline: 24px;
-}
-
-@media (max-width: 560px) {
-  .shell {
-    padding-inline: 18px;
-  }
+  padding-inline: clamp(18px, 4vw, 56px);
 }
 
 .skip {
@@ -241,7 +235,8 @@ img {
   border-bottom: 2px solid transparent;
 }
 
-.sections a:hover {
+.sections a:hover,
+.sections a[aria-current='page'] {
   color: var(--ink);
   border-bottom-color: var(--gold-rule);
 }
@@ -252,7 +247,7 @@ img {
   gap: 8px;
 }
 
-/* One round control each, showing the state you would get by pressing it — a sun while you are
+/* One round control each, showing the state you would get by pressing it: a sun while you are
    in the dark, RU while you are reading Romanian. A three-way segmented strip spent header width
    on two options nobody had chosen yet; cycling reaches every language in at most two presses. */
 
@@ -282,9 +277,23 @@ img {
   height: 17px;
 }
 
-@media (max-width: 860px) {
+/* On a narrow screen the sections move to their own row instead of disappearing: they are pages
+   now, and a phone visitor has to be able to reach them. The row wraps rather than scrolls, so no
+   item sits off the edge where nobody knows to look for it. */
+@media (max-width: 960px) {
+  .masthead__bar {
+    row-gap: 6px;
+  }
+
   .sections {
-    display: none;
+    order: 3;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 2px 18px;
+  }
+
+  .sections a {
+    white-space: nowrap;
   }
 }
 
@@ -413,7 +422,7 @@ img {
 }
 
 /* The rows are wrapped in divs so each label keeps its description, but the grid has to be the
-   dl's — one shared label column, or the two descriptions start at different places and the
+   dl's: one shared label column, or the two descriptions start at different places and the
    comparison stops reading as a comparison. */
 .contrast dl > div {
   display: contents;
@@ -450,7 +459,7 @@ img {
 }
 
 /* ---------------------------------------------------------------------------
-   The rule set panel — the one loud object on the page.
+   The rule set panel: the one loud object on the page.
    --------------------------------------------------------------------------- */
 
 .ruleset {
@@ -813,5 +822,273 @@ img {
 @keyframes pulse {
   50% {
     opacity: 0.3;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Pages
+   --------------------------------------------------------------------------- */
+
+.hero--page {
+  padding-block: clamp(36px, 5vw, 64px) clamp(32px, 4.5vw, 56px);
+}
+
+.crumbs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  font-size: 0.875rem;
+  color: var(--ink-3);
+}
+
+.crumbs a {
+  color: var(--ink-2);
+}
+
+.lead-in {
+  color: var(--ink);
+  font-size: 1.0625rem;
+}
+
+.band--cta {
+  padding-block: clamp(32px, 4vw, 48px);
+}
+
+.band--cta .hero__actions {
+  margin-top: 0;
+}
+
+/* The four ways into the site from the home page. */
+.cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 22px 20px;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-top: 2px solid var(--gold-rule);
+  border-radius: 3px;
+}
+
+.card h2 {
+  font-size: 1.25rem;
+}
+
+.card p {
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  flex: 1;
+}
+
+.card a {
+  font-size: 0.9375rem;
+}
+
+/* Moving from 1C, as numbered steps. */
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.steps li {
+  counter-increment: step;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-strong);
+  color: var(--ink);
+}
+
+.steps li::before {
+  content: counter(step);
+  display: block;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+/* What partners get, and what we ask. */
+.pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 26px 48px;
+}
+
+.pair h2 {
+  font-size: 1.35rem;
+  margin-bottom: 10px;
+}
+
+.pair p {
+  color: var(--ink-2);
+}
+
+.claims h2 {
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  letter-spacing: 0;
+  margin-bottom: 6px;
+}
+
+@media (min-width: 900px) {
+  .claims {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .claims li {
+    padding: 22px 28px 22px 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Contact
+   --------------------------------------------------------------------------- */
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 36px;
+}
+
+@media (min-width: 960px) {
+  .contact {
+    grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.6fr);
+    gap: 64px;
+    align-items: start;
+  }
+
+  .contact .reach {
+    flex-direction: column;
+    margin-top: 6px;
+  }
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+  max-width: 720px;
+}
+
+.form h2 {
+  margin-bottom: 4px;
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.form__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form__privacy {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+.form__note {
+  padding: 11px 15px;
+  border-left: 2px solid var(--down);
+  background: var(--sunken);
+  color: var(--ink);
+  font-size: 0.9375rem;
+  max-width: none;
+}
+
+.form__note--ok {
+  border-left-color: var(--ok);
+}
+
+/* Without JavaScript the handler redirects to /contact/#trimis and the like; this shows the one
+   named in the address. Stronger than [hidden] on purpose. */
+.form__note:target {
+  display: block !important;
+}
+
+.btn[aria-busy='true'] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* ---------------------------------------------------------------------------
+   Small screens
+   --------------------------------------------------------------------------- */
+
+@media (max-width: 560px) {
+  body {
+    font-size: 16px;
+  }
+
+  .hero__actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .notice__bar {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .changes th:last-child,
+  .changes td:last-child {
+    padding-left: 10px;
+  }
+
+  .foot__spacer {
+    margin-left: 0;
   }
 }

@@ -1,19 +1,20 @@
 # konta-www
 
-Site-ul [konta.md](https://konta.md) — prezentarea programului de contabilitate Konta, în română,
+Site-ul [konta.md](https://konta.md), cu prezentarea programului de contabilitate Konta, în română,
 rusă și engleză.
 
 ## Ce conține
 
-- **Pagina principală** — ce este Konta, pentru cine este și de ce înlocuiește 1C
-- **Pagina de stare**, [konta.md/status](https://konta.md/status) — arată dacă aplicația
+- Pagina principală și câte o pagină pentru e-Factura, trecerea de la 1C, parteneri,
+  transparență și contact, cu un formular
+- Pagina de stare, [konta.md/status](https://konta.md/status), care arată dacă aplicația
   funcționează în acest moment
 - Temă luminoasă și întunecată, după preferința vizitatorului
 
 ## Principii
 
 - **Rapid și pe internet mobil slab.** Pagini simple, fără programe grele în spate.
-- **Fără urmărire.** Nicio reclamă, niciun contor extern, nicio cerere către alte site-uri —
+- **Fără urmărire.** Nicio reclamă, niciun contor extern, nicio cerere către alte site-uri:
   oricine poate verifica asta din browser.
 - **Accesibil.** Contrast bun, se poate folosi doar cu tastatura.
 

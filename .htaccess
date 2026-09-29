@@ -16,8 +16,8 @@
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 </IfModule>
 
-# If the document root is ever a git checkout rather than a copied folder — which it is the
-# moment Hostinger's git integration is pointed at this repository — then the repository's own
+# If the document root is ever a git checkout rather than a copied folder (which it is the
+# moment Hostinger's git integration is pointed at this repository), then the repository's own
 # files are sitting in the web root. None of them are meant to be fetched over HTTP.
 #
 # .git is the one that matters: a served .git directory hands over the full history, every
@@ -42,7 +42,7 @@ RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
 # which is exactly how that happened once already, so they are named here explicitly.
 #
 # Fonts are the one exception. They are large, they are subset files, and they change only when
-# somebody deliberately regenerates them — at which point the CDN cache has to be purged or the
+# somebody deliberately regenerates them, at which point the CDN cache has to be purged or the
 # files renamed, because a year is a long time to serve the wrong one.
 <IfModule mod_headers.c>
   <FilesMatch "\.woff2$">
@@ -67,5 +67,10 @@ RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
   AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
 </IfModule>
 
-# A missing page returns the home page's 404, not the host's branded one.
-ErrorDocument 404 /index.html
+# A missing page gets our own 404 page, with a real 404 status, not the host's branded one.
+ErrorDocument 404 /404.html
+
+# The sitemap is XML; some older builds serve it as text.
+<IfModule mod_mime.c>
+  AddType application/xml .xml
+</IfModule>

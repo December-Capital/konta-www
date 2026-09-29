@@ -3,7 +3,7 @@
 
   The request goes from the visitor's browser straight to the service, so this page can be honest
   about the app while being hosted nowhere near it. The mode is no-cors: the response is opaque and
-  its status code is unreadable, so the only claim made is "answered" or "did not answer" — which
+  its status code is unreadable, so the only claim made is "answered" or "did not answer", which
   is the claim the page's wording makes, and no more.
 */
 

@@ -1,8 +1,8 @@
 /*
   Theme and language for konta.md.
 
-  Romanian is the source language and lives in the HTML itself, so a Romanian visitor — the
-  majority — downloads no translation file at all and a crawler reads real text rather than an
+  Romanian is the source language and lives in the HTML itself, so a Romanian visitor (the
+  majority) downloads no translation file at all and a crawler reads real text rather than an
   empty shell. Russian and English are fetched on demand from assets/ru.json and assets/en.json.
   Keys match the data-t attributes in the markup; a key missing from a catalogue leaves the
   Romanian in place, which is visible rather than silently wrong.
@@ -54,7 +54,7 @@
   var logos = Array.prototype.slice.call(document.querySelectorAll('[data-logo]'));
 
   // `hidden` is defined on HTMLElement, so assigning svg.hidden = true sets a plain JavaScript
-  // property and never touches the attribute — the icon stayed exactly as authored no matter how
+  // property and never touches the attribute, so the icon stayed exactly as authored no matter how
   // often the theme changed. Set the attribute.
   function show(node, visible) {
     if (!node) return;

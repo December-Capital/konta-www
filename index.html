@@ -3,24 +3,30 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title data-t="meta.title">Konta — contabilitate care nu cere un programator</title>
-    <meta
-      name="description"
-      data-t="meta.description"
-      content="Platformă de contabilitate pentru companiile și firmele de contabilitate din Republica Moldova. Când se schimbă legea, actualizarea vine de la noi: fără contractor, fără reconfigurare. În dezvoltare."
-    />
+    <title data-t="meta.title">Konta · program de contabilitate online pentru Moldova</title>
+    <meta name="description" data-t="meta.description" content="Program de contabilitate online pentru companiile și firmele de contabilitate din Moldova. Când se schimbă legea, actualizăm noi Konta, fără programator." />
+    <link rel="canonical" href="https://konta.md/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Konta" />
+    <meta property="og:locale" content="ro_MD" />
+    <meta property="og:url" content="https://konta.md/" />
+    <meta property="og:title" content="Konta · program de contabilitate online pentru Moldova" />
+    <meta property="og:description" content="Program de contabilitate online pentru companiile și firmele de contabilitate din Moldova. Când se schimbă legea, actualizăm noi Konta, fără programator." />
+    <meta property="og:image" content="https://konta.md/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Konta · contabilitate pentru companiile din Moldova" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Konta · program de contabilitate online pentru Moldova" />
+    <meta name="twitter:description" content="Program de contabilitate online pentru companiile și firmele de contabilitate din Moldova. Când se schimbă legea, actualizăm noi Konta, fără programator." />
+    <meta name="twitter:image" content="https://konta.md/assets/og.png" />
     <meta name="theme-color" content="#f6f4f7" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#16161a" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" href="assets/favicon.png" type="image/png" />
-    <link
-      rel="icon"
-      href="assets/favicon-dark.png"
-      type="image/png"
-      media="(prefers-color-scheme: dark)"
-    />
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-    <link rel="stylesheet" href="assets/fonts.css?v=4" />
-    <link rel="stylesheet" href="assets/site.css?v=4" />
+    <link rel="icon" href="/assets/favicon.png" type="image/png" />
+    <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/assets/fonts.css?v=5" />
+    <link rel="stylesheet" href="/assets/site.css?v=5" />
     <script>
       // Before first paint, so an explicit choice never flashes the other theme.
       try {
@@ -32,23 +38,69 @@
         /* private mode: fall through to the system preference */
       }
     </script>
+    <script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Konta",
+      "url": "https://konta.md/",
+      "logo": "https://konta.md/assets/logo.png",
+      "email": "mail@konta.md",
+      "telephone": "+37379189805",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Moldova"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "December Capital"
+      },
+      "sameAs": [
+        "https://github.com/December-Capital/konta-rulebook",
+        "https://github.com/December-Capital/konta-efactura"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+37379189805",
+        "email": "mail@konta.md",
+        "contactType": "sales",
+        "availableLanguage": [
+          "ro",
+          "ru"
+        ]
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Konta",
+      "url": "https://konta.md/",
+      "inLanguage": [
+        "ro",
+        "ru",
+        "en"
+      ]
+    }
+    </script>
   </head>
-
   <body>
     <a class="skip" href="#main" data-t="skip">Sari la conținut</a>
 
     <header class="masthead">
       <div class="shell masthead__bar">
         <a class="brand" href="/">
-          <img class="brand__mark" src="assets/logo.png" alt="" width="40" height="30" data-logo />
+          <img class="brand__mark" src="/assets/logo.png" alt="Konta" width="40" height="30" data-logo />
           <span class="brand__name">Konta</span>
         </a>
 
         <nav class="sections" aria-label="Secțiuni" data-t-aria-label="nav.label">
-          <a href="#efactura" data-t="nav.efactura">e-Factura</a>
-          <a href="#fara-programator" data-t="nav.noprog">Fără programator</a>
-          <a href="#parteneri" data-t="nav.partners">Parteneri</a>
-          <a href="#contact" data-t="nav.contact">Contact</a>
+          <a href="/e-factura/" data-t="nav.efactura">e-Factura</a>
+          <a href="/fara-programator/" data-t="nav.noprog">Fără programator</a>
+          <a href="/trecerea-de-la-1c/" data-t="nav.move">Trecerea de la 1C</a>
+          <a href="/parteneri/" data-t="nav.partners">Parteneri</a>
+          <a href="/contact/" data-t="nav.contact">Contact</a>
         </nav>
 
         <div class="controls">
@@ -85,10 +137,7 @@
     <div class="notice">
       <div class="shell notice__bar">
         <span class="notice__flag" data-t="dev.flag">În dezvoltare</span>
-        <p data-t="dev.text">
-          Konta se construiește acum. Pagina descrie produsul pe care îl facem și stadiul la care
-          am ajuns, nu unul pe care l-ați putea cumpăra astăzi.
-        </p>
+        <p data-t="dev.text">Konta este încă în lucru. Pe acest site descriem produsul pe care îl construim și cât am avansat. Deocamdată nu se poate cumpăra.</p>
       </div>
     </div>
 
@@ -98,44 +147,25 @@
           <div>
             <h1 data-t="hero.title">Contabilitate care nu cere un programator.</h1>
 
-            <p class="hero__lead" data-t="hero.lead">
-              Când se schimbă legea, actualizarea vine de la noi, în aceeași zi, pentru toată
-              lumea. Dumneavoastră deschideți programul și vă vedeți de lucru. Fără contractor,
-              fără reconfigurare, fără așteptare.
-            </p>
+            <p class="hero__lead" data-t="hero.lead">Când se schimbă legea, actualizăm Konta noi, o singură dată, pentru toți clienții. Dumneavoastră deschideți programul și lucrați ca de obicei.</p>
 
             <div class="hero__actions">
-              <a class="btn" href="tel:+37379189805">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-                  <path d="M6.2 3.5h3.1l1.6 4-2 1.3a12 12 0 0 0 5.6 5.6l1.3-2 4 1.6v3.1a1.8 1.8 0 0 1-2 1.8A16.5 16.5 0 0 1 4.4 5.5a1.8 1.8 0 0 1 1.8-2Z" stroke-linejoin="round" />
-                </svg>
-                <span data-t="hero.demo">Rezervați un demo</span>
-              </a>
-              <a class="btn btn--plain" href="https://app.konta.md" data-t="hero.app">
-                Intrare în aplicație
-              </a>
+              <a class="btn" href="/contact/" data-t="hero.demo">Programați un demo</a>
+              <a class="btn btn--plain" href="https://app.konta.md" data-t="hero.app">Intrare în aplicație</a>
             </div>
 
-            <p class="hero__soon" data-t="hero.soon">
-              Aplicația se deschide în curând, întâi pentru firmele partenere.
-            </p>
+            <p class="hero__soon" data-t="hero.soon">Aplicația se deschide în curând, mai întâi pentru firmele partenere.</p>
 
             <div class="contrast">
-              <p class="contrast__q" data-t="vs.q">Se schimbă o cotă la 1 ianuarie.</p>
+              <p class="contrast__q" data-t="vs.q">La 1 ianuarie se schimbă o cotă.</p>
               <dl>
                 <div>
                   <dt data-t="vs.old">Cu 1C</dt>
-                  <dd data-t="vs.oldBody">
-                    Sunați programatorul, plătiți vizita, așteptați. Pe fiecare instalare, în
-                    fiecare an.
-                  </dd>
+                  <dd data-t="vs.oldBody">Chemați programatorul, plătiți vizita și așteptați. Pe fiecare instalare, în fiecare an.</dd>
                 </div>
                 <div class="ours">
                   <dt data-t="vs.new">Cu Konta</dt>
-                  <dd data-t="vs.newBody">
-                    Nu faceți nimic. Cota nouă este deja acolo când deschideți programul luni
-                    dimineață.
-                  </dd>
+                  <dd data-t="vs.newBody">Cota nouă e deja în program când îl deschideți luni dimineață.</dd>
                 </div>
               </dl>
             </div>
@@ -182,9 +212,9 @@
                   <td class="since">01.01.2026</td>
                 </tr>
                 <tr>
-                  <td data-t="set.r6">Prag de înregistrare TVA</td>
-                  <td class="rate">1 200 000 MDL</td>
-                  <td class="since">01.01.2026</td>
+                  <td data-t="set.r6">Plafon de înregistrare TVA</td>
+                  <td class="rate">1 700 000 MDL</td>
+                  <td class="since">01.03.2026</td>
                 </tr>
                 <tr>
                   <td data-t="set.r7">IT Park, impozit unic</td>
@@ -195,255 +225,37 @@
             </table>
 
             <div class="ruleset__foot">
-              <p data-t="set.note">
-                Acesta este fișierul din care Konta își ia cotele. Este în verificare la un contabil
-                licențiat și nu este încă aprobat. Până atunci îl puteți citi și verifica singur,
-                valoare cu valoare.
-              </p>
-              <a href="https://github.com/December-Capital/konta-rulebook" rel="noopener" data-t="set.link">
-                Deschideți registrul public
-              </a>
+              <p data-t="set.note">Konta își ia cotele din acest registru. Un contabil autorizat îl verifică acum și încă nu l-a aprobat. Până atunci îl puteți citi și verifica singur, rând cu rând.</p>
+              <a href="https://github.com/December-Capital/konta-rulebook" rel="noopener" data-t="set.link">Deschideți registrul public</a>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="band band--quiet" id="efactura">
-        <div class="shell">
-          <div class="band__head">
-            <h2 data-t="ef.title">Mandatul e-Factura</h2>
-          </div>
-
-          <div class="prose">
-            <p data-t="ef.p1">
-              Facturarea electronică între companii este programată să devină obligatorie la 1
-              octombrie 2026, iar factura pe hârtie își pierde valoarea pentru deducerea TVA. Dacă
-              oricum schimbați modul în care emiteți facturi, acesta este momentul în care
-              schimbarea costă cel mai puțin.
-            </p>
-            <p data-t="ef.p2">
-              Konta tratează e-Factura pentru toate companiile-client dintr-un singur ecran, iar
-              facturile de achiziție care sosesc ca XML se contabilizează automat. Registrele de
-              vânzări și de achiziții se completează din ce a trecut deja prin SFS, nu din ce ați
-              re-tastat.
-            </p>
-            <p data-t="ef.p3">
-              Plafonul de restituire a TVA a fost ridicat la 70% pentru contribuabilii care
-              folosesc e-Factura sau MEV. Este un câștig de flux de numerar care se poate calcula
-              pentru fiecare client în parte.
-            </p>
-
-            <div class="aside">
-              <p data-t="ef.caveat">
-                Data de 1 octombrie 2026 este raportată de monitoarele internaționale de TVA. O
-                confirmăm față de actul normativ moldovenesc înainte să o tratăm ca fermă, și
-                publicăm rezultatul aici.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="band" id="fara-programator">
-        <div class="shell">
-          <div class="band__head">
-            <h2 data-t="np.title">De ce nu veți mai avea nevoie de un programator</h2>
-            <p data-t="np.p1">
-              Într-un program unde regulile sunt scrise în cod, fiecare modificare de lege
-              înseamnă un om plătit care vine și rescrie, pe fiecare instalare separat. În Konta,
-              legea stă ca date: o schimbăm noi, o dată, pentru toți. Reforma fiscală pentru 2027
-              este deja votată în primă lectură — iată ce conține.
-            </p>
-          </div>
-
-          <table class="changes">
-            <thead>
-              <tr>
-                <th data-t="np.col.change">Schimbarea</th>
-                <th data-t="np.col.since">În vigoare din</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-t="np.c1">Se închid înregistrările noi de Întreprindere Individuală și Gospodărie Țărănească</td>
-                <td>01.01.2027</td>
-              </tr>
-              <tr>
-                <td data-t="np.c2">Impozitul pe venit al Gospodăriilor Țărănești crește de la 7% la 12%</td>
-                <td>01.01.2027</td>
-              </tr>
-              <tr>
-                <td data-t="np.c3">Impozitul pe dividende crește de la 6% la 8% pentru profitul de după 2027</td>
-                <td>01.01.2027</td>
-              </tr>
-              <tr>
-                <td data-t="np.c4">Cota preferențială pentru comerțul mic crește de la 1% la 3% din venit</td>
-                <td>01.01.2027</td>
-              </tr>
-              <tr>
-                <td data-t="np.c5">CAEM revizia 2.1 re-codifică clasificarea activităților pentru fiecare entitate</td>
-                <td>01.01.2027</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="prose after-table">
-            <p data-t="np.p2">
-              Cinci rânduri, cinci motive de a chema pe cineva. Pentru dumneavoastră, în Konta, vor
-              fi cinci rânduri care apar singure în registru, în aceeași zi, verificabile de
-              oricine. Nu ne plătiți pentru ele, niciodată — asta este toată ideea produsului.
-            </p>
           </div>
         </div>
       </section>
 
       <section class="band band--quiet">
         <div class="shell">
-          <div class="band__head">
-            <h2 data-t="easy.title">Ușor de folosit, din prima zi</h2>
-          </div>
-
-          <div class="prose">
-            <p data-t="easy.p1">
-              Konta arată a document, nu a tabel de bază de date. Deschideți o factură și vedeți o
-              factură. Ce trebuie completat se vede, ce se calculează singur nu vă cere atenția.
-            </p>
-            <p data-t="easy.p2">
-              Interfața este în română și rusă la paritate, nu tradusă pe jumătate. Tastele
-              numerice cu care lucrați în 1C rămân aceleași, ca reflexele de zece ani să nu se
-              piardă într-o săptămână. Termenii sunt cei din SNC și din Codul fiscal, așa cum îi
-              spuneți cu voce tare, nu traduși dintr-un ERP american.
-            </p>
-            <p data-t="easy.p3">
-              Iar când ceva nu merge, răspunde un om, la telefon, în română sau rusă.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="band">
-        <div class="shell">
-          <div class="band__head">
-            <h2 data-t="move.title">Trecerea de la 1C</h2>
-          </div>
-
-          <div class="prose">
-            <p data-t="move.p1">
-              Trimiteți copia bazei de date luni, lucrați în Konta miercuri. Prima companie a
-              oricărei firme de contabilitate o migrăm noi, gratuit; a doua o veți face singuri în
-              câteva ore.
-            </p>
-            <p data-t="move.p2">
-              Rulăm în paralel cât aveți nevoie, ca trecerea să se sprijine pe cifre reconciliate,
-              nu pe încredere. Nu vă cerem să renunțați la nimic până nu vedeți aceleași sume în
-              amândouă programele.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="band band--quiet" id="parteneri">
-        <div class="shell">
-          <div class="band__head">
-            <h2 data-t="part.title">Căutăm firme de contabilitate care vor să construiască cu noi</h2>
-            <p data-t="part.p1">
-              Konta se face împreună cu oamenii care o vor folosi. Dacă aveți o firmă de
-              contabilitate și sunteți dispuși să lucrați cu noi, sunteți bineveniți: ne arătați ce
-              vă mănâncă timpul astăzi, noi construim în jurul acelui lucru, iar dumneavoastră
-              vedeți rezultatul înaintea tuturor.
-            </p>
-          </div>
-
-          <div class="prose">
-            <p data-t="part.p2">
-              Ce primiți: migrarea primei companii făcută de noi, acces la produs înainte de
-              lansare, și cuvântul greu la ce se construiește în continuare. Ce vă cerem: câteva
-              ore din timpul dumneavoastră și sinceritate atunci când ceva nu este bun.
-            </p>
-            <p data-t="part.p3">
-              Un telefon de un sfert de oră este de ajuns ca să vedem dacă are sens pentru
-              amândoi.
-            </p>
-          </div>
-
-          <div class="hero__actions">
-            <a class="btn" href="tel:+37379189805" data-t="part.cta">Sunați-ne</a>
-            <a class="btn btn--plain" href="mailto:mail@konta.md">mail@konta.md</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="band" id="transparenta">
-        <div class="shell">
-          <div class="band__head">
-            <h2 data-t="open.title">Transparență</h2>
-            <p data-t="open.p1">
-              Vă cerem să ne încredințați salariile și contabilitatea clienților dumneavoastră.
-              Iată ce puteți verifica singur, fără să ne întrebați.
-            </p>
-          </div>
-
-          <ul class="claims">
-            <li>
-              <h3 data-t="open.h1">Registrul fiscal este public</h3>
-              <p data-t="open.b1">
-                Oricine poate citi ce cotă aplicăm, din ce dată, și pe baza cărui act. Dacă o cifră
-                este greșită, se vede din afară.
-              </p>
-              <a href="https://github.com/December-Capital/konta-rulebook" rel="noopener" data-t="open.l1">
-                github.com/December-Capital/konta-rulebook
-              </a>
+          <ul class="cards">
+            <li class="card">
+              <h2 data-t="card.ef.title">e-Factura pentru toți clienții</h2>
+              <p data-t="card.ef.body">Facturile electronice ale tuturor companiilor client, într-un singur ecran, și ce prevede legea despre e-Factura acum.</p>
+              <a href="/e-factura/" data-t="card.ef.link">Despre e-Factura</a>
             </li>
-            <li>
-              <h3 data-t="open.h2">Clientul e-Factura este public</h3>
-              <p data-t="open.b2">
-                Codul care vorbește cu SFS în numele dumneavoastră poate fi citit de oricine, linie
-                cu linie.
-              </p>
-              <a href="https://github.com/December-Capital/konta-efactura" rel="noopener" data-t="open.l2">
-                github.com/December-Capital/konta-efactura
-              </a>
+            <li class="card">
+              <h2 data-t="card.np.title">Fără programator</h2>
+              <p data-t="card.np.body">În Konta, cotele și termenele sunt date pe care le actualizăm noi. Vedeți ce se schimbă în 2027.</p>
+              <a href="/fara-programator/" data-t="card.np.link">De ce nu mai aveți nevoie de programator</a>
             </li>
-            <li>
-              <h3 data-t="open.h3">Export într-un clic</h3>
-              <p data-t="open.b3">
-                Datele dumneavoastră ies în formate deschise, oricând, fără cerere și fără taxă.
-                Plecarea de la noi trebuie să fie la fel de ușoară ca venirea.
-              </p>
+            <li class="card">
+              <h2 data-t="card.move.title">Trecerea de la 1C</h2>
+              <p data-t="card.move.body">Prima companie o mutăm noi, gratuit. Lucrați în paralel până când sumele coincid.</p>
+              <a href="/trecerea-de-la-1c/" data-t="card.move.link">Cum trecem de la 1C</a>
             </li>
-            <li>
-              <h3 data-t="open.h4">Site fără urmărire</h3>
-              <p data-t="open.b4">
-                Această pagină nu conține niciun instrument de analiză sau urmărire. Nicio cerere
-                din browserul dumneavoastră nu pleacă în altă parte decât la konta.md, inclusiv
-                fonturile.
-              </p>
+            <li class="card">
+              <h2 data-t="card.part.title">Pentru firme de contabilitate</h2>
+              <p data-t="card.part.body">Căutăm firme care să construiască Konta împreună cu noi și să o folosească primele.</p>
+              <a href="/parteneri/" data-t="card.part.link">Despre parteneriat</a>
             </li>
           </ul>
-        </div>
-      </section>
-
-      <section class="band band--quiet" id="contact">
-        <div class="shell">
-          <div class="band__head">
-            <h2 data-t="contact.title">Contact</h2>
-            <p data-t="contact.p1">
-              Vă răspunde un om, în română sau rusă. Dacă sunteți o firmă de contabilitate și vă
-              interesează mandatul e-Factura sau un parteneriat, sunați; discuția durează un sfert
-              de oră.
-            </p>
-          </div>
-
-          <dl class="reach">
-            <div>
-              <dt data-t="contact.phone">Telefon</dt>
-              <dd><a href="tel:+37379189805">+373 79 189 805</a></dd>
-            </div>
-            <div>
-              <dt data-t="contact.email">E-mail</dt>
-              <dd><a href="mailto:mail@konta.md">mail@konta.md</a></dd>
-            </div>
-          </dl>
         </div>
       </section>
     </main>
@@ -451,6 +263,7 @@
     <footer class="foot">
       <div class="shell foot__bar">
         <span data-t="foot.owner">© 2026 December Capital</span>
+        <a href="/transparenta/" data-t="foot.transparency">Transparență</a>
         <a href="/status/" data-t="foot.status">Stare serviciu</a>
         <a href="https://app.konta.md" class="foot__spacer" data-t="foot.app">Intrare în aplicație</a>
       </div>
@@ -459,6 +272,6 @@
     <script type="application/json" data-seed>
       {"lang.next": "Treci la"}
     </script>
-    <script src="assets/site.js?v=4"></script>
+    <script src="/assets/site.js?v=5"></script>
   </body>
 </html>
