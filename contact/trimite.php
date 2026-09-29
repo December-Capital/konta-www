@@ -1,6 +1,8 @@
 <?php
 /*
- * The contact form on konta.md/contact/. Receives one message and mails it to mail@konta.md.
+ * The contact form on konta.md/contact/. Receives one message and mails it to mail@konta.md, in
+ * Konta's branded layout with a plain-text part beside it. Subject: "[konta.md] <Name> from
+ * <Company> on <Topic>".
  *
  * It runs on the static host, so it holds no secret: it sends through the host's own mail(),
  * which Hostinger delivers for the domain's own addresses, and the SPF record already covers.
@@ -20,6 +22,9 @@ const TO = 'mail@konta.md';
 const FROM = 'mail@konta.md';
 const PER_HOUR = 5;
 const TOPICS = ['demo' => 'Demo', 'partner' => 'Parteneriat', 'efactura' => 'e-Factura', 'other' => 'Altceva'];
+// The subject line reads "<Name> from <Company> on <Topic>", so its topic words are English too.
+const SUBJECT_TOPICS = ['demo' => 'Demo', 'partner' => 'Partnership', 'efactura' => 'e-Factura', 'other' => 'Other'];
+const LANG_NAMES = ['ro' => 'română', 'ru' => 'rusă', 'en' => 'engleză'];
 const LANGS = ['ro', 'ru', 'en'];
 
 function answer(string $outcome): never
@@ -59,6 +64,123 @@ function field(string $name): string
 function encodeHeader(string $value): string
 {
     return '=?UTF-8?B?' . base64_encode($value) . '?=';
+}
+
+function e(string $value): string
+{
+    return htmlspecialchars($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+}
+
+/**
+ * The message laid out in Konta's mail template: the same layout as /root/agent/konta_email_template.html
+ * and the app's invitation mail. Every value the visitor typed goes through e() first.
+ */
+function branded(
+    string $name,
+    string $company,
+    string $email,
+    string $phone,
+    string $topic,
+    string $language,
+    string $received,
+    string $message,
+    string $subject
+): string {
+    $e = 'e'; // so the heredoc below can call it as {$e(...)}
+    $font = "font-family:'IBM Plex Sans','Segoe UI',Helvetica,Arial,sans-serif;";
+    $serif = "font-family:Georgia,'Times New Roman',serif;";
+
+    $row = static function (string $label, string $value) use ($font): string {
+        return '<tr>'
+            . '<td valign="top" style="' . $font . ' padding:7px 16px 7px 0; font-size:13px; color:#857c8d; white-space:nowrap;">' . e($label) . '</td>'
+            . '<td valign="top" style="' . $font . ' padding:7px 0; font-size:15px; color:#241b2e;">' . $value . '</td>'
+            . '</tr>';
+    };
+
+    $link = static fn (string $href, string $text): string =>
+        '<a href="' . e($href) . '" style="color:#3d2c4b;">' . e($text) . '</a>';
+
+    $rows = $row('Nume', e($name))
+        . $row('Firma', $company !== '' ? e($company) : '<span style="color:#857c8d;">nu a fost completată</span>')
+        . $row('E-mail', $link('mailto:' . $email, $email))
+        . $row('Telefon', $phone !== '' ? $link('tel:' . preg_replace('/[^0-9+]/', '', $phone), $phone) : '<span style="color:#857c8d;">nu a fost completat</span>')
+        . $row('Subiect', e($topic))
+        . $row('Limba', e($language))
+        . $row('Primit', e($received));
+
+    $reply = 'mailto:' . $email . '?subject=' . rawurlencode('Re: ' . $subject);
+    $messageHtml = nl2br(e($message), false);
+
+    return <<<HTML
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="x-apple-disable-message-reformatting">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>{$e($subject)}</title>
+</head>
+<body style="margin:0; padding:0; background-color:#f6f4f7; -webkit-font-smoothing:antialiased;">
+  <div style="display:none; max-height:0; overflow:hidden; opacity:0; mso-hide:all;">{$e($name)}: {$e(mb_substr($message, 0, 90))}</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f6f4f7;">
+    <tr>
+      <td align="center" style="padding:32px 12px;">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:100%; background-color:#ffffff; border:1px solid #e2dde6; border-radius:6px; overflow:hidden;">
+          <tr>
+            <td style="background-color:#3d2c4b; background-image:linear-gradient(135deg, #2c1f38 0%, #3d2c4b 55%, #4e3a5f 100%); padding:24px 36px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td valign="middle" width="56" style="padding-right:14px;"><img src="https://konta.md/assets/logo-dark.png" width="46" height="34" alt="Konta" style="display:block; border:0;"></td>
+                  <td align="left" valign="middle">
+                    <div style="{$serif} font-size:24px; font-weight:600; color:#ffffff; line-height:1.15;">Konta</div>
+                    <div style="{$font} font-size:12px; color:#d9c29a; padding-top:4px;">Formularul de contact de pe konta.md</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td style="height:3px; background-color:#a07f54; font-size:0; line-height:0;">&nbsp;</td></tr>
+          <tr>
+            <td style="padding:34px 36px 6px 36px;">
+              <h1 style="margin:0 0 6px 0; {$serif} font-size:22px; line-height:1.35; font-weight:600; color:#241b2e;">Mesaj nou de la {$e($name)}</h1>
+              <p style="margin:0 0 20px 0; {$font} font-size:14px; color:#5c5266;">Despre: {$e($topic)}</p>
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">{$rows}</table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:18px 36px 4px 36px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f7f1e8; border-left:3px solid #a07f54; border-radius:3px;">
+                <tr><td style="padding:16px 20px; {$font} font-size:15px; line-height:1.65; color:#241b2e;">{$messageHtml}</td></tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 36px 30px 36px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="background-color:#3d2c4b; border-radius:3px;">
+                    <a href="{$e($reply)}" style="display:inline-block; padding:13px 26px; {$font} font-size:15px; font-weight:600; color:#ffffff; text-decoration:none; border-radius:3px;">Răspunde lui {$e($name)}</a>
+                  </td>
+                </tr>
+              </table>
+              <p style="margin:14px 0 0 0; {$font} font-size:12px; line-height:1.6; color:#857c8d;">Sau apăsați „Răspunde” în programul de e-mail: răspunsul ajunge direct la {$e($email)}.</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color:#f1eef3; border-top:1px solid #e2dde6; padding:20px 36px; {$font} font-size:11px; line-height:1.7; color:#857c8d;">
+              <strong style="color:#5c5266;">Konta</strong> &middot; contabilitate pentru companiile din Moldova<br>
+              &copy; 2026 December Capital
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+HTML;
 }
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
@@ -108,9 +230,16 @@ if (count($recent) >= PER_HOUR) {
     answer('limited');
 }
 
-$subject = sprintf('[konta.md] %s: %s%s', TOPICS[$topic], $name, $company !== '' ? ' (' . $company . ')' : '');
+// "[konta.md] Ion Popescu from Contabil SRL on Demo", or without "from …" when no company was given.
+$subject = sprintf(
+    '[konta.md] %s%s on %s',
+    $name,
+    $company !== '' ? ' from ' . $company : '',
+    SUBJECT_TOPICS[$topic]
+);
+$received = (new DateTimeImmutable('now', new DateTimeZone('Europe/Chisinau')))->format('d.m.Y, H:i');
 
-$body = implode("\n", [
+$text = implode("\n", [
     'Mesaj nou din formularul de contact de pe konta.md.',
     '',
     'Nume:     ' . $name,
@@ -118,20 +247,43 @@ $body = implode("\n", [
     'E-mail:   ' . $email,
     'Telefon:  ' . ($phone !== '' ? $phone : '-'),
     'Subiect:  ' . TOPICS[$topic],
-    'Limba:    ' . $lang,
+    'Limba:    ' . LANG_NAMES[$lang],
+    'Primit:   ' . $received,
     '',
     $message,
     '',
     '-- ',
     'Răspundeți direct la acest mesaj: ajunge la ' . $email . '.',
+    'Konta · konta.md',
+]);
+
+$html = branded($name, $company, $email, $phone, TOPICS[$topic], LANG_NAMES[$lang], $received, $message, $subject);
+
+// multipart/alternative, both parts base64: UTF-8 survives every relay, and no line in the HTML
+// can exceed the 998-character limit that some servers enforce by cutting it.
+$boundary = 'konta-' . bin2hex(random_bytes(12));
+$body = implode("\r\n", [
+    'This is a multi-part message in MIME format.',
+    '',
+    '--' . $boundary,
+    'Content-Type: text/plain; charset=UTF-8',
+    'Content-Transfer-Encoding: base64',
+    '',
+    rtrim(chunk_split(base64_encode($text), 76, "\r\n")),
+    '--' . $boundary,
+    'Content-Type: text/html; charset=UTF-8',
+    'Content-Transfer-Encoding: base64',
+    '',
+    rtrim(chunk_split(base64_encode($html), 76, "\r\n")),
+    '--' . $boundary . '--',
+    '',
 ]);
 
 $headers = implode("\r\n", [
     'From: ' . encodeHeader('Konta · formular') . ' <' . FROM . '>',
     'Reply-To: ' . encodeHeader($name) . ' <' . $email . '>',
     'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-    'Content-Transfer-Encoding: 8bit',
+    'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
 ]);
 
 if (!mail(TO, encodeHeader($subject), $body, $headers, '-f' . FROM)) {

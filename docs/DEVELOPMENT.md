@@ -37,7 +37,10 @@ no `hreflang` alternates on purpose: `?lang=ru` serves the same HTML until the s
 ## The contact form
 
 `contact/trimite.php` mails the message to `mail@konta.md` through the host's own `mail()`, with
-`Reply-To` set to the sender, so the file holds no secret. It refuses a post whose `Origin` is not
+`Reply-To` set to the sender, so the file holds no secret. The subject reads
+`[konta.md] <Name> from <Company> on <Topic>`; the body is multipart, a plain-text part and an HTML
+part in Konta's mail layout (the same one as `/root/agent/konta_email_template.html` and the app's
+invitation mail), with every typed value HTML-escaped. It refuses a post whose `Origin` is not
 the host that served it, drops anything that fills the hidden `website` field, validates lengths
 and the address, strips line breaks from everything that reaches a header, and accepts at most
 five messages an hour from one IP (a file per hashed address in the system temp directory). With
