@@ -127,7 +127,8 @@ function branded(
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f6f4f7;">
     <tr>
       <td align="center" style="padding:32px 12px;">
-        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:100%; background-color:#ffffff; border:1px solid #e2dde6; border-radius:6px; overflow:hidden;">
+        <!--[if mso]><table role="presentation" width="760" align="center" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%; max-width:760px; background-color:#ffffff; border:1px solid #e2dde6; border-radius:6px; overflow:hidden;">
           <tr>
             <td style="background-color:#3d2c4b; background-image:linear-gradient(135deg, #2c1f38 0%, #3d2c4b 55%, #4e3a5f 100%); padding:24px 36px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -175,6 +176,7 @@ function branded(
             </td>
           </tr>
         </table>
+      <!--[if mso]></td></tr></table><![endif]-->
       </td>
     </tr>
   </table>
