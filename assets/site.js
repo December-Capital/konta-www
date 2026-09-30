@@ -41,6 +41,7 @@
 
   var themeBtn = document.querySelector('[data-theme-btn]');
   var systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+  var lessMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function isDark() {
     var chosen = root.dataset.theme;
@@ -63,12 +64,42 @@
     });
   }
 
+  // Hold the sweep until the new logo is decoded, so it arrives with the new colours rather than
+  // swapping halfway through. Never wait long: a slow connection gets the sweep on time and the
+  // mark a moment later.
+  function logosReady() {
+    var decoded = Promise.all(
+      logos.map(function (logo) {
+        return logo.decode ? logo.decode().catch(function () {}) : null;
+      })
+    );
+    var patience = new Promise(function (resolve) {
+      setTimeout(resolve, 300);
+    });
+    return Promise.race([decoded, patience]);
+  }
+
   if (themeBtn) {
     themeBtn.addEventListener('click', function () {
       var next = isDark() ? 'light' : 'dark';
-      root.dataset.theme = next;
-      write('konta.theme', next);
-      paintToggle();
+
+      function apply() {
+        root.dataset.theme = next;
+        write('konta.theme', next);
+        paintToggle();
+      }
+
+      // The sweep from site.css, where the browser can do it and the visitor has not asked for
+      // less motion. Everywhere else the theme changes at once.
+      if (!document.startViewTransition || lessMotion.matches) {
+        apply();
+        return;
+      }
+
+      document.startViewTransition(function () {
+        apply();
+        return logosReady();
+      });
     });
   }
 

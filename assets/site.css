@@ -332,6 +332,50 @@ img {
   }
 }
 
+/* Switching theme sweeps the new one across the page as a diagonal, after Skiper UI's theme
+   transition (skiper26, polygon, from the top left, no blur). The dark theme comes in from the top
+   left corner, the light one from the bottom right. The old page stays still underneath. Only
+   where the browser has view transitions and the visitor has not asked for less motion; site.js
+   checks both, and everywhere else the theme changes at once, as before. */
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-old(root) {
+    animation: none;
+    z-index: -1;
+  }
+
+  ::view-transition-new(root) {
+    animation: reveal-light 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  :root[data-theme='dark']::view-transition-new(root) {
+    animation-name: reveal-dark;
+  }
+}
+
+@keyframes reveal-dark {
+  from {
+    clip-path: polygon(50% -71%, -50% 71%, -50% 71%, 50% -71%);
+  }
+  to {
+    clip-path: polygon(50% -71%, -50% 71%, 50% 171%, 171% 50%);
+  }
+}
+
+@keyframes reveal-light {
+  from {
+    clip-path: polygon(171% 50%, 50% 171%, 50% 171%, 171% 50%);
+  }
+  to {
+    clip-path: polygon(171% 50%, 50% 171%, -50% 71%, 50% -71%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-theme-btn],
   .sunmoon__cut,

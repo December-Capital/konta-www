@@ -90,6 +90,9 @@ so `assets/logo-dark.png` is the same file with that colour lifted.
 
 The control is one drawing, a sun that turns into a moon, after Skiper UI's second theme toggle
 (skiper4); CSS picks its state from the same selectors as the colours, so no script draws it.
+Pressing it sweeps the new theme across the page on a diagonal, after Skiper UI's polygon theme
+transition from the top left (skiper26), through the View Transitions API. Browsers without it,
+and visitors who ask for reduced motion, get the instant switch.
 
 ## Fonts
 
