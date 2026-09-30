@@ -848,6 +848,11 @@ img {
   color: var(--ink-2);
 }
 
+/* The owner's name links to the company but keeps the colour of the line it sits in. */
+.foot a.foot__owner {
+  color: inherit;
+}
+
 .foot__spacer {
   margin-left: auto;
 }
