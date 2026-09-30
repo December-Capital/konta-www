@@ -88,6 +88,9 @@ choice is stored per browser and applied before first paint, so an explicit choi
 the other theme. The logo swaps too: the aubergine in the mark disappears against a dark ground,
 so `assets/logo-dark.png` is the same file with that colour lifted.
 
+The control is one drawing, a sun that turns into a moon, after Skiper UI's second theme toggle
+(skiper4); CSS picks its state from the same selectors as the colours, so no script draws it.
+
 ## Fonts
 
 Literata for headings, IBM Plex Sans for everything else. Both cover Latin Extended and Cyrillic,

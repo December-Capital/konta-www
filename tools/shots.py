@@ -113,10 +113,6 @@ def build(page, name, lang, theme, state):
     if theme == 'dark':
         html = html.replace('src="assets/logo.png"', 'src="assets/logo-dark.png"')
         html = html.replace('src="../assets/logo.png"', 'src="../assets/logo-dark.png"')
-        # The control shows the theme you are in, so the dark page shows the moon. The markup is
-        # authored light-default, which is the swap site.js performs at runtime.
-        html = html.replace('data-theme-icon="light">', 'data-theme-icon="light" hidden>')
-        html = html.replace('data-theme-icon="dark" hidden>', 'data-theme-icon="dark">')
 
     if state == 'down':
         html = html.replace('data-state="checking"', 'data-state="down"')

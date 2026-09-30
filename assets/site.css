@@ -277,6 +277,70 @@ img {
   height: 17px;
 }
 
+/* The theme control, after Skiper UI's second theme toggle (skiper4): one drawing that is a sun
+   in the light and a moon in the dark. A cut slides across the disc to make the crescent while the
+   rays turn away. It follows the same selectors as the colour tokens, so it is right before any
+   script runs and needs none. */
+
+[data-theme-btn] {
+  transition: transform 0.3s;
+}
+
+[data-theme-btn]:active {
+  transform: scale(0.95);
+}
+
+.control .sunmoon {
+  width: 22px;
+  height: 22px;
+}
+
+.sunmoon__cut,
+.sunmoon__disc,
+.sunmoon__rays {
+  transform-origin: 16px 16px;
+  transition:
+    transform 0.35s ease-in-out,
+    opacity 0.35s ease-in-out;
+}
+
+:root[data-theme='dark'] .sunmoon__cut {
+  transform: translate(-12px, 10px);
+}
+
+:root[data-theme='dark'] .sunmoon__disc {
+  transform: scale(1.25);
+}
+
+:root[data-theme='dark'] .sunmoon__rays {
+  transform: rotate(-100deg) scale(0.5);
+  opacity: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .sunmoon__cut {
+    transform: translate(-12px, 10px);
+  }
+
+  :root:not([data-theme='light']) .sunmoon__disc {
+    transform: scale(1.25);
+  }
+
+  :root:not([data-theme='light']) .sunmoon__rays {
+    transform: rotate(-100deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme-btn],
+  .sunmoon__cut,
+  .sunmoon__disc,
+  .sunmoon__rays {
+    transition: none;
+  }
+}
+
 /* On a narrow screen the sections move to their own row instead of disappearing: they are pages
    now, and a phone visitor has to be able to reach them. The row wraps rather than scrolls, so no
    item sits off the edge where nobody knows to look for it. */

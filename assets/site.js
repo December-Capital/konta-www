@@ -40,8 +40,6 @@
   /* ------------------------------------------------------------------ theme */
 
   var themeBtn = document.querySelector('[data-theme-btn]');
-  var sun = document.querySelector('[data-theme-icon="light"]');
-  var moon = document.querySelector('[data-theme-icon="dark"]');
   var systemDark = window.matchMedia('(prefers-color-scheme: dark)');
 
   function isDark() {
@@ -53,25 +51,10 @@
 
   var logos = Array.prototype.slice.call(document.querySelectorAll('[data-logo]'));
 
-  // `hidden` is defined on HTMLElement, so assigning svg.hidden = true sets a plain JavaScript
-  // property and never touches the attribute, so the icon stayed exactly as authored no matter how
-  // often the theme changed. Set the attribute.
-  function show(node, visible) {
-    if (!node) return;
-    if (visible) {
-      node.removeAttribute('hidden');
-    } else {
-      node.setAttribute('hidden', '');
-    }
-  }
-
-  // The button shows the theme you are in: a moon in the dark, a sun in the light. It reads as
-  // state rather than as an instruction, which is what people expect of a theme control. The
-  // mark swaps too: the logo's aubergine disappears against a dark ground.
+  // The control's icon is drawn by CSS from the same selectors as the colours, so only the mark is
+  // left to swap here: the logo's aubergine disappears against a dark ground.
   function paintToggle() {
     var dark = isDark();
-    show(moon, dark);
-    show(sun, !dark);
 
     logos.forEach(function (logo) {
       var wanted = dark ? 'logo-dark.png' : 'logo.png';
