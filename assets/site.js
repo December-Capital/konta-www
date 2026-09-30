@@ -115,6 +115,16 @@
 
   paintToggle();
 
+  /* -------------------------------------------------------------- copyright */
+
+  // The site went up in 2026. The markup says 2026 for anyone without script; after that the
+  // footer runs from 2026 to the visitor's current year.
+  var FIRST_YEAR = 2026;
+  var thisYear = new Date().getFullYear();
+  Array.prototype.forEach.call(document.querySelectorAll('[data-year]'), function (node) {
+    node.textContent = thisYear > FIRST_YEAR ? FIRST_YEAR + ' - ' + thisYear : String(FIRST_YEAR);
+  });
+
   /* --------------------------------------------------------------- language */
 
   var nodes = Array.prototype.slice.call(document.querySelectorAll('[data-t]'));
