@@ -28,15 +28,19 @@
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
     <link rel="stylesheet" href="/assets/site.css?v=5" />
     <script>
-      // Before first paint, so an explicit choice never flashes the other theme.
-      try {
-        var saved = localStorage.getItem('konta.theme');
-        if (saved === 'light' || saved === 'dark') {
-          document.documentElement.dataset.theme = saved;
+      // Before first paint, so the theme never flashes the other one. Light unless dark was chosen,
+      // here or in the app: the konta_theme cookie is shared by konta.md and app.konta.md (see
+      // assets/site.js), and the old localStorage copy is read for anybody who chose before it.
+      (function () {
+        var match = /(?:^|;\s*)konta_theme=(light|dark)/.exec(document.cookie);
+        var saved = match ? match[1] : null;
+        try {
+          saved = saved || localStorage.getItem('konta.theme');
+        } catch (e) {
+          /* private mode: the cookie alone decides */
         }
-      } catch (e) {
-        /* private mode: fall through to the system preference */
-      }
+        document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
+      })();
     </script>
     <script type="application/ld+json">
 {
@@ -226,7 +230,7 @@
     <script type="application/json" data-seed>
       {"lang.next": "Treci la"}
     </script>
-    <script src="/assets/site.js?v=5"></script>
+    <script src="/assets/site.js?v=6"></script>
     <script src="/assets/contact.js?v=5"></script>
   </body>
 </html>

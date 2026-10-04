@@ -21,33 +21,44 @@
 
   /* ---------------------------------------------------------------- storage */
 
-  function read(key) {
+  // Language and theme are shared with app.konta.md: two cookies on the whole konta.md domain,
+  // konta_lang and konta_theme, kept a year. Choosing English and dark here means arriving in the
+  // app in English and dark, and the reverse; the app's src/preferences.ts reads and writes the
+  // same two. Before them each site kept its own copy in localStorage (konta.lang, konta.theme),
+  // which is still read so nobody loses a choice already made.
+  var YEAR = 365 * 24 * 60 * 60;
+  var host = window.location.hostname;
+  var SHARED = host === 'konta.md' || /\.konta\.md$/.test(host) ? '; Domain=konta.md; Secure' : '';
+
+  function read(name) {
+    var match = new RegExp('(?:^|;\\s*)konta_' + name + '=([^;]*)').exec(document.cookie);
+    if (match) return decodeURIComponent(match[1]);
     try {
-      return localStorage.getItem(key);
+      return localStorage.getItem('konta.' + name);
     } catch (e) {
       return null;
     }
   }
 
-  function write(key, value) {
+  function write(name, value) {
+    document.cookie =
+      'konta_' + name + '=' + encodeURIComponent(value) + '; Path=/; Max-Age=' + YEAR + '; SameSite=Lax' + SHARED;
     try {
-      localStorage.setItem(key, value);
+      localStorage.setItem('konta.' + name, value);
     } catch (e) {
-      /* private mode: the choice lasts for this page only */
+      /* private mode: the cookie carries it */
     }
   }
 
   /* ------------------------------------------------------------------ theme */
 
   var themeBtn = document.querySelector('[data-theme-btn]');
-  var systemDark = window.matchMedia('(prefers-color-scheme: dark)');
   var lessMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+  // Light unless somebody chose dark, here or in the app. The page's first script has already
+  // set data-theme from the shared cookie.
   function isDark() {
-    var chosen = root.dataset.theme;
-    if (chosen === 'dark') return true;
-    if (chosen === 'light') return false;
-    return systemDark.matches;
+    return root.dataset.theme === 'dark';
   }
 
   var logos = Array.prototype.slice.call(document.querySelectorAll('[data-logo]'));
@@ -85,7 +96,7 @@
 
       function apply() {
         root.dataset.theme = next;
-        write('konta.theme', next);
+        write('theme', next);
         paintToggle();
       }
 
@@ -101,16 +112,6 @@
         return logosReady();
       });
     });
-  }
-
-  // Follow the system while no explicit choice has been made.
-  var onSystemChange = function () {
-    if (!root.dataset.theme) paintToggle();
-  };
-  if (systemDark.addEventListener) {
-    systemDark.addEventListener('change', onSystemChange);
-  } else if (systemDark.addListener) {
-    systemDark.addListener(onSystemChange);
   }
 
   paintToggle();
@@ -205,7 +206,7 @@
 
   function select(lang, remember) {
     if (LANGS.indexOf(lang) === -1) return;
-    if (remember) write('konta.lang', lang);
+    if (remember) write('lang', lang);
 
     if (catalogues[lang]) {
       apply(lang);
@@ -244,6 +245,6 @@
   };
 
   var asked = new URLSearchParams(window.location.search).get('lang');
-  var initial = LANGS.indexOf(asked) !== -1 ? asked : read('konta.lang');
+  var initial = LANGS.indexOf(asked) !== -1 ? asked : read('lang');
   if (initial && initial !== SOURCE) select(initial, asked === null);
 })();
