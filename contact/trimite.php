@@ -14,6 +14,12 @@
  * Spam: a honeypot field real people never see, length limits, a same-site Origin check, and at
  * most five messages an hour from one address. No captcha: the site promises the browser talks to
  * nobody but konta.md.
+ *
+ * Each message also becomes a lead in the operator console's onboarding pipeline, posted from
+ * here (the server, not the browser) to app.konta.md/api/v1/leads. That door holds no secret
+ * either, for the same reason this file holds none: it is exactly as open as this form already
+ * is. A pipeline that is down or slow never costs the visitor their message: the mail is what
+ * counts, and the lead is best effort with a short timeout.
  */
 
 declare(strict_types=1);
@@ -26,6 +32,47 @@ const TOPICS = ['demo' => 'Demo', 'partner' => 'Parteneriat', 'efactura' => 'e-F
 const SUBJECT_TOPICS = ['demo' => 'Demo', 'partner' => 'Partnership', 'efactura' => 'e-Factura', 'other' => 'Other'];
 const LANG_NAMES = ['ro' => 'română', 'ru' => 'rusă', 'en' => 'engleză'];
 const LANGS = ['ro', 'ru', 'en'];
+const LEADS = 'https://app.konta.md/api/v1/leads';
+const LEAD_TIMEOUT_SECONDS = 3;
+
+/**
+ * Puts the message into the onboarding pipeline. Best effort: any failure is swallowed, because
+ * the mail has already gone and the visitor must not be told otherwise.
+ *
+ * @param array<string, string> $lead
+ */
+function forwardLead(array $lead): void
+{
+    $json = json_encode($lead, JSON_UNESCAPED_UNICODE);
+
+    if ($json === false) {
+        return;
+    }
+
+    if (function_exists('curl_init')) {
+        $curl = curl_init(LEADS);
+        curl_setopt_array($curl, [
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $json,
+            CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'Accept: application/json'],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => LEAD_TIMEOUT_SECONDS,
+            CURLOPT_CONNECTTIMEOUT => LEAD_TIMEOUT_SECONDS,
+        ]);
+        @curl_exec($curl);
+        curl_close($curl);
+
+        return;
+    }
+
+    @file_get_contents(LEADS, false, stream_context_create(['http' => [
+        'method' => 'POST',
+        'header' => "Content-Type: application/json\r\nAccept: application/json\r\n",
+        'content' => $json,
+        'timeout' => LEAD_TIMEOUT_SECONDS,
+        'ignore_errors' => true,
+    ]]));
+}
 
 function answer(string $outcome): never
 {
@@ -294,5 +341,15 @@ if (!mail(TO, encodeHeader($subject), $body, $headers, '-f' . FROM)) {
 
 $recent[] = $now;
 @file_put_contents($ledger, implode("\n", $recent), LOCK_EX);
+
+forwardLead([
+    'name' => $name,
+    'company' => $company,
+    'email' => $email,
+    'phone' => $phone,
+    'topic' => $topic,
+    'language' => $lang,
+    'message' => $message,
+]);
 
 answer('sent');
