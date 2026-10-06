@@ -1,27 +1,31 @@
 # konta-www
 
-Site-ul [konta.md](https://konta.md), cu prezentarea programului de contabilitate Konta, în română,
-rusă și engleză.
+Site-ul [konta.md](https://konta.md), care prezintă programul de contabilitate Konta în română, rusă
+și engleză.
 
-## Ce conține
+## Ce găsiți pe el
 
-- Pagina principală și câte o pagină pentru e-Factura, trecerea de la 1C, parteneri,
-  transparență și contact, cu un formular
-- Pagina de stare, [konta.md/status](https://konta.md/status), care arată dacă aplicația
-  funcționează în acest moment
-- Temă luminoasă și întunecată, după preferința vizitatorului
+Pagina principală explică ce face Konta. Alte pagini vorbesc despre e-Factura, despre trecerea de
+la 1C, despre parteneri și despre transparență, iar pe pagina de contact ne puteți scrie direct.
 
-## Principii
+Pagina [konta.md/status](https://konta.md/status) arată dacă aplicația funcționează în acest
+moment.
 
-- **Rapid și pe internet mobil slab.** Pagini simple, fără programe grele în spate.
-- **Fără urmărire.** Nicio reclamă, niciun contor extern, nicio cerere către alte site-uri:
-  oricine poate verifica asta din browser.
-- **Accesibil.** Contrast bun, se poate folosi doar cu tastatura.
+Site-ul are o variantă luminoasă și una întunecată, iar limba și varianta aleasă se păstrează și
+în aplicație.
+
+## Cum este făcut
+
+Paginile sunt simple și se încarcă repede chiar și pe internet mobil slab. Site-ul nu vă urmărește:
+nu are reclame, nu numără vizitatorii pentru altcineva și nu încarcă nimic de pe alte site-uri, lucru
+pe care oricine îl poate verifica în browser.
+
+Textul are contrast bun, iar tot site-ul se poate folosi doar cu tastatura.
 
 ## Cum se publică
 
-O modificare făcută aici se publică printr-un singur script, iar găzduirea preia automat versiunea
-nouă. Pașii exacți sunt în [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+O modificare se publică printr-un singur script, iar găzduirea preia singură versiunea nouă. Pașii
+exacți sunt în [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 ## Proiecte înrudite
 
