@@ -22,10 +22,12 @@
   /* ---------------------------------------------------------------- storage */
 
   // Language and theme are shared with app.konta.md: two cookies on the whole konta.md domain,
-  // konta_lang and konta_theme, kept a year. Choosing English and dark here means arriving in the
-  // app in English and dark, and the reverse; the app's src/preferences.ts reads and writes the
-  // same two. Before them each site kept its own copy in localStorage (konta.lang, konta.theme),
-  // which is still read so nobody loses a choice already made.
+  // konta_lang and konta_theme, kept a year, each with konta_lang_at and konta_theme_at saying
+  // when it was chosen, so that signing in to the app keeps the newer of this choice and the
+  // account's. Choosing English and dark here means arriving in the app in English and dark, and
+  // the reverse; the app's src/preferences.ts reads and writes the same four. Before them each
+  // site kept its own copy in localStorage (konta.lang, konta.theme), which is still read so
+  // nobody loses a choice already made.
   var YEAR = 365 * 24 * 60 * 60;
   var host = window.location.hostname;
   var SHARED = host === 'konta.md' || /\.konta\.md$/.test(host) ? '; Domain=konta.md; Secure' : '';
@@ -40,9 +42,14 @@
     }
   }
 
-  function write(name, value) {
+  function cookie(name, value) {
     document.cookie =
       'konta_' + name + '=' + encodeURIComponent(value) + '; Path=/; Max-Age=' + YEAR + '; SameSite=Lax' + SHARED;
+  }
+
+  function write(name, value) {
+    cookie(name, value);
+    cookie(name + '_at', String(Date.now()));
     try {
       localStorage.setItem('konta.' + name, value);
     } catch (e) {
@@ -55,10 +62,15 @@
   var themeBtn = document.querySelector('[data-theme-btn]');
   var lessMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  // Light unless somebody chose dark, here or in the app. The page's first script has already
-  // set data-theme from the shared cookie.
+  // The device's theme unless somebody chose, here or in the app. The page's first script has
+  // already set data-theme from the shared cookie or the device.
   function isDark() {
     return root.dataset.theme === 'dark';
+  }
+
+  function chosen() {
+    var saved = read('theme');
+    return saved === 'dark' || saved === 'light';
   }
 
   var logos = Array.prototype.slice.call(document.querySelectorAll('[data-logo]'));
@@ -112,6 +124,18 @@
         return logosReady();
       });
     });
+  }
+
+  // While nobody has chosen, a device that switches between light and dark takes the page with it.
+  if (window.matchMedia) {
+    var deviceDark = window.matchMedia('(prefers-color-scheme: dark)');
+    var follow = function () {
+      if (chosen()) return;
+      root.dataset.theme = deviceDark.matches ? 'dark' : 'light';
+      paintToggle();
+    };
+    if (deviceDark.addEventListener) deviceDark.addEventListener('change', follow);
+    else if (deviceDark.addListener) deviceDark.addListener(follow);
   }
 
   paintToggle();
