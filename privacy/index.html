@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ro" data-lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-t="priv.meta.title">Confidențialitate · Konta</title>
+    <meta name="description" data-t="priv.meta.description" content="Ce date primim prin formularul de contact de pe konta.md, de ce, cât timp le păstrăm și cum ne cereți să le vedeți, să le corectăm sau să le ștergem." />
+    <link rel="canonical" href="https://konta.md/privacy/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Konta" />
+    <meta property="og:locale" content="ro_MD" />
+    <meta property="og:url" content="https://konta.md/privacy/" />
+    <meta property="og:title" content="Confidențialitate · Konta" />
+    <meta property="og:description" content="Ce date primim prin formularul de contact de pe konta.md, de ce, cât timp le păstrăm și cum ne cereți să le vedeți, să le corectăm sau să le ștergem." />
+    <meta property="og:image" content="https://konta.md/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Konta · contabilitate pentru companiile din Moldova" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Confidențialitate · Konta" />
+    <meta name="twitter:description" content="Ce date primim prin formularul de contact de pe konta.md, de ce, cât timp le păstrăm și cum ne cereți să le vedeți, să le corectăm sau să le ștergem." />
+    <meta name="twitter:image" content="https://konta.md/assets/og.png" />
+    <meta name="theme-color" content="#f6f4f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16161a" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/assets/favicon.png" type="image/png" />
+    <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/assets/fonts.css?v=5" />
+    <link rel="stylesheet" href="/assets/site.css?v=5" />
+    <script>
+      // Before first paint, so the theme never flashes the other one. The device's theme unless
+      // one was chosen, here or in the app: the konta_theme cookie is shared by konta.md and app.konta.md (see
+      // assets/site.js), and the old localStorage copy is read for anybody who chose before it.
+      (function () {
+        var match = /(?:^|;\s*)konta_theme=(light|dark)/.exec(document.cookie);
+        var saved = match ? match[1] : null;
+        try {
+          saved = saved || localStorage.getItem('konta.theme');
+        } catch (e) {
+          /* private mode: the cookie alone decides */
+        }
+        if (saved !== 'dark' && saved !== 'light') {
+          saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = saved;
+      })();
+    </script>
+    <script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Konta",
+          "item": "https://konta.md/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Confidențialitate",
+          "item": "https://konta.md/privacy/"
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main" data-t="skip">Sari la conținut</a>
+
+    <header class="masthead">
+      <div class="shell masthead__bar">
+        <a class="brand" href="/">
+          <img class="brand__mark" src="/assets/logo.png" alt="Konta" width="40" height="30" data-logo />
+          <span class="brand__name">Konta</span>
+        </a>
+
+        <nav class="sections" aria-label="Secțiuni" data-t-aria-label="nav.label">
+          <a href="/e-factura/" data-t="nav.efactura">e-Factura</a>
+          <a href="/fara-programator/" data-t="nav.noprog">Fără programator</a>
+          <a href="/trecerea-de-la-1c/" data-t="nav.move">Trecerea de la 1C</a>
+          <a href="/parteneri/" data-t="nav.partners">Parteneri</a>
+          <a href="/contact/" data-t="nav.contact">Contact</a>
+        </nav>
+
+        <div class="controls">
+          <button
+            type="button"
+            class="control"
+            data-lang-cycle
+            lang="ro"
+            aria-label="RO. Treci la Русский"
+            title="Русский"
+          >
+            RO
+          </button>
+
+          <button
+            type="button"
+            class="control"
+            data-theme-btn
+            aria-label="Schimbă tema"
+            data-t-aria-label="theme.label"
+          >
+            <svg class="sunmoon" viewBox="0 0 32 32" fill="currentColor" stroke-linecap="round" aria-hidden="true">
+              <clipPath id="sunmoon-cut">
+                <path class="sunmoon__cut" d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
+              </clipPath>
+              <g clip-path="url(#sunmoon-cut)">
+                <circle class="sunmoon__disc" cx="16" cy="16" r="8" />
+                <g class="sunmoon__rays" stroke="currentColor" stroke-width="1.5">
+                  <path d="M16 5.5v-4M16 30.5v-4M1.5 16h4M26.5 16h4M23.4 8.6l2.8-2.8M5.7 26.3l2.9-2.9M5.8 5.8l2.8 2.8M23.4 23.4l2.9 2.9" />
+                </g>
+              </g>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="notice">
+      <div class="shell notice__bar">
+        <span class="notice__flag" data-t="dev.flag">În dezvoltare</span>
+        <p data-t="dev.text">Konta este încă în lucru. Pe acest site descriem produsul pe care îl construim și cât am avansat. Deocamdată nu se poate cumpăra.</p>
+      </div>
+    </div>
+
+    <main id="main">
+      <section class="hero hero--page">
+        <div class="shell">
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <a href="/" data-t="crumb.home">Acasă</a>
+            <span aria-hidden="true">·</span>
+            <span aria-current="page" data-t="priv.title">Confidențialitate</span>
+          </nav>
+          <h1 data-t="priv.title">Confidențialitate</h1>
+          <p class="hero__lead" data-t="priv.p1">Pe scurt: folosim datele din formularul de contact ca să vă răspundem și, dacă ne cereți un demo, ca să vă contactăm despre Konta. Nu le vindem și nu le dăm nimănui în scop de marketing, iar site-ul nu vă urmărește.</p>
+          <p class="updated" data-t="priv.updated">Ultima actualizare: 14 octombrie 2026</p>
+        </div>
+      </section>
+
+      <section class="band band--quiet">
+        <div class="shell">
+          <ul class="claims">
+            <li>
+              <h2 data-t="priv.who.h">Cine răspunde de date</h2>
+              <p data-t="priv.who.p">Operatorul datelor este December Capital SRL, IDNO 1005600041997, str. M. Sadoveanu, Chișinău MD-2075, Republica Moldova. Noi facem Konta și administrăm site-ul konta.md. Pentru orice întrebare despre datele dumneavoastră ne scrieți la mail@konta.md.</p>
+            </li>
+            <li>
+              <h2 data-t="priv.what.h">Ce date primim și de ce</h2>
+              <p data-t="priv.what.p1">Formularul de contact: numele, adresa de e-mail și mesajul (obligatorii), firma și telefonul (opționale), subiectul ales din listă și limba în care citeați pagina. Le folosim ca să vă răspundem și, dacă ne cereți un demo, ca să vă contactăm despre Konta.</p>
+              <p data-t="priv.what.p2">Adresa IP de pe care trimiteți formularul. Serverul o folosește ca să limiteze numărul de mesaje, cel mult cinci pe oră de la aceeași adresă, ca formularul să nu poată fi folosit pentru spam. O transmitem și aplicației Konta împreună cu mesajul, pentru aceeași limită.</p>
+              <p data-t="priv.what.p3">Dacă ne scrieți direct pe e-mail sau ne sunați, primim doar ce ne spuneți sau ne trimiteți acolo.</p>
+            </li>
+            <li>
+              <h2 data-t="priv.basis.h">Temeiul prelucrării</h2>
+              <p data-t="priv.basis.p1">Vă răspundem pentru că ne-ați scris și ne-ați dat datele în acest scop: prelucrarea se face cu consimțământul dumneavoastră și, când ne cereți un demo sau o ofertă, la cererea dumneavoastră, ca pas înainte de un eventual contract. Limitarea mesajelor după adresa IP protejează formularul de abuz, care este interesul nostru legitim.</p>
+              <p data-t="priv.basis.p2">Aplicăm Legea nr. 133/2011 privind protecția datelor cu caracter personal a Republicii Moldova.</p>
+            </li>
+            <li>
+              <h2 data-t="priv.to.h">Cine mai are acces</h2>
+              <p data-t="priv.to.p1">Hostinger, furnizorul nostru de găzduire și de e-mail: site-ul, formularul și cutia poștală în care ajunge mesajul se află la ei.</p>
+              <p data-t="priv.to.p2">Baza de date a aplicației Konta (app.konta.md): fiecare mesaj ajunge și acolo, ca cerere de contact pe care o urmărim până la răspuns. Serverul aplicației este închiriat, în prezent, tot de la Hostinger.</p>
+              <p data-t="priv.to.p3">Nimeni altcineva. Nu vindem, nu închiriem și nu dăm datele mai departe în scop de marketing.</p>
+            </li>
+            <li>
+              <h2 data-t="priv.keep.h">Cât timp le păstrăm</h2>
+              <p data-t="priv.keep.p1">Mesajele și cererile care nu ajung la o colaborare: cel mult 12 luni de la ultimul mesaj schimbat, apoi le ștergem. Dacă discuția devine contract, documentele contractului se păstrează cât cere legea.</p>
+              <p data-t="priv.keep.p2">Contorul care limitează mesajele ține adresa IP cel mult o oră de la ultima încercare, apoi o șterge.</p>
+            </li>
+            <li>
+              <h2 data-t="priv.cookies.h">Cookie-uri și stocarea din browser</h2>
+              <p data-t="priv.cookies.p1">Site-ul nu folosește instrumente de analiză, de urmărire sau de publicitate și nu încarcă nimic de pe alte site-uri. În browser păstrează doar limba și tema pe care le alegeți: cookie-urile konta_lang și konta_theme, împreună cu konta_lang_at și konta_theme_at, care rețin când ați ales. Sunt comune cu app.konta.md, ca aplicația să se deschidă în aceeași limbă și temă, și expiră după un an. Aceleași două valori se păstrează și în memoria browserului (konta.lang, konta.theme).</p>
+            </li>
+            <li>
+              <h2 data-t="priv.rights.h">Drepturile dumneavoastră</h2>
+              <p data-t="priv.rights.p1">Potrivit Legii nr. 133/2011, puteți afla ce date avem despre dumneavoastră, ne puteți cere să le corectăm, să le ștergem sau să le blocăm și vă puteți opune prelucrării lor. Scrieți-ne la mail@konta.md: răspundem în cel mult 15 zile.</p>
+              <p data-t="priv.rights.p2">Aveți și dreptul să depuneți o plângere la Centrul Național pentru Protecția Datelor cu Caracter Personal al Republicii Moldova sau să vă adresați instanței de judecată.</p>
+              <p><a href="mailto:mail@konta.md">mail@konta.md</a> · <a href="https://datepersonale.md" rel="noopener">datepersonale.md</a></p>
+            </li>
+            <li>
+              <h2 data-t="priv.changes.h">Schimbări</h2>
+              <p data-t="priv.changes.p">Dacă schimbăm felul în care folosim datele, actualizăm această pagină și data de mai sus. O schimbare care ar cere un acord nou nu se aplică fără el.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="shell foot__bar">
+        <span>© <span data-year>2026</span> <a href="https://itin.md" class="foot__owner">December Capital</a></span>
+        <a href="/transparenta/" data-t="foot.transparency">Transparență</a>
+        <a href="/privacy/" data-t="foot.privacy">Confidențialitate</a>
+        <a href="/status/" data-t="foot.status">Stare serviciu</a>
+        <a href="https://app.konta.md" class="foot__spacer" data-t="foot.app">Intrare în aplicație</a>
+      </div>
+    </footer>
+
+    <script type="application/json" data-seed>
+      {"lang.next": "Treci la"}
+    </script>
+    <script src="/assets/site.js?v=7"></script>
+  </body>
+</html>

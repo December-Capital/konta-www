@@ -794,6 +794,17 @@ img {
   margin-top: 8px;
 }
 
+/* The privacy page puts several paragraphs under one heading. */
+.claims p + p {
+  margin-top: 10px;
+}
+
+.updated {
+  margin-top: 14px;
+  font-size: 0.875rem;
+  color: var(--ink-3);
+}
+
 /* Contact */
 .reach {
   display: flex;

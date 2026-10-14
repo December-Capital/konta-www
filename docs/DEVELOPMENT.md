@@ -12,10 +12,11 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `index.html` | `konta.md` and `www.konta.md` |
 | `e-factura/`, `fara-programator/`, `trecerea-de-la-1c/`, `parteneri/`, `transparenta/` | one topic each, reached from the header and the home page cards |
 | `contact/index.html`, `contact/trimite.php` | the contact page and the handler its form posts to |
+| `privacy/index.html` | what the form collects, why, for how long, and the visitor's rights; linked from the form and every footer |
 | `.well-known/security.txt` | where to report a security problem (RFC 9116); renew its `Expires` before 2027-10-14 |
 | `status/index.html` | `konta.md/status`, reachability of the app, checked from the visitor's browser (noindex) |
 | `404.html` | served by `.htaccess` for any missing path, with a real 404 status (noindex) |
-| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the seven indexable pages |
+| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the eight indexable pages |
 | `assets/` | stylesheet, scripts, the three language catalogues, logo, fonts, `og.png` (the 1200x630 share image) |
 | `tools/` | scripts that are run by hand, never served |
 
