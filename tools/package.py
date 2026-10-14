@@ -22,10 +22,12 @@ import shutil
 import sys
 import zipfile
 
-# Everything here is served. Everything not here is not.
+# Everything here is served. Everything not here is not. Dotted names are listed like any other:
+# .well-known/ holds security.txt, and nothing here skips a name for starting with a dot.
 SERVED = [
-    'index.html', '404.html', 'robots.txt', 'sitemap.xml', '.htaccess', 'assets', 'status',
-    'e-factura', 'fara-programator', 'trecerea-de-la-1c', 'parteneri', 'transparenta', 'contact',
+    'index.html', '404.html', 'robots.txt', 'sitemap.xml', '.htaccess', '.well-known', 'assets',
+    'status', 'e-factura', 'fara-programator', 'trecerea-de-la-1c', 'parteneri', 'transparenta',
+    'contact',
 ]
 
 DEFAULT = os.path.join('..', 'kontamd-deploy')

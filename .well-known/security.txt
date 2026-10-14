@@ -1,0 +1,4 @@
+Contact: mailto:mail@konta.md
+Expires: 2027-10-14T00:00:00.000Z
+Preferred-Languages: ro, ru, en
+Canonical: https://konta.md/.well-known/security.txt

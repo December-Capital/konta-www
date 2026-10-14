@@ -4,25 +4,44 @@
  * Konta's branded layout with a plain-text part beside it. Subject: "[konta.md] <Name> from
  * <Company> on <Topic>".
  *
- * It runs on the static host, so it holds no secret: it sends through the host's own mail(),
- * which Hostinger delivers for the domain's own addresses, and the SPF record already covers.
- * If PHP were ever switched off and this file served as text, nothing would leak.
+ * The file itself holds no secret: it sends through the host's own mail(), which Hostinger
+ * delivers for the domain's own addresses, and the SPF record already covers. If PHP were ever
+ * switched off and this file served as text, nothing would leak. The one secret it uses lives
+ * outside public_html, see below.
  *
  * Answers JSON to the page's script (Accept: application/json) and a 303 back to the form to a
  * browser without JavaScript, landing on the matching message through the URL fragment.
  *
- * Spam: a honeypot field real people never see, length limits, a same-site Origin check, and at
- * most five messages an hour from one address. No captcha: the site promises the browser talks to
- * nobody but konta.md.
+ * Spam: a honeypot field real people never see, length limits, an Origin that has to be exactly
+ * https://konta.md (a post without one is refused too, every current browser sends it on a POST),
+ * and at most five attempts an hour from one address. No captcha: the site promises the browser
+ * talks to nobody but konta.md.
+ *
+ * The private directory is konta-private/, next to public_html rather than inside it (on
+ * Hostinger, domains/konta.md/konta-private/), so no URL reaches it and no publish overwrites it.
+ * It holds two things:
+ *
+ *   contact-throttle/  one small file per hashed address with the times of its recent attempts.
+ *                      Created 0700 on first use. A file untouched for an hour is deleted.
+ *   lead-key           the key that signs leads (below). Placed by hand, never in git.
  *
  * Each message also becomes a lead in the operator console's onboarding pipeline, posted from
- * here (the server, not the browser) to app.konta.md/api/v1/leads. That door holds no secret
- * either, for the same reason this file holds none: it is exactly as open as this form already
- * is. A pipeline that is down or slow never costs the visitor their message: the mail is what
- * counts, and the lead is best effort with a short timeout.
+ * here (the server, not the browser) to app.konta.md/api/v1/leads. The post is signed with
+ * HMAC-SHA256 so the API can tell a lead that came through this form from one posted at it
+ * directly: X-Konta-Lead-Timestamp (unix seconds), X-Konta-Lead-For (the visitor's address, so
+ * the API can apply its own limits per visitor rather than per web host), and
+ * X-Konta-Lead-Signature, the lowercase hex HMAC of "<timestamp>\n<for>\n<body>". The key is the
+ * KONTA_LEAD_KEY environment variable if the host sets one, otherwise konta-private/lead-key; with
+ * neither, the lead goes unsigned, exactly as before signing existed. A pipeline that is down or
+ * slow never costs the visitor their message: the mail is what counts, and the lead is best effort
+ * with a short timeout.
  */
 
 declare(strict_types=1);
+
+// expose_php cannot be switched off from .htaccess on this host, so the version header is taken
+// off here, before anything is sent. .htaccess unsets it too, for whatever PHP adds after this.
+header_remove('X-Powered-By');
 
 const TO = 'mail@konta.md';
 const FROM = 'mail@konta.md';
@@ -34,6 +53,104 @@ const LANG_NAMES = ['ro' => 'română', 'ru' => 'rusă', 'en' => 'engleză'];
 const LANGS = ['ro', 'ru', 'en'];
 const LEADS = 'https://app.konta.md/api/v1/leads';
 const LEAD_TIMEOUT_SECONDS = 3;
+// The only page this form lives on. www.konta.md redirects to it before any page is served, so a
+// genuine post never carries another origin.
+const ORIGIN = 'https://konta.md';
+
+/**
+ * konta-private/ beside the document root, or null when the server does not say where that is.
+ * Outside public_html on purpose: nothing in it can be fetched over HTTP, and a publish, which
+ * rewrites public_html wholesale, never touches it.
+ */
+function privateDir(): ?string
+{
+    $root = rtrim((string) ($_SERVER['DOCUMENT_ROOT'] ?? ''), '/');
+
+    return $root === '' ? null : dirname($root) . '/konta-private';
+}
+
+/** The key that signs leads, or null when none has been placed: the lead then goes unsigned. */
+function leadKey(): ?string
+{
+    $env = getenv('KONTA_LEAD_KEY');
+    if (is_string($env) && trim($env) !== '') {
+        return trim($env);
+    }
+
+    $dir = privateDir();
+    $file = $dir === null ? null : $dir . '/lead-key';
+    if ($file === null || !is_readable($file)) {
+        return null;
+    }
+
+    $key = trim((string) file_get_contents($file));
+
+    return $key === '' ? null : $key;
+}
+
+/**
+ * Counts this attempt against the address and says whether it is still within PER_HOUR.
+ *
+ * Every attempt counts, before anything is sent, so a burst of posts cannot all slip in while
+ * the first ones are still being mailed. The file is read and rewritten under an exclusive
+ * lock, so two posts at the same moment cannot both read "four" and both write "five". Only the
+ * latest PER_HOUR times are kept: that is all the check needs, and it keeps a file hammered by a
+ * bot the same few bytes.
+ *
+ * Returns null when the counter cannot be kept at all. The caller refuses the message then: an
+ * uncounted form is an unlimited mail relay into our own inbox and the lead pipeline, and the
+ * failure note on the page already gives the visitor mail@konta.md to write to directly.
+ */
+function withinLimit(string $ip, int $now): ?bool
+{
+    $base = privateDir();
+    if ($base === null) {
+        return null;
+    }
+
+    $dir = $base . '/contact-throttle';
+    if (!is_dir($dir) && !@mkdir($dir, 0700, true) && !is_dir($dir)) {
+        return null;
+    }
+
+    // Addresses kept here are gone an hour after their last attempt, which is what the privacy
+    // page promises. A file somebody else holds locked is in use, so it is left for next time.
+    // This sweep only runs when somebody posts; a Hostinger cron job running
+    //   find ~/domains/konta.md/konta-private/contact-throttle -type f -mmin +60 -delete
+    // every quarter of an hour keeps the promise through the hours when nobody does.
+    foreach (glob($dir . '/*') ?: [] as $old) {
+        if (@filemtime($old) < $now - 3600) {
+            $handle = @fopen($old, 'r');
+            if ($handle !== false && flock($handle, LOCK_EX | LOCK_NB)) {
+                @unlink($old);
+            }
+            if ($handle !== false) {
+                fclose($handle);
+            }
+        }
+    }
+
+    $handle = @fopen($dir . '/' . hash('sha256', 'konta.md|' . $ip), 'c+');
+    if ($handle === false || !flock($handle, LOCK_EX)) {
+        return null;
+    }
+
+    $recent = array_values(array_filter(
+        array_map('intval', explode("\n", (string) stream_get_contents($handle))),
+        static fn (int $at): bool => $at > $now - 3600
+    ));
+    $allowed = count($recent) < PER_HOUR;
+    $recent[] = $now;
+
+    ftruncate($handle, 0);
+    rewind($handle);
+    fwrite($handle, implode("\n", array_slice($recent, -PER_HOUR)));
+    fflush($handle);
+    flock($handle, LOCK_UN);
+    fclose($handle);
+
+    return $allowed;
+}
 
 /**
  * Puts the message into the onboarding pipeline. Best effort: any failure is swallowed, because
@@ -41,7 +158,7 @@ const LEAD_TIMEOUT_SECONDS = 3;
  *
  * @param array<string, string> $lead
  */
-function forwardLead(array $lead): void
+function forwardLead(array $lead, string $for): void
 {
     $json = json_encode($lead, JSON_UNESCAPED_UNICODE);
 
@@ -49,12 +166,24 @@ function forwardLead(array $lead): void
         return;
     }
 
+    $headers = ['Content-Type: application/json', 'Accept: application/json'];
+
+    // Signed over exactly the bytes posted, so the API checks what it received and nothing
+    // re-encoded on the way. The timestamp lets it refuse a replay of an old lead.
+    $key = leadKey();
+    if ($key !== null) {
+        $timestamp = (string) time();
+        $headers[] = 'X-Konta-Lead-Timestamp: ' . $timestamp;
+        $headers[] = 'X-Konta-Lead-For: ' . $for;
+        $headers[] = 'X-Konta-Lead-Signature: ' . hash_hmac('sha256', $timestamp . "\n" . $for . "\n" . $json, $key);
+    }
+
     if (function_exists('curl_init')) {
         $curl = curl_init(LEADS);
         curl_setopt_array($curl, [
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $json,
-            CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'Accept: application/json'],
+            CURLOPT_HTTPHEADER => $headers,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => LEAD_TIMEOUT_SECONDS,
             CURLOPT_CONNECTTIMEOUT => LEAD_TIMEOUT_SECONDS,
@@ -67,7 +196,7 @@ function forwardLead(array $lead): void
 
     @file_get_contents(LEADS, false, stream_context_create(['http' => [
         'method' => 'POST',
-        'header' => "Content-Type: application/json\r\nAccept: application/json\r\n",
+        'header' => implode("\r\n", $headers) . "\r\n",
         'content' => $json,
         'timeout' => LEAD_TIMEOUT_SECONDS,
         'ignore_errors' => true,
@@ -238,13 +367,27 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     exit;
 }
 
-// A form posted from somebody else's page is refused: the Origin has to name the host that served
-// this script. A missing Origin is allowed, since some older browsers omit it and the other checks
-// still apply.
+// A form posted from somebody else's page is refused: the Origin has to be exactly ORIGIN. A
+// missing Origin is refused as well. Every browser in use sends one on a POST, same-site or not,
+// so a post without one did not come from the form on this site. Under
+// PHP's built-in server (the local trial in docs/DEVELOPMENT.md) the page's own origin also
+// passes; that server never runs on the host.
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-$host = strtolower($_SERVER['HTTP_HOST'] ?? '');
-if ($origin !== '' && strtolower((string) parse_url($origin, PHP_URL_HOST) . (parse_url($origin, PHP_URL_PORT) ? ':' . parse_url($origin, PHP_URL_PORT) : '')) !== $host) {
+$local = PHP_SAPI === 'cli-server' && $origin === 'http://' . ($_SERVER['HTTP_HOST'] ?? '');
+if ($origin !== ORIGIN && !$local) {
     answer('refused');
+}
+
+// At most PER_HOUR attempts an hour from one address. Counted here, before the honeypot and the
+// validation, so that whatever a sender does with the fields, every post costs it one.
+$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+$allowed = withinLimit($ip, time());
+if ($allowed === null) {
+    error_log('konta contact: cannot keep the throttle counter under konta-private/contact-throttle, refusing');
+    answer('failed');
+}
+if ($allowed === false) {
+    answer('limited');
 }
 
 // A bot fills every field. Tell it everything went well, and send nothing.
@@ -262,21 +405,6 @@ $message = trim(mb_substr(str_replace("\r\n", "\n", field('message')), 0, 5000))
 
 if ($name === '' || $message === '' || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
     answer('incomplete');
-}
-
-// At most PER_HOUR messages an hour from one address, counted in a file per hashed address.
-$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-$ledger = sys_get_temp_dir() . '/konta-contact-' . hash('sha256', 'konta.md|' . $ip);
-$now = time();
-$recent = [];
-if (is_readable($ledger)) {
-    $recent = array_filter(
-        array_map('intval', explode("\n", (string) file_get_contents($ledger))),
-        static fn (int $at): bool => $at > $now - 3600
-    );
-}
-if (count($recent) >= PER_HOUR) {
-    answer('limited');
 }
 
 // "[konta.md] Ion Popescu from Contabil SRL on Demo", or without "from …" when no company was given.
@@ -339,9 +467,6 @@ if (!mail(TO, encodeHeader($subject), $body, $headers, '-f' . FROM)) {
     answer('failed');
 }
 
-$recent[] = $now;
-@file_put_contents($ledger, implode("\n", $recent), LOCK_EX);
-
 forwardLead([
     'name' => $name,
     'company' => $company,
@@ -350,6 +475,6 @@ forwardLead([
     'topic' => $topic,
     'language' => $lang,
     'message' => $message,
-]);
+], $ip);
 
 answer('sent');

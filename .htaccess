@@ -23,6 +23,7 @@
 # .git is the one that matters: a served .git directory hands over the full history, every
 # branch, and anything ever committed by mistake. 404 rather than 403, so a probe learns nothing
 # from the answer.
+# /.well-known/ is meant to be fetched (security.txt), and none of the patterns below match it.
 RedirectMatch 404 (?i)/\.git(/|$)
 RedirectMatch 404 (?i)/tools/
 RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
@@ -59,8 +60,36 @@ RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
 
   # Nothing on this site is meant to be framed, and no page needs a referrer sent onward.
   Header always set X-Content-Type-Options "nosniff"
-  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Frame-Options "DENY"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # The PHP version is nobody's business. trimite.php also removes it itself, since expose_php
+  # cannot be switched off from here.
+  Header always unset X-Powered-By
+
+  # A year of https only, after the first visit. Without includeSubDomains, on purpose:
+  # autoconfig.konta.md and autodiscover.konta.md point at Hostinger's mail servers, which hold no
+  # certificate for those names, so mail clients reach them over plain http, and a client that
+  # had picked up includeSubDomains from konta.md would refuse them. app.konta.md and
+  # admin.konta.md send their own Strict-Transport-Security, and www.konta.md only redirects
+  # here. Add includeSubDomains the day those two mail names are gone or have a certificate.
+  Header always set Strict-Transport-Security "max-age=31536000"
+
+  # What a page may load, which is what the site already does and no more: everything from
+  # konta.md itself, plus the status page's check of app.konta.md (connect-src). The one inline
+  # script, the theme set before first paint, is identical on every page and is allowed by its
+  # hash. If that script changes by a single character the hash changes too, and the theme
+  # flashes until this line is updated:
+  #   python -c "import re,hashlib,base64;s=re.search(r'<script>(.*?)</script>',open('index.html',encoding='utf-8').read(),re.S).group(1);print(base64.b64encode(hashlib.sha256(s.encode()).digest()).decode())"
+  # The JSON-LD and data-seed blocks are data, not scripts, and need nothing. No inline styles
+  # exist, so style-src is 'self' alone. The form posts to its own handler (form-action), which
+  # redirects back to /contact/. Hostinger adds its own "upgrade-insecure-requests" CSP header on
+  # this host; a second policy only ever narrows, and it is repeated here so it holds without them.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-VUbGoQn/a9/OfKgyaxqVhyUF602ej76TY7uy8/CSkfs='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self' https://app.konta.md; form-action 'self'; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"
+
+  # No page needs a camera, a microphone, the visitor's location, a payment sheet or a USB device,
+  # so none can ask, nor anything embedded in it.
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
 </IfModule>
 
 <IfModule mod_deflate.c>
@@ -70,7 +99,9 @@ RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
 # A missing page gets our own 404 page, with a real 404 status, not the host's branded one.
 ErrorDocument 404 /404.html
 
-# The sitemap is XML; some older builds serve it as text.
+# The sitemap is XML; some older builds serve it as text. robots.txt and
+# .well-known/security.txt are plain text, and RFC 9116 wants the charset said.
 <IfModule mod_mime.c>
   AddType application/xml .xml
+  AddCharset utf-8 .txt
 </IfModule>

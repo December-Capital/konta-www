@@ -12,6 +12,7 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `index.html` | `konta.md` and `www.konta.md` |
 | `e-factura/`, `fara-programator/`, `trecerea-de-la-1c/`, `parteneri/`, `transparenta/` | one topic each, reached from the header and the home page cards |
 | `contact/index.html`, `contact/trimite.php` | the contact page and the handler its form posts to |
+| `.well-known/security.txt` | where to report a security problem (RFC 9116); renew its `Expires` before 2027-10-14 |
 | `status/index.html` | `konta.md/status`, reachability of the app, checked from the visitor's browser (noindex) |
 | `404.html` | served by `.htaccess` for any missing path, with a real 404 status (noindex) |
 | `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the seven indexable pages |
@@ -37,15 +38,28 @@ no `hreflang` alternates on purpose: `?lang=ru` serves the same HTML until the s
 ## The contact form
 
 `contact/trimite.php` mails the message to `mail@konta.md` through the host's own `mail()`, with
-`Reply-To` set to the sender, so the file holds no secret. The subject reads
+`Reply-To` set to the sender. The subject reads
 `[konta.md] <Name> from <Company> on <Topic>`; the body is multipart, a plain-text part and an HTML
 part in Konta's mail layout (the same one as `/root/agent/konta_email_template.html` and the app's
-invitation mail), with every typed value HTML-escaped. It refuses a post whose `Origin` is not
-the host that served it, drops anything that fills the hidden `website` field, validates lengths
-and the address, strips line breaks from everything that reaches a header, and accepts at most
-five messages an hour from one IP (a file per hashed address in the system temp directory). With
+invitation mail), with every typed value HTML-escaped. It refuses a post whose `Origin` is not exactly
+`https://konta.md` (a missing one included), counts every attempt before sending and allows five
+an hour from one IP, drops anything that fills the hidden `website` field, validates lengths and
+the address, and strips line breaks from everything that reaches a header. With
 JavaScript the page posts it in place (`assets/contact.js`); without, the handler redirects to
 `/contact/#trimis` (or `#incomplet`, `#limitat`, `#eroare`) and CSS `:target` shows the message.
+
+It keeps state in `konta-private/`, beside `public_html` rather than in it (on Hostinger,
+`domains/konta.md/konta-private/`), so no URL reaches it and no publish overwrites it:
+
+- `contact-throttle/`: one file per hashed address, created `0700` on first use, read and
+  rewritten under `flock`. If it cannot be created the form refuses every message (and logs why),
+  because an uncounted form is an unlimited relay into the inbox; the failure note gives the
+  visitor `mail@konta.md`.
+- `lead-key`: placed by hand, never in git. With it, each lead posted to
+  `app.konta.md/api/v1/leads` carries `X-Konta-Lead-Timestamp`, `X-Konta-Lead-For` (the visitor's
+  address) and `X-Konta-Lead-Signature`, the hex HMAC-SHA256 of `timestamp \n for \n body` under
+  that key. A `KONTA_LEAD_KEY` environment variable takes precedence. With neither, leads go
+  unsigned. The same key goes into the app's configuration.
 
 To try it locally with the mail captured to files instead of sent:
 
@@ -53,6 +67,9 @@ To try it locally with the mail captured to files instead of sent:
 printf '#!/bin/sh\ncat > /tmp/mail-$(date +%%s%%N).eml\n' > /tmp/fake-sendmail && chmod +x /tmp/fake-sendmail
 php -d sendmail_path=/tmp/fake-sendmail -S 127.0.0.1:8765
 ```
+
+Under the built-in server the page's own origin is accepted too, so the form works from
+`http://127.0.0.1:8765/contact/`. The throttle lands in `konta-private/` beside the checkout.
 
 ## Writing on this site
 
@@ -127,7 +144,7 @@ neither. Look at the pictures.
 
 This repository is not the website. It also holds this README and `tools/`, none of which should
 ever be readable over HTTP. What is served is listed in `tools/package.py` (SERVED): `index.html`, `robots.txt`,
-`.htaccess`, `status/` and `assets/`.
+`.htaccess`, `.well-known/`, `status/`, `assets/` and one folder per page.
 
 Those are copied into `../kontamd-deploy/`, which is its own git repository
 (`systematiq-one/kontamd-deploy`) and is what Hostinger pulls. Nothing needs building, so what is
@@ -155,7 +172,11 @@ somebody passed the wrong flag. `publish.py` refuses to run if the deploy folder
 repository pointing at the expected remote.
 
 `.htaccess` is a dotfile and the file manager hides it by default, check it actually arrived,
-because it carries the canonical redirect, the woff2 media type, and the cache headers.
+because it carries the canonical redirect, the woff2 media type, the cache headers and the
+security headers (HSTS, Content-Security-Policy, Permissions-Policy). The CSP allows the one inline
+script, the theme set before first paint, by its hash: change that script on the pages and the
+hash in `.htaccess` has to change with it, or the theme flashes. The command that prints it is in
+the comment above the header.
 
 **Caching is the thing that will waste an afternoon.** This host defaults css and js to a week,
 so a visitor who has loaded the site once keeps the old stylesheet and script while getting the
