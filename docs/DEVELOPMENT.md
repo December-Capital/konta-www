@@ -12,11 +12,13 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `index.html` | `konta.md` and `www.konta.md` |
 | `e-factura/`, `fara-programator/`, `trecerea-de-la-1c/`, `parteneri/`, `transparenta/` | one topic each, reached from the header and the home page cards |
 | `contact/index.html`, `contact/trimite.php` | the contact page and the handler its form posts to |
+| `intrebari/index.html` | ten questions to put to any accounting software vendor, each with Konta's answer and where it stands (FAQPage JSON-LD); footer |
+| `securitate/index.html` | security facts, each "done", "before the first pilot" or "later", who processes data, how to report a problem; footer |
 | `privacy/index.html` | what the form collects, why, for how long, and the visitor's rights; linked from the form and every footer |
 | `.well-known/security.txt` | where to report a security problem (RFC 9116); renew its `Expires` before 2027-10-14 |
 | `status/index.html` | `konta.md/status`, reachability of the app, checked from the visitor's browser (noindex) |
 | `404.html` | served by `.htaccess` for any missing path, with a real 404 status (noindex) |
-| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the eight indexable pages |
+| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the ten indexable pages |
 | `assets/` | stylesheet, scripts, the three language catalogues, logo, fonts, `og.png` (the 1200x630 share image) |
 | `tools/` | scripts that are run by hand, never served |
 
@@ -30,7 +32,7 @@ commit and a deploy is a pull. Keep it that way until a page needs something a p
 
 Each indexable page carries its own title and description (both translated by `data-t`), a
 canonical URL with a trailing slash, Open Graph and Twitter tags pointing at `assets/og.png`, and
-JSON-LD: `Organization` and `WebSite` on the home page, `BreadcrumbList` on the others. One `h1`
+JSON-LD: `Organization` and `WebSite` on the home page, `BreadcrumbList` on the others, and `FAQPage` on `intrebari/`, whose text must stay word for word the Romanian on the page. One `h1`
 per page. When a page is added, add it to `sitemap.xml` and to `SERVED` in `tools/package.py`.
 
 Languages switch in the browser on the same URL, so search engines index the Romanian. There are
@@ -77,6 +79,11 @@ Under the built-in server the page's own origin is accepted too, so the form wor
 No long dashes anywhere, in any language: a comma, a colon, a full stop or a middle dot (`·`)
 instead. Keep the sentences plain and specific, and keep every figure traceable to
 `konta-rulebook`: the site says nothing about a rate or a law that the rulebook does not.
+
+Three places say where the product stands, each dated: the home page's "Ce funcționează azi",
+`intrebari/` and `securitate/`. Each line there must match `HANDOFF.md` in the product
+repository, with "will" for anything not built. When something lands or a plan changes, move the
+line and change the date on all three, in all three languages.
 
 ## Language
 

@@ -27,7 +27,7 @@ import zipfile
 SERVED = [
     'index.html', '404.html', 'robots.txt', 'sitemap.xml', '.htaccess', '.well-known', 'assets',
     'status', 'e-factura', 'fara-programator', 'trecerea-de-la-1c', 'parteneri', 'transparenta',
-    'contact', 'privacy',
+    'contact', 'privacy', 'intrebari', 'securitate',
 ]
 
 DEFAULT = os.path.join('..', 'kontamd-deploy')

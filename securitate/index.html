@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="ro" data-lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-t="sec.meta.title">Securitate · ce este făcut și ce urmează · Konta</title>
+    <meta name="description" data-t="sec.meta.description" content="Cum păstrează Konta datele contabile în siguranță: ce este făcut azi și ce facem înainte de primul client pilot. Doar fapte, la 15 octombrie 2026." />
+    <link rel="canonical" href="https://konta.md/securitate/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Konta" />
+    <meta property="og:locale" content="ro_MD" />
+    <meta property="og:url" content="https://konta.md/securitate/" />
+    <meta property="og:title" content="Securitate · ce este făcut și ce urmează · Konta" />
+    <meta property="og:description" content="Cum păstrează Konta datele contabile în siguranță: ce este făcut azi și ce facem înainte de primul client pilot. Doar fapte, la 15 octombrie 2026." />
+    <meta property="og:image" content="https://konta.md/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Konta · contabilitate pentru companiile din Moldova" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Securitate · ce este făcut și ce urmează · Konta" />
+    <meta name="twitter:description" content="Cum păstrează Konta datele contabile în siguranță: ce este făcut azi și ce facem înainte de primul client pilot. Doar fapte, la 15 octombrie 2026." />
+    <meta name="twitter:image" content="https://konta.md/assets/og.png" />
+    <meta name="theme-color" content="#f6f4f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16161a" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/assets/favicon.png" type="image/png" />
+    <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/assets/fonts.css?v=5" />
+    <link rel="stylesheet" href="/assets/site.css?v=5" />
+    <script>
+      // Before first paint, so the theme never flashes the other one. The device's theme unless
+      // one was chosen, here or in the app: the konta_theme cookie is shared by konta.md and app.konta.md (see
+      // assets/site.js), and the old localStorage copy is read for anybody who chose before it.
+      (function () {
+        var match = /(?:^|;\s*)konta_theme=(light|dark)/.exec(document.cookie);
+        var saved = match ? match[1] : null;
+        try {
+          saved = saved || localStorage.getItem('konta.theme');
+        } catch (e) {
+          /* private mode: the cookie alone decides */
+        }
+        if (saved !== 'dark' && saved !== 'light') {
+          saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = saved;
+      })();
+    </script>
+    <script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Konta",
+          "item": "https://konta.md/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Securitate",
+          "item": "https://konta.md/securitate/"
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main" data-t="skip">Sari la conținut</a>
+
+    <header class="masthead">
+      <div class="shell masthead__bar">
+        <a class="brand" href="/">
+          <img class="brand__mark" src="/assets/logo.png" alt="Konta" width="40" height="30" data-logo />
+          <span class="brand__name">Konta</span>
+        </a>
+
+        <nav class="sections" aria-label="Secțiuni" data-t-aria-label="nav.label">
+          <a href="/e-factura/" data-t="nav.efactura">e-Factura</a>
+          <a href="/fara-programator/" data-t="nav.noprog">Fără programator</a>
+          <a href="/trecerea-de-la-1c/" data-t="nav.move">Trecerea de la 1C</a>
+          <a href="/parteneri/" data-t="nav.partners">Parteneri</a>
+          <a href="/contact/" data-t="nav.contact">Contact</a>
+        </nav>
+
+        <div class="controls">
+          <button
+            type="button"
+            class="control"
+            data-lang-cycle
+            lang="ro"
+            aria-label="RO. Treci la Русский"
+            title="Русский"
+          >
+            RO
+          </button>
+
+          <button
+            type="button"
+            class="control"
+            data-theme-btn
+            aria-label="Schimbă tema"
+            data-t-aria-label="theme.label"
+          >
+            <svg class="sunmoon" viewBox="0 0 32 32" fill="currentColor" stroke-linecap="round" aria-hidden="true">
+              <clipPath id="sunmoon-cut">
+                <path class="sunmoon__cut" d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
+              </clipPath>
+              <g clip-path="url(#sunmoon-cut)">
+                <circle class="sunmoon__disc" cx="16" cy="16" r="8" />
+                <g class="sunmoon__rays" stroke="currentColor" stroke-width="1.5">
+                  <path d="M16 5.5v-4M16 30.5v-4M1.5 16h4M26.5 16h4M23.4 8.6l2.8-2.8M5.7 26.3l2.9-2.9M5.8 5.8l2.8 2.8M23.4 23.4l2.9 2.9" />
+                </g>
+              </g>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="notice">
+      <div class="shell notice__bar">
+        <span class="notice__flag" data-t="dev.flag">În dezvoltare</span>
+        <p data-t="dev.text">Konta este încă în lucru. Pe acest site descriem produsul pe care îl construim și cât am avansat. Deocamdată nu se poate cumpăra.</p>
+      </div>
+    </div>
+
+    <main id="main">
+      <section class="hero hero--page">
+        <div class="shell">
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <a href="/" data-t="crumb.home">Acasă</a>
+            <span aria-hidden="true">·</span>
+            <span aria-current="page" data-t="sec.title">Securitate</span>
+          </nav>
+          <h1 data-t="sec.title">Securitate</h1>
+          <p class="hero__lead" data-t="sec.p1">Doar fapte. Fiecare rând spune dacă este făcut azi sau dacă îl facem înainte de primul client pilot. Până când nu sunt făcute toate cele din a doua listă, în Konta nu intră date reale ale clienților.</p>
+          <p class="updated" data-t="sec.updated">Ultima actualizare: 15 octombrie 2026</p>
+        </div>
+      </section>
+
+      <section class="band band--quiet" id="facut">
+        <div class="shell">
+          <div class="band__head">
+            <h2 data-t="sec.done.h">Ce este făcut</h2>
+          </div>
+          <ul class="claims">
+            <li>
+              <h3 data-t="sec.d1.h">Datele fiecărei companii, separate de baza de date</h3>
+              <p class="state state--done" data-t="state.done">Făcut</p>
+              <p data-t="sec.d1.p">Fiecare tabel cu date ale clienților este protejat de securitatea la nivel de rând din PostgreSQL. Cine nu are acces la o companie nu-i vede rândurile, chiar dacă aplicația ar greși. Aplicația se conectează cu un rol care nu poate ocoli regula, iar un test eșuează dacă apare un tabel neprotejat.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.d2.h">Contabilitatea nu se rescrie</h3>
+              <p class="state state--done" data-t="state.done">Făcut</p>
+              <p data-t="sec.d2.p">Baza de date refuză modificarea și ștergerea înregistrărilor, a facturilor înregistrate și a plăților. Corecturile se fac doar prin stornare. Într-o lună închisă nu mai intră nimic, iar redeschiderea cere un motiv.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.d3.h">Jurnal de audit înlănțuit</h3>
+              <p class="state state--done" data-t="state.done">Făcut</p>
+              <p data-t="sec.d3.p">Ce se schimbă într-o companie intră într-un jurnal în care fiecare rând poartă amprenta (hash-ul) celui dinainte, așa că un rând modificat pe ascuns se vede la verificare. Capătul lanțului nu este încă publicat în afara Konta; vedeți mai jos.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.d4.h">Suportul vede contabilitatea doar cu acordul dumneavoastră</h3>
+              <p class="state state--done" data-t="state.done">Făcut</p>
+              <p data-t="sec.d4.p">Directorul acordă accesul, doar pentru citire și pe timp limitat, și îl poate închide oricând. Singura excepție, pentru urgențe, o poate deschide proprietarul platformei, cu un motiv scris și pentru cel mult o zi; se înregistrează în jurnalul companiei, iar directorii primesc un e-mail.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.d5.h">Al doilea factor, obligatoriu pentru firmele de contabilitate</h3>
+              <p class="state state--done" data-t="state.done">Făcut</p>
+              <p data-t="sec.d5.p">Fiecare membru al unei firme de contabilitate și fiecare administrator al platformei confirmă intrarea cu un cod dintr-o aplicație de autentificare. Fără el, serverul nu deschide nicio companie. Oamenilor unei companii li se oferă al doilea factor, fără să fie obligatoriu.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.d6.h">Secretele celui de-al doilea factor, criptate</h3>
+              <p class="state state--done" data-t="state.done">Făcut</p>
+              <p data-t="sec.d6.p">Fiecare secret este criptat cu propria cheie, iar aceasta cu o cheie principală ținută în afara bazei de date și a copiilor ei de siguranță.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.d7.h">Blocare și confirmare înainte de schimbări sensibile</h3>
+              <p class="state state--done" data-t="state.done">Făcut</p>
+              <p data-t="sec.d7.p">După prea multe încercări greșite contul se blochează, iar încercările de pe aceeași adresă sunt limitate. Înainte de a schimba roluri, stări sau accesul, aplicația cere din nou al doilea factor.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.d8.h">Sesiunile, la vedere</h3>
+              <p class="state state--done" data-t="state.done">Făcut</p>
+              <p data-t="sec.d8.p">Pagina de sesiuni arată unde sunteți conectat și vă lasă să închideți orice sesiune.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.d9.h">Niciun script de la terți</h3>
+              <p class="state state--done" data-t="state.done">Făcut</p>
+              <p data-t="sec.d9.p">Aplicația și site-ul nu încarcă instrumente de analiză, de înregistrare a ecranului, fonturi sau altceva de pe alte site-uri.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.d10.h">Politică strictă de securitate a conținutului</h3>
+              <p class="state state--done" data-t="state.done">Făcut</p>
+              <p data-t="sec.d10.p">Aplicația și site-ul trimit o politică de securitate a conținutului (CSP) care permite browserului să ruleze doar scripturile lor proprii și nu lasă alte site-uri să le încadreze paginile. Conexiunea se face doar prin HTTPS.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="band" id="inainte-de-pilot">
+        <div class="shell">
+          <div class="band__head">
+            <h2 data-t="sec.pilot.h">Înainte de primul client pilot</h2>
+            <p data-t="sec.pilot.p">Condițiile pe care ni le-am pus înainte ca datele reale ale unui client să intre în Konta.</p>
+          </div>
+          <ul class="claims">
+            <li>
+              <h3 data-t="sec.p1i.h">Datele de acces la e-Factura, criptate</h3>
+              <p class="state state--pilot" data-t="state.pilot">Înainte de primul pilot</p>
+              <p data-t="sec.p1i.p">Utilizatorul API e-Factura al fiecărei companii, păstrat criptat, cu fiecare folosire în jurnalul companiei.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.p2i.h">Server de producție în Uniunea Europeană</h3>
+              <p class="state state--pilot" data-t="state.pilot">Înainte de primul pilot</p>
+              <p data-t="sec.p2i.p">Separat de versiunea de previzualizare de azi și pregătit de la zero printr-un script.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.p3i.h">Copii de siguranță criptate, în Moldova</h3>
+              <p class="state state--pilot" data-t="state.pilot">Înainte de primul pilot</p>
+              <p data-t="sec.p3i.p">Criptate înainte să plece de pe server și copiate zilnic în Moldova, fără cheie acolo. O restaurare din această copie, încercată înainte de mutarea pe serverul de producție.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.p4i.h">Export complet cu un clic</h3>
+              <p class="state state--pilot" data-t="state.pilot">Înainte de primul pilot</p>
+              <p data-t="sec.p4i.p">Contabilitatea, documentele și fișierele atașate, în .xlsx și JSON, plus fișierele originale.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.p5i.h">E-mail la o intrare nouă</h3>
+              <p class="state state--pilot" data-t="state.pilot">Înainte de primul pilot</p>
+              <p data-t="sec.p5i.p">Un mesaj când cineva intră în contul dumneavoastră de pe un dispozitiv sau de la o adresă nouă.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.p6i.h">Jurnale în afara serverului și alertă la căderi</h3>
+              <p class="state state--pilot" data-t="state.pilot">Înainte de primul pilot</p>
+              <p data-t="sec.p6i.p">Jurnalele de funcționare trimise în afara serverului și o alertă când aplicația nu mai răspunde.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.p7i.h">Codul sursă, păzit</h3>
+              <p class="state state--pilot" data-t="state.pilot">Înainte de primul pilot</p>
+              <p data-t="sec.p7i.p">În toate depozitele de cod: căutarea automată a secretelor scăpate în cod, actualizarea automată a dependențelor și protecția ramurii principale.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.p8i.h">Test de penetrare independent</h3>
+              <p class="state state--pilot" data-t="state.pilot">Înainte de primul pilot</p>
+              <p data-t="sec.p8i.p">Făcut de o firmă din afară, cu un al doilea test după corecturi și nicio problemă gravă sau critică rămasă.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="band band--quiet" id="mai-tarziu">
+        <div class="shell">
+          <div class="band__head">
+            <h2 data-t="sec.later.h">Mai târziu</h2>
+            <p data-t="sec.later.p">Hotărâte, încă fără dată.</p>
+          </div>
+          <ul class="claims">
+            <li>
+              <h3 data-t="sec.l1.h">Chei de acces (passkeys)</h3>
+              <p class="state state--planned" data-t="state.later">Mai târziu</p>
+              <p data-t="sec.l1.p">Ca factor suplimentar, pe lângă codurile din aplicația de autentificare.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.l2.h">Capătul jurnalului de audit, publicat</h3>
+              <p class="state state--planned" data-t="state.later">Mai târziu</p>
+              <p data-t="sec.l2.p">Într-un loc pe care nici noi nu-l putem rescrie, ca un jurnal rescris în întregime să se vadă.</p>
+            </li>
+            <li>
+              <h3 data-t="sec.l3.h">O cheie de criptare pentru fiecare client</h3>
+              <p class="state state--planned" data-t="state.later">Mai târziu</p>
+              <p data-t="sec.l3.p">Datele fiecărui client criptate cu cheia lui.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="band" id="cine-prelucreaza">
+        <div class="shell">
+          <div class="band__head">
+            <h2 data-t="sec.who.h">Cine prelucrează datele</h2>
+          </div>
+          <div class="prose">
+            <p data-t="sec.who.p1">Azi, furnizorul nostru de găzduire. La el sunt serverul versiunii de previzualizare a aplicației, site-ul konta.md și căsuțele de e-mail prin care trimitem mesajele. În aplicație nu sunt încă date reale ale clienților.</p>
+            <p data-t="sec.who.p2">Pentru producție: un server în Uniunea Europeană și copii de siguranță criptate în Moldova. Furnizorii nu sunt încă aleși; când îi alegem, actualizăm această pagină.</p>
+            <p data-t="sec.who.p3">Nimeni altcineva. Ce date primim prin formularul de contact al site-ului și cât le păstrăm scrie pe pagina Confidențialitate.</p>
+            <p><a href="/privacy/" data-t="foot.privacy">Confidențialitate</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band--quiet" id="raportare">
+        <div class="shell">
+          <div class="band__head">
+            <h2 data-t="sec.report.h">Ați găsit o problemă de securitate?</h2>
+          </div>
+          <div class="prose">
+            <p data-t="sec.report.p">Scrieți-ne la mail@konta.md. Adresa și limbile în care răspundem sunt și în fișierul security.txt, după standardul RFC 9116.</p>
+            <p><a href="mailto:mail@konta.md">mail@konta.md</a> · <a href="/.well-known/security.txt">security.txt</a></p>
+            <p><a href="/intrebari/" data-t="sec.link.q">Zece întrebări pentru orice program de contabilitate</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="shell foot__bar">
+        <span>© <span data-year>2026</span> <a href="https://itin.md" class="foot__owner">December Capital</a></span>
+        <a href="/transparenta/" data-t="foot.transparency">Transparență</a>
+        <a href="/securitate/" data-t="foot.security">Securitate</a>
+        <a href="/intrebari/" data-t="foot.questions">Întrebări pentru furnizori</a>
+        <a href="/privacy/" data-t="foot.privacy">Confidențialitate</a>
+        <a href="/status/" data-t="foot.status">Stare serviciu</a>
+        <a href="https://app.konta.md" class="foot__spacer" data-t="foot.app">Intrare în aplicație</a>
+      </div>
+    </footer>
+
+    <script type="application/json" data-seed>
+      {"lang.next": "Treci la"}
+    </script>
+    <script src="/assets/site.js?v=7"></script>
+  </body>
+</html>

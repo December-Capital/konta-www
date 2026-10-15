@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://konta.md/</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-15</lastmod>
   </url>
   <url>
     <loc>https://konta.md/e-factura/</loc>
@@ -31,5 +31,13 @@
   <url>
     <loc>https://konta.md/privacy/</loc>
     <lastmod>2026-10-14</lastmod>
+  </url>
+  <url>
+    <loc>https://konta.md/intrebari/</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://konta.md/securitate/</loc>
+    <lastmod>2026-10-15</lastmod>
   </url>
 </urlset>
