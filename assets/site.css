@@ -572,6 +572,18 @@ img {
   }
 }
 
+/* The same two rows, for the rest of the working day: below the hero, two to a line. */
+.contrasts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 8px 48px;
+}
+
+.contrasts .contrast {
+  margin-top: 0;
+  padding-bottom: 18px;
+}
+
 /* ---------------------------------------------------------------------------
    The rule set panel: the one loud object on the page.
    --------------------------------------------------------------------------- */
