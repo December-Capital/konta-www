@@ -1077,6 +1077,11 @@ img {
   .claims li {
     padding: 22px 28px 22px 0;
   }
+
+  /* The right column starts at the rule between the two, so it is the one that needs room. */
+  .claims li:nth-child(even) {
+    padding: 22px 0 22px 28px;
+  }
 }
 
 /* ---------------------------------------------------------------------------
