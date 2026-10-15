@@ -13,7 +13,7 @@ jobs:
     name: Nothing to build yet
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Confirm the repository is still a placeholder
         run: |
           if [ -f package.json ]; then
