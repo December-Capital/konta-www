@@ -1,7 +1,8 @@
 /*
   The contact form, sent without leaving the page. Without JavaScript the form still posts to
   /contact/trimite.php, which redirects back to /contact/#trimis (or #incomplet, #limitat,
-  #eroare), and CSS :target shows the matching message. This script does the same in place.
+  #eroare; /ru/contact/ or /en/contact/ from a copy), and CSS :target shows the matching
+  message. This script does the same in place.
 */
 
 (function () {

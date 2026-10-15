@@ -216,8 +216,10 @@ function answer(string $outcome): never
         exit;
     }
 
+    // Back to the contact page in the language the form was sent from: /ru/contact/, /en/contact/.
     $fragment = ['sent' => 'trimis', 'incomplete' => 'incomplet', 'limited' => 'limitat'][$outcome] ?? 'eroare';
-    header('Location: /contact/#' . $fragment, true, 303);
+    $prefix = in_array(field('lang'), ['ru', 'en'], true) ? '/' . field('lang') : '';
+    header('Location: ' . $prefix . '/contact/#' . $fragment, true, 303);
     exit;
 }
 

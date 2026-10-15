@@ -18,9 +18,9 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `.well-known/security.txt` | where to report a security problem (RFC 9116); renew its `Expires` before 2027-10-14 |
 | `status/index.html` | `konta.md/status`, reachability of the app, checked from the visitor's browser (noindex) |
 | `404.html` | served by `.htaccess` for any missing path, with a real 404 status (noindex) |
-| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the ten indexable pages |
+| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the ten indexable pages, and the package rewrites it with their `/ru/` and `/en/` copies |
 | `assets/` | stylesheet, scripts, the three language catalogues, logo, fonts, `og.png` (the 1200x630 share image) |
-| `tools/` | scripts that are run by hand, never served |
+| `tools/` | scripts that are run by hand, never served; `languages.py` writes the `/ru/` and `/en/` copies when the site is packaged |
 
 Every page repeats the same header and footer by hand. When the navigation changes, change it on
 every page, and run `tools/check-catalogues.py`, which reads all of them.
@@ -33,10 +33,29 @@ commit and a deploy is a pull. Keep it that way until a page needs something a p
 Each indexable page carries its own title and description (both translated by `data-t`), a
 canonical URL with a trailing slash, Open Graph and Twitter tags pointing at `assets/og.png`, and
 JSON-LD: `Organization` and `WebSite` on the home page, `BreadcrumbList` on the others, and `FAQPage` on `intrebari/`, whose text must stay word for word the Romanian on the page. One `h1`
-per page. When a page is added, add it to `sitemap.xml` and to `SERVED` in `tools/package.py`.
+per page. When a page is added, add it to `sitemap.xml` and to `SERVED` in `tools/package.py`:
+the sitemap is also the list of pages that get Russian and English copies.
 
-Languages switch in the browser on the same URL, so search engines index the Romanian. There are
-no `hreflang` alternates on purpose: `?lang=ru` serves the same HTML until the script runs.
+Every page in the sitemap is indexable in all three languages, each at its own address:
+`konta.md/e-factura/`, `konta.md/ru/e-factura/`, `konta.md/en/e-factura/`. The Russian and English
+pages are written when the site is packaged (`tools/languages.py`, called by `tools/package.py`),
+from the Romanian page and the catalogues, and are never committed. Each copy has:
+
+- `lang` and `data-lang` on `<html>`, and every `data-t` text, `content` and `aria-label` in its
+  language;
+- its own canonical and `og:url`, `og:locale` (`ro_MD`, `ru_MD`, `en_US`) with the other two as
+  `og:locale:alternate`, and the Open Graph and Twitter title and description in its language;
+- `hreflang` alternates for `ro`, `ru`, `en` and `x-default` (the Romanian address), on the
+  Romanian page too;
+- JSON-LD in its language: breadcrumbs pointing at the copies, `FAQPage` word for word the
+  translated page, the same rule as the Romanian;
+- links to the other indexable pages in the same language, and `?lang=` on the ones without copies
+  (the status page), which translate in place.
+
+The packaged `sitemap.xml` lists all thirty addresses, each with its alternates. The package
+refuses to write anything when a catalogue lacks a key a page uses, when JSON-LD carries a name or
+text that is not on the page, or when a page's inline script is not the one whose hash the CSP
+allows. `status/` and `404.html` have no copies: they are noindex.
 
 ## The contact form
 
@@ -87,17 +106,29 @@ line and change the date on all three, in all three languages.
 
 ## Language
 
-Romanian is the source language and lives in the HTML. Russian and English are fetched on demand
-from `assets/ru.json` and `assets/en.json`, keyed by the `data-t` attributes in the markup, so a
-Romanian visitor downloads no translation file at all and a crawler reads real text rather than an
-empty shell. A key missing from a catalogue leaves the Romanian on screen, visible, rather than
-silently wrong.
+Romanian is the source language and lives in the HTML. Russian and English live in
+`assets/ru.json` and `assets/en.json`, keyed by the `data-t` attributes in the markup, and reach
+the indexable pages as the static `/ru/` and `/en/` copies above. Write a page in Romanian only; its
+copies follow from the catalogues at the next package. A `data-t` element holds text alone, no
+markup, because the copies and `site.js` both replace its text whole.
 
-`?lang=ru` and `?lang=en` work as links. The chosen language is remembered per browser.
+The chosen language is remembered in the `konta_lang` cookie shared with app.konta.md (and the
+older `konta.lang` in localStorage). The header's language control is a link to the next
+language's copy of the same page, ro to ru to en, so every language is at most two presses away;
+`site.js` writes the cookie on the click and the browser follows the link, which also works without
+script. The inline script in every page's head reads the cookie before first paint: on an address
+without `/ru/` or `/en/` it moves to the remembered language's copy (or the one `?lang=ru` or
+`?lang=en` names, which old links use, without remembering it), keeping the fragment. An address
+with `/ru/` or `/en/` is never moved: it was asked for. Crawlers carry no cookie and stay where
+they are.
 
-The header carries one round control per choice rather than a row of options, and each shows
-the state you would get by pressing it: `RU` while you are reading Romanian, a sun while you
-are in the dark. Language cycles ro to ru to en, so every language is at most two presses away.
+`status/` and `404.html` have no copies, so `site.js` translates them in place as every page used
+to be: from `?lang=`, from a `/ru/` or `/en/` address the 404 page answers, or from the cookie,
+fetching the catalogue on demand. A key missing from a catalogue leaves the Romanian on screen,
+visible, rather than silently wrong.
+
+The theme control shows the state you would get by pressing it, a sun while you are in the dark;
+the language control shows the language you are reading.
 
 ```bash
 python tools/check-catalogues.py   # every data-t key present in ru and en, nothing empty
@@ -148,15 +179,22 @@ neither. Look at the pictures.
 
 `shots/` is not committed.
 
+`shots.py` renders the source pages. The `/ru/` and `/en/` copies, the redirect to the remembered
+language and the headers exist only once packaged, so check those on a package: write one to a
+scratch folder (`python tools/package.py /tmp/site`), serve it with `php -S` and a router that
+sends the `Header always set` lines of `.htaccess` (without `upgrade-insecure-requests` on plain
+http), and open it in a browser with the console's CSP reports in view.
+
 ## Deploying
 
 This repository is not the website. It also holds this README and `tools/`, none of which should
 ever be readable over HTTP. What is served is listed in `tools/package.py` (SERVED): `index.html`, `robots.txt`,
-`.htaccess`, `.well-known/`, `status/`, `assets/` and one folder per page.
+`.htaccess`, `.well-known/`, `status/`, `assets/` and one folder per page, plus the `ru/` and `en/`
+copies and the sitemap the package writes.
 
 Those are copied into `../kontamd-deploy/`, which is its own git repository
-(`systematiq-one/kontamd-deploy`) and is what Hostinger pulls. Nothing needs building, so what is
-committed here is what is served there.
+(`systematiq-one/kontamd-deploy`) and is what Hostinger pulls. Nothing is built but the language copies,
+so what is committed here, plus those, is what is served there.
 
 ```bash
 python tools/publish.py                        # package, commit, push - Hostinger pulls
@@ -182,9 +220,11 @@ repository pointing at the expected remote.
 `.htaccess` is a dotfile and the file manager hides it by default, check it actually arrived,
 because it carries the canonical redirect, the woff2 media type, the cache headers and the
 security headers (HSTS, Content-Security-Policy, Permissions-Policy). The CSP allows the one inline
-script, the theme set before first paint, by its hash: change that script on the pages and the
-hash in `.htaccess` has to change with it, or the theme flashes. The command that prints it is in
-the comment above the header.
+script, the theme and the remembered language set before first paint, by its hash: change that
+script on the pages and the hash in `.htaccess` has to change with it, or the theme flashes and
+the remembered language is ignored. The command that prints it is in the comment above the
+header, and `tools/package.py` refuses to package a page, copies included, whose inline script
+the hash does not allow.
 
 **Caching is the thing that will waste an afternoon.** This host defaults css and js to a week,
 so a visitor who has loaded the site once keeps the old stylesheet and script while getting the

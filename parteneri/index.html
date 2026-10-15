@@ -15,7 +15,7 @@
     <meta property="og:image" content="https://konta.md/assets/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Konta · contabilitate pentru companiile din Moldova" />
+    <meta property="og:image:alt" data-t="og.image.alt" content="Konta · contabilitate pentru companiile din Moldova" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Parteneriat pentru firme de contabilitate · Konta" />
     <meta name="twitter:description" content="Căutăm firme de contabilitate din Moldova care vor să construiască Konta cu noi: prima companie mutată gratuit și acces la produs înainte de lansare." />
@@ -29,20 +29,30 @@
     <link rel="stylesheet" href="/assets/site.css?v=5" />
     <script>
       // Before first paint, so the theme never flashes the other one. The device's theme unless
-      // one was chosen, here or in the app: the konta_theme cookie is shared by konta.md and app.konta.md (see
-      // assets/site.js), and the old localStorage copy is read for anybody who chose before it.
+      // one was chosen, here or in the app: konta_theme and konta_lang are cookies shared by
+      // konta.md and app.konta.md (see assets/site.js), and the old localStorage copies are read
+      // for anybody who chose before them. An address without /ru/ or /en/ then moves to the
+      // language chosen the same way, or named by ?lang=, when the page has a copy in it.
       (function () {
-        var match = /(?:^|;\s*)konta_theme=(light|dark)/.exec(document.cookie);
-        var saved = match ? match[1] : null;
-        try {
-          saved = saved || localStorage.getItem('konta.theme');
-        } catch (e) {
-          /* private mode: the cookie alone decides */
+        var root = document.documentElement;
+        function chosen(name, values) {
+          var match = new RegExp('(?:^|;\\s*)konta_' + name + '=(' + values + ')(?:;|$)').exec(document.cookie);
+          if (match) return match[1];
+          try {
+            var saved = localStorage.getItem('konta.' + name);
+            return new RegExp('^(?:' + values + ')$').test(saved) ? saved : null;
+          } catch (e) {
+            return null; /* private mode: the cookie alone decides */
+          }
         }
-        if (saved !== 'dark' && saved !== 'light') {
-          saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-        document.documentElement.dataset.theme = saved;
+        root.dataset.theme =
+          chosen('theme', 'light|dark') ||
+          (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (root.lang !== 'ro') return;
+        var asked = /[?&]lang=(ro|ru|en)(?:&|$)/.exec(location.search);
+        var lang = asked ? asked[1] : chosen('lang', 'ro|ru|en');
+        var copy = lang && lang !== 'ro' && document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
+        if (copy) location.replace(new URL(copy.href).pathname + location.hash);
       })();
     </script>
     <script type="application/ld+json">

@@ -77,15 +77,16 @@ RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
 
   # What a page may load, which is what the site already does and no more: everything from
   # konta.md itself, plus the status page's check of app.konta.md (connect-src). The one inline
-  # script, the theme set before first paint, is identical on every page and is allowed by its
-  # hash. If that script changes by a single character the hash changes too, and the theme
-  # flashes until this line is updated:
+  # script, the theme and the remembered language set before first paint, is identical on every
+  # page, the /ru/ and /en/ copies included, and is allowed by its hash. If that script changes by
+  # a single character the hash changes too, and the theme flashes until this line is updated
+  # (tools/package.py refuses to package a page whose inline script this hash does not allow):
   #   python -c "import re,hashlib,base64;s=re.search(r'<script>(.*?)</script>',open('index.html',encoding='utf-8').read(),re.S).group(1);print(base64.b64encode(hashlib.sha256(s.encode()).digest()).decode())"
   # The JSON-LD and data-seed blocks are data, not scripts, and need nothing. No inline styles
   # exist, so style-src is 'self' alone. The form posts to its own handler (form-action), which
   # redirects back to /contact/. Hostinger adds its own "upgrade-insecure-requests" CSP header on
   # this host; a second policy only ever narrows, and it is repeated here so it holds without them.
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-VUbGoQn/a9/OfKgyaxqVhyUF602ej76TY7uy8/CSkfs='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self' https://app.konta.md; form-action 'self'; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-VCpxrelFtcwIxnpNfCSfM3IGONLhtyI2GwxHTL7wqHA='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self' https://app.konta.md; form-action 'self'; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"
 
   # No page needs a camera, a microphone, the visitor's location, a payment sheet or a USB device,
   # so none can ask, nor anything embedded in it.

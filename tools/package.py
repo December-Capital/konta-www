@@ -9,6 +9,10 @@ This repository is not the same thing as the website. It also holds the README a
 font fetcher, the catalogue checker, the screenshot renderer, none of which should ever be
 readable over HTTP. The site is the entries in SERVED below, and nothing else.
 
+Every indexable page is also written in Russian and English under /ru/ and /en/, from the
+catalogues, with hreflang alternates and a sitemap listing all three (tools/languages.py). Those
+copies exist only in the package.
+
 The destination is emptied first, so it is a mirror rather than an accumulation: a file deleted
 here disappears there, and you never upload something that was removed three commits ago.
 
@@ -21,6 +25,8 @@ import os
 import shutil
 import sys
 import zipfile
+
+import languages
 
 # Everything here is served. Everything not here is not. Dotted names are listed like any other:
 # .well-known/ holds security.txt, and nothing here skips a name for starting with a dot.
@@ -73,6 +79,12 @@ def build(out, make_zip=False):
             shutil.copy2(name, target)
             files += 1
 
+    try:
+        pages, copies, checked, hashes = languages.build(out)
+    except languages.Refused as refusal:
+        sys.exit('Not packaged: %s' % refusal)
+    files += copies
+
     total = 0
     for root, dirs, names in os.walk(out):
         dirs[:] = [d for d in dirs if d != '.git']
@@ -81,6 +93,10 @@ def build(out, make_zip=False):
     print('  contents go to public_html, keeping this structure:')
     for name in SERVED:
         print('    %s%s' % (name, '/' if os.path.isdir(name) else ''))
+    for lang in languages.COPIES:
+        print('    %s/' % lang)
+    print('  %d pages also in %s, %d pages under the CSP hash %s' % (
+        pages, ' and '.join(languages.COPIES), checked, ', '.join(sorted(hashes))))
     # Plain ASCII: the Windows console encoding mangles anything else.
     print('\n  .htaccess is a dotfile. The file manager hides it - check it arrived.')
 

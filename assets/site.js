@@ -1,11 +1,15 @@
 /*
   Theme and language for konta.md.
 
-  Romanian is the source language and lives in the HTML itself, so a Romanian visitor (the
-  majority) downloads no translation file at all and a crawler reads real text rather than an
-  empty shell. Russian and English are fetched on demand from assets/ru.json and assets/en.json.
-  Keys match the data-t attributes in the markup; a key missing from a catalogue leaves the
-  Romanian in place, which is visible rather than silently wrong.
+  Romanian is the source language and lives in the HTML itself. Every indexable page also exists
+  in Russian under /ru/ and in English under /en/, written from assets/ru.json and assets/en.json
+  when the site is packaged (tools/languages.py), so a crawler and a visitor both read real text
+  in their language at its own address. On those pages the language control is a link to the
+  next language's copy, and this script only remembers the choice on the way.
+
+  Pages with no copies (the status page, the 404 page) are translated here instead, from the same
+  catalogues fetched on demand. Keys match the data-t attributes in the markup; a key missing from
+  a catalogue leaves the Romanian in place, which is visible rather than silently wrong.
 */
 
 (function () {
@@ -13,7 +17,11 @@
 
   var root = document.documentElement;
   var LANGS = ['ro', 'ru', 'en'];
-  var SOURCE = 'ro';
+  // The language the page was written in: Romanian, or the language of its /ru/ or /en/ copy.
+  var SOURCE = LANGS.indexOf(root.lang) !== -1 ? root.lang : 'ro';
+  // A page with copies in the other languages names them in hreflang alternates. The head script
+  // has already moved an address without /ru/ or /en/ to the remembered language's copy.
+  var hasCopies = !!document.querySelector('link[rel="alternate"][hreflang]');
 
   // Resolve catalogues against this script rather than the page, so /status/ works too.
   var here = document.currentScript && document.currentScript.src;
@@ -163,7 +171,7 @@
     return LANGS[(LANGS.indexOf(lang) + 1) % LANGS.length];
   }
 
-  // The Romanian already in the document is the fallback catalogue.
+  // The words already in the document are its own language's catalogue, and the fallback.
   var source = {};
   nodes.forEach(function (node) {
     source[node.dataset.t] = node.tagName === 'META' ? node.content : node.textContent.trim();
@@ -253,8 +261,16 @@
   }
 
   if (cycler) {
-    cycler.addEventListener('click', function () {
-      select(nextAfter(current), true);
+    cycler.addEventListener('click', function (event) {
+      var next = nextAfter(current);
+      if (hasCopies && cycler.getAttribute('href')) {
+        // A link to the next language's copy: remember the choice, here and for the app, and let
+        // the browser follow it.
+        write('lang', next);
+        return;
+      }
+      event.preventDefault();
+      select(next, true);
     });
   }
 
@@ -268,7 +284,14 @@
     },
   };
 
-  var asked = new URLSearchParams(window.location.search).get('lang');
-  var initial = LANGS.indexOf(asked) !== -1 ? asked : read('lang');
-  if (initial && initial !== SOURCE) select(initial, asked === null);
+  // A page with copies is already in its language. One without is translated in place: to the
+  // language named by ?lang= (links from the /ru/ and /en/ copies carry it) or by a /ru/ or /en/
+  // address the 404 page answers, neither remembered, else to the remembered one.
+  if (!hasCopies) {
+    var asked = new URLSearchParams(window.location.search).get('lang');
+    var prefix = /^\/(ru|en)\//.exec(window.location.pathname);
+    if (LANGS.indexOf(asked) === -1) asked = prefix ? prefix[1] : null;
+    var initial = asked || read('lang');
+    if (initial && initial !== SOURCE) select(initial, asked === null);
+  }
 })();

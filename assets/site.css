@@ -253,10 +253,12 @@ img {
 
 /* One round control each, showing the state you would get by pressing it: a sun while you are
    in the dark, RU while you are reading Romanian. A three-way segmented strip spent header width
-   on two options nobody had chosen yet; cycling reaches every language in at most two presses. */
+   on two options nobody had chosen yet; cycling reaches every language in at most two presses.
+   On a page with /ru/ and /en/ copies the language control is a link to the next one. */
 
 .control {
   display: grid;
+  text-decoration: none;
   place-items: center;
   width: 36px;
   height: 36px;
