@@ -11,7 +11,8 @@ readable over HTTP. The site is the entries in SERVED below, and nothing else.
 
 Every indexable page is also written in Russian and English under /ru/ and /en/, from the
 catalogues, with hreflang alternates and a sitemap listing all three (tools/languages.py). Those
-copies exist only in the package.
+copies exist only in the package. The calendar's months, its .ics feeds and the RSS of changes in
+the law are then written into all three from ../konta-rulebook (tools/fiscal_calendar.py).
 
 The destination is emptied first, so it is a mirror rather than an accumulation: a file deleted
 here disappears there, and you never upload something that was removed three commits ago.
@@ -26,6 +27,7 @@ import shutil
 import sys
 import zipfile
 
+import fiscal_calendar
 import languages
 
 # Everything here is served. Everything not here is not. Dotted names are listed like any other:
@@ -33,7 +35,7 @@ import languages
 SERVED = [
     'index.html', '404.html', 'robots.txt', 'sitemap.xml', '.htaccess', '.well-known', 'assets',
     'status', 'e-factura', 'fara-programator', 'trecerea-de-la-1c', 'parteneri', 'transparenta',
-    'contact', 'privacy', 'intrebari', 'securitate',
+    'contact', 'privacy', 'intrebari', 'securitate', 'calendar',
 ]
 
 DEFAULT = os.path.join('..', 'kontamd-deploy')
@@ -85,6 +87,13 @@ def build(out, make_zip=False):
         sys.exit('Not packaged: %s' % refusal)
     files += copies
 
+    # The calendar's months, feeds and RSS, from konta-rulebook, into every language's copy.
+    try:
+        made = fiscal_calendar.build(out)
+    except fiscal_calendar.Refused as refusal:
+        sys.exit('Not packaged: %s' % refusal)
+    files += made['files']
+
     total = 0
     for root, dirs, names in os.walk(out):
         dirs[:] = [d for d in dirs if d != '.git']
@@ -97,6 +106,9 @@ def build(out, make_zip=False):
         print('    %s/' % lang)
     print('  %d pages also in %s, %d pages under the CSP hash %s' % (
         pages, ' and '.join(languages.COPIES), checked, ', '.join(sorted(hashes))))
+    print('  calendar from konta-rulebook %s%s: %d dated deadlines, %d days off, %d changes, %d feeds' % (
+        made['commit'], ' (uncommitted data)' if made['dirty'] else '', made['deadlines'], made['days'],
+        made['changes'], made['files']))
     # Plain ASCII: the Windows console encoding mangles anything else.
     print('\n  .htaccess is a dotfile. The file manager hides it - check it arrived.')
 

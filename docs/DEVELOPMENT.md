@@ -12,15 +12,16 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `index.html` | `konta.md` and `www.konta.md` |
 | `e-factura/`, `fara-programator/`, `trecerea-de-la-1c/`, `parteneri/`, `transparenta/` | one topic each, reached from the header and the home page cards |
 | `contact/index.html`, `contact/trimite.php` | the contact page and the handler its form posts to |
+| `calendar/index.html` | the fiscal calendar's page: header, footer, filters and words only; its months, feeds and RSS are written from `konta-rulebook` when the site is packaged (see "The calendar"); header nav |
 | `intrebari/index.html` | ten questions to put to any accounting software vendor, each with Konta's answer and where it stands (FAQPage JSON-LD); footer |
 | `securitate/index.html` | security facts, each "done", "before the first pilot" or "later", who processes data, how to report a problem; footer |
 | `privacy/index.html` | what the form collects, why, for how long, and the visitor's rights; linked from the form and every footer |
 | `.well-known/security.txt` | where to report a security problem (RFC 9116); renew its `Expires` before 2027-10-14 |
 | `status/index.html` | `konta.md/status`, reachability of the app, checked from the visitor's browser (noindex) |
 | `404.html` | served by `.htaccess` for any missing path, with a real 404 status (noindex) |
-| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the ten indexable pages, and the package rewrites it with their `/ru/` and `/en/` copies |
+| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the eleven indexable pages, and the package rewrites it with their `/ru/` and `/en/` copies |
 | `assets/` | stylesheet, scripts, the three language catalogues, logo, fonts, `og.png` (the 1200x630 share image) |
-| `tools/` | scripts that are run by hand, never served; `languages.py` writes the `/ru/` and `/en/` copies when the site is packaged |
+| `tools/` | scripts that are run by hand, never served; `languages.py` writes the `/ru/` and `/en/` copies when the site is packaged, `fiscal_calendar.py` the calendar |
 
 Every page repeats the same header and footer by hand. When the navigation changes, change it on
 every page, and run `tools/check-catalogues.py`, which reads all of them.
@@ -52,10 +53,45 @@ from the Romanian page and the catalogues, and are never committed. Each copy ha
 - links to the other indexable pages in the same language, and `?lang=` on the ones without copies
   (the status page), which translate in place.
 
-The packaged `sitemap.xml` lists all thirty addresses, each with its alternates. The package
+The packaged `sitemap.xml` lists all thirty-three addresses, each with its alternates. The package
 refuses to write anything when a catalogue lacks a key a page uses, when JSON-LD carries a name or
 text that is not on the page, or when a page's inline script is not the one whose hash the CSP
 allows. `status/` and `404.html` have no copies: they are noindex.
+
+## The calendar
+
+`konta.md/calendar` shows, month by month from the reader's own month, the filing and payment
+deadlines, the non-working days and the changes in the law, each with its act and article. None of
+it is in this repository. `tools/fiscal_calendar.py`, called by `package.py` after the language
+copies are written, runs `konta-rulebook`'s own gate (`tools/validate.mjs`) and its
+`tools/calendar.mjs`, which expands `calendar/` into dated items (a deadline on a day off already
+moved by the rule its act gives), and writes into the package:
+
+- the months, the changes table and the feeds list into `calendar/index.html` and its `/ru/` and
+  `/en/` copies, in each language's words: the page's own words are under `data-t` like any page,
+  the generated part's in the hidden `data-cal-words` block, which the generator reads from each
+  copy and removes;
+- `calendar.ics` (everything) and `calendar/<profile>.ics` (one kind of taxpayer), RFC 5545,
+  all-day events, a stable UID per deadline and period, under `/ru/` and `/en/` too;
+- `calendar/schimbari.xml`, RSS 2.0 of the changes, with the value before and after.
+
+The rulebook is `../konta-rulebook`, or `KONTA_RULEBOOK`. The page prints its commit, so a reader
+can open the data it was built from; a rulebook with uncommitted calendar data refuses to package
+unless `KONTA_CALENDAR_DIRTY=1` is set for a local look, and the page then says so. Publish only
+from a pushed rulebook. Node 22 is needed at package time.
+
+`assets/calendar.js` filters by kind of taxpayer (remembered in this browser only, in
+`localStorage`, forgotten silently where storage is refused), puts the reader's month first with
+the months behind under "Lunile trecute", and offers printing; without it the page is complete,
+in order from the month it was built. `assets/calendar.css` holds the page's look and its print
+layout, which prints each act's address after its name. No Event JSON-LD: a filing deadline is not
+an event anybody attends, and search engines' rules for events say so; the page carries the usual
+BreadcrumbList.
+
+To check it the way it is served: package to a scratch folder, serve it with `php -S` and a
+router that sends the `.htaccess` headers, and drive it in headless Chromium in all three languages,
+both themes, desktop and phone, with the CSP reports in view; parse the `.ics` with two
+independent readers (Python `icalendar`, `ical.js`).
 
 ## The contact form
 
@@ -190,11 +226,11 @@ http), and open it in a browser with the console's CSP reports in view.
 This repository is not the website. It also holds this README and `tools/`, none of which should
 ever be readable over HTTP. What is served is listed in `tools/package.py` (SERVED): `index.html`, `robots.txt`,
 `.htaccess`, `.well-known/`, `status/`, `assets/` and one folder per page, plus the `ru/` and `en/`
-copies and the sitemap the package writes.
+copies, the sitemap and the calendar's months and feeds the package writes.
 
 Those are copied into `../kontamd-deploy/`, which is its own git repository
-(`systematiq-one/kontamd-deploy`) and is what Hostinger pulls. Nothing is built but the language copies,
-so what is committed here, plus those, is what is served there.
+(`systematiq-one/kontamd-deploy`) and is what Hostinger pulls. Nothing is built but the language copies
+and the calendar, so what is committed here, plus those, is what is served there.
 
 ```bash
 python tools/publish.py                        # package, commit, push - Hostinger pulls

@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ro" data-lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-t="cal.meta.title">Calendarul fiscal al contabilului: termene, zile nelucrătoare, schimbări în lege · Konta</title>
+    <meta name="description" data-t="cal.meta.description" content="Termenele de depunere și de plată la SFS, CNAS și CNAM, zilele nelucrătoare și schimbările din lege în Moldova, lună de lună, fiecare cu actul normativ și articolul din care vine." />
+    <link rel="canonical" href="https://konta.md/calendar/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Konta" />
+    <meta property="og:locale" content="ro_MD" />
+    <meta property="og:url" content="https://konta.md/calendar/" />
+    <meta property="og:title" content="Calendarul fiscal al contabilului: termene, zile nelucrătoare, schimbări în lege · Konta" />
+    <meta property="og:description" content="Termenele de depunere și de plată la SFS, CNAS și CNAM, zilele nelucrătoare și schimbările din lege în Moldova, lună de lună, fiecare cu actul normativ și articolul din care vine." />
+    <meta property="og:image" content="https://konta.md/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" data-t="og.image.alt" content="Konta · contabilitate pentru companiile din Moldova" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Calendarul fiscal al contabilului: termene, zile nelucrătoare, schimbări în lege · Konta" />
+    <meta name="twitter:description" content="Termenele de depunere și de plată la SFS, CNAS și CNAM, zilele nelucrătoare și schimbările din lege în Moldova, lună de lună, fiecare cu actul normativ și articolul din care vine." />
+    <meta name="twitter:image" content="https://konta.md/assets/og.png" />
+    <meta name="theme-color" content="#f6f4f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16161a" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/assets/favicon.png" type="image/png" />
+    <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/assets/fonts.css?v=5" />
+    <link rel="stylesheet" href="/assets/site.css?v=5" />
+    <link rel="stylesheet" href="/assets/calendar.css?v=1" />
+    <link rel="alternate" type="application/rss+xml" href="/calendar/schimbari.xml" title="Konta · schimbări în lege" />
+    <script>
+      // Before first paint, so the theme never flashes the other one. The device's theme unless
+      // one was chosen, here or in the app: konta_theme and konta_lang are cookies shared by
+      // konta.md and app.konta.md (see assets/site.js), and the old localStorage copies are read
+      // for anybody who chose before them. An address without /ru/ or /en/ then moves to the
+      // language chosen the same way, or named by ?lang=, when the page has a copy in it.
+      (function () {
+        var root = document.documentElement;
+        function chosen(name, values) {
+          var match = new RegExp('(?:^|;\\s*)konta_' + name + '=(' + values + ')(?:;|$)').exec(document.cookie);
+          if (match) return match[1];
+          try {
+            var saved = localStorage.getItem('konta.' + name);
+            return new RegExp('^(?:' + values + ')$').test(saved) ? saved : null;
+          } catch (e) {
+            return null; /* private mode: the cookie alone decides */
+          }
+        }
+        root.dataset.theme =
+          chosen('theme', 'light|dark') ||
+          (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (root.lang !== 'ro') return;
+        var asked = /[?&]lang=(ro|ru|en)(?:&|$)/.exec(location.search);
+        var lang = asked ? asked[1] : chosen('lang', 'ro|ru|en');
+        var copy = lang && lang !== 'ro' && document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
+        if (copy) location.replace(new URL(copy.href).pathname + location.hash);
+      })();
+    </script>
+    <script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Konta",
+          "item": "https://konta.md/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Calendarul fiscal",
+          "item": "https://konta.md/calendar/"
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main" data-t="skip">Sari la conținut</a>
+
+    <header class="masthead">
+      <div class="shell masthead__bar">
+        <a class="brand" href="/">
+          <img class="brand__mark" src="/assets/logo.png" alt="Konta" width="40" height="30" data-logo />
+          <span class="brand__name">Konta</span>
+        </a>
+
+        <nav class="sections" aria-label="Secțiuni" data-t-aria-label="nav.label">
+          <a href="/calendar/" aria-current="page" data-t="nav.calendar">Calendar fiscal</a>
+          <a href="/e-factura/" data-t="nav.efactura">e-Factura</a>
+          <a href="/fara-programator/" data-t="nav.noprog">Fără programator</a>
+          <a href="/trecerea-de-la-1c/" data-t="nav.move">Trecerea de la 1C</a>
+          <a href="/parteneri/" data-t="nav.partners">Parteneri</a>
+          <a href="/contact/" data-t="nav.contact">Contact</a>
+        </nav>
+
+        <div class="controls">
+          <button
+            type="button"
+            class="control"
+            data-lang-cycle
+            lang="ro"
+            aria-label="RO. Treci la Русский"
+            title="Русский"
+          >
+            RO
+          </button>
+
+          <button
+            type="button"
+            class="control"
+            data-theme-btn
+            aria-label="Schimbă tema"
+            data-t-aria-label="theme.label"
+          >
+            <svg class="sunmoon" viewBox="0 0 32 32" fill="currentColor" stroke-linecap="round" aria-hidden="true">
+              <clipPath id="sunmoon-cut">
+                <path class="sunmoon__cut" d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
+              </clipPath>
+              <g clip-path="url(#sunmoon-cut)">
+                <circle class="sunmoon__disc" cx="16" cy="16" r="8" />
+                <g class="sunmoon__rays" stroke="currentColor" stroke-width="1.5">
+                  <path d="M16 5.5v-4M16 30.5v-4M1.5 16h4M26.5 16h4M23.4 8.6l2.8-2.8M5.7 26.3l2.9-2.9M5.8 5.8l2.8 2.8M23.4 23.4l2.9 2.9" />
+                </g>
+              </g>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="notice">
+      <div class="shell notice__bar">
+        <span class="notice__flag" data-t="dev.flag">În dezvoltare</span>
+        <p data-t="dev.text">Konta este încă în lucru. Pe acest site descriem produsul pe care îl construim și cât am avansat. Deocamdată nu se poate cumpăra.</p>
+      </div>
+    </div>
+
+    <main id="main" class="cal-page">
+      <section class="hero hero--page">
+        <div class="shell">
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <a href="/" data-t="crumb.home">Acasă</a>
+            <span aria-hidden="true">·</span>
+            <span aria-current="page" data-t="cal.crumb">Calendarul fiscal</span>
+          </nav>
+          <h1 data-t="cal.title">Calendarul fiscal al contabilului</h1>
+          <p class="hero__lead" data-t="cal.lead">Termenele de depunere și de plată, zilele nelucrătoare și schimbările din lege, lună de lună. Fiecare termen are lângă el actul normativ și articolul din care vine, cu link. Niciun termen fără sursă.</p>
+          <p class="cal-review"><span class="ruleset__state" data-t="set.state">în verificare</span> <span data-t="cal.review">Datele vin din registrul public konta-rulebook, pe care un contabil autorizat încă nu l-a verificat. Citiți actul de lângă termen înainte să vă bazați pe el.</span></p>
+        </div>
+      </section>
+
+      <section class="band band--quiet cal-tools" aria-labelledby="cal-filter-title">
+        <div class="shell">
+          <form class="cal-filter" data-cal-filter>
+            <fieldset>
+              <legend id="cal-filter-title" data-t="cal.filter.title">Arată termenele pentru</legend>
+              <div class="cal-chips">
+<!-- calendar:filters -->
+              </div>
+              <p class="cal-filter__state">
+                <span data-cal-count data-t="cal.filter.all">Se arată toate termenele.</span>
+                <button type="button" class="cal-reset" data-cal-reset hidden data-t="cal.filter.reset">Arată tot</button>
+              </p>
+            </fieldset>
+          </form>
+          <p class="cal-actions">
+            <a class="btn btn--plain" href="#abonare" data-t="cal.subscribe.short">Abonare în calendarul dumneavoastră</a>
+            <a class="btn btn--plain" href="#schimbari" data-t="cal.changes.short">Schimbări în lege</a>
+            <button type="button" class="btn btn--plain" data-cal-print hidden data-t="cal.print">Tipăriți</button>
+          </p>
+        </div>
+      </section>
+
+      <section class="band cal-months" aria-label="Luni" data-t-aria-label="cal.months.label">
+        <div class="shell">
+<!-- calendar:months -->
+        </div>
+      </section>
+
+      <section class="band" id="evenimente" aria-labelledby="evenimente-title">
+        <div class="shell">
+          <div class="band__head">
+            <h2 id="evenimente-title" data-t="cal.events.title">Termene care curg de la un eveniment</h2>
+            <p data-t="cal.events.lead">Nu au o dată în calendar: încep când se întâmplă ceva în firmă.</p>
+          </div>
+<!-- calendar:events -->
+        </div>
+      </section>
+
+      <section class="band band--quiet" id="schimbari" aria-labelledby="schimbari-title">
+        <div class="shell">
+          <div class="band__head">
+            <h2 id="schimbari-title" data-t="cal.changes.title">Schimbări în lege</h2>
+            <p data-t="cal.changes.lead">Ce s-a schimbat sau se schimbă în regulile fiscale, cu data de la care se aplică, valoarea de înainte și cea nouă, și actul. Un proiect încă neadoptat este marcat ca atare.</p>
+            <p><a href="/calendar/schimbari.xml" data-t="cal.rss.link">Flux RSS al schimbărilor</a></p>
+          </div>
+<!-- calendar:changes -->
+        </div>
+      </section>
+
+      <section class="band" id="abonare" aria-labelledby="abonare-title">
+        <div class="shell cal-subscribe">
+          <div>
+            <h2 id="abonare-title" data-t="cal.subscribe.title">Abonați-vă în calendarul dumneavoastră</h2>
+            <p data-t="cal.subscribe.lead">Copiați adresa unui flux și adăugați-o ca abonament. Calendarul dumneavoastră îl citește din nou singur, așa că un termen mutat sau o zi transferată ajung și la el.</p>
+            <ul class="cal-howto">
+              <li data-t="cal.subscribe.google">Google Calendar: Alte calendare, apoi Din adresa URL.</li>
+              <li data-t="cal.subscribe.outlook">Outlook: Adăugare calendar, apoi Abonare de pe web.</li>
+              <li data-t="cal.subscribe.apple">Calendar pe iPhone sau Mac: Fișier, apoi Abonament nou la calendar.</li>
+            </ul>
+          </div>
+          <ul class="cal-feeds">
+<!-- calendar:feeds -->
+          </ul>
+        </div>
+      </section>
+
+      <section class="band band--quiet" id="metoda" aria-labelledby="metoda-title">
+        <div class="shell prose">
+          <h2 id="metoda-title" data-t="cal.method.title">Cum este făcut</h2>
+          <p data-t="cal.method.p1">Nimic din calendar nu este scris de mână. Termenele, zilele nelucrătoare și schimbările din lege sunt date în registrul public konta-rulebook, fiecare cu actul normativ, articolul și locul unde a fost publicat. Pagina și fluxurile sunt generate din el.</p>
+          <p data-t="cal.method.p2">Când un termen fiscal cade într-o zi de odihnă sau de sărbătoare, îl mutăm pe prima zi lucrătoare următoare, cum cere Codul fiscal la art. 129 pct. 8), și verificăm data cu cea publicată de SFS sau de CNAS. Termenele BNS, ale situațiilor financiare și ale primei CNAM în sumă fixă nu sunt obligații fiscale: dacă unul cade într-o zi nelucrătoare, o spunem lângă el, fără să-l mutăm. Zilele de sărbătoare sunt cele din Codul muncii, art. 111; ziua hramului unei localități nu apare, fiindcă e nelucrătoare doar acolo.</p>
+          <p data-t="cal.method.p3">Un termen pe care l-am găsit doar în surse secundare nu apare cu dată. Îl trecem la „Termene pe care nu le arătăm încă” până când îl citim în actul normativ.</p>
+          <p data-t="cal.method.p4">Calendarul arată obligațiile generale. O firmă poate avea și altele, după activitate, regim sau decizia unei autorități, iar rapoartele statistice se depun doar de unitățile incluse de Biroul Național de Statistică în cercetare.</p>
+          <p class="updated cal-built"><!-- calendar:built --></p>
+        </div>
+      </section>
+
+      <div hidden data-cal-words>
+        <span data-t="cal.m1">ianuarie</span><span data-t="cal.m2">februarie</span><span data-t="cal.m3">martie</span><span data-t="cal.m4">aprilie</span><span data-t="cal.m5">mai</span><span data-t="cal.m6">iunie</span><span data-t="cal.m7">iulie</span><span data-t="cal.m8">august</span><span data-t="cal.m9">septembrie</span><span data-t="cal.m10">octombrie</span><span data-t="cal.m11">noiembrie</span><span data-t="cal.m12">decembrie</span>
+        <span data-t="cal.mg1">ianuarie</span><span data-t="cal.mg2">februarie</span><span data-t="cal.mg3">martie</span><span data-t="cal.mg4">aprilie</span><span data-t="cal.mg5">mai</span><span data-t="cal.mg6">iunie</span><span data-t="cal.mg7">iulie</span><span data-t="cal.mg8">august</span><span data-t="cal.mg9">septembrie</span><span data-t="cal.mg10">octombrie</span><span data-t="cal.mg11">noiembrie</span><span data-t="cal.mg12">decembrie</span>
+        <span data-t="cal.wd1">Lu</span><span data-t="cal.wd2">Ma</span><span data-t="cal.wd3">Mi</span><span data-t="cal.wd4">Jo</span><span data-t="cal.wd5">Vi</span><span data-t="cal.wd6">Sâ</span><span data-t="cal.wd7">Du</span>
+        <span data-t="cal.wdl1">luni</span><span data-t="cal.wdl2">marți</span><span data-t="cal.wdl3">miercuri</span><span data-t="cal.wdl4">joi</span><span data-t="cal.wdl5">vineri</span><span data-t="cal.wdl6">sâmbătă</span><span data-t="cal.wdl7">duminică</span>
+        <span data-t="cal.q1">I</span><span data-t="cal.q2">II</span><span data-t="cal.q3">III</span><span data-t="cal.q4">IV</span>
+        <span data-t="cal.auth.SFS">SFS</span><span data-t="cal.auth.CNAS">CNAS</span><span data-t="cal.auth.CNAM">CNAM</span><span data-t="cal.auth.BNS">BNS</span><span data-t="cal.auth.MF">Ministerul Finanțelor</span><span data-t="cal.auth.ASP">ASP</span>
+        <span data-t="cal.monthyear">{month} {year}</span>
+        <span data-t="cal.daymonth">{day} {month}</span>
+        <span data-t="cal.fulldate">{day} {month} {year}</span>
+        <span data-t="cal.period.month">pentru {month} {year}</span>
+        <span data-t="cal.period.quarter">pentru trimestrul {quarter} {year}</span>
+        <span data-t="cal.period.year">pentru anul {year}</span>
+        <span data-t="cal.h1">I</span><span data-t="cal.h2">II</span>
+        <span data-t="cal.period.half">pentru semestrul {half} {year}</span>
+        <span data-t="cal.also">de asemenea</span>
+        <span data-t="cal.unmoved">{date} este zi nelucrătoare ({why}). Actul nu spune că termenul se mută, așa că îl arătăm la data din act.</span>
+        <span data-t="cal.unmoved.plain">Cade într-o zi nelucrătoare; actul nu spune că termenul se mută.</span>
+        <span data-t="cal.within.days">În {n} zile calendaristice de la</span>
+        <span data-t="cal.within.workingDays">În {n} zile lucrătoare de la</span>
+        <span data-t="cal.installment">rata {n} din {of}</span>
+        <span data-t="cal.what.file">depunere</span>
+        <span data-t="cal.what.pay">plată</span>
+        <span data-t="cal.what.file_and_pay">depunere și plată</span>
+        <span data-t="cal.basis">Temei:</span>
+        <span data-t="cal.state.unverified">în verificare</span>
+        <span data-t="cal.state.verified">verificat de un contabil autorizat</span>
+        <span data-t="cal.state.secondary">doar din surse secundare</span>
+        <span data-t="cal.moved">{date} este zi nelucrătoare ({why}), așa că termenul trece pe prima zi lucrătoare. Temei:</span>
+        <span data-t="cal.moved.plain">Mutat de pe {date}, zi nelucrătoare.</span>
+        <span data-t="cal.holiday">sărbătoare</span>
+        <span data-t="cal.offday">zi nelucrătoare</span>
+        <span data-t="cal.workday">zi lucrătoare</span>
+        <span data-t="cal.transfer.rest">Zi de odihnă, lucrată pe {date}</span>
+        <span data-t="cal.transfer.work">Zi lucrătoare, în locul zilei de {date}</span>
+        <span data-t="cal.inforce">Intră în vigoare</span>
+        <span data-t="cal.change.fromto">{before} → {after}</span>
+        <span data-t="cal.change.law">publicat în Monitorul Oficial</span>
+        <span data-t="cal.change.bill">proiect, încă neadoptat</span>
+        <span data-t="cal.col.date">Data</span>
+        <span data-t="cal.col.what">Ce se schimbă</span>
+        <span data-t="cal.col.values">Înainte → după</span>
+        <span data-t="cal.col.act">Actul</span>
+        <span data-t="cal.pending.title">Termene pe care nu le arătăm încă</span>
+        <span data-t="cal.pending.text">Le-am găsit doar în surse secundare. Apar în calendar, cu dată, după ce le citim în actul normativ.</span>
+        <span data-t="cal.past">Lunile trecute</span>
+        <span data-t="cal.empty">Nicio dată de reținut în această lună.</span>
+        <span data-t="cal.transfers.unknown">Pentru {year} Guvernul nu a publicat încă transferul zilelor de odihnă. Sărbătorile sunt cele din Codul muncii; o hotărâre ulterioară poate muta zile.</span>
+        <span data-t="cal.nextyear">Termenele din {year} sunt calculate după legea în vigoare azi; actele adoptate pentru {year} le pot schimba.</span>
+        <span data-t="cal.built">Generat la {date} din konta-rulebook, versiunea {commit}.</span>
+        <span data-t="cal.dirty">Cu modificări încă nepublicate în registru.</span>
+        <span data-t="cal.ics.name">Konta · calendar fiscal</span>
+        <span data-t="cal.ics.desc">Termenele fiscale, zilele nelucrătoare și schimbările din lege în Republica Moldova, fiecare cu actul normativ. Din registrul public konta-rulebook.</span>
+        <span data-t="cal.ics.check">Verificați termenul în actul citat.</span>
+        <span data-t="cal.feed.all">Toate termenele și zilele nelucrătoare</span>
+        <span data-t="cal.rss.title">Konta · schimbări în lege</span>
+        <span data-t="cal.rss.desc">Schimbările din regulile fiscale ale Republicii Moldova, cu valoarea de înainte și cea nouă, data de la care se aplică și actul normativ.</span>
+        <span data-t="cal.rss.from">Se aplică de la {date}.</span>
+      </div>
+
+      <div hidden data-cal-js>
+        <span data-js="shown" data-t="cal.js.shown">Se arată {n} din {total} termene.</span>
+        <span data-js="today" data-t="cal.js.today">Luna aceasta</span>
+      </div>
+    </main>
+
+    <footer class="foot">
+      <div class="shell foot__bar">
+        <span>© <span data-year>2026</span> <a href="https://itin.md" class="foot__owner" target="_blank" rel="noopener">December Capital</a></span>
+        <a href="/transparenta/" data-t="foot.transparency">Transparență</a>
+        <a href="/securitate/" data-t="foot.security">Securitate</a>
+        <a href="/intrebari/" data-t="foot.questions">Întrebări pentru furnizori</a>
+        <a href="/privacy/" data-t="foot.privacy">Confidențialitate</a>
+        <a href="/status/" data-t="foot.status">Stare serviciu</a>
+        <a href="https://app.konta.md" class="foot__spacer" data-t="foot.app">Intrare în aplicație</a>
+      </div>
+    </footer>
+
+    <script type="application/json" data-seed>
+      {"lang.next": "Treci la"}
+    </script>
+    <script src="/assets/site.js?v=7"></script>
+    <script src="/assets/calendar.js?v=1"></script>
+  </body>
+</html>

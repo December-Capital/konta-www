@@ -54,7 +54,7 @@ RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
     Header set Cache-Control "public, max-age=86400"
   </FilesMatch>
 
-  <FilesMatch "\.(html|json|css|js)$">
+  <FilesMatch "\.(html|json|css|js|ics|xml)$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
 
@@ -100,9 +100,11 @@ RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
 # A missing page gets our own 404 page, with a real 404 status, not the host's branded one.
 ErrorDocument 404 /404.html
 
-# The sitemap is XML; some older builds serve it as text. robots.txt and
-# .well-known/security.txt are plain text, and RFC 9116 wants the charset said.
+# The sitemap and the calendar's RSS are XML; some older builds serve it as text. robots.txt and
+# .well-known/security.txt are plain text, and RFC 9116 wants the charset said. The calendar's
+# feeds are iCalendar (RFC 5545), which calendar applications check before subscribing.
 <IfModule mod_mime.c>
   AddType application/xml .xml
-  AddCharset utf-8 .txt
+  AddType text/calendar .ics
+  AddCharset utf-8 .txt .ics .xml
 </IfModule>
