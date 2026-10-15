@@ -163,10 +163,6 @@
               <button type="button" class="cal-btn" data-cal-today data-t="cal.nav.today">Luna aceasta</button>
             </div>
             <div class="cal-bar__actions">
-              <div class="cal-view" data-cal-view hidden role="group" aria-label="Afișare" data-t-aria-label="cal.view.label">
-                <button type="button" class="cal-view__btn" data-view="grid" aria-pressed="true" data-t="cal.view.grid">Calendar</button>
-                <button type="button" class="cal-view__btn" data-view="list" aria-pressed="false" data-t="cal.view.list">Listă</button>
-              </div>
               <details class="cal-filter" data-cal-filter-box>
                 <summary class="cal-btn"><span data-t="cal.filter.title">Arată termenele pentru</span> <strong data-cal-summary data-t="cal.filter.everyone">toți</strong></summary>
                 <form class="cal-filter__panel" data-cal-filter>
@@ -191,11 +187,23 @@
             <div class="cal-stage__months" data-cal-months>
 <!-- calendar:months -->
             </div>
-            <aside class="cal-panel" data-cal-panel hidden aria-live="polite" aria-labelledby="cal-panel-title">
-              <h3 class="cal-panel__title" id="cal-panel-title" data-cal-panel-title></h3>
+            <section class="cal-panel" data-cal-panel hidden aria-labelledby="cal-panel-title">
+              <div class="cal-panel__head">
+                <h3 class="cal-panel__title" id="cal-panel-title" data-cal-panel-title aria-live="polite"></h3>
+                <div class="cal-panel__controls">
+                  <div class="cal-view" role="group" aria-label="Ce se arată" data-t-aria-label="cal.scope.label">
+                    <button type="button" class="cal-view__btn" data-scope="day" aria-pressed="true" data-t="cal.scope.day">Ziua aleasă</button>
+                    <button type="button" class="cal-view__btn" data-scope="month" aria-pressed="false" data-t="cal.scope.month">Toată luna</button>
+                  </div>
+                  <div class="cal-view" role="group" aria-label="Afișare" data-t-aria-label="cal.view.label">
+                    <button type="button" class="cal-view__btn" data-view="grid" aria-pressed="true" data-t="cal.view.grid">Grilă</button>
+                    <button type="button" class="cal-view__btn" data-view="list" aria-pressed="false" data-t="cal.view.list">Listă</button>
+                  </div>
+                </div>
+              </div>
               <div class="cal-panel__body" data-cal-panel-body></div>
               <p class="cal-panel__empty" data-cal-panel-empty hidden data-t="cal.panel.empty">Nimic de reținut în această zi.</p>
-            </aside>
+            </section>
           </div>
         </div>
       </section>
@@ -315,7 +323,6 @@
         <span data-js="today" data-t="cal.js.today">Luna aceasta</span>
         <span data-js="selected" data-t="cal.js.selected">{n} selectate</span>
         <span data-js="more" data-t="cal.js.more">încă {n}</span>
-        <span data-js="past" data-t="cal.past">Lunile trecute</span>
       </div>
     </main>
 

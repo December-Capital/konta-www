@@ -461,9 +461,11 @@
   "cal.review.1": "Данные взяты из открытого реестра konta-rulebook, который находится на проверке.",
   "cal.review.2": "Прочитайте акт рядом со сроком, прежде чем на него полагаться.",
   "cal.view.label": "Вид",
-  "cal.view.grid": "Календарь",
+  "cal.view.grid": "Сетка",
   "cal.view.list": "Список",
   "cal.panel.empty": "В этот день нечего отмечать.",
-  "cal.past": "Прошедшие месяцы",
-  "cal.local": "Нерабочий день в: {places}"
+  "cal.local": "Нерабочий день в: {places}",
+  "cal.scope.label": "Что показывать",
+  "cal.scope.day": "Выбранный день",
+  "cal.scope.month": "Весь месяц"
 }

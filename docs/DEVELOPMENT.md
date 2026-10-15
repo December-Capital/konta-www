@@ -84,13 +84,13 @@ The page is the month: a grid across the content width, each day with its deadli
 laws as short labels (a busy day shows four and "încă N"), and under it every date of the month in
 full with its acts. The package holds the months from three before the one it was built in to the
 end of next year. `assets/calendar.js` shows one at a time, the reader's own month first, with
-steps three months back and forward to the last; a click on a day, its number or one of its labels
-shows that day's entries in a panel beside the grid (under it below 1100 px), copied from the
-month's list, the clicked label's entry outlined; an address naming a day (`#d-2026-10-26`, as the
-.ics events link) opens its month and that day. "Listă" shows the months as lists instead, the
-reader's month first and the months behind it last. It also filters by kind of taxpayer, from a
-small menu. The filter and the view are remembered in this browser only, in `localStorage`, and
-forgotten silently where storage is refused. Without script the page is complete, every month in
+steps three months back and forward to the last. The month stays on top; under it go the entries
+of the day clicked (the day, its number or one of its labels, whose entry is outlined) or, with
+"Toată luna", of the whole month, as a grid of cards ("Grilă") or a list ("Listă"), copied from the
+month's own list. An address naming a day (`#d-2026-10-26`, as the .ics events link) opens its
+month and that day. It also filters by kind of taxpayer, from a small menu. The filter and the
+grid-or-list choice are remembered in this browser only, in `localStorage`, and forgotten
+silently where storage is refused. Without script the page is complete, every month in
 order with its grid and its list. Local days off (a town's patron saint's day, from the
 rulebook's `localDays`) are shown hatched and never move a deadline. On a phone the grid
 shows the days with a dot where something is due. `assets/calendar.css` holds the page's look and

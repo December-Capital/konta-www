@@ -461,9 +461,11 @@
   "cal.review.1": "The data comes from the public konta-rulebook register, which is under review.",
   "cal.review.2": "Read the act next to a deadline before you rely on it.",
   "cal.view.label": "View",
-  "cal.view.grid": "Calendar",
+  "cal.view.grid": "Grid",
   "cal.view.list": "List",
   "cal.panel.empty": "Nothing to keep in mind on this day.",
-  "cal.past": "Past months",
-  "cal.local": "Day off in {places}"
+  "cal.local": "Day off in {places}",
+  "cal.scope.label": "What to show",
+  "cal.scope.day": "Selected day",
+  "cal.scope.month": "Whole month"
 }

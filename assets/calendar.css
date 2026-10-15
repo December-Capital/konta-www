@@ -308,7 +308,7 @@
   display: none;
 }
 
-.cal-grid-view .cal-month + .cal-month {
+.cal-js .cal-month + .cal-month {
   border-top: 0;
   padding-top: 0.5rem;
 }
@@ -326,7 +326,7 @@
 }
 
 /* With the month named in the navigation, its heading stays for the outline only. */
-.cal-grid-view .cal-month__head h2 {
+.cal-js .cal-month__head h2 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -335,7 +335,7 @@
   white-space: nowrap;
 }
 
-.cal-grid-view .cal-month__head {
+.cal-js .cal-month__head {
   margin-bottom: 0;
 }
 
@@ -528,117 +528,90 @@ a.cal-day__n:hover {
   max-width: 60rem;
 }
 
-.cal-grid-view .cal-month__list {
+.cal-js .cal-month__list {
   display: none;
 }
 
-.cal-list .cal-month__grid {
-  display: none;
-}
-
-.cal-list .cal-month__list {
-  margin-top: 0.5rem;
-}
-
-.cal-list .cal-month {
-  border-top: 1px solid var(--rule);
-  padding-top: 1.75rem;
-}
-
-.cal-past-heading {
-  margin-top: 1rem;
-  padding-top: 1.75rem;
-  border-top: 2px solid var(--rule-strong);
-  font-size: 1.35rem;
-  color: var(--ink-2);
-}
-
-.cal-past-heading[hidden] {
-  display: none;
-}
-
-/* The calendar and, beside it on a wide screen, the day picked in it. */
-.cal-stage {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 1.5rem;
-  align-items: start;
-}
-
+/* Under the calendar: the day picked in it, or the whole month. */
 .cal-stage__months {
-  display: flex;
-  flex-direction: column;
   min-width: 0;
 }
 
-@media (min-width: 1100px) {
-  .cal-grid-view .cal-stage {
-    grid-template-columns: minmax(0, 1fr) 21rem;
-  }
-}
-
 .cal-panel {
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 12px;
-  padding: 1rem 1rem 1.1rem;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
   scroll-margin-top: 1rem;
-}
-
-/* Beside the grid it stays in view while the month scrolls; under it, it is just the next thing. */
-@media (min-width: 1100px) {
-  .cal-panel {
-    position: sticky;
-    top: 1rem;
-    max-height: calc(100vh - 2rem);
-    overflow: auto;
-  }
-}
-
-.cal-panel__body > .cal-date {
-  list-style: none;
 }
 
 .cal-panel[hidden] {
   display: none;
 }
 
+.cal-panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.cal-panel__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .cal-panel__title {
   font-family: var(--serif);
-  font-size: 1.2rem;
-  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
 }
 
 .cal-panel__title::first-letter {
   text-transform: uppercase;
 }
 
-.cal-panel .cal-item {
-  padding: 0.7rem 0.8rem;
-}
-
-.cal-panel .cal-item p {
-  font-size: 0.86rem;
-}
-
 .cal-panel__empty {
   color: var(--ink-2);
-  font-size: 0.92rem;
 }
 
 .cal-panel__empty[hidden] {
   display: none;
 }
 
+.cal-panel .cal-dates {
+  gap: 1.25rem;
+}
+
+.cal-panel .cal-date {
+  list-style: none;
+}
+
+/* As a grid: cards side by side. As a list: one under the other, at reading width. */
+.cal-panel .cal-items {
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+  align-items: start;
+}
+
+.cal-panel--list .cal-items {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 60rem;
+}
+
+.cal-panel--list .cal-date > .cal-moved--day {
+  max-width: 60rem;
+}
+
 .cal-item--focus {
   box-shadow: 0 0 0 2px var(--accent);
 }
 
-.cal-grid-view .cal-grid td.cal-day {
+.cal-js .cal-grid td.cal-day {
   cursor: pointer;
 }
 
-.cal-grid-view .cal-grid td.cal-day:hover {
+.cal-js .cal-grid td.cal-day:hover {
   border-color: var(--accent);
 }
 
@@ -1088,7 +1061,7 @@ a.cal-day__n:hover {
   }
 
   .cal-month__list,
-  .cal-grid-view .cal-month__list {
+  .cal-js .cal-month__list {
     display: block !important;
     break-before: page;
   }

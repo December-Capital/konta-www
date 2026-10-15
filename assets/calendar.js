@@ -1,14 +1,14 @@
 /*
-  konta.md/calendar: the month as a calendar or as a list, the day panel, the filter by kind of
+  konta.md/calendar: the month, what falls on the day picked in it, the filter by kind of
   taxpayer, and printing.
 
   The page works without this file: every month is there, in order, each with its grid and its
   dates in full, and the browser prints it. This shows the reader's own month in the middle of the
-  page with steps three months back and forward to the last month the page holds; a click on a
-  day, its number or one of its labels shows what falls on it beside the grid; and "Listă" shows
-  the months as a list instead, the reader's month first. The filter and the chosen view are
-  remembered in this browser alone (localStorage), never sent anywhere, and forgotten silently
-  where storage is refused.
+  page with steps three months back and forward to the last month the page holds. Under it go the
+  entries of the day clicked (the day, its number or one of its labels), or of the whole month,
+  as a grid of cards or as a list. The filter and the grid-or-list choice are remembered in this
+  browser alone (localStorage), never sent anywhere, and forgotten silently where storage is
+  refused.
 */
 
 (function () {
@@ -51,7 +51,6 @@
   var sections = all('.cal-month');
   var holder = document.querySelector('[data-cal-months]');
   var nav = document.querySelector('[data-cal-nav]');
-  var viewSwitch = document.querySelector('[data-cal-view]');
   var title = document.querySelector('[data-cal-title]');
   var prev = document.querySelector('[data-cal-prev]');
   var next = document.querySelector('[data-cal-next]');
@@ -71,54 +70,77 @@
   if (home < 0) home = thisMonth < months[0] ? 0 : months.length - 1;
   var first = Math.max(0, home - BACK);
   var current = home;
-  var view = recall(VIEW) === 'list' ? 'list' : 'grid';
+  // Under the calendar: one day or the whole month, as a grid of cards or a list.
+  var layout = recall(VIEW) === 'list' ? 'list' : 'grid';
+  var scope = 'day';
   var selectedDate = null;
+  var focusId = null;
 
-  function longDate(date) {
+  function monthName(section) {
+    var h = section && section.querySelector('h2');
+    return h ? h.textContent.trim() : '';
+  }
+
+  function dayName(date) {
     var item = document.getElementById('d-' + date);
     var heading = item && item.querySelector('h3');
     if (heading) return heading.textContent.replace(/\s+/g, ' ').trim();
     var cell = document.querySelector('.cal-day[data-date="' + date + '"]');
-    var section = cell && cell.closest('.cal-month');
-    var month = section && section.querySelector('h2');
-    return (cell ? parseInt(date.slice(8), 10) + ' ' : '') + (month ? month.textContent.trim() : date);
+    return parseInt(date.slice(8), 10) + ' ' + monthName(cell && cell.closest('.cal-month')).replace(/\s+\d{4}$/, '');
   }
 
-  // The day panel: a copy of the day's entries from the month's list, so the list stays the one
-  // place the page says them.
-  function select(date, focusId) {
-    if (!panel) return;
-    selectedDate = date;
-    all('.cal-day--selected').forEach(function (d) { d.classList.remove('cal-day--selected'); });
-    var cell = document.querySelector('.cal-day[data-date="' + date + '"]');
-    if (cell) cell.classList.add('cal-day--selected');
+  // Copies of the month's own list, so the list stays the one place the page says each entry.
+  function copy(node) {
+    var c = node.cloneNode(true);
+    [c].concat(all('[id]', c)).forEach(function (el) {
+      if (!el.id) return;
+      el.setAttribute('data-from', el.id);
+      el.removeAttribute('id');
+    });
+    return c;
+  }
 
-    panelTitle.textContent = longDate(date);
+  function press(attr, value) {
+    all('[' + attr + ']').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute(attr) === value)); });
+  }
+
+  function render() {
+    if (!panel) return;
+    var section = sections[current];
+    panel.classList.toggle('cal-panel--list', layout === 'list');
+    panel.classList.toggle('cal-panel--month', scope === 'month');
+    press('data-view', layout);
+    press('data-scope', scope);
+    all('.cal-day--selected').forEach(function (d) { d.classList.remove('cal-day--selected'); });
     panelBody.innerHTML = '';
-    var source = document.getElementById('d-' + date);
-    var copy = null;
-    if (source) {
-      copy = source.cloneNode(true);
-      copy.removeAttribute('id');
-      all('[id]', copy).forEach(function (el) {
-        el.setAttribute('data-from', el.id);
-        el.removeAttribute('id');
-      });
-      var heading = copy.querySelector('h3');
-      if (heading) heading.parentNode.removeChild(heading);
-      copy.hidden = false;
-      panelBody.appendChild(copy);
+
+    if (scope === 'month') {
+      panelTitle.textContent = monthName(section);
+      var list = section.querySelector('.cal-dates');
+      if (list) panelBody.appendChild(copy(list));
+    } else {
+      panelTitle.textContent = selectedDate ? dayName(selectedDate) : monthName(section);
+      var cell = selectedDate && document.querySelector('.cal-day[data-date="' + selectedDate + '"]');
+      if (cell) cell.classList.add('cal-day--selected');
+      var source = selectedDate && document.getElementById('d-' + selectedDate);
+      if (source) {
+        var c = copy(source);
+        c.hidden = false;
+        var heading = c.querySelector('h3');
+        if (heading) heading.parentNode.removeChild(heading);
+        var ol = document.createElement('ol');
+        ol.className = 'cal-dates';
+        ol.appendChild(c);
+        panelBody.appendChild(ol);
+      }
     }
-    var visible = copy && all('.cal-item', copy).some(function (e) { return !e.hidden; });
-    panelEmpty.hidden = !!visible;
+    var visible = all('.cal-item', panelBody).some(function (e) { return !e.hidden; });
+    panelEmpty.hidden = visible;
     panel.hidden = false;
 
     if (focusId) {
       var target = panelBody.querySelector('[data-from="' + focusId + '"]');
-      if (target) {
-        target.classList.add('cal-item--focus');
-        target.scrollIntoView({ block: 'nearest' });
-      }
+      if (target) target.classList.add('cal-item--focus');
     }
   }
 
@@ -131,36 +153,16 @@
 
   function show(index) {
     current = Math.max(0, Math.min(months.length - 1, index));
-    sections.forEach(function (s, i) {
-      s.hidden = view === 'grid' ? i !== current : i < first;
-    });
-    var heading = sections[current].querySelector('h2');
-    if (title && heading) title.textContent = heading.textContent;
+    sections.forEach(function (s, i) { s.hidden = i !== current; });
+    if (title) title.textContent = monthName(sections[current]);
     if (prev) prev.disabled = current <= first;
     if (next) next.disabled = current >= months.length - 1;
     if (todayBtn) todayBtn.disabled = current === home;
-
-    if (view === 'grid' && panel) {
-      var section = sections[current];
-      var keep = selectedDate && selectedDate.slice(0, 7) === months[current];
-      var date = keep ? selectedDate
-        : (months[current] === thisMonth ? today : firstDayWithEntries(section));
-      if (date) select(date);
-      else panel.hidden = true;
+    if (!selectedDate || selectedDate.slice(0, 7) !== months[current]) {
+      selectedDate = months[current] === thisMonth ? today : firstDayWithEntries(sections[current]);
+      focusId = null;
     }
-  }
-
-  function setView(next) {
-    view = next;
-    root.classList.toggle('cal-list', view === 'list');
-    root.classList.toggle('cal-grid-view', view === 'grid');
-    all('[data-view]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-view') === view)); });
-    if (nav) nav.hidden = view !== 'grid';
-    if (panel && view !== 'grid') panel.hidden = true;
-    // As a list, the reader's month comes first and the months behind it last.
-    sections.forEach(function (s, i) { s.style.order = view === 'list' && i < home ? '2' : ''; });
-    if (pastHeading) pastHeading.hidden = view !== 'list' || first >= home;
-    show(current);
+    render();
   }
 
   // An address naming a day, a month or anything inside one (a link from a subscribed calendar)
@@ -170,57 +172,53 @@
     var target = id && document.getElementById(id);
     var month = target && target.closest && target.closest('.cal-month');
     if (!month) return false;
-    show(sections.indexOf(month));
-    if (view === 'grid') {
-      var day = /^d-(\d{4}-\d{2}-\d{2})$/.exec(id);
-      if (day) select(day[1]);
-      (panel && !panel.hidden ? panel : month).scrollIntoView({ block: 'start' });
-    } else {
-      target.scrollIntoView();
+    var day = /^d-(\d{4}-\d{2}-\d{2})$/.exec(id);
+    if (day) {
+      selectedDate = day[1];
+      scope = 'day';
     }
+    show(sections.indexOf(month));
+    month.scrollIntoView({ block: 'start' });
     return true;
   }
 
-  var pastHeading = null;
   if (sections.length && nav && holder) {
     root.classList.add('cal-js');
-    if (viewSwitch) viewSwitch.hidden = false;
-
-    if (home > first) {
-      pastHeading = document.createElement('h2');
-      pastHeading.className = 'cal-past-heading';
-      pastHeading.textContent = word('past');
-      pastHeading.style.order = '1';
-      pastHeading.hidden = true;
-      holder.appendChild(pastHeading);
-    }
+    nav.hidden = false;
 
     all('[data-view]').forEach(function (b) {
       b.addEventListener('click', function () {
-        setView(b.getAttribute('data-view'));
-        remember(VIEW, view === 'list' ? 'list' : null);
+        layout = b.getAttribute('data-view');
+        remember(VIEW, layout === 'list' ? 'list' : null);
+        render();
+      });
+    });
+    all('[data-scope]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        scope = b.getAttribute('data-scope');
+        render();
       });
     });
     prev.addEventListener('click', function () { show(current - 1); });
     next.addEventListener('click', function () { show(current + 1); });
     todayBtn.addEventListener('click', function () { show(home); });
 
-    // A day, its number or one of its labels: what falls on it, in the panel.
+    // A day, its number or one of its labels: what falls on it, under the calendar.
     holder.addEventListener('click', function (e) {
-      if (view !== 'grid') return;
       var cell = e.target.closest && e.target.closest('.cal-day');
       if (!cell) return;
       e.preventDefault();
       var label = e.target.closest('.cal-label[data-target]');
-      select(cell.getAttribute('data-date'), label ? label.getAttribute('data-target') : null);
-      if (history.replaceState) history.replaceState(null, '', '#d-' + cell.getAttribute('data-date'));
-      if (panel && window.matchMedia && !window.matchMedia('(min-width: 1100px)').matches) {
-        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      selectedDate = cell.getAttribute('data-date');
+      focusId = label ? label.getAttribute('data-target') : null;
+      scope = 'day';
+      render();
+      if (history.replaceState) history.replaceState(null, '', '#d-' + selectedDate);
+      var box = panel.getBoundingClientRect();
+      if (box.top > window.innerHeight - 120) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    setView(view);
-    follow();
+    if (!follow()) show(home);
     window.addEventListener('hashchange', follow);
   }
 
@@ -285,7 +283,7 @@
       day.hidden = !all('.cal-item', day).some(function (e) { return !e.hidden; });
     });
     crowd();
-    if (selectedDate && view === 'grid' && panel && !panel.hidden) select(selectedDate);
+    if (panel && !panel.hidden) render();
 
     var total = items.filter(function (i) { return i.closest('.cal-month'); }).length;
     if (count) {
