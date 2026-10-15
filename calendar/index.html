@@ -148,8 +148,8 @@
             <span aria-current="page" data-t="cal.crumb">Calendarul fiscal</span>
           </nav>
           <h1 data-t="cal.title">Calendarul fiscal al contabilului</h1>
-          <p class="hero__lead" data-t="cal.lead">Termenele de depunere și de plată, zilele nelucrătoare și schimbările din lege, lună de lună. Fiecare termen are lângă el actul normativ și articolul din care vine, cu link. Niciun termen fără sursă.</p>
-          <p class="cal-review"><span class="ruleset__state" data-t="set.state">în verificare</span> <span data-t="cal.review">Datele vin din registrul public konta-rulebook care este în verificare. Citiți actul de lângă termen înainte să vă bazați pe el.</span></p>
+          <p class="hero__lead cal-sentences"><span data-t="cal.lead.1">Termenele de depunere și de plată, zilele nelucrătoare și schimbările din lege, lună de lună.</span> <span data-t="cal.lead.2">Fiecare termen are lângă el actul normativ și articolul din care vine, cu link. Niciun termen fără sursă.</span></p>
+          <p class="cal-review"><span class="ruleset__state" data-t="set.state">în verificare</span> <span class="cal-sentences"><span data-t="cal.review.1">Datele vin din registrul public konta-rulebook care este în verificare.</span> <span data-t="cal.review.2">Citiți actul de lângă termen înainte să vă bazați pe el.</span></span></p>
         </div>
       </section>
 
@@ -163,6 +163,10 @@
               <button type="button" class="cal-btn" data-cal-today data-t="cal.nav.today">Luna aceasta</button>
             </div>
             <div class="cal-bar__actions">
+              <div class="cal-view" data-cal-view hidden role="group" aria-label="Afișare" data-t-aria-label="cal.view.label">
+                <button type="button" class="cal-view__btn" data-view="grid" aria-pressed="true" data-t="cal.view.grid">Calendar</button>
+                <button type="button" class="cal-view__btn" data-view="list" aria-pressed="false" data-t="cal.view.list">Listă</button>
+              </div>
               <details class="cal-filter" data-cal-filter-box>
                 <summary class="cal-btn"><span data-t="cal.filter.title">Arată termenele pentru</span> <strong data-cal-summary data-t="cal.filter.everyone">toți</strong></summary>
                 <form class="cal-filter__panel" data-cal-filter>
@@ -183,7 +187,16 @@
               <button type="button" class="cal-btn" data-cal-print hidden data-t="cal.print">Tipăriți</button>
             </div>
           </div>
+          <div class="cal-stage">
+            <div class="cal-stage__months" data-cal-months>
 <!-- calendar:months -->
+            </div>
+            <aside class="cal-panel" data-cal-panel hidden aria-live="polite" aria-labelledby="cal-panel-title">
+              <h3 class="cal-panel__title" id="cal-panel-title" data-cal-panel-title></h3>
+              <div class="cal-panel__body" data-cal-panel-body></div>
+              <p class="cal-panel__empty" data-cal-panel-empty hidden data-t="cal.panel.empty">Nimic de reținut în această zi.</p>
+            </aside>
+          </div>
         </div>
       </section>
 
@@ -272,6 +285,7 @@
         <span data-t="cal.transfer.rest">Zi de odihnă, lucrată pe {date}</span>
         <span data-t="cal.transfer.work">Zi lucrătoare, în locul zilei de {date}</span>
         <span data-t="cal.inforce">Intră în vigoare</span>
+        <span data-t="cal.local">Zi nelucrătoare în {places}</span>
         <span data-t="cal.change.fromto">{before} → {after}</span>
         <span data-t="cal.change.law">publicat în Monitorul Oficial</span>
         <span data-t="cal.change.bill">proiect, încă neadoptat</span>
@@ -301,6 +315,7 @@
         <span data-js="today" data-t="cal.js.today">Luna aceasta</span>
         <span data-js="selected" data-t="cal.js.selected">{n} selectate</span>
         <span data-js="more" data-t="cal.js.more">încă {n}</span>
+        <span data-js="past" data-t="cal.past">Lunile trecute</span>
       </div>
     </main>
 

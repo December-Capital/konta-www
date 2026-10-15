@@ -324,8 +324,6 @@
   "cal.meta.description": "Filing and payment deadlines at SFS, CNAS and CNAM, non-working days and changes in the law in Moldova, month by month, each with the legal act and article it comes from.",
   "cal.crumb": "Tax calendar",
   "cal.title": "The accountant's tax calendar",
-  "cal.lead": "Filing and payment deadlines, non-working days and changes in the law, month by month. Next to each deadline is the legal act and article it comes from, with a link. No deadline without a source.",
-  "cal.review": "The data comes from the public konta-rulebook register, which is under review. Read the act next to a deadline before you rely on it.",
   "cal.filter.title": "Show deadlines for",
   "cal.filter.all": "Showing every deadline.",
   "cal.filter.reset": "Show all",
@@ -457,5 +455,15 @@
   "cal.filter.everyone": "everyone",
   "cal.filter.legend": "Kind of taxpayer",
   "cal.js.selected": "{n} selected",
-  "cal.js.more": "{n} more"
+  "cal.js.more": "{n} more",
+  "cal.lead.1": "Filing and payment deadlines, non-working days and changes in the law, month by month.",
+  "cal.lead.2": "Next to each deadline is the legal act and article it comes from, with a link. No deadline without a source.",
+  "cal.review.1": "The data comes from the public konta-rulebook register, which is under review.",
+  "cal.review.2": "Read the act next to a deadline before you rely on it.",
+  "cal.view.label": "View",
+  "cal.view.grid": "Calendar",
+  "cal.view.list": "List",
+  "cal.panel.empty": "Nothing to keep in mind on this day.",
+  "cal.past": "Past months",
+  "cal.local": "Day off in {places}"
 }

@@ -235,6 +235,8 @@ def render_months(cal, lang, w, today, first, last):
             by_day.setdefault(day['date'], []).append(('off', day))
         if 'worked' in day:
             by_day.setdefault(day['date'], []).append(('worked', day))
+        if 'local' in day:
+            by_day.setdefault(day['date'], []).append(('local', day))
     for f, c in cal.changes():
         if c['state'] == 'law':
             by_day.setdefault(c['effectiveFrom'], []).append(('law', (f, c)))
@@ -267,11 +269,13 @@ def render_month(cal, lang, w, today, y, m, by_day):
             classes.append('cal-day--off')
         if any(k == 'worked' for k, _ in entries):
             classes.append('cal-day--worked')
+        if any(k == 'local' for k, _ in entries):
+            classes.append('cal-day--local')
         if date == today.isoformat():
             classes.append('cal-day--today')
         profiles = sorted({p for e in deadlines for p in cal.rules[e['id']][1]['appliesTo']})
         label = '<span class="cal-day__n">%d</span>' % d
-        if deadlines or any(k in ('off', 'worked', 'law') for k, _ in entries):
+        if entries:
             label = '<a class="cal-day__n" href="#d-%s">%d</a>' % (date, d)
         mark = ''
         if deadlines:
@@ -335,28 +339,43 @@ def render_month(cal, lang, w, today, y, m, by_day):
         '</section>' % (ident, ident, ident, ident, esc(title), grid, ''.join(notes), body))
 
 
+def item_id(kind, e, sub=None):
+    """The id of an entry in the month's list, which the grid's labels and the day panel use."""
+    if kind == 'deadline':
+        p = e['period']
+        tail = '%d-%s' % (p['year'], p.get('month') or p.get('quarter') or p.get('half') or 0)
+        return 'i-%s-%s-%s%s' % (e['date'], e['id'], tail, '-%d' % e['installment'] if e.get('installment') else '')
+    if kind == 'law':
+        return 'i-%s-law-%s' % (e[1]['effectiveFrom'], e[1]['id'])
+    return 'i-%s-%s%s' % (e['date'], kind, '-' + sub if sub else '')
+
+
 def ordered(cal, entries):
     """Days off and laws first, then deadlines in the order the rulebook lists them, which is
     roughly how many companies each one concerns."""
-    rank = {'off': 0, 'worked': 0, 'law': 1, 'deadline': 2}
+    rank = {'off': 0, 'worked': 0, 'local': 0, 'law': 1, 'deadline': 2}
     return sorted(entries, key=lambda ke: (rank[ke[0]], cal.order.get(ke[1].get('id'), 0) if ke[0] == 'deadline' else 0))
 
 
 def grid_label(cal, lang, w, kind, e):
     if kind == 'deadline':
         _f, rule = cal.rules[e['id']]
-        return '<li class="cal-label cal-label--deadline" data-profiles="%s" title="%s">%s</li>' % (
-            ' '.join(rule['appliesTo']), esc('%s · %s' % (rule['name'][lang], period_text(w, e))),
+        return '<li class="cal-label cal-label--deadline" data-target="%s" data-profiles="%s" title="%s">%s</li>' % (
+            item_id(kind, e), ' '.join(rule['appliesTo']), esc('%s · %s' % (rule['name'][lang], period_text(w, e))),
             esc(rule.get('form') or rule['name'][lang]))
     if kind == 'off':
-        return ''.join('<li class="cal-label cal-label--off" title="%s">%s</li>' % (
-            esc(x['name'][lang]), esc(x['name'][lang])) for x in e['off'] if x.get('name'))
+        return ''.join('<li class="cal-label cal-label--off" data-target="%s" title="%s">%s</li>' % (
+            item_id('off', e, x['id']), esc(x['name'][lang]), esc(x['name'][lang])) for x in e['off'] if x.get('name'))
     if kind == 'worked':
-        return '<li class="cal-label cal-label--worked">%s</li>' % esc(w('cal.workday'))
+        return '<li class="cal-label cal-label--worked" data-target="%s">%s</li>' % (item_id(kind, e), esc(w('cal.workday')))
+    if kind == 'local':
+        return ''.join('<li class="cal-label cal-label--local" data-target="%s" title="%s">%s</li>' % (
+            item_id('local', e, str(i)), esc(w('cal.local', places=x['places'][lang])), esc(x['name'][lang]))
+            for i, x in enumerate(e['local']))
     if kind == 'law':
         _f, c = e
-        return '<li class="cal-label cal-label--law" title="%s">%s</li>' % (
-            esc('%s: %s' % (w('cal.inforce'), c['title'][lang])), esc(c['title'][lang]))
+        return '<li class="cal-label cal-label--law" data-target="%s" title="%s">%s</li>' % (
+            item_id(kind, e), esc('%s: %s' % (w('cal.inforce'), c['title'][lang])), esc(c['title'][lang]))
     return ''
 
 
@@ -398,8 +417,8 @@ def render_item(cal, lang, w, kind, e, moved_said=False):
             esc(w('cal.basis')), cite_link(source, lang, w),
             (' · ' + esc(w('cal.also')) + ' ' + ', '.join(also)) if also else '',
             esc(w('cal.state.' + rule['confidence']))))
-        return '<li class="cal-item cal-item--deadline" data-profiles="%s">\n%s\n</li>' % (
-            ' '.join(rule['appliesTo']), '\n'.join(lines))
+        return '<li class="cal-item cal-item--deadline" id="%s" data-profiles="%s">\n%s\n</li>' % (
+            item_id(kind, e), ' '.join(rule['appliesTo']), '\n'.join(lines))
 
     if kind == 'off':
         parts = []
@@ -410,9 +429,9 @@ def render_item(cal, lang, w, kind, e, moved_said=False):
             else:
                 title = entry['name'][lang]
             parts.append(
-                '<li class="cal-item cal-item--off">\n<h4>%s</h4>\n<p class="cal-meta">%s</p>\n'
+                '<li class="cal-item cal-item--off" id="%s">\n<h4>%s</h4>\n<p class="cal-meta">%s</p>\n'
                 '<p class="cal-act">%s %s · <span class="cal-state">%s</span></p>\n</li>' % (
-                    esc(title), esc(w('cal.offday')), esc(w('cal.basis')), cite_link(source, lang, w),
+                    item_id('off', e, entry['id']), esc(title), esc(w('cal.offday')), esc(w('cal.basis')), cite_link(source, lang, w),
                     esc(w('cal.state.' + ('verified' if source.get('verified') else 'unverified')))))
         return '\n'.join(parts)
 
@@ -420,9 +439,9 @@ def render_item(cal, lang, w, kind, e, moved_said=False):
         t = e['worked']
         source = cal.holidays['sources'][t['sourceIndex']]
         return (
-            '<li class="cal-item cal-item--worked">\n<h4>%s</h4>\n'
+            '<li class="cal-item cal-item--worked" id="%s">\n<h4>%s</h4>\n'
             '<p class="cal-act">%s %s · <span class="cal-state">%s</span></p>\n</li>' % (
-                esc(w('cal.transfer.work', date=day_month(w, t['restDay']))), esc(w('cal.basis')),
+                item_id(kind, e), esc(w('cal.transfer.work', date=day_month(w, t['restDay']))), esc(w('cal.basis')),
                 cite_link(source, lang, w),
                 esc(w('cal.state.' + ('verified' if source.get('verified') else 'unverified')))))
 
@@ -435,8 +454,21 @@ def render_item(cal, lang, w, kind, e, moved_said=False):
         lines.append('<p class="cal-act">%s %s · <span class="cal-state">%s</span></p>' % (
             esc(w('cal.basis')), cite_link(source, lang, w),
             esc(w('cal.state.' + ('verified' if source.get('verified') else 'unverified')))))
-        return '<li class="cal-item cal-item--law">\n<p class="cal-kind">%s</p>\n%s\n</li>' % (
-            esc(w('cal.inforce')), '\n'.join(lines))
+        return '<li class="cal-item cal-item--law" id="%s">\n<p class="cal-kind">%s</p>\n%s\n</li>' % (
+            item_id(kind, e), esc(w('cal.inforce')), '\n'.join(lines))
+
+    if kind == 'local':
+        parts = []
+        for i, x in enumerate(e['local']):
+            basis = cal.holidays['sources'][x['basisIndex']]
+            source = cal.holidays['sources'][x['sourceIndex']]
+            parts.append(
+                '<li class="cal-item cal-item--local" id="%s">\n<h4>%s</h4>\n<p class="cal-meta">%s</p>\n'
+                '<p class="cal-act">%s %s · %s %s · <span class="cal-state">%s</span></p>\n</li>' % (
+                    item_id('local', e, str(i)), esc(x['name'][lang]), esc(w('cal.local', places=x['places'][lang])),
+                    esc(w('cal.basis')), cite_link(basis, lang, w), esc(w('cal.also')), cite_link(source, lang, w),
+                    esc(w('cal.state.unverified'))))
+        return '\n'.join(parts)
     raise Refused('unknown item kind %s' % kind)
 
 
@@ -603,6 +635,12 @@ def ics(cal, lang, w, stamp, name, profile=None):
             title = w('cal.transfer.rest', date=day_month(w, entry['workDay'])) if entry['kind'] == 'transfer' else entry['name'][lang]
             event('off-%s-%s-%s' % (day['date'], entry['id'], lang), day['date'], '%s · %s' % (title, w('cal.offday')),
                   '%s %s%s' % (w('cal.basis'), source['cite'][lang], (' ' + source['url']) if source.get('url') else ''),
+                  '%s#d-%s' % (page, day['date']), [w('cal.offday')], True)
+        for i, x in enumerate(day.get('local', [])):
+            source = cal.holidays['sources'][x['sourceIndex']]
+            basis = cal.holidays['sources'][x['basisIndex']]
+            event('local-%s-%d-%s' % (day['date'], i, lang), day['date'], '%s · %s' % (x['name'][lang], w('cal.local', places=x['places'][lang])),
+                  '%s %s %s; %s %s' % (w('cal.basis'), basis['cite'][lang], basis.get('url', ''), source['cite'][lang], source.get('url', '')),
                   '%s#d-%s' % (page, day['date']), [w('cal.offday')], True)
         if 'worked' in day:
             t = day['worked']
