@@ -1,0 +1,56 @@
+# Konta
+
+> Konta is an online accounting program for companies and accounting firms in the Republic of Moldova, made by December Capital. It is still in development: the application at app.konta.md is a preview that runs on test data, and Konta cannot be bought yet. Tax rates, thresholds, deadlines and accounts are not written into its code; it reads them from a public rulebook in which every value carries the date it applies from and the act it comes from.
+
+Everything here is as of 15 October 2026 and says what the site's own pages say. The rulebook's values are still being checked by a licensed accountant and are marked "unverified" until they are. Konta has no published prices yet, and no ratings or reviews.
+
+## Pages
+
+Romanian at the addresses below; Russian under /ru/ and English under /en/ (for example https://konta.md/en/calendar/).
+
+- [Home](https://konta.md/): what Konta is, and "Ce funcționează azi", what works today in the preview
+- [Tax calendar](https://konta.md/calendar/): filing and payment deadlines, non-working days and changes in the law, each with its act and article, generated from the rulebook; .ics feeds per kind of taxpayer and an RSS of changes in the law
+- [Salary calculator 2026](https://konta.md/calculator-salariu/): one month's salary from gross to net and the employer's cost, every figure from the rulebook; it passes the same payroll test cases as Konta's own payroll, from one public file
+- [User guide](https://konta.md/ghid/): for accountants, step by step: the e-Factura API user, opening balances from 1C, the first month, closing the month, importing a bank statement
+- [Ten questions for any accounting software vendor](https://konta.md/intrebari/): with Konta's own answers, each marked today, in part or planned
+- [Security](https://konta.md/securitate/): what is done, what comes before the first pilot client, what comes later
+- [e-Factura](https://konta.md/e-factura/): what works with e-Factura today, what comes next, and what the law requires now
+- [Moving from 1C](https://konta.md/trecerea-de-la-1c/): the first company moved by Konta, free, then both programs side by side until the sums match
+- [No programmer](https://konta.md/fara-programator/): rates, thresholds and deadlines are data Konta updates once for every client, and what changes in 2027
+- [Partners](https://konta.md/parteneri/): accounting firms invited to build Konta with its makers
+- [Transparency](https://konta.md/transparenta/), [Privacy](https://konta.md/privacy/), [Contact](https://konta.md/contact/)
+
+## Public repositories
+
+- [konta-rulebook](https://github.com/December-Capital/konta-rulebook): Moldovan fiscal law as effective-dated data with its sources: the 2026 and 2027 rule sets, the general chart of accounts, the deadline calendar with holidays and changes in the law, e-Factura's classifiers, and the payroll test cases the salary calculator and the product both pass. The rule sets and the chart of accounts are licensed CC BY 4.0.
+- [konta-efactura](https://github.com/December-Capital/konta-efactura): a .NET client for the State Tax Service's e-Factura SOAP API, generated from its WSDL.
+
+The application itself is not open source.
+
+## Works today, in the preview, on test data
+
+- The chart of accounts from the Ministry of Finance's order, with the company's own subaccounts
+- The journal of entries, corrected only by reversal
+- The trial balance, account statement and general ledger
+- Sales invoices, numbered without gaps, and purchase invoices
+- The sales and purchase VAT registers
+- Receipts and payments that settle the partner's invoices
+- Payroll, computed each month by the cumulative method of Government Decision 697/2014, posted and paid
+- Closing the month; reopening it needs a reason and stays in the audit trail
+- Opening balances from a 1C trial balance (.xlsx, .csv or pasted from Excel)
+- Accounting firms work in client companies through a mandate, with a role for each person
+- A partner's details offered by SFS from the IDNO, from its test service for now, taken only when the person chooses
+
+## In progress
+
+- Bank statement import from a file, as payments the accountant checks and posts: MT940 and a table with saved columns work in the preview; each bank's own format waits on real statements
+- The TVA12 return: the registers it is built from exist, the form does not yet
+- Issuing invoices through e-Factura: Konta's client already talks to SFS's test service, signing comes next
+
+## Not there yet
+
+Full data export, the printed invoice, advances, the IPC21 return, timesheets and leave, fixed assets, inventory, financial statements.
+
+## Contact
+
+mail@konta.md · +373 79 189 805

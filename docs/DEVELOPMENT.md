@@ -13,15 +13,18 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `e-factura/`, `fara-programator/`, `trecerea-de-la-1c/`, `parteneri/`, `transparenta/` | one topic each, reached from the header and the home page cards |
 | `contact/index.html`, `contact/trimite.php` | the contact page and the handler its form posts to |
 | `calendar/index.html` | the fiscal calendar's page: header, footer, filters and words only; its months, feeds and RSS are written from `konta-rulebook` when the site is packaged (see "The calendar"); header nav |
+| `calculator-salariu/index.html` | the 2026 salary calculator: the form, the result and the words, with placeholders the package fills from `konta-rulebook` (see "The salary calculator"); footer |
+| `ghid/index.html` | the guide for accountants: the e-Factura API user, opening balances from 1C, the first month, closing the month, the bank statement; each step true to `HANDOFF.md`; footer |
+| `llms.txt` | a plain summary for language models: what Konta is, the pages, the public repositories, what works and what does not yet, matching the home page's "Ce funcționează azi" |
 | `intrebari/index.html` | ten questions to put to any accounting software vendor, each with Konta's answer and where it stands (FAQPage JSON-LD); footer |
 | `securitate/index.html` | security facts, each "done", "before the first pilot" or "later", who processes data, how to report a problem; footer |
 | `privacy/index.html` | what the form collects, why, for how long, and the visitor's rights; linked from the form and every footer |
 | `.well-known/security.txt` | where to report a security problem (RFC 9116); renew its `Expires` before 2027-10-14 |
 | `status/index.html` | `konta.md/status`, reachability of the app, checked from the visitor's browser (noindex) |
 | `404.html` | served by `.htaccess` for any missing path, with a real 404 status (noindex) |
-| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the eleven indexable pages, and the package rewrites it with their `/ru/` and `/en/` copies |
+| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the thirteen indexable pages, and the package rewrites it with their `/ru/` and `/en/` copies |
 | `assets/` | stylesheet, scripts, the three language catalogues, logo, fonts, `og.png` (the 1200x630 share image) |
-| `tools/` | scripts that are run by hand, never served; `languages.py` writes the `/ru/` and `/en/` copies when the site is packaged, `fiscal_calendar.py` the calendar |
+| `tools/` | scripts that are run by hand, never served; `languages.py` writes the `/ru/` and `/en/` copies when the site is packaged, `fiscal_calendar.py` the calendar, `salary_calculator.py` the salary calculator's figures, after `test-salary.mjs` has run the payroll vectors |
 
 Every page repeats the same header and footer by hand. When the navigation changes, change it on
 every page, and run `tools/check-catalogues.py`, which reads all of them.
@@ -33,7 +36,7 @@ commit and a deploy is a pull. Keep it that way until a page needs something a p
 
 Each indexable page carries its own title and description (both translated by `data-t`), a
 canonical URL with a trailing slash, Open Graph and Twitter tags pointing at `assets/og.png`, and
-JSON-LD: `Organization` and `WebSite` on the home page, `BreadcrumbList` on the others, and `FAQPage` on `intrebari/`, whose text must stay word for word the Romanian on the page. One `h1`
+JSON-LD: `Organization`, `WebSite` and `SoftwareApplication` (BusinessApplication, Web, ro/ru/en) on the home page, `BreadcrumbList` on the others, and `FAQPage` on `intrebari/`, whose text must stay word for word the Romanian on the page. One `h1`
 per page. When a page is added, add it to `sitemap.xml` and to `SERVED` in `tools/package.py`:
 the sitemap is also the list of pages that get Russian and English copies.
 
@@ -53,7 +56,12 @@ from the Romanian page and the catalogues, and are never committed. Each copy ha
 - links to the other indexable pages in the same language, and `?lang=` on the ones without copies
   (the status page), which translate in place.
 
-The packaged `sitemap.xml` lists all thirty-three addresses, each with its alternates. The package
+JSON-LD never carries `aggregateRating`, `review` or `offers`: Konta has no reviews and no
+public prices, and the package refuses a page that tries. Take `offers` off `FORBIDDEN` in
+`tools/languages.py` the day prices are published; a rating needs real reviews first. A
+`description` in JSON-LD is translated like a `name`, so it must be a `data-t` text on the page.
+
+The packaged `sitemap.xml` lists all thirty-nine addresses, each with its alternates. The package
 refuses to write anything when a catalogue lacks a key a page uses, when JSON-LD carries a name or
 text that is not on the page, or when a page's inline script is not the one whose hash the CSP
 allows. `status/` and `404.html` have no copies: they are noindex.
@@ -102,6 +110,37 @@ To check it the way it is served: package to a scratch folder, serve it with `ph
 router that sends the `.htaccess` headers, and drive it in headless Chromium in all three languages,
 both themes, desktop and phone, with the CSP reports in view; parse the `.ics` with two
 independent readers (Python `icalendar`, `ical.js`).
+
+## The salary calculator
+
+`konta.md/calculator-salariu` computes one month of 2026 from the gross salary: the medical
+premium, the personal and dependant exemptions with the income ceiling, income tax, the net, the
+employer's social contribution and cost. It is the product's payroll arithmetic
+(`Konta.Domain.Payroll.PayrollArithmetic`, the cumulative method) written again in
+`assets/salary.js` over BigInt bani and exact fractions, never a JS number for an amount. The month
+it shows is January of a year paid the same salary every month, which is every month below the
+ceiling; above it the personal exemption is not taken, and twelve such months make the product's
+year.
+
+No figure is in this repository. `tools/salary_calculator.py`, called by `package.py` after the
+calendar:
+
+- reads the payroll keys the product's `PayrollService` reads from `konta-rulebook`, resolved as
+  its `InMemoryRulebook` does (publication order, then effective date), and refuses a year in which
+  any of them changes, a rounding other than to the ban, or a value no longer "unverified" (the
+  page says "în verificare");
+- runs `node tools/test-salary.mjs` over `konta-rulebook/vectors/payroll-md-2026.json`, the file
+  konta's `PayrollVectorsTests` runs the product's arithmetic over. One ban of difference on any
+  month and nothing is packaged. `python tools/salary_calculator.py --check` runs it alone;
+- writes the rules into the page's `<script type="application/json" id="salary-rules">` and fills
+  the words' placeholders in each language: `{rate:cnam}`, `{amount:cap}`, `{act:<key>}` (the act
+  and article the rulebook cites, in Romanian), `{out:net}` (SFS's worked example, from the
+  vectors, shown before any script runs), `{count:cases}`, `{commit}`. A placeholder left unfilled
+  stops the package.
+
+The rulebook must be committed (`data/`, `vectors/`) or the package refuses, unless
+`KONTA_RULEBOOK_DIRTY=1` is set for a local look. What it leaves out is on the page: one month
+only, no major or spouse exemption, no other CNAS categories, no other income.
 
 ## The contact form
 

@@ -33,6 +33,8 @@ RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
 <IfModule mod_mime.c>
   AddType font/woff2 .woff2
   AddType application/json .json
+  # llms.txt and security.txt carry Romanian and Russian; without a charset a browser guesses.
+  AddType "text/plain; charset=utf-8" .txt
 </IfModule>
 
 # Caching, and the reason for each tier.
@@ -54,7 +56,7 @@ RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
     Header set Cache-Control "public, max-age=86400"
   </FilesMatch>
 
-  <FilesMatch "\.(html|json|css|js|ics|xml)$">
+  <FilesMatch "\.(html|json|css|js|ics|xml|txt)$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
 

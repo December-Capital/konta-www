@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ro" data-lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-t="guide.meta.title">Ghidul Konta pentru contabili · Konta</title>
+    <meta name="description" data-t="guide.meta.description" content="Pas cu pas, cum se lucrează în Konta azi: utilizatorul API e-Factura, soldurile inițiale din 1C, prima lună, închiderea lunii și importul extrasului bancar." />
+    <link rel="canonical" href="https://konta.md/ghid/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Konta" />
+    <meta property="og:locale" content="ro_MD" />
+    <meta property="og:url" content="https://konta.md/ghid/" />
+    <meta property="og:title" content="Ghidul Konta pentru contabili · Konta" />
+    <meta property="og:description" content="Pas cu pas, cum se lucrează în Konta azi: utilizatorul API e-Factura, soldurile inițiale din 1C, prima lună, închiderea lunii și importul extrasului bancar." />
+    <meta property="og:image" content="https://konta.md/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" data-t="og.image.alt" content="Konta · contabilitate pentru companiile din Moldova" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ghidul Konta pentru contabili · Konta" />
+    <meta name="twitter:description" content="Pas cu pas, cum se lucrează în Konta azi: utilizatorul API e-Factura, soldurile inițiale din 1C, prima lună, închiderea lunii și importul extrasului bancar." />
+    <meta name="theme-color" content="#f6f4f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16161a" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/assets/favicon.png" type="image/png" />
+    <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/assets/fonts.css?v=5" />
+    <link rel="stylesheet" href="/assets/site.css?v=5" />
+    <script>
+      // Before first paint, so the theme never flashes the other one. The device's theme unless
+      // one was chosen, here or in the app: konta_theme and konta_lang are cookies shared by
+      // konta.md and app.konta.md (see assets/site.js), and the old localStorage copies are read
+      // for anybody who chose before them. An address without /ru/ or /en/ then moves to the
+      // language chosen the same way, or named by ?lang=, when the page has a copy in it.
+      (function () {
+        var root = document.documentElement;
+        function chosen(name, values) {
+          var match = new RegExp('(?:^|;\\s*)konta_' + name + '=(' + values + ')(?:;|$)').exec(document.cookie);
+          if (match) return match[1];
+          try {
+            var saved = localStorage.getItem('konta.' + name);
+            return new RegExp('^(?:' + values + ')$').test(saved) ? saved : null;
+          } catch (e) {
+            return null; /* private mode: the cookie alone decides */
+          }
+        }
+        root.dataset.theme =
+          chosen('theme', 'light|dark') ||
+          (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (root.lang !== 'ro') return;
+        var asked = /[?&]lang=(ro|ru|en)(?:&|$)/.exec(location.search);
+        var lang = asked ? asked[1] : chosen('lang', 'ro|ru|en');
+        var copy = lang && lang !== 'ro' && document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
+        if (copy) location.replace(new URL(copy.href).pathname + location.hash);
+      })();
+    </script>
+    <script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Konta",
+          "item": "https://konta.md/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Ghid",
+          "item": "https://konta.md/ghid/"
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main" data-t="skip">Sari la conținut</a>
+
+    <header class="masthead">
+      <div class="shell masthead__bar">
+        <a class="brand" href="/">
+          <img class="brand__mark" src="/assets/logo.png" alt="Konta" width="40" height="30" data-logo />
+          <span class="brand__name">Konta</span>
+        </a>
+
+        <nav class="sections" aria-label="Secțiuni" data-t-aria-label="nav.label">
+          <a href="/calendar/" data-t="nav.calendar">Calendar fiscal</a>
+          <a href="/e-factura/" data-t="nav.efactura">e-Factura</a>
+          <a href="/fara-programator/" data-t="nav.noprog">Fără programator</a>
+          <a href="/trecerea-de-la-1c/" data-t="nav.move">Trecerea de la 1C</a>
+          <a href="/parteneri/" data-t="nav.partners">Parteneri</a>
+          <a href="/contact/" data-t="nav.contact">Contact</a>
+        </nav>
+
+        <div class="controls">
+          <button
+            type="button"
+            class="control"
+            data-lang-cycle
+            lang="ro"
+            aria-label="RO. Treci la Русский"
+            title="Русский"
+          >
+            RO
+          </button>
+
+          <button
+            type="button"
+            class="control"
+            data-theme-btn
+            aria-label="Schimbă tema"
+            data-t-aria-label="theme.label"
+          >
+            <svg class="sunmoon" viewBox="0 0 32 32" fill="currentColor" stroke-linecap="round" aria-hidden="true">
+              <clipPath id="sunmoon-cut">
+                <path class="sunmoon__cut" d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
+              </clipPath>
+              <g clip-path="url(#sunmoon-cut)">
+                <circle class="sunmoon__disc" cx="16" cy="16" r="8" />
+                <g class="sunmoon__rays" stroke="currentColor" stroke-width="1.5">
+                  <path d="M16 5.5v-4M16 30.5v-4M1.5 16h4M26.5 16h4M23.4 8.6l2.8-2.8M5.7 26.3l2.9-2.9M5.8 5.8l2.8 2.8M23.4 23.4l2.9 2.9" />
+                </g>
+              </g>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="notice">
+      <div class="shell notice__bar">
+        <span class="notice__flag" data-t="dev.flag">În dezvoltare</span>
+        <p data-t="dev.text">Konta este încă în lucru. Pe acest site descriem produsul pe care îl construim și cât am avansat. Deocamdată nu se poate cumpăra.</p>
+      </div>
+    </div>
+
+    <main id="main">
+      <section class="hero hero--page">
+        <div class="shell">
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <a href="/" data-t="crumb.home">Acasă</a>
+            <span aria-hidden="true">·</span>
+            <span aria-current="page" data-t="foot.guide">Ghid</span>
+          </nav>
+          <h1 data-t="guide.title">Ghidul Konta pentru contabili</h1>
+          <p class="hero__lead" data-t="guide.lead">Cum se lucrează în Konta, pas cu pas, așa cum este aplicația azi. Konta este încă în dezvoltare: aplicația de la app.konta.md este o versiune de previzualizare, cu date de test. Ghidul crește cu fiecare funcție nouă.</p>
+          <p class="updated" data-t="guide.updated">Valabil la 15 octombrie 2026</p>
+          <nav class="toc" aria-label="Cuprins" data-t-aria-label="guide.toc">
+            <ol>
+              <li><a href="#utilizator-api" data-t="guide.ef.h">Cum creați utilizatorul API e-Factura</a></li>
+              <li><a href="#solduri-1c" data-t="guide.open.h">Soldurile inițiale din 1C</a></li>
+              <li><a href="#prima-luna" data-t="guide.first.h">Prima lună în Konta</a></li>
+              <li><a href="#inchiderea-lunii" data-t="guide.close.h">Închiderea lunii</a></li>
+              <li><a href="#extras-bancar" data-t="guide.bank.h">Importul extrasului bancar</a></li>
+            </ol>
+          </nav>
+        </div>
+      </section>
+
+      <section class="band band--quiet guide" id="utilizator-api">
+        <div class="shell">
+          <h2 data-t="guide.ef.h">Cum creați utilizatorul API e-Factura</h2>
+          <p class="state state--planned" data-t="guide.ef.state">Konta îl va folosi</p>
+          <p data-t="guide.ef.p1">Un program de contabilitate lucrează cu SIA „e-Factura” printr-un utilizator API pe care îl creează compania, nu cu parola dumneavoastră de la SFS. Konta nu transmite încă facturi prin e-Factura: transmiterea este în lucru. Când va fi gata, Konta va folosi acest utilizator, îl va păstra criptat, iar fiecare folosire va apărea în jurnalul companiei. Îl puteți crea de acum.</p>
+          <ol class="howto">
+            <li data-t="guide.ef.s1">Utilizatorul API îl poate crea doar cine are în SIA „e-Factura” rolul de manager al companiei, de obicei directorul.</li>
+            <li data-t="guide.ef.s2">Intrați în SIA „e-Factura” prin MPass, cu semnătura electronică.</li>
+            <li data-t="guide.ef.s3">Deschideți Setări, apoi Utilizatorii companiei.</li>
+            <li data-t="guide.ef.s4">Apăsați Creați utilizator API, completați câmpurile și salvați.</li>
+            <li data-t="guide.ef.s5">Păstrați numele și parola utilizatorului într-un loc sigur și nu le trimiteți prin e-mail.</li>
+          </ol>
+          <div class="aside">
+            <p data-t="guide.ef.n1">Am făcut acești pași pe 8 octombrie 2026, pe portalul de test al SFS, preproductie.sfs.md: directorul a intrat cu semnătura electronică și a creat utilizatorul API sub Setări, Utilizatorii companiei. Ghidul de integrare al SFS descrie aceiași pași.</p>
+            <p data-t="guide.ef.n2">După ghidul SFS, utilizatorul API are acces la toate funcțiile platformei, de aceea trebuie păstrat ca o cheie. Semnarea facturilor rămâne la o persoană, în interfața SIA „e-Factura”.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band guide" id="solduri-1c">
+        <div class="shell">
+          <h2 data-t="guide.open.h">Soldurile inițiale din 1C</h2>
+          <p class="state state--done" data-t="state.today">Azi</p>
+          <p data-t="guide.open.p1">Konta nu citește baza de date 1C. Pornește de la soldurile finale din balanța de verificare a ultimei luni lucrate în 1C.</p>
+          <ol class="howto">
+            <li data-t="guide.open.s1">În 1C, faceți balanța de verificare pe ultima lună, cu subconturile, și salvați-o ca .xlsx sau .csv. Un fișier .xls vechi se salvează mai întâi ca .xlsx din Excel.</li>
+            <li data-t="guide.open.s2">În Konta, deschideți Solduri inițiale și alegeți data soldurilor: începutul zilei din care lucrați în Konta, de obicei 1 ianuarie.</li>
+            <li data-t="guide.open.s3">Încărcați fișierul sau lipiți celulele copiate din Excel. Konta alege coloanele soldului final, adică ultima pereche debit-credit dintr-o balanță 1C; le puteți schimba.</li>
+            <li data-t="guide.open.s4">Verificați tabelul. Fiecare problemă apare la rândul ei: un cont care nu este în planul de conturi, o sumă negativă, sold și la debit, și la credit. Un cont listat împreună cu subconturile lui se pune deoparte, iar dacă totalul lui nu este egal cu suma subconturilor, Konta vă spune.</li>
+            <li data-t="guide.open.s5">Apăsați Înregistrează soldurile inițiale. Ele intră o singură dată, ca înregistrarea „Solduri inițiale” din Jurnal, iar Balanța de verificare le arată ca sold inițial.</li>
+          </ol>
+          <div class="aside">
+            <p data-t="guide.open.n1">Pentru a le înlocui, stornați înregistrarea „Solduri inițiale” din Jurnal și încărcați-le din nou. Fișierul este verificat de antivirus înainte de a fi citit, iar sumele se citesc exact cum sunt scrise în celule.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band--quiet guide" id="prima-luna">
+        <div class="shell">
+          <h2 data-t="guide.first.h">Prima lună în Konta</h2>
+          <p class="state state--partial" data-t="state.partial">În parte</p>
+          <p data-t="guide.first.p1">După soldurile inițiale, luna se ține din documente. Ce se poate face azi în aplicație:</p>
+          <ol class="howto">
+            <li data-t="guide.first.s1">Compania: datele firmei care se tipăresc pe documente și pe declarații, cum ar fi denumirea, adresele, contul bancar și codurile. Doar directorul le poate schimba.</li>
+            <li data-t="guide.first.s2">Parteneri: clienții și furnizorii. Când scrieți un IDNO, Konta poate propune datele partenerului de la SFS, deocamdată din serviciul de test: denumirea oficială, adresa, codul TVA și conturile înregistrate. Le preluați doar dacă le alegeți.</li>
+            <li data-t="guide.first.s3">Facturi emise: o factură se face ca ciornă și se înregistrează. La înregistrare primește numărul următor, fără goluri, și intră în contabilitate creanța, venitul și TVA. O factură înregistrată se anulează doar prin stornare.</li>
+            <li data-t="guide.first.s4">Facturi primite: cu seria și numărul furnizorului. Fiecare rând se înregistrează pe contul lui, TVA de dedus pe 534, furnizorul pe 521.</li>
+            <li data-t="guide.first.s5">Încasări și plăți: o plată achită facturile înregistrate ale partenerului, exact suma ei. Avansurile nu sunt încă posibile.</li>
+            <li data-t="guide.first.s6">Salarii, pentru director, contabilul-șef și salarizare: angajații, apoi statul de plată al lunii, calculat prin metoda cumulativă. Se înregistrează, apoi se plătește. Lunile se înregistrează în ordine.</li>
+            <li data-t="guide.first.s7">Registrele TVA: livrările și procurările pe cote, cu TVA de plată sau de recuperat. Din ele se completează TVA12; formularul declarației nu este încă în Konta.</li>
+            <li data-t="guide.first.s8">Jurnal, Balanța de verificare, Fișa contului și Cartea mare: o înregistrare manuală pentru ce nu vine din documente, și rapoartele pentru verificare.</li>
+          </ol>
+          <div class="aside">
+            <p data-t="guide.first.n1">Încă nu există în Konta: declarația TVA12, IPC21, facturile tipărite, transmiterea prin e-Factura, avansurile, pontajul și concediile, mijloacele fixe și stocurile.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band guide" id="inchiderea-lunii">
+        <div class="shell">
+          <h2 data-t="guide.close.h">Închiderea lunii</h2>
+          <p class="state state--done" data-t="state.today">Azi</p>
+          <p data-t="guide.close.p1">Închiderea blochează luna: după ea, nicio înregistrare, stornare sau sold inițial nu mai intră cu o dată din perioada închisă. Blocarea o face baza de date, nu doar aplicația.</p>
+          <ol class="howto">
+            <li data-t="guide.close.s1">Verificați luna: Balanța de verificare, Registrele TVA, plățile rămase ciornă și rândurile extraselor rămase de rezolvat.</li>
+            <li data-t="guide.close.s2">Deschideți Închiderea perioadei și alegeți luna până la care închideți. Se închid doar lunile încheiate, până la ultima lor zi.</li>
+            <li data-t="guide.close.s3">Apăsați Închide perioada. Doar contabilul-șef poate închide.</li>
+            <li data-t="guide.close.s4">Dacă trebuie corectat ceva, Redeschide mută data închiderii înapoi. Cere un motiv și confirmarea că sunteți dumneavoastră, iar motivul rămâne în istoric și în jurnalul de audit.</li>
+          </ol>
+          <div class="aside">
+            <p data-t="guide.close.n1">Închiderea de sfârșit de an nu există încă: conturile de venituri și cheltuieli nu se închid automat în 351 și 333.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band--quiet guide" id="extras-bancar">
+        <div class="shell">
+          <h2 data-t="guide.bank.h">Importul extrasului bancar</h2>
+          <p class="state state--partial" data-t="state.partial">În parte</p>
+          <p data-t="guide.bank.p1">Konta nu se conectează la bancă și nu vă cere datele de acces la bancă. Descărcați extrasul din banca dumneavoastră și îl încărcați în Konta.</p>
+          <ol class="howto">
+            <li data-t="guide.bank.s1">Deschideți Încasări și plăți, apoi Extrase bancare.</li>
+            <li data-t="guide.bank.s2">Alegeți formatul: MT940, sau un tabel CSV ori Excel. Formatele proprii ale fiecărei bănci vor veni după ce vom avea extrase reale de la ele.</li>
+            <li data-t="guide.bank.s3">Pentru un tabel, spuneți o singură dată ce conține fiecare coloană: data și cum este scrisă, suma (o coloană cu minus pentru ieșiri, sau două coloane, intrări și ieșiri) și, dacă există, numărul documentului, contragentul, codul fiscal, IBAN-ul și destinația plății. Coloanele se păstrează pentru firmă.</li>
+            <li data-t="guide.bank.s4">Încărcați fișierul. Este verificat de antivirus, apoi citit rând cu rând. Un extras MT940 al cărui sold inițial, cu mișcările, nu dă soldul final este refuzat întreg.</li>
+            <li data-t="guide.bank.s5">Un rând care numește un partener, după IDNO sau după IBAN, și facturile lui, după numărul din destinația plății sau ca singura factură deschisă cu exact acea sumă, devine o plată ciornă. Nimic nu se înregistrează singur: verificați ciorna și apăsați Înregistrează plata.</li>
+            <li data-t="guide.bank.s6">Pentru un rând rămas de rezolvat, alegeți partenerul și facturile, sau puneți-l deoparte cu un motiv, de exemplu un comision bancar înregistrat în jurnal.</li>
+          </ol>
+          <div class="aside">
+            <p data-t="guide.bank.n1">Un rând adus deja de un extras anterior care se suprapune este recunoscut și nu devine a doua plată, iar același fișier nu se importă de două ori. Extrasele în altă valută decât a firmei și avansurile nu sunt încă posibile.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band--quiet band--cta">
+        <div class="shell">
+          <div class="aside">
+            <p data-t="guide.outro">Dacă un pas de aici nu mai este adevărat în aplicație, este o greșeală. Scrieți-ne și o corectăm.</p>
+          </div>
+          <div class="hero__actions">
+            <a class="btn" href="https://app.konta.md" data-t="foot.app">Intrare în aplicație</a>
+            <a class="btn btn--plain" href="/contact/" data-t="cta.write">Scrieți-ne</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="shell foot__bar">
+        <span>© <span data-year>2026</span> <a href="https://itin.md" class="foot__owner" target="_blank" rel="noopener">December Capital</a></span>
+        <a href="/transparenta/" data-t="foot.transparency">Transparență</a>
+        <a href="/securitate/" data-t="foot.security">Securitate</a>
+        <a href="/intrebari/" data-t="foot.questions">Întrebări pentru furnizori</a>
+        <a href="/privacy/" data-t="foot.privacy">Confidențialitate</a>
+        <a href="/status/" data-t="foot.status">Stare serviciu</a>
+        <a href="https://app.konta.md" class="foot__spacer" data-t="foot.app">Intrare în aplicație</a>
+      </div>
+    </footer>
+
+    <script type="application/json" data-seed>
+      {"lang.next": "Treci la"}
+    </script>
+    <script src="/assets/site.js?v=7"></script>
+  </body>
+</html>

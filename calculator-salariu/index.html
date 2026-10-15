@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="ro" data-lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-t="sal.meta.title">Calculator de salariu 2026: din brut în net · Konta</title>
+    <meta name="description" data-t="sal.meta.description" content="Din salariul brut, cât primește angajatul și cât plătește angajatorul într-o lună din 2026: prima medicală, scutirile, impozitul pe venit, contribuția socială. Fiecare valoare din registrul public, cu actul ei." />
+    <link rel="canonical" href="https://konta.md/calculator-salariu/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Konta" />
+    <meta property="og:locale" content="ro_MD" />
+    <meta property="og:url" content="https://konta.md/calculator-salariu/" />
+    <meta property="og:title" content="Calculator de salariu 2026: din brut în net · Konta" />
+    <meta property="og:description" content="Din salariul brut, cât primește angajatul și cât plătește angajatorul într-o lună din 2026: prima medicală, scutirile, impozitul pe venit, contribuția socială. Fiecare valoare din registrul public, cu actul ei." />
+    <meta property="og:image" content="https://konta.md/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" data-t="og.image.alt" content="Konta · contabilitate pentru companiile din Moldova" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Calculator de salariu 2026: din brut în net · Konta" />
+    <meta name="twitter:description" content="Din salariul brut, cât primește angajatul și cât plătește angajatorul într-o lună din 2026: prima medicală, scutirile, impozitul pe venit, contribuția socială. Fiecare valoare din registrul public, cu actul ei." />
+    <meta name="theme-color" content="#f6f4f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16161a" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/assets/favicon.png" type="image/png" />
+    <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/assets/fonts.css?v=5" />
+    <link rel="stylesheet" href="/assets/site.css?v=5" />
+    <link rel="stylesheet" href="/assets/salary.css?v=1" />
+    <script>
+      // Before first paint, so the theme never flashes the other one. The device's theme unless
+      // one was chosen, here or in the app: konta_theme and konta_lang are cookies shared by
+      // konta.md and app.konta.md (see assets/site.js), and the old localStorage copies are read
+      // for anybody who chose before them. An address without /ru/ or /en/ then moves to the
+      // language chosen the same way, or named by ?lang=, when the page has a copy in it.
+      (function () {
+        var root = document.documentElement;
+        function chosen(name, values) {
+          var match = new RegExp('(?:^|;\\s*)konta_' + name + '=(' + values + ')(?:;|$)').exec(document.cookie);
+          if (match) return match[1];
+          try {
+            var saved = localStorage.getItem('konta.' + name);
+            return new RegExp('^(?:' + values + ')$').test(saved) ? saved : null;
+          } catch (e) {
+            return null; /* private mode: the cookie alone decides */
+          }
+        }
+        root.dataset.theme =
+          chosen('theme', 'light|dark') ||
+          (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (root.lang !== 'ro') return;
+        var asked = /[?&]lang=(ro|ru|en)(?:&|$)/.exec(location.search);
+        var lang = asked ? asked[1] : chosen('lang', 'ro|ru|en');
+        var copy = lang && lang !== 'ro' && document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
+        if (copy) location.replace(new URL(copy.href).pathname + location.hash);
+      })();
+    </script>
+    <script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Konta",
+          "item": "https://konta.md/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Calculator de salariu",
+          "item": "https://konta.md/calculator-salariu/"
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main" data-t="skip">Sari la conținut</a>
+
+    <header class="masthead">
+      <div class="shell masthead__bar">
+        <a class="brand" href="/">
+          <img class="brand__mark" src="/assets/logo.png" alt="Konta" width="40" height="30" data-logo />
+          <span class="brand__name">Konta</span>
+        </a>
+
+        <nav class="sections" aria-label="Secțiuni" data-t-aria-label="nav.label">
+          <a href="/calendar/" data-t="nav.calendar">Calendar fiscal</a>
+          <a href="/e-factura/" data-t="nav.efactura">e-Factura</a>
+          <a href="/fara-programator/" data-t="nav.noprog">Fără programator</a>
+          <a href="/trecerea-de-la-1c/" data-t="nav.move">Trecerea de la 1C</a>
+          <a href="/parteneri/" data-t="nav.partners">Parteneri</a>
+          <a href="/contact/" data-t="nav.contact">Contact</a>
+        </nav>
+
+        <div class="controls">
+          <button
+            type="button"
+            class="control"
+            data-lang-cycle
+            lang="ro"
+            aria-label="RO. Treci la Русский"
+            title="Русский"
+          >
+            RO
+          </button>
+
+          <button
+            type="button"
+            class="control"
+            data-theme-btn
+            aria-label="Schimbă tema"
+            data-t-aria-label="theme.label"
+          >
+            <svg class="sunmoon" viewBox="0 0 32 32" fill="currentColor" stroke-linecap="round" aria-hidden="true">
+              <clipPath id="sunmoon-cut">
+                <path class="sunmoon__cut" d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
+              </clipPath>
+              <g clip-path="url(#sunmoon-cut)">
+                <circle class="sunmoon__disc" cx="16" cy="16" r="8" />
+                <g class="sunmoon__rays" stroke="currentColor" stroke-width="1.5">
+                  <path d="M16 5.5v-4M16 30.5v-4M1.5 16h4M26.5 16h4M23.4 8.6l2.8-2.8M5.7 26.3l2.9-2.9M5.8 5.8l2.8 2.8M23.4 23.4l2.9 2.9" />
+                </g>
+              </g>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="notice">
+      <div class="shell notice__bar">
+        <span class="notice__flag" data-t="dev.flag">În dezvoltare</span>
+        <p data-t="dev.text">Konta este încă în lucru. Pe acest site descriem produsul pe care îl construim și cât am avansat. Deocamdată nu se poate cumpăra.</p>
+      </div>
+    </div>
+
+    <main id="main">
+      <section class="hero hero--page">
+        <div class="shell">
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <a href="/" data-t="crumb.home">Acasă</a>
+            <span aria-hidden="true">·</span>
+            <span aria-current="page" data-t="foot.salary">Calculator de salariu</span>
+          </nav>
+          <h1 data-t="sal.title">Calculator de salariu 2026</h1>
+          <p class="hero__lead" data-t="sal.lead">Din salariul brut, cât primește angajatul și cât plătește angajatorul într-o lună din 2026. Fiecare valoare vine din registrul public din care calculează și aplicația Konta, cu actul normativ din care este luată.</p>
+          <p class="updated" data-t="sal.review">Valorile sunt încă în verificare la un contabil autorizat.</p>
+        </div>
+      </section>
+
+      <section class="band band--quiet">
+        <div class="shell calc">
+          <form class="calc__form" data-salary novalidate>
+            <div class="field">
+              <label for="gross" data-t="sal.gross">Salariul brut lunar, în lei</label>
+              <input id="gross" name="gross" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="10000" aria-describedby="gross-hint gross-error" />
+              <span id="gross-hint" class="calc__hint" data-t="sal.gross.hint">De exemplu 10000 sau 12 345,50</span>
+              <span id="gross-error" class="calc__error" data-salary-error hidden data-t="sal.gross.error">Scrieți suma în lei, cu cifre, și cel mult doi bani după virgulă.</span>
+            </div>
+            <label class="calc__check">
+              <input type="checkbox" name="personal" checked />
+              <span data-t="sal.personal">Angajatul a cerut scutirea personală</span>
+            </label>
+            <div class="field">
+              <label for="dependants" data-t="sal.dependants">Persoane întreținute</label>
+              <select id="dependants" name="dependants">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+            <noscript><p class="calc__hint" data-t="sal.noscript">Fără JavaScript, rezultatul de alături rămâne exemplul de {out:gross} lei, cu scutirea personală.</p></noscript>
+          </form>
+
+          <div class="calc__out">
+            <table class="calc__results" data-salary-results aria-live="polite">
+              <caption data-t="sal.caption">O lună, în lei</caption>
+              <tbody>
+                <tr>
+                  <th scope="row" data-t="sal.out.gross">Salariul brut</th>
+                  <td data-out="gross">{out:gross}</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-t="sal.out.medical">Prima de asigurare medicală, {rate:cnam}, reținută</th>
+                  <td data-out="medical">{out:medical}</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-t="sal.out.exemption">Scutiri</th>
+                  <td data-out="exemption">{out:exemption}</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-t="sal.out.taxable">Venitul impozabil</th>
+                  <td data-out="taxable">{out:taxable}</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-t="sal.out.tax">Impozitul pe venit, {rate:tax}, reținut</th>
+                  <td data-out="incomeTax">{out:incomeTax}</td>
+                </tr>
+                <tr class="calc__total">
+                  <th scope="row" data-t="sal.out.net">Salariul net, primit de angajat</th>
+                  <td data-out="net">{out:net}</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-t="sal.out.social">Contribuția de asigurări sociale a angajatorului, {rate:cnas}</th>
+                  <td data-out="social">{out:social}</td>
+                </tr>
+                <tr class="calc__total">
+                  <th scope="row" data-t="sal.out.cost">Costul total pentru angajator</th>
+                  <td data-out="cost">{out:cost}</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="calc__capped" data-salary-capped hidden data-t="sal.capped">Douăsprezece luni la acest salariu depășesc plafonul anual de {amount:cap} lei, așa că scutirea personală nu se cuvine și nu a fost scăzută.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="shell prose">
+          <h2 data-t="sal.how.h">Cum se calculează</h2>
+          <p data-t="sal.how.p1">Calculatorul socotește o lună dintr-un an în care angajatul primește același salariu în fiecare lună, din ianuarie, la un singur angajator, fără alte venituri. Din salariul brut se reține prima de asigurare medicală. Din ce rămâne se scad scutirile: scutirea personală, {amount:personalMonth} lei pe lună, dacă angajatul a cerut-o, și {amount:dependantMonth} lei pe lună pentru fiecare persoană întreținută. Rezultatul este venitul impozabil, din care se reține impozitul pe venit. Angajatorul plătește în plus contribuția de asigurări sociale, calculată din salariul brut.</p>
+          <p data-t="sal.how.p2">Impozitul se calculează cumulativ, de la începutul anului, cum cere HG nr. 697/2014; cu același salariu în fiecare lună, fiecare lună iese la fel. Fiecare sumă se rotunjește la ban, iar o jumătate de ban se rotunjește în sus.</p>
+          <p data-t="sal.how.p3">Scutirea personală nu se acordă celui al cărui venit impozabil pe an depășește {amount:cap} lei. Calculatorul o scade doar dacă douăsprezece luni la salariul scris nu depășesc această sumă, adică până la {amount:capMonth} lei pe lună. Codul fiscal socotește venitul din toate sursele, iar cine depășește plafonul regularizează în declarația anuală.</p>
+        </div>
+      </section>
+
+      <section class="band band--quiet">
+        <div class="shell prose">
+          <h2 data-t="sal.check.h">Verificat cu aplicația Konta</h2>
+          <p data-t="sal.check.p1">Calculatorul de pe această pagină și calculul salariilor din aplicația Konta sunt două programe separate. Amândouă trec aceleași {count:cases} exemple, {count:months} de luni în total, dintr-un singur fișier public al registrului. Primul este exemplul publicat de SFS, cel de alături: brut {out:gross}, primă {out:medical}, scutire {out:exemption}, venit impozabil {out:taxable}, impozit {out:incomeTax}, net {out:net}.</p>
+          <p data-t="sal.check.p2">Dacă cele două ar da rezultate diferite, fie și cu un ban, pagina nu s-ar publica. Sumele se socotesc în bani întregi, fără numere cu virgulă mobilă.</p>
+          <p><a href="https://github.com/December-Capital/konta-rulebook/blob/{commit}/vectors/payroll-md-2026.json" rel="noopener" data-t="sal.check.link">Deschideți fișierul cu exemple</a></p>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="shell prose">
+          <h2 data-t="sal.not.h">Ce nu calculează</h2>
+          <ul class="calc__not">
+            <li data-t="sal.not.1">Doar o lună, cu același salariu tot anul: nu calculează anul întreg, luni cu salarii diferite, zilele lucrate, concediile sau indemnizațiile.</li>
+            <li data-t="sal.not.2">Fără scutirea personală majoră, fără scutirea pentru soț sau soție și fără suma mai mare pentru o persoană întreținută cu dizabilitate.</li>
+            <li data-t="sal.not.3">Doar cota generală a contribuției de asigurări sociale, {rate:cnas}: fără alte categorii de asigurați și fără o bază minimă sau maximă.</li>
+            <li data-t="sal.not.4">Vede doar acest salariu. Alte venituri ale angajatului, care contează pentru plafonul scutirii personale, nu le cunoaște.</li>
+            <li data-t="sal.not.5">Fără avansuri de salariu, prime sau alte plăți în afara salariului lunar.</li>
+            <li data-t="sal.not.6">Nu înlocuiește statul de plată făcut de contabil.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="band band--quiet">
+        <div class="shell">
+          <div class="band__head">
+            <h2 data-t="sal.values.h">Valorile folosite</h2>
+          </div>
+          <div class="ruleset">
+            <div class="ruleset__head">
+              <span class="ruleset__title">md-2026</span>
+              <span class="ruleset__state" data-t="sal.values.state">În verificare</span>
+            </div>
+            <table class="calc__values">
+              <thead>
+                <tr>
+                  <th data-t="sal.values.what">Ce</th>
+                  <th class="rate" data-t="sal.values.value">Valoarea</th>
+                  <th data-t="sal.values.act">Actul</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-t="sal.v.tax">Impozitul pe venit</td>
+                  <td class="rate">{rate:tax}</td>
+                  <td class="calc__act">{act:payroll.income_tax.rate}</td>
+                </tr>
+                <tr>
+                  <td data-t="sal.v.cnam">Prima de asigurare medicală, reținută de la angajat</td>
+                  <td class="rate">{rate:cnam}</td>
+                  <td class="calc__act">{act:payroll.cnam.employee_rate}</td>
+                </tr>
+                <tr>
+                  <td data-t="sal.v.cnas">Contribuția de asigurări sociale, plătită de angajator</td>
+                  <td class="rate">{rate:cnas}</td>
+                  <td class="calc__act">{act:payroll.cnas.employer_rate}</td>
+                </tr>
+                <tr>
+                  <td data-t="sal.v.personal">Scutirea personală, pe an</td>
+                  <td class="rate">{amount:personal}</td>
+                  <td class="calc__act">{act:payroll.income_tax.personal_deduction_annual}</td>
+                </tr>
+                <tr>
+                  <td data-t="sal.v.cap">Plafonul venitului anual pentru scutirea personală</td>
+                  <td class="rate">{amount:cap}</td>
+                  <td class="calc__act">{act:payroll.income_tax.personal_deduction_income_cap}</td>
+                </tr>
+                <tr>
+                  <td data-t="sal.v.dependant">Scutirea pentru o persoană întreținută, pe an</td>
+                  <td class="rate">{amount:dependant}</td>
+                  <td class="calc__act">{act:payroll.income_tax.dependant_deduction_annual}</td>
+                </tr>
+                <tr>
+                  <td data-t="sal.v.premium">Prima medicală se scade înainte de impozit</td>
+                  <td class="rate" data-t="sal.v.yes">da</td>
+                  <td class="calc__act">{act:payroll.income_tax.medical_premium_deductible}</td>
+                </tr>
+                <tr>
+                  <td data-t="sal.v.method">Metoda de calcul a impozitului</td>
+                  <td class="rate" data-t="sal.v.cumulative">cumulativă</td>
+                  <td class="calc__act">{act:payroll.income_tax.withholding_method}</td>
+                </tr>
+                <tr>
+                  <td data-t="sal.v.round">Rotunjirea</td>
+                  <td class="rate" data-t="sal.v.ban">la ban</td>
+                  <td class="calc__act" data-t="sal.v.round.act">Alegerea noastră: actele citite nu dau o regulă de rotunjire.</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="ruleset__foot">
+              <p data-t="sal.values.note">Valorile sunt cele din setul md-2026 al registrului public konta-rulebook, citite când a fost publicată pagina. Un contabil autorizat le verifică acum și încă nu le-a aprobat. Le puteți verifica singur, rând cu rând, fiecare cu actul din care vine.</p>
+              <a href="https://github.com/December-Capital/konta-rulebook/blob/{commit}/data/2026/md-2026.json" rel="noopener" data-t="sal.values.link">Deschideți setul md-2026</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band--quiet band--cta">
+        <div class="shell">
+          <div class="hero__actions">
+            <a class="btn" href="/calendar/" data-t="sal.cta.calendar">Calendarul fiscal</a>
+            <a class="btn btn--plain" href="/contact/" data-t="cta.write">Scrieți-ne</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="application/json" id="salary-rules">
+      <!-- salary:rules -->
+    </script>
+
+    <footer class="foot">
+      <div class="shell foot__bar">
+        <span>© <span data-year>2026</span> <a href="https://itin.md" class="foot__owner" target="_blank" rel="noopener">December Capital</a></span>
+        <a href="/transparenta/" data-t="foot.transparency">Transparență</a>
+        <a href="/securitate/" data-t="foot.security">Securitate</a>
+        <a href="/intrebari/" data-t="foot.questions">Întrebări pentru furnizori</a>
+        <a href="/calculator-salariu/" data-t="foot.salary">Calculator de salariu</a>
+        <a href="/ghid/" data-t="foot.guide">Ghid</a>
+        <a href="/privacy/" data-t="foot.privacy">Confidențialitate</a>
+        <a href="/status/" data-t="foot.status">Stare serviciu</a>
+        <a href="https://app.konta.md" class="foot__spacer" data-t="foot.app">Intrare în aplicație</a>
+      </div>
+    </footer>
+
+    <script type="application/json" data-seed>
+      {"lang.next": "Treci la"}
+    </script>
+    <script src="/assets/site.js?v=7"></script>
+    <script src="/assets/salary.js?v=1"></script>
+  </body>
+</html>

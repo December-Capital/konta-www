@@ -47,6 +47,10 @@ LOCALES = {'ro': 'ro_MD', 'ru': 'ru_MD', 'en': 'en_US'}
 # Names JSON-LD may carry untranslated: they are names, the same in every language.
 PROPER = {'Konta', 'Moldova', 'December Capital'}
 
+# Never in JSON-LD: Konta has no reviews to rate it by, and no published prices to offer. When
+# prices are public, `offers` may come off this list; a rating needs real reviews first.
+FORBIDDEN = {'aggregateRating', 'review', 'offers'}
+
 # The Open Graph and Twitter texts repeat the page's title and description. They carry no data-t
 # of their own, so they are translated by matching the Romanian of one that does.
 REPEATED = {'og:title', 'og:description', 'twitter:title', 'twitter:description'}
@@ -206,13 +210,16 @@ class Page:
     def json_ld(self, lang, words, block):
         def walk(value, key=None):
             if isinstance(value, dict):
+                banned = FORBIDDEN & set(value)
+                if banned:
+                    raise Refused('%s: JSON-LD carries %s' % (self.file, ', '.join(sorted(banned))))
                 return {k: walk(v, k) for k, v in value.items()}
             if isinstance(value, list):
                 # A list of languages (WebSite's inLanguage) is not the page's language.
                 return [walk(v, key + '[]' if key else None) for v in value]
             if not isinstance(value, str):
                 return value
-            if key in ('name', 'text'):
+            if key in ('name', 'text', 'description'):
                 if squash(value) in words:
                     return self.word(lang, words[squash(value)])
                 if value in PROPER:

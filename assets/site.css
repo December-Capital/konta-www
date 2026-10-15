@@ -1357,3 +1357,62 @@ img {
     margin-left: 0;
   }
 }
+
+/* The guide: a table of contents under the title, then numbered steps that read down the page,
+   long enough to be sentences, which the grid of .steps is not meant for. */
+.toc {
+  margin-top: 22px;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 1.4em;
+  display: grid;
+  gap: 6px;
+  color: var(--ink-3);
+}
+
+.guide h2 {
+  scroll-margin-top: 16px;
+}
+
+.guide .shell > p:not(.state) {
+  margin-top: 12px;
+  color: var(--ink-2);
+  max-width: 68ch;
+}
+
+.howto {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  counter-reset: howto;
+  max-width: 74ch;
+}
+
+.howto li {
+  counter-increment: howto;
+  position: relative;
+  padding: 12px 0 12px 44px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink);
+}
+
+.howto li:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.howto li::before {
+  content: counter(howto);
+  position: absolute;
+  left: 0;
+  top: 9px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--gold);
+}
+
+.band--cta .aside {
+  margin: 0 0 22px;
+}

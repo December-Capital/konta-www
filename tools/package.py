@@ -29,13 +29,14 @@ import zipfile
 
 import fiscal_calendar
 import languages
+import salary_calculator
 
 # Everything here is served. Everything not here is not. Dotted names are listed like any other:
 # .well-known/ holds security.txt, and nothing here skips a name for starting with a dot.
 SERVED = [
     'index.html', '404.html', 'robots.txt', 'sitemap.xml', '.htaccess', '.well-known', 'assets',
     'status', 'e-factura', 'fara-programator', 'trecerea-de-la-1c', 'parteneri', 'transparenta',
-    'contact', 'privacy', 'intrebari', 'securitate', 'calendar',
+    'contact', 'privacy', 'intrebari', 'securitate', 'calendar', 'calculator-salariu', 'ghid', 'llms.txt',
 ]
 
 DEFAULT = os.path.join('..', 'kontamd-deploy')
@@ -94,6 +95,12 @@ def build(out, make_zip=False):
         sys.exit('Not packaged: %s' % refusal)
     files += made['files']
 
+    # The salary calculator's rates and acts, from konta-rulebook, once it agrees with the product.
+    try:
+        salary = salary_calculator.build(out)
+    except salary_calculator.Refused as refusal:
+        sys.exit('Not packaged: %s' % refusal)
+
     total = 0
     for root, dirs, names in os.walk(out):
         dirs[:] = [d for d in dirs if d != '.git']
@@ -109,6 +116,8 @@ def build(out, make_zip=False):
     print('  calendar from konta-rulebook %s%s: %d dated deadlines, %d days off, %d changes, %d feeds' % (
         made['commit'], ' (uncommitted data)' if made['dirty'] else '', made['deadlines'], made['days'],
         made['changes'], made['files']))
+    print('  salary calculator from konta-rulebook %s%s: %d payroll vectors, %d months, agreed to the ban' % (
+        salary['commit'], ' (uncommitted data)' if salary['dirty'] else '', salary['cases'], salary['months']))
     # Plain ASCII: the Windows console encoding mangles anything else.
     print('\n  .htaccess is a dotfile. The file manager hides it - check it arrived.')
 

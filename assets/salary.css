@@ -1,0 +1,172 @@
+/* konta.md/calculator-salariu: the form beside its result, then the notes under them. */
+
+.calc {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(300px, 1.35fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+
+.calc__form {
+  display: grid;
+  gap: 18px;
+}
+
+.calc__hint {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+.calc__error {
+  font-size: 0.875rem;
+  color: var(--down);
+}
+
+.calc__error[hidden],
+.calc__capped[hidden] {
+  display: none;
+}
+
+.field input[aria-invalid='true'] {
+  border-color: var(--down);
+}
+
+.calc__check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.calc__check input {
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  accent-color: var(--accent);
+  flex: none;
+}
+
+.calc__check input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.calc__results {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--gold-rule);
+  border-radius: 3px;
+  font-size: 0.9375rem;
+}
+
+.calc__results caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+  padding-bottom: 8px;
+}
+
+.calc__results th,
+.calc__results td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+}
+
+.calc__results th {
+  text-align: left;
+  font-weight: 400;
+  color: var(--ink-2);
+}
+
+.calc__results td {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.calc__results tr:last-child th,
+.calc__results tr:last-child td {
+  border-bottom: 0;
+}
+
+.calc__results .calc__total th,
+.calc__results .calc__total td {
+  color: var(--ink);
+  font-weight: 600;
+  background: var(--sunken);
+}
+
+.calc__results--stale td {
+  color: var(--ink-3);
+}
+
+.calc__capped {
+  margin-top: 14px;
+  padding: 11px 15px;
+  border-left: 2px solid var(--gold-rule);
+  background: var(--sunken);
+  font-size: 0.9375rem;
+  color: var(--ink);
+  max-width: none;
+}
+
+.calc__not {
+  padding-left: 1.2em;
+}
+
+.calc__not li + li {
+  margin-top: 8px;
+}
+
+.calc__values td.calc__act {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+@media (max-width: 760px) {
+  .calc {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .calc__results th,
+  .calc__results td {
+    padding: 9px 10px;
+  }
+
+  .calc__results td {
+    white-space: normal;
+  }
+
+  /* Each value on one line with its act under it, rather than three cramped columns. */
+  .calc__values thead {
+    display: none;
+  }
+
+  .calc__values tr {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .calc__values tr:last-child {
+    border-bottom: 0;
+  }
+
+  .calc__values td {
+    border-bottom: 0;
+  }
+
+  .calc__values td.calc__act {
+    grid-column: 1 / -1;
+    padding-top: 0;
+  }
+}
