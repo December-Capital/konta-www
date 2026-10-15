@@ -80,11 +80,16 @@ can open the data it was built from; a rulebook with uncommitted calendar data r
 unless `KONTA_CALENDAR_DIRTY=1` is set for a local look, and the page then says so. Publish only
 from a pushed rulebook. Node 22 is needed at package time.
 
-`assets/calendar.js` filters by kind of taxpayer (remembered in this browser only, in
-`localStorage`, forgotten silently where storage is refused), puts the reader's month first with
-the months behind under "Lunile trecute", and offers printing; without it the page is complete,
-in order from the month it was built. `assets/calendar.css` holds the page's look and its print
-layout, which prints each act's address after its name. No Event JSON-LD: a filing deadline is not
+The page is the month: a grid across the content width, each day with its deadlines, days off and
+laws as short labels (a busy day shows four and "încă N"), and under it every date of the month in
+full with its acts. The package holds the months from three before the one it was built in to the
+end of next year. `assets/calendar.js` shows one at a time, the reader's own month first, with
+steps three months back and forward to the last; an address naming a day (`#d-2026-10-26`, as the
+.ics events link) opens its month. It also filters by kind of taxpayer, from a small menu
+(remembered in this browser only, in `localStorage`, forgotten silently where storage is refused),
+and offers printing. Without it the page is complete, every month in order. On a phone the grid
+shows the days with a dot where something is due. `assets/calendar.css` holds the page's look and
+its print layout, the shown month's grid and then its list, with each act's address after its name. No Event JSON-LD: a filing deadline is not
 an event anybody attends, and search engines' rules for events say so; the page carries the usual
 BreadcrumbList.
 

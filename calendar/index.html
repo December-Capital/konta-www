@@ -140,7 +140,7 @@
     </div>
 
     <main id="main" class="cal-page">
-      <section class="hero hero--page">
+      <section class="hero hero--page cal-hero">
         <div class="shell">
           <nav class="crumbs" aria-label="Breadcrumb">
             <a href="/" data-t="crumb.home">Acasă</a>
@@ -149,34 +149,40 @@
           </nav>
           <h1 data-t="cal.title">Calendarul fiscal al contabilului</h1>
           <p class="hero__lead" data-t="cal.lead">Termenele de depunere și de plată, zilele nelucrătoare și schimbările din lege, lună de lună. Fiecare termen are lângă el actul normativ și articolul din care vine, cu link. Niciun termen fără sursă.</p>
-          <p class="cal-review"><span class="ruleset__state" data-t="set.state">în verificare</span> <span data-t="cal.review">Datele vin din registrul public konta-rulebook, pe care un contabil autorizat încă nu l-a verificat. Citiți actul de lângă termen înainte să vă bazați pe el.</span></p>
-        </div>
-      </section>
-
-      <section class="band band--quiet cal-tools" aria-labelledby="cal-filter-title">
-        <div class="shell">
-          <form class="cal-filter" data-cal-filter>
-            <fieldset>
-              <legend id="cal-filter-title" data-t="cal.filter.title">Arată termenele pentru</legend>
-              <div class="cal-chips">
-<!-- calendar:filters -->
-              </div>
-              <p class="cal-filter__state">
-                <span data-cal-count data-t="cal.filter.all">Se arată toate termenele.</span>
-                <button type="button" class="cal-reset" data-cal-reset hidden data-t="cal.filter.reset">Arată tot</button>
-              </p>
-            </fieldset>
-          </form>
-          <p class="cal-actions">
-            <a class="btn btn--plain" href="#abonare" data-t="cal.subscribe.short">Abonare în calendarul dumneavoastră</a>
-            <a class="btn btn--plain" href="#schimbari" data-t="cal.changes.short">Schimbări în lege</a>
-            <button type="button" class="btn btn--plain" data-cal-print hidden data-t="cal.print">Tipăriți</button>
-          </p>
+          <p class="cal-review"><span class="ruleset__state" data-t="set.state">în verificare</span> <span data-t="cal.review">Datele vin din registrul public konta-rulebook care este în verificare. Citiți actul de lângă termen înainte să vă bazați pe el.</span></p>
         </div>
       </section>
 
       <section class="band cal-months" aria-label="Luni" data-t-aria-label="cal.months.label">
         <div class="shell">
+          <div class="cal-bar">
+            <div class="cal-nav" data-cal-nav hidden>
+              <button type="button" class="cal-nav__step" data-cal-prev aria-label="Luna anterioară" data-t-aria-label="cal.nav.prev">‹</button>
+              <p class="cal-nav__title" data-cal-title aria-live="polite"></p>
+              <button type="button" class="cal-nav__step" data-cal-next aria-label="Luna următoare" data-t-aria-label="cal.nav.next">›</button>
+              <button type="button" class="cal-btn" data-cal-today data-t="cal.nav.today">Luna aceasta</button>
+            </div>
+            <div class="cal-bar__actions">
+              <details class="cal-filter" data-cal-filter-box>
+                <summary class="cal-btn"><span data-t="cal.filter.title">Arată termenele pentru</span> <strong data-cal-summary data-t="cal.filter.everyone">toți</strong></summary>
+                <form class="cal-filter__panel" data-cal-filter>
+                  <fieldset>
+                    <legend class="cal-hidden" data-t="cal.filter.legend">Felul plătitorului</legend>
+                    <div class="cal-chips">
+<!-- calendar:filters -->
+                    </div>
+                    <p class="cal-filter__state">
+                      <span data-cal-count data-t="cal.filter.all">Se arată toate termenele.</span>
+                      <button type="button" class="cal-reset" data-cal-reset hidden data-t="cal.filter.reset">Arată tot</button>
+                    </p>
+                  </fieldset>
+                </form>
+              </details>
+              <a class="cal-btn" href="#abonare" data-t="cal.subscribe.short">Abonare în calendar</a>
+              <a class="cal-btn" href="#schimbari" data-t="cal.changes.short">Schimbări în lege</a>
+              <button type="button" class="cal-btn" data-cal-print hidden data-t="cal.print">Tipăriți</button>
+            </div>
+          </div>
 <!-- calendar:months -->
         </div>
       </section>
@@ -275,7 +281,7 @@
         <span data-t="cal.col.act">Actul</span>
         <span data-t="cal.pending.title">Termene pe care nu le arătăm încă</span>
         <span data-t="cal.pending.text">Le-am găsit doar în surse secundare. Apar în calendar, cu dată, după ce le citim în actul normativ.</span>
-        <span data-t="cal.past">Lunile trecute</span>
+        
         <span data-t="cal.empty">Nicio dată de reținut în această lună.</span>
         <span data-t="cal.transfers.unknown">Pentru {year} Guvernul nu a publicat încă transferul zilelor de odihnă. Sărbătorile sunt cele din Codul muncii; o hotărâre ulterioară poate muta zile.</span>
         <span data-t="cal.nextyear">Termenele din {year} sunt calculate după legea în vigoare azi; actele adoptate pentru {year} le pot schimba.</span>
@@ -293,6 +299,8 @@
       <div hidden data-cal-js>
         <span data-js="shown" data-t="cal.js.shown">Se arată {n} din {total} termene.</span>
         <span data-js="today" data-t="cal.js.today">Luna aceasta</span>
+        <span data-js="selected" data-t="cal.js.selected">{n} selectate</span>
+        <span data-js="more" data-t="cal.js.more">încă {n}</span>
       </div>
     </main>
 

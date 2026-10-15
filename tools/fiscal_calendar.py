@@ -239,22 +239,8 @@ def render_months(cal, lang, w, today, first, last):
         if c['state'] == 'law':
             by_day.setdefault(c['effectiveFrom'], []).append(('law', (f, c)))
 
-    sections = []
-    months = list(months_between(first, last))
-    # Today's month first, then the ones after it, then what is already behind us.
-    current = (today.year, today.month)
-    ahead = [ym for ym in months if ym >= current]
-    behind = [ym for ym in months if ym < current]
-
-    for y, m in ahead:
-        sections.append(render_month(cal, lang, w, today, y, m, by_day))
-    out = '\n'.join(sections)
-    if behind:
-        past = '\n'.join(render_month(cal, lang, w, today, y, m, by_day) for y, m in behind)
-        out += (
-            '\n<details class="cal-past" data-cal-past>\n<summary>%s</summary>\n%s\n</details>' %
-            (esc(w('cal.past')), past))
-    return out
+    # In order; calendar.js shows one month at a time from the reader's own, with three behind it.
+    return '\n'.join(render_month(cal, lang, w, today, y, m, by_day) for y, m in months_between(first, last))
 
 
 def weekday_name(w, date, short=True):
@@ -284,20 +270,26 @@ def render_month(cal, lang, w, today, y, m, by_day):
         if date == today.isoformat():
             classes.append('cal-day--today')
         profiles = sorted({p for e in deadlines for p in cal.rules[e['id']][1]['appliesTo']})
-        label = str(d)
+        label = '<span class="cal-day__n">%d</span>' % d
         if deadlines or any(k in ('off', 'worked', 'law') for k, _ in entries):
-            label = '<a href="#d-%s">%d</a>' % (date, d)
+            label = '<a class="cal-day__n" href="#d-%s">%d</a>' % (date, d)
         mark = ''
         if deadlines:
             mark = '<span class="cal-dot" data-profiles="%s" aria-hidden="true"></span>' % ' '.join(profiles)
-        cells.append('<td class="%s" data-date="%s">%s%s</td>' % (' '.join(classes), date, label, mark))
+        # What the day holds, at a glance: the list under the grid says it in full, so the labels
+        # are for the eye only.
+        labels = ''.join(grid_label(cal, lang, w, k, e) for k, e in ordered(cal, entries))
+        if labels:
+            labels = '<ul class="cal-labels" aria-hidden="true">%s</ul>' % labels
+        cells.append('<td class="%s" data-date="%s">%s%s%s</td>' % (' '.join(classes), date, label, labels, mark))
         if len(cells) == 7:
             rows.append('<tr>%s</tr>' % ''.join(cells))
             cells = []
     if cells:
         cells += ['<td></td>'] * (7 - len(cells))
         rows.append('<tr>%s</tr>' % ''.join(cells))
-    head = ''.join('<th scope="col"><abbr title="%s">%s</abbr></th>' % (esc(w('cal.wdl%d' % i)), esc(w('cal.wd%d' % i))) for i in range(1, 8))
+    head = ''.join('<th scope="col"><abbr title="%s"><span class="cal-wd-short">%s</span><span class="cal-wd-long" aria-hidden="true">%s</span></abbr></th>' % (
+        esc(w('cal.wdl%d' % i)), esc(w('cal.wd%d' % i)), esc(w('cal.wdl%d' % i))) for i in range(1, 8))
     grid = (
         '<table class="cal-grid">\n<caption>%s</caption>\n<thead><tr>%s</tr></thead>\n<tbody>\n%s\n</tbody>\n</table>' %
         (esc(title), head, '\n'.join(rows)))
@@ -308,10 +300,7 @@ def render_month(cal, lang, w, today, y, m, by_day):
         entries = by_day.get(date, [])
         if not entries:
             continue
-        # Days off and laws first, then deadlines in the order the rulebook lists them, which is
-        # roughly how many companies each one concerns.
-        rank = {'off': 0, 'worked': 0, 'law': 1, 'deadline': 2}
-        entries = sorted(entries, key=lambda ke: (rank[ke[0]], cal.order.get(ke[1].get('id'), 0) if ke[0] == 'deadline' else 0))
+        entries = ordered(cal, entries)
         # A deadline moved here from a day off says so once, under the date, when every moved
         # deadline of the day came from the same day.
         moved = {e['nominal'] for k, e in entries if k == 'deadline' and e.get('moved')}
@@ -344,6 +333,31 @@ def render_month(cal, lang, w, today, y, m, by_day):
         '<div class="cal-month__grid">%s%s</div>\n'
         '<div class="cal-month__list">%s</div>\n'
         '</section>' % (ident, ident, ident, ident, esc(title), grid, ''.join(notes), body))
+
+
+def ordered(cal, entries):
+    """Days off and laws first, then deadlines in the order the rulebook lists them, which is
+    roughly how many companies each one concerns."""
+    rank = {'off': 0, 'worked': 0, 'law': 1, 'deadline': 2}
+    return sorted(entries, key=lambda ke: (rank[ke[0]], cal.order.get(ke[1].get('id'), 0) if ke[0] == 'deadline' else 0))
+
+
+def grid_label(cal, lang, w, kind, e):
+    if kind == 'deadline':
+        _f, rule = cal.rules[e['id']]
+        return '<li class="cal-label cal-label--deadline" data-profiles="%s" title="%s">%s</li>' % (
+            ' '.join(rule['appliesTo']), esc('%s · %s' % (rule['name'][lang], period_text(w, e))),
+            esc(rule.get('form') or rule['name'][lang]))
+    if kind == 'off':
+        return ''.join('<li class="cal-label cal-label--off" title="%s">%s</li>' % (
+            esc(x['name'][lang]), esc(x['name'][lang])) for x in e['off'] if x.get('name'))
+    if kind == 'worked':
+        return '<li class="cal-label cal-label--worked">%s</li>' % esc(w('cal.workday'))
+    if kind == 'law':
+        _f, c = e
+        return '<li class="cal-label cal-label--law" title="%s">%s</li>' % (
+            esc('%s: %s' % (w('cal.inforce'), c['title'][lang])), esc(c['title'][lang]))
+    return ''
 
 
 def render_moved(cal, lang, w, e):
@@ -653,9 +667,11 @@ def build(site, today=None):
 
     now = datetime.datetime.now(datetime.timezone.utc)
     today = today or now.astimezone(CHISINAU).date()
-    # This year from January, so the months behind are there to look back at, through the end of
-    # next year: as far as anybody plans, and no further than the law in force can be read.
-    first = datetime.date(today.year, 1, 1)
+    # Three months back, to check what was due, through the end of next year: as far as anybody
+    # plans, and no further than the law in force can be read. The page is built on one day and
+    # read on later ones, so calendar.js counts the three months from the reader's own month.
+    back = today.year * 12 + today.month - 1 - 3
+    first = datetime.date(back // 12, back % 12 + 1, 1)
     last = datetime.date(today.year + 1, 12, 31)
     data = expand(rulebook, first.isoformat(), last.isoformat())
     cal = Calendar(data)
