@@ -82,6 +82,12 @@ def build(out, make_zip=False):
             shutil.copy2(name, target)
             files += 1
 
+    # Served as text/plain, and the host's CDN drops the charset: anything but ASCII is mangled.
+    for name in ('llms.txt', os.path.join('.well-known', 'security.txt')):
+        text = open(os.path.join(out, name), 'rb').read()
+        if any(byte > 127 for byte in text):
+            sys.exit('Not packaged: %s is not plain ASCII, and the host serves it without a charset.' % name)
+
     try:
         pages, copies, checked, hashes = languages.build(out)
     except languages.Refused as refusal:

@@ -15,7 +15,7 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `calendar/index.html` | the fiscal calendar's page: header, footer, filters and words only; its months, feeds and RSS are written from `konta-rulebook` when the site is packaged (see "The calendar"); header nav |
 | `calculator-salariu/index.html` | the 2026 salary calculator: the form, the result and the words, with placeholders the package fills from `konta-rulebook` (see "The salary calculator"); footer |
 | `ghid/index.html` | the guide for accountants: the e-Factura API user, opening balances from 1C, the first month, closing the month, the bank statement; each step true to `HANDOFF.md`; footer |
-| `llms.txt` | a plain summary for language models: what Konta is, the pages, the public repositories, what works and what does not yet, matching the home page's "Ce funcționează azi" |
+| `llms.txt` | a plain summary for language models: what Konta is, the pages, the public repositories, what works and what does not yet, matching the home page's "Ce funcționează azi"; plain ASCII, like `security.txt`, because the host's CDN serves text files without a charset (the package checks) |
 | `intrebari/index.html` | ten questions to put to any accounting software vendor, each with Konta's answer and where it stands (FAQPage JSON-LD); footer |
 | `securitate/index.html` | security facts, each "done", "before the first pilot" or "later", who processes data, how to report a problem; footer |
 | `privacy/index.html` | what the form collects, why, for how long, and the visitor's rights; linked from the form and every footer |

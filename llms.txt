@@ -8,7 +8,7 @@ Everything here is as of 15 October 2026 and says what the site's own pages say.
 
 Romanian at the addresses below; Russian under /ru/ and English under /en/ (for example https://konta.md/en/calendar/).
 
-- [Home](https://konta.md/): what Konta is, and "Ce funcționează azi", what works today in the preview
+- [Home](https://konta.md/): what Konta is, and what works today in the preview
 - [Tax calendar](https://konta.md/calendar/): filing and payment deadlines, non-working days and changes in the law, each with its act and article, generated from the rulebook; .ics feeds per kind of taxpayer and an RSS of changes in the law
 - [Salary calculator 2026](https://konta.md/calculator-salariu/): one month's salary from gross to net and the employer's cost, every figure from the rulebook; it passes the same payroll test cases as Konta's own payroll, from one public file
 - [User guide](https://konta.md/ghid/): for accountants, step by step: the e-Factura API user, opening balances from 1C, the first month, closing the month, importing a bank statement
@@ -53,4 +53,4 @@ Full data export, the printed invoice, advances, the IPC21 return, timesheets an
 
 ## Contact
 
-mail@konta.md · +373 79 189 805
+mail@konta.md, +373 79 189 805

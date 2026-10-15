@@ -33,8 +33,10 @@ RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
 <IfModule mod_mime.c>
   AddType font/woff2 .woff2
   AddType application/json .json
-  # llms.txt and security.txt carry Romanian and Russian; without a charset a browser guesses.
-  AddType "text/plain; charset=utf-8" .txt
+  # A text file without a charset is read as windows-1252 by browsers. The host's CDN dropped the
+  # charset AddType gave it (seen 2026-10-15), so llms.txt and security.txt are kept ASCII, which
+  # tools/package.py checks; AddCharset is asked for as well.
+  AddCharset UTF-8 .txt
 </IfModule>
 
 # Caching, and the reason for each tier.
