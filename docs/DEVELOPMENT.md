@@ -256,7 +256,9 @@ and while the reader scrolls down those rows fold away so the bar keeps to one r
 brings them back. Folding only paints, so nothing under the bar moves. The sections and the app
 button are one shape (`--chip-*` on `.masthead`), and nothing in the bar moves on its own: the app
 button and the page you are on are filled aubergine (lilac in the dark), the other sections are
-their text alone and shade to `#DED8CE` (`#302B37` in the dark) under the pointer. On phones under
+their text alone at normal weight and shade to `#DED8CE` (`#302B37` in the dark) under the
+pointer. The last section sits 8px from the language control, as the controls and the app button
+sit from each other. On phones under
 360px the app button says just "Intră".
 
 ## Fonts

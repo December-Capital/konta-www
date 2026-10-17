@@ -288,7 +288,9 @@ body > main {
 
 /* The sections: links drawn like "Intră în aplicație" beside the controls, the same size, font
    and corners (--chip-* on .masthead). The page you are on is filled like it; the others are
-   their text alone, and a hover shades them in sand. No movement. */
+   their text alone at normal weight, and a hover shades them in sand. No movement. On one row
+   the last section sits as far from the language control as the theme control from the app
+   button (.controls' gap). */
 
 .masthead {
   --chip-h: 33.6px;
@@ -302,6 +304,8 @@ body > main {
   flex-wrap: wrap;
   align-items: center;
   gap: 4px;
+  /* The bar's 20px gap less this is the controls' 8px. */
+  margin-inline-end: -12px;
 }
 
 .sections__link {
@@ -312,7 +316,7 @@ body > main {
   padding: 0 var(--chip-px);
   border-radius: var(--chip-radius);
   color: var(--nav-text);
-  font: 500 var(--chip-font) / 1 var(--sans);
+  font: 400 var(--chip-font) / 1 var(--sans);
   white-space: nowrap;
   text-decoration: none;
   outline: none;
@@ -331,6 +335,7 @@ body > main {
 .sections__link[aria-current='page'] {
   background: var(--nav-active);
   color: var(--nav-active-text);
+  font-weight: 500;
   cursor: default;
 }
 
@@ -601,6 +606,7 @@ body > main {
      row in line with the mark. */
   .sections {
     order: 3;
+    margin-inline-end: 0;
     width: calc(100% + var(--chip-px));
     margin-inline-start: calc(-1 * var(--chip-px));
   }
@@ -613,6 +619,7 @@ body > main {
 
   :root[lang='ru'] .sections {
     order: 3;
+    margin-inline-end: 0;
     width: calc(100% + var(--chip-px));
     margin-inline-start: calc(-1 * var(--chip-px));
   }
