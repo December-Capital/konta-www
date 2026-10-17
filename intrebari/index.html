@@ -26,7 +26,7 @@
     <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
-    <link rel="stylesheet" href="/assets/site.css?v=7" />
+    <link rel="stylesheet" href="/assets/site.css?v=8" />
     <script>
       // Before first paint, so the theme never flashes the other one. The device's theme unless
       // one was chosen, here or in the app: konta_theme and konta_lang are cookies shared by
@@ -320,17 +320,46 @@
     </main>
 
     <footer class="foot">
-      <div class="shell foot__bar">
-        <span>© <span data-year>2026</span> <a href="https://itin.md" class="foot__owner" target="_blank" rel="noopener">December Capital</a></span>
-        <div class="foot__links jelly">
-          <a class="jelly__chip" href="/transparenta/"><span class="jelly__skin"><span data-t="foot.transparency">Transparență</span></span></a>
-          <a class="jelly__chip" href="/securitate/"><span class="jelly__skin"><span data-t="foot.security">Securitate</span></span></a>
-          <a class="jelly__chip" href="/intrebari/" aria-current="page"><span class="jelly__skin"><span data-t="foot.questions">Întrebări pentru furnizori</span></span></a>
-          <a class="jelly__chip" href="/calculator-salariu/"><span class="jelly__skin"><span data-t="foot.salary">Calculator de salariu</span></span></a>
-          <a class="jelly__chip" href="/ghid/"><span class="jelly__skin"><span data-t="foot.guide">Ghid</span></span></a>
-          <a class="jelly__chip" href="/privacy/"><span class="jelly__skin"><span data-t="foot.privacy">Confidențialitate</span></span></a>
-          <a class="jelly__chip" href="/status/"><span class="jelly__skin"><span data-t="foot.status">Starea serviciului</span></span></a>
-          <a class="jelly__chip foot__app" href="https://app.konta.md"><span class="jelly__skin"><span data-t="foot.app">Intrare în aplicație</span></span></a>
+      <div class="shell">
+        <div class="foot__top">
+          <div class="foot__about">
+            <a class="foot__brand" href="/">
+              <img class="brand__mark" src="/assets/logo-dark.png" alt="" width="40" height="30" />
+              <span class="brand__name">Konta</span>
+            </a>
+            <p class="foot__tagline" data-t="foot.tagline">O lege nouă înseamnă o singură actualizare și toți clienții sunt la zi.</p>
+          </div>
+          <nav class="foot__col" aria-labelledby="foot-product">
+            <p class="foot__title" id="foot-product" data-t="foot.product">Produs</p>
+            <ul>
+              <li><a href="/e-factura/" data-t="nav.efactura">e-Factura</a></li>
+              <li><a href="/fara-programator/" data-t="nav.noprog">Fără programator</a></li>
+              <li><a href="/trecerea-de-la-1c/" data-t="nav.move">Trecerea de la 1C</a></li>
+              <li><a href="/ghid/" data-t="foot.guide">Ghid</a></li>
+            </ul>
+          </nav>
+          <nav class="foot__col" aria-labelledby="foot-tools">
+            <p class="foot__title" id="foot-tools" data-t="foot.tools">Instrumente</p>
+            <ul>
+              <li><a href="/calendar/" data-t="nav.calendar">Calendar fiscal</a></li>
+              <li><a href="/calculator-salariu/" data-t="foot.salary">Calculator de salariu</a></li>
+              <li><a href="/intrebari/" aria-current="page" data-t="foot.questions">Întrebări pentru furnizori</a></li>
+              <li><a href="/status/" data-t="foot.status">Starea serviciului</a></li>
+            </ul>
+          </nav>
+          <nav class="foot__col" aria-labelledby="foot-trust">
+            <p class="foot__title" id="foot-trust" data-t="foot.trust">Încredere</p>
+            <ul>
+              <li><a href="/transparenta/" data-t="foot.transparency">Transparență</a></li>
+              <li><a href="/securitate/" data-t="foot.security">Securitate</a></li>
+              <li><a href="/privacy/" data-t="foot.privacy">Confidențialitate</a></li>
+              <li><a href="/contact/" data-t="nav.contact">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="foot__bottom">
+          <span>© <span data-year>2026</span> <a href="https://itin.md" class="foot__owner" target="_blank" rel="noopener">December Capital</a></span>
+          <span class="foot__reach"><a href="mailto:mail@konta.md">mail@konta.md</a> · <a href="tel:+37379189805">+373 79 189 805</a></span>
         </div>
       </div>
     </footer>

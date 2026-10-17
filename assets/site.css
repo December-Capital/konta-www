@@ -108,7 +108,13 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* The footer always sits at the bottom of the window: on a short page the room left over goes
+   between the content and the footer, never under the footer. */
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   background: var(--bg);
   color: var(--ink);
@@ -187,6 +193,10 @@ img {
   max-width: 1320px;
   margin-inline: auto;
   padding-inline: clamp(18px, 4vw, 56px);
+}
+
+body > main {
+  flex: 1 0 auto;
 }
 
 .skip {
@@ -960,23 +970,89 @@ img {
    Footer
    --------------------------------------------------------------------------- */
 
+/* The footer is the same aubergine in both themes, so its mark is always the light one: the logo
+   for a dark ground, and no data-logo for site.js to swap. A logo and a line under it, three
+   columns of pages, then the owner and how to reach us; on a phone the columns stack. */
 .foot {
-  border-top: 1px solid var(--rule);
-  background: var(--surface);
-  padding-block: 30px 40px;
-  font-size: 0.875rem;
-  color: var(--ink-3);
-}
-
-.foot__bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 28px;
-  align-items: center;
+  --foot-bg: #2a2033;
+  --foot-ink: #e7eeef;
+  --foot-hover: #f4f0f7;
+  --foot-title: #f0e4cf;
+  --foot-rule: rgba(231, 238, 239, 0.16);
+  background: var(--foot-bg);
+  color: var(--foot-ink);
+  padding-block: 56px 30px;
+  font-size: 1rem;
 }
 
 .foot a {
-  color: var(--ink-2);
+  color: var(--foot-ink);
+  text-decoration: none;
+}
+
+.foot a:hover,
+.foot a[aria-current='page'] {
+  color: var(--foot-hover);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.foot a:focus-visible {
+  outline: 2px solid var(--foot-title);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.foot__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr));
+  gap: 32px 48px;
+}
+
+.foot__about {
+  max-width: 300px;
+}
+
+.foot a.foot__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: var(--foot-ink);
+}
+
+.foot__tagline {
+  margin: 14px 0 0;
+  line-height: 1.6;
+}
+
+.foot__title {
+  margin: 0 0 14px;
+  color: var(--foot-title);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.foot__col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.foot__col li + li {
+  margin-top: 10px;
+}
+
+.foot__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 28px;
+  margin-top: 40px;
+  padding-top: 26px;
+  border-top: 1px solid var(--foot-rule);
+  font-size: 0.875rem;
 }
 
 /* The owner's name links to the company but keeps the colour of the line it sits in. */
@@ -984,19 +1060,30 @@ img {
   color: inherit;
 }
 
-/* The site's pages and the way into the app are the header's chips (.jelly): the page you are
-   on chosen, the app's chip held to the right. A chip pushed aside never scrolls the page. */
-.foot {
-  overflow-x: clip;
+@media (max-width: 880px) {
+  .foot__top {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .foot__about {
+    grid-column: 1 / -1;
+    max-width: 420px;
+  }
 }
 
-.foot__links {
-  flex: 1 1 auto;
-  padding-inline: 0;
-}
+@media (max-width: 560px) {
+  .foot {
+    padding-block: 40px 26px;
+  }
 
-.foot__app {
-  margin-left: auto;
+  .foot__top {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .foot__bottom {
+    flex-direction: column;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -1464,10 +1551,6 @@ img {
   .changes th:last-child,
   .changes td:last-child {
     padding-left: 10px;
-  }
-
-  .foot__app {
-    margin-left: 0;
   }
 }
 

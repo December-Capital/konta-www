@@ -297,7 +297,7 @@
 
   /* --------------------------------------------------------------- sections */
 
-  // The header's sections and the footer's pages, as app.konta.md's menu (JellyRadio): the page
+  // The header's sections, as app.konta.md's menu (JellyRadio): the page
   // you are on swells and shoulders its neighbours aside on a spring, the others shrink a little.
   // Its settings are the app's, so both menus move alike. No animation library: a damped spring,
   // stepped per frame.
@@ -342,7 +342,7 @@
     return this.value !== this.target || this.velocity !== 0;
   };
 
-  // Each group of chips on the page moves on its own: the header's sections, the footer's pages.
+  // Each group of chips on the page moves on its own: the header's sections today.
   function jellyGroup(nav) {
     var chips = Array.prototype.slice.call(nav.querySelectorAll('.jelly__chip'));
     var chosen = chips.findIndex(function (chip) {
