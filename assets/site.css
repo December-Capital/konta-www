@@ -30,6 +30,8 @@
   --nav-active: #a07f54;
   --nav-text: #3d2c4b;
   --nav-active-text: #ece8e1;
+  /* The top bar: sand in the light, the surface in the dark. */
+  --masthead-bg: #ece8e1;
 
   --serif: 'Literata', Georgia, 'Times New Roman', serif;
   --sans: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -58,7 +60,8 @@
     --nav-chip: #1d1d22;
     --nav-active: #3d2c4b;
     --nav-text: #ece8e1;
-    --nav-active-text: #a07f54;
+    --nav-active-text: #ece8e1;
+    --masthead-bg: #1d1d22;
 
     color-scheme: dark;
   }
@@ -84,7 +87,8 @@
   --nav-chip: #1d1d22;
   --nav-active: #3d2c4b;
   --nav-text: #ece8e1;
-  --nav-active-text: #a07f54;
+  --nav-active-text: #ece8e1;
+  --masthead-bg: #1d1d22;
 
   color-scheme: dark;
 }
@@ -205,7 +209,7 @@ img {
 
 .masthead {
   border-bottom: 1px solid var(--rule);
-  background: var(--surface);
+  background: var(--masthead-bg);
   /* A chip pushed aside never makes the page scroll sideways. */
   overflow-x: clip;
 }
