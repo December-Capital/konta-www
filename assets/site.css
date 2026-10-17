@@ -25,6 +25,11 @@
   --ok: #3f6b4d;
   --down: #8f3f38;
   --shade: rgba(36, 27, 46, 0.07);
+  /* The header's chips, as in app.konta.md's menu: sand, the gold chosen, aubergine text. */
+  --nav-chip: #ece8e1;
+  --nav-active: #a07f54;
+  --nav-text: #3d2c4b;
+  --nav-active-text: #ece8e1;
 
   --serif: 'Literata', Georgia, 'Times New Roman', serif;
   --sans: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -50,6 +55,10 @@
     --ok: #77a385;
     --down: #cd8880;
     --shade: rgba(0, 0, 0, 0.4);
+    --nav-chip: #1d1d22;
+    --nav-active: #3d2c4b;
+    --nav-text: #ece8e1;
+    --nav-active-text: #a07f54;
 
     color-scheme: dark;
   }
@@ -72,6 +81,10 @@
   --ok: #77a385;
   --down: #cd8880;
   --shade: rgba(0, 0, 0, 0.4);
+  --nav-chip: #1d1d22;
+  --nav-active: #3d2c4b;
+  --nav-text: #ece8e1;
+  --nav-active-text: #a07f54;
 
   color-scheme: dark;
 }
@@ -193,6 +206,8 @@ img {
 .masthead {
   border-bottom: 1px solid var(--rule);
   background: var(--surface);
+  /* A chip pushed aside never makes the page scroll sideways. */
+  overflow-x: clip;
 }
 
 .masthead__bar {
@@ -226,23 +241,109 @@ img {
   letter-spacing: -0.015em;
 }
 
-.sections {
+/* The sections are JellyRadio's chips, as in app.konta.md's menu: the page you are on swells and
+   shoulders its neighbours aside on a spring, the rest shrink a little. They stay links, since
+   each opens a page; site.js measures them, moves them and plays the swell before the page
+   changes. The resting pose is here too, so the first paint is already right. */
+
+.jelly {
+  --jr-chip: var(--nav-chip);
+  --jr-active: var(--nav-active);
+  --jr-text: var(--nav-text);
+  --jr-active-text: var(--nav-active-text);
+  --jr-gap: 5px;
+  --jr-radius: 5px;
+  --jr-h: 28px;
+  --jr-font: 12px;
+  --jr-px: 12px;
+  --jr-pad-x: 0px;
+  --jr-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
-  gap: 22px;
-  font-size: 0.9375rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--jr-gap);
+  padding: 4px var(--jr-pad-x);
+  -webkit-touch-callout: none;
 }
 
-.sections a {
-  color: var(--ink-2);
+.jelly__chip {
+  position: relative;
+  color: inherit;
   text-decoration: none;
-  padding-block: 4px;
-  border-bottom: 2px solid transparent;
+  outline: none;
+  transform-origin: 50% 50%;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.sections a:hover,
-.sections a[aria-current='page'] {
-  color: var(--ink);
-  border-bottom-color: var(--gold-rule);
+.jelly:has([aria-current='page']) .jelly__chip {
+  transform: scale(0.95);
+}
+
+.jelly .jelly__chip[aria-current='page'] {
+  transform: scale(1.2);
+  cursor: default;
+}
+
+.jelly__skin {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--jr-h);
+  padding: 0 var(--jr-px);
+  border-radius: var(--jr-radius);
+  overflow: hidden;
+  background: var(--jr-chip);
+  color: var(--jr-text);
+  font-size: var(--jr-font);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    transform 160ms var(--jr-ease-out),
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.jelly__skin::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--jr-text);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .jelly__chip:not([aria-current='page']):hover .jelly__skin::before {
+    opacity: 0.11;
+  }
+}
+
+.jelly__chip:active .jelly__skin {
+  transform: scale(0.97);
+}
+
+.jelly__chip[aria-current='page'] .jelly__skin {
+  background: var(--jr-active);
+  color: var(--jr-active-text);
+}
+
+.jelly__chip:focus-visible .jelly__skin {
+  outline: 2px solid var(--jr-active);
+  outline-offset: 2px;
+}
+
+.jelly__chip[aria-current='page']:focus-visible .jelly__skin {
+  outline-color: var(--jr-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jelly__chip:active .jelly__skin {
+    transform: none;
+  }
 }
 
 .controls {
@@ -399,15 +500,11 @@ img {
     row-gap: 6px;
   }
 
+  /* Rows of chips across the header; the chosen one pushes only along its own row, and the
+     inset site.js measures keeps the pushed ones on the screen. */
   .sections {
     order: 3;
     width: 100%;
-    flex-wrap: wrap;
-    gap: 2px 18px;
-  }
-
-  .sections a {
-    white-space: nowrap;
   }
 }
 
