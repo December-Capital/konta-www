@@ -26,7 +26,7 @@
     <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
-    <link rel="stylesheet" href="/assets/site.css?v=6" />
+    <link rel="stylesheet" href="/assets/site.css?v=7" />
     <script>
       // Before first paint, so the theme never flashes the other one. The device's theme unless
       // one was chosen, here or in the app: konta_theme and konta_lang are cookies shared by
@@ -319,20 +319,22 @@
     <footer class="foot">
       <div class="shell foot__bar">
         <span>© <span data-year>2026</span> <a href="https://itin.md" class="foot__owner" target="_blank" rel="noopener">December Capital</a></span>
-        <a href="/transparenta/" data-t="foot.transparency">Transparență</a>
-        <a href="/securitate/" data-t="foot.security">Securitate</a>
-        <a href="/intrebari/" data-t="foot.questions">Întrebări pentru furnizori</a>
-        <a href="/calculator-salariu/" data-t="foot.salary">Calculator de salariu</a>
-        <a href="/ghid/" data-t="foot.guide">Ghid</a>
-        <a href="/privacy/" data-t="foot.privacy">Confidențialitate</a>
-        <a href="/status/" data-t="foot.status">Stare serviciu</a>
-        <a href="https://app.konta.md" class="foot__spacer" data-t="foot.app">Intrare în aplicație</a>
+        <div class="foot__links jelly">
+          <a class="jelly__chip" href="/transparenta/"><span class="jelly__skin"><span data-t="foot.transparency">Transparență</span></span></a>
+          <a class="jelly__chip" href="/securitate/" aria-current="page"><span class="jelly__skin"><span data-t="foot.security">Securitate</span></span></a>
+          <a class="jelly__chip" href="/intrebari/"><span class="jelly__skin"><span data-t="foot.questions">Întrebări pentru furnizori</span></span></a>
+          <a class="jelly__chip" href="/calculator-salariu/"><span class="jelly__skin"><span data-t="foot.salary">Calculator de salariu</span></span></a>
+          <a class="jelly__chip" href="/ghid/"><span class="jelly__skin"><span data-t="foot.guide">Ghid</span></span></a>
+          <a class="jelly__chip" href="/privacy/"><span class="jelly__skin"><span data-t="foot.privacy">Confidențialitate</span></span></a>
+          <a class="jelly__chip" href="/status/"><span class="jelly__skin"><span data-t="foot.status">Stare serviciu</span></span></a>
+          <a class="jelly__chip foot__app" href="https://app.konta.md"><span class="jelly__skin"><span data-t="foot.app">Intrare în aplicație</span></span></a>
+        </div>
       </div>
     </footer>
 
     <script type="application/json" data-seed>
       {"lang.next": "Treci la"}
     </script>
-    <script src="/assets/site.js?v=8"></script>
+    <script src="/assets/site.js?v=9"></script>
   </body>
 </html>
