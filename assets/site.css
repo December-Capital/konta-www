@@ -25,9 +25,9 @@
   --ok: #3f6b4d;
   --down: #8f3f38;
   --shade: rgba(36, 27, 46, 0.07);
-  /* The header's chips, as in app.konta.md's menu: sand, aubergine text, the chosen one
-     aubergine with sand text. */
-  --nav-chip: #ece8e1;
+  /* The header's sections: aubergine text, a darker sand under the pointer, the page you are
+     on (and the way into the app) aubergine with sand text. */
+  --nav-hover: #ded8ce;
   --nav-active: #3d2c4b;
   --nav-text: #3d2c4b;
   --nav-active-text: #ece8e1;
@@ -61,7 +61,7 @@
     --ok: #77a385;
     --down: #cd8880;
     --shade: rgba(0, 0, 0, 0.4);
-    --nav-chip: #1d1d22;
+    --nav-hover: #302b37;
     --nav-active: #c9b4dd;
     --nav-text: #ece8e1;
     --nav-active-text: #3d2c4b;
@@ -89,7 +89,7 @@
   --ok: #77a385;
   --down: #cd8880;
   --shade: rgba(0, 0, 0, 0.4);
-  --nav-chip: #1d1d22;
+  --nav-hover: #302b37;
   --nav-active: #c9b4dd;
   --nav-text: #ece8e1;
   --nav-active-text: #3d2c4b;
@@ -233,7 +233,7 @@ body > main {
   position: sticky;
   top: 0;
   z-index: 50;
-  /* A chip pushed aside never makes the page scroll sideways. */
+  /* Nothing in the bar ever makes the page scroll sideways. */
   overflow-x: clip;
 }
 
@@ -286,116 +286,61 @@ body > main {
   letter-spacing: -0.015em;
 }
 
-/* The sections are JellyRadio's chips, as in app.konta.md's menu: the page you are on swells and
-   shoulders its neighbours aside on a spring, the rest shrink a little. They stay links, since
-   each opens a page; site.js measures them, moves them and plays the swell before the page
-   changes. The resting pose is here too, so the first paint is already right. */
+/* The sections: links drawn like "Intră în aplicație" beside the controls, the same size, font
+   and corners (--chip-* on .masthead). The page you are on is filled like it; the others are
+   their text alone, and a hover shades them in sand. No movement. */
 
-.jelly {
-  --jr-chip: var(--nav-chip);
-  --jr-active: var(--nav-active);
-  --jr-text: var(--nav-text);
-  --jr-active-text: var(--nav-active-text);
-  --jr-gap: 5px;
-  --jr-radius: 5px;
-  --jr-h: 28px;
-  --jr-font: 12px;
-  --jr-px: 12px;
-  --jr-pad-x: 0px;
-  --jr-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+.masthead {
+  --chip-h: 33.6px;
+  --chip-px: 14.4px;
+  --chip-radius: 6px;
+  --chip-font: 14.4px;
+}
+
+.sections {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--jr-gap);
-  padding: 4px var(--jr-pad-x);
-  -webkit-touch-callout: none;
+  gap: 4px;
 }
 
-.jelly__chip {
-  position: relative;
-  color: inherit;
-  text-decoration: none;
-  outline: none;
-  transform-origin: 50% 50%;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.jelly:has([aria-current='page']) .jelly__chip {
-  transform: scale(0.95);
-}
-
-.jelly .jelly__chip[aria-current='page'] {
-  transform: scale(1.2);
-  cursor: default;
-}
-
-.jelly__skin {
-  position: relative;
+.sections__link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: var(--jr-h);
-  padding: 0 var(--jr-px);
-  border-radius: var(--jr-radius);
-  overflow: hidden;
-  background: var(--jr-chip);
-  color: var(--jr-text);
-  font-size: var(--jr-font);
-  font-weight: 500;
-  line-height: 1;
+  height: var(--chip-h);
+  padding: 0 var(--chip-px);
+  border-radius: var(--chip-radius);
+  color: var(--nav-text);
+  font: 500 var(--chip-font) / 1 var(--sans);
   white-space: nowrap;
+  text-decoration: none;
+  outline: none;
   transition:
-    transform 160ms var(--jr-ease-out),
-    background-color 200ms ease,
-    color 200ms ease;
-}
-
-.jelly__skin::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--jr-text);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 160ms ease;
-}
-
-/* The chips you are not on read like the text around them: the size of the notice under the bar
-   (.notice__bar), at normal weight. The chosen one keeps its own, smaller and heavier. */
-.jelly__chip:not([aria-current='page']) .jelly__skin {
-  font-size: 0.875rem;
-  font-weight: 400;
+    background-color 150ms ease,
+    color 150ms ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .jelly__chip:not([aria-current='page']):hover .jelly__skin::before {
-    opacity: 0.11;
+  .sections__link:hover {
+    background: var(--nav-hover);
   }
 }
 
-.jelly__chip:active .jelly__skin {
-  transform: scale(0.97);
+.sections__link[aria-current='page'] {
+  background: var(--nav-active);
+  color: var(--nav-active-text);
+  cursor: default;
 }
 
-.jelly__chip[aria-current='page'] .jelly__skin {
-  background: var(--jr-active);
-  color: var(--jr-active-text);
-}
-
-.jelly__chip:focus-visible .jelly__skin {
-  outline: 2px solid var(--jr-active);
+.sections__link:focus-visible {
+  outline: 2px solid var(--nav-active);
   outline-offset: 2px;
 }
 
-.jelly__chip[aria-current='page']:focus-visible .jelly__skin {
-  outline-color: var(--jr-text);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .jelly__chip:active .jelly__skin {
-    transform: none;
-  }
+.sections__link[aria-current='page']:focus-visible {
+  outline-color: var(--nav-text);
 }
 
 .controls {
@@ -461,19 +406,17 @@ body > main {
   transform: none;
 }
 
-/* The way into the app, beside the controls: the chosen section chip exactly, in each theme, at
-   the size it swells to (site.js scales the chip 1.2 times; this one is drawn at that size). */
+/* The way into the app, beside the controls: filled like the section you are on, in each theme. */
 .masthead__app {
-  --swell: 1.2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: calc(28px * var(--swell));
-  padding: 0 calc(12px * var(--swell));
-  border-radius: calc(5px * var(--swell));
+  height: var(--chip-h);
+  padding: 0 var(--chip-px);
+  border-radius: var(--chip-radius);
   background: var(--nav-active);
   color: var(--nav-active-text);
-  font: 500 calc(12px * var(--swell)) / 1 var(--sans);
+  font: 500 var(--chip-font) / 1 var(--sans);
   white-space: nowrap;
   text-decoration: none;
   outline: none;
@@ -649,27 +592,29 @@ body > main {
    disappearing: they are pages, and a phone visitor has to be able to reach them. The row wraps
    rather than scrolls, so no item sits off the edge where nobody knows to look for it. How wide one
    row has to be depends on the language: Russian's labels are the longest. */
-@media (max-width: 1180px) {
+@media (max-width: 1160px) {
   .masthead__bar {
     row-gap: 6px;
   }
 
-  /* Rows of chips across the header; the chosen one pushes only along its own row, and the
-     inset site.js measures keeps the pushed ones on the screen. */
+  /* Rows of sections across the header, under the mark and the controls, the first word of each
+     row in line with the mark. */
   .sections {
     order: 3;
-    width: 100%;
+    width: calc(100% + var(--chip-px));
+    margin-inline-start: calc(-1 * var(--chip-px));
   }
 }
 
-@media (max-width: 1320px) {
+@media (max-width: 1290px) {
   :root[lang='ru'] .masthead__bar {
     row-gap: 6px;
   }
 
   :root[lang='ru'] .sections {
     order: 3;
-    width: 100%;
+    width: calc(100% + var(--chip-px));
+    margin-inline-start: calc(-1 * var(--chip-px));
   }
 }
 
