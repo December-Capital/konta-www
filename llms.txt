@@ -29,27 +29,29 @@ The application itself is not open source.
 
 ## Works today, in the preview, on test data
 
-- The chart of accounts from the Ministry of Finance's order, with the company's own subaccounts
+- The general chart of accounts (Ministry of Finance Order 119/2013), with the company's own subaccounts
 - The journal of entries, corrected only by reversal
 - The trial balance, account statement and general ledger
 - Sales invoices, numbered without gaps, and purchase invoices
 - The sales and purchase VAT registers
-- Receipts and payments that settle the partner's invoices
+- Receipts and payments that settle customer and supplier invoices
 - Payroll, computed each month by the cumulative method of Government Decision 697/2014, posted and paid
-- Closing the month; reopening it needs a reason and stays in the audit trail
+- Closing the month; reopening it needs a reason and stays in the audit log
 - Opening balances from a 1C trial balance (.xlsx, .csv or pasted from Excel)
 - Accounting firms work in client companies through a mandate, with a role for each person
-- A partner's details offered by SFS from the IDNO, from its test service for now, taken only when the person chooses
+- Customer and supplier details looked up at SFS by IDNO (its test service for now), filled in only if the user picks them
+- Bank statements from a file (MT940 or a table), as payments the accountant checks and posts; each bank's own format waits on real statements
+- Full export of a company's data, with the original files
+- Printing a sales invoice or saving it as PDF
 
 ## In progress
 
-- Bank statement import from a file, as payments the accountant checks and posts: MT940 and a table with saved columns work in the preview; each bank's own format waits on real statements
 - The TVA12 return: the registers it is built from exist, the form does not yet
-- Issuing invoices through e-Factura: Konta's client already talks to SFS's test service, signing comes next
+- Issuing invoices through e-Factura: Konta already talks to SFS's test service, signing comes next
 
 ## Not there yet
 
-Full data export, the printed invoice, advances, the IPC21 return, timesheets and leave, fixed assets, inventory, financial statements.
+Advances, the IPC21 return, timesheets and leave, fixed assets, inventory, financial statements.
 
 ## Contact
 
