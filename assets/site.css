@@ -36,6 +36,19 @@
      what is behind it; --masthead-glass the same colour, see-through. */
   --masthead-bg: #f8f2e8;
   --masthead-glass: rgba(248, 242, 232, 0.76);
+  /* The contact form: a light card on warm sand, fields and the button in the header's sand and
+     aubergine, and each message on its own tint (sent, too many, not sent). */
+  --form-page: #ece8e1;
+  --form-card: #f7f5f1;
+  --form-field: #ded8ce;
+  --form-label: #241b2e;
+  --form-hint: #4e3a60;
+  --form-btn-bg: #3d2c4b;
+  --form-btn-fg: #ece8e1;
+  --form-ok-bg: #e4ece5;
+  --form-warn: #7a5e3a;
+  --form-warn-bg: #f0e4cf;
+  --form-bad-bg: #f3e3e0;
 
   --serif: 'Literata', Georgia, 'Times New Roman', serif;
   --sans: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -67,6 +80,17 @@
     --nav-active-text: #3d2c4b;
     --masthead-bg: #1e1b22;
     --masthead-glass: rgba(30, 27, 34, 0.76);
+    --form-page: #16161a;
+    --form-card: #1d1d22;
+    --form-field: #2b2b32;
+    --form-label: #ece8e1;
+    --form-hint: #cfc7ba;
+    --form-btn-bg: #c9b4dd;
+    --form-btn-fg: #16161a;
+    --form-ok-bg: #1e2b22;
+    --form-warn: #c9a46b;
+    --form-warn-bg: #3f3020;
+    --form-bad-bg: #2e1d1b;
 
     color-scheme: dark;
   }
@@ -95,6 +119,17 @@
   --nav-active-text: #3d2c4b;
   --masthead-bg: #1e1b22;
   --masthead-glass: rgba(30, 27, 34, 0.76);
+  --form-page: #16161a;
+  --form-card: #1d1d22;
+  --form-field: #2b2b32;
+  --form-label: #ece8e1;
+  --form-hint: #cfc7ba;
+  --form-btn-bg: #c9b4dd;
+  --form-btn-fg: #16161a;
+  --form-ok-bg: #1e2b22;
+  --form-warn: #c9a46b;
+  --form-warn-bg: #3f3020;
+  --form-bad-bg: #2e1d1b;
 
   color-scheme: dark;
 }
@@ -1593,10 +1628,31 @@ body > main {
   }
 }
 
+/* The form sits on a card in the colours of the header: the band around it warm sand, the
+   fields and the button in sand and aubergine, every corner rounded like the header's buttons
+   (--chip-radius on .masthead). The card's padding is taken back by a margin as large, so
+   nothing inside moves; on a phone the card runs to the screen's edges, its padding the page's
+   gutter (.shell). */
+.band--quiet:has(> .contact) {
+  background: var(--form-page);
+}
+
 .form {
+  --form-radius: 6px;
+  --form-pad: clamp(18px, 4vw, 56px);
   display: grid;
   gap: 16px;
-  max-width: 720px;
+  max-width: calc(720px + 2 * var(--form-pad));
+  margin: -24px calc(-1 * var(--form-pad));
+  padding: 24px var(--form-pad);
+  background: var(--form-card);
+}
+
+@media (min-width: 960px) {
+  .form {
+    --form-pad: 24px;
+    border-radius: var(--form-radius);
+  }
 }
 
 .form h2 {
@@ -1614,18 +1670,20 @@ body > main {
   flex-direction: column;
   gap: 6px;
   font-size: 0.875rem;
-  color: var(--ink-2);
+  color: var(--form-label);
 }
 
+/* The border stays, in the field's own colour, so the field keeps its size and a wrong answer
+   has a line to turn red. */
 .field input,
 .field select,
 .field textarea {
   font: inherit;
   font-size: 1rem;
   color: var(--ink);
-  background: var(--bg);
-  border: 1px solid var(--rule-strong);
-  border-radius: 3px;
+  background: var(--form-field);
+  border: 1px solid var(--form-field);
+  border-radius: var(--form-radius);
   padding: 10px 12px;
   width: 100%;
 }
@@ -1638,8 +1696,14 @@ body > main {
 .field input:focus-visible,
 .field select:focus-visible,
 .field textarea:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--form-btn-bg);
   outline-offset: 1px;
+}
+
+/* A field left wrong once the visitor has been in it, as the browser judges it. */
+.field input:user-invalid,
+.field textarea:user-invalid {
+  border-color: var(--down);
 }
 
 .form__trap {
@@ -1652,26 +1716,59 @@ body > main {
 
 .form__privacy {
   font-size: 0.8125rem;
-  color: var(--ink-3);
+  color: var(--form-hint);
 }
 
+.form__privacy a {
+  color: inherit;
+}
+
+/* The messages, each on its tint with its line in the matching colour: sent in green, too many
+   in brown, not sent in red, and fields to fill in as red text on the card. */
 .form__note {
   padding: 11px 15px;
   border-left: 2px solid var(--down);
-  background: var(--sunken);
+  border-radius: var(--form-radius);
+  background: var(--form-bad-bg);
   color: var(--ink);
   font-size: 0.9375rem;
   max-width: none;
 }
 
+.form__note a {
+  color: inherit;
+}
+
 .form__note--ok {
   border-left-color: var(--ok);
+  background: var(--form-ok-bg);
+}
+
+.form__note#limitat {
+  border-left-color: var(--form-warn);
+  background: var(--form-warn-bg);
+}
+
+.form__note#incomplet {
+  background: transparent;
+  color: var(--down);
 }
 
 /* Without JavaScript the handler redirects to /contact/#trimis and the like; this shows the one
    named in the address. Stronger than [hidden] on purpose. */
 .form__note:target {
   display: block !important;
+}
+
+.form .btn {
+  border-radius: var(--form-radius);
+  background: var(--form-btn-bg);
+  color: var(--form-btn-fg);
+}
+
+.form .btn:focus-visible {
+  outline: 2px solid var(--form-btn-bg);
+  outline-offset: 2px;
 }
 
 .btn[aria-busy='true'] {
