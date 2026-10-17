@@ -42,6 +42,8 @@ LANGS = [SOURCE] + COPIES
 
 # Each language names itself, and never in translation (site.js has the same list).
 NAMES = {'ro': 'Română', 'ru': 'Русский', 'en': 'English'}
+# What the language control says on hover: an offer to switch, in the language it offers.
+SWITCH = {'ro': 'Schimbă în Română', 'ru': 'Переключить на русский', 'en': 'Switch to English'}
 LOCALES = {'ro': 'ro_MD', 'ru': 'ru_MD', 'en': 'en_US'}
 
 # Names JSON-LD may carry untranslated: they are names, the same in every language.
@@ -327,9 +329,9 @@ class Page:
         hint = '%s. %s %s' % (lang.upper(), self.next_label(lang), NAMES[nxt])
         anchor = (
             '<a\n{i}  class="control"\n{i}  href="{href}"\n{i}  hreflang="{nxt}"\n{i}  data-lang-cycle\n'
-            '{i}  lang="{lang}"\n{i}  aria-label="{hint}"\n{i}  title="{title}"\n{i}>\n{i}  {code}\n{i}</a>'
+            '{i}  lang="{lang}"\n{i}  aria-label="{hint}"\n{i}  data-tip="{tip}"\n{i}>\n{i}  {code}\n{i}</a>'
         ).format(i=indent, href=address(nxt, self.path), nxt=nxt, lang=lang,
-                 hint=html.escape(hint, quote=True), title=NAMES[nxt], code=lang.upper())
+                 hint=html.escape(hint, quote=True), tip=html.escape(SWITCH[nxt], quote=True), code=lang.upper())
         edits.append((cycler, close, anchor))
 
         return splice(text, edits)

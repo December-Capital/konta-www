@@ -69,22 +69,45 @@
 
   var themeBtn = document.querySelector('[data-theme-btn]');
   var lessMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var deviceDark = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 
-  // The device's theme unless somebody chose, here or in the app. The page's first script has
-  // already set data-theme from the shared cookie or the device.
+  // Three modes: light, dark, and automatic, which is the device's theme and what nobody having
+  // chosen means. The page's first script has already set data-theme-mode from the shared cookie
+  // and data-theme from it or the device. The app reads "auto" as no choice, which is what it is.
+  var MODES = ['light', 'dark', 'auto'];
+
+  function mode() {
+    var saved = root.dataset.themeMode;
+    return MODES.indexOf(saved) !== -1 ? saved : 'auto';
+  }
+
+  function deviceTheme() {
+    return deviceDark && deviceDark.matches ? 'dark' : 'light';
+  }
+
+  function themeFor(m) {
+    return m === 'auto' ? deviceTheme() : m;
+  }
+
   function isDark() {
     return root.dataset.theme === 'dark';
   }
 
-  function chosen() {
-    var saved = read('theme');
-    return saved === 'dark' || saved === 'light';
+  // The first press always changes what you see: from automatic to the opposite of the device,
+  // then to the device's own theme chosen for good, then back to automatic. On a light device
+  // that is auto, dark, light; on a dark one auto, light, dark.
+  function nextMode(m) {
+    var device = deviceTheme();
+    var other = device === 'dark' ? 'light' : 'dark';
+    if (m === 'auto') return other;
+    if (m === other) return device;
+    return 'auto';
   }
 
   var logos = Array.prototype.slice.call(document.querySelectorAll('[data-logo]'));
 
-  // The control's icon is drawn by CSS from the same selectors as the colours, so only the mark is
-  // left to swap here: the logo's aubergine disappears against a dark ground.
+  // The control's icon is drawn by CSS from data-theme-mode, so only the mark is left to swap
+  // here, and the hover label, which names the mode a press would bring in the reader's language.
   function paintToggle() {
     var dark = isDark();
 
@@ -93,6 +116,11 @@
       var next = logo.src.replace(/logo(-dark)?\.png/, wanted);
       if (logo.src !== next) logo.src = next;
     });
+
+    if (themeBtn) {
+      var tip = word('theme.' + nextMode(mode()));
+      if (tip) themeBtn.dataset.tip = tip;
+    }
   }
 
   // Hold the sweep until the new logo is decoded, so it arrives with the new colours rather than
@@ -112,17 +140,20 @@
 
   if (themeBtn) {
     themeBtn.addEventListener('click', function () {
-      var next = isDark() ? 'light' : 'dark';
+      var next = nextMode(mode());
+      var changes = themeFor(next) !== root.dataset.theme;
 
       function apply() {
-        root.dataset.theme = next;
+        root.dataset.themeMode = next;
+        root.dataset.theme = themeFor(next);
         write('theme', next);
         paintToggle();
       }
 
-      // The sweep from site.css, where the browser can do it and the visitor has not asked for
-      // less motion. Everywhere else the theme changes at once.
-      if (!document.startViewTransition || lessMotion.matches) {
+      // The sweep from site.css, where the browser can do it, the visitor has not asked for less
+      // motion, and the colours actually change. Everywhere else the theme changes at once, and
+      // the icon turns on its own.
+      if (!changes || !document.startViewTransition || lessMotion.matches) {
         apply();
         return;
       }
@@ -134,19 +165,77 @@
     });
   }
 
-  // While nobody has chosen, a device that switches between light and dark takes the page with it.
-  if (window.matchMedia) {
-    var deviceDark = window.matchMedia('(prefers-color-scheme: dark)');
+  // In automatic mode a device that switches between light and dark takes the page with it.
+  if (deviceDark) {
     var follow = function () {
-      if (chosen()) return;
-      root.dataset.theme = deviceDark.matches ? 'dark' : 'light';
+      if (mode() !== 'auto') return;
+      root.dataset.theme = deviceTheme();
       paintToggle();
     };
     if (deviceDark.addEventListener) deviceDark.addEventListener('change', follow);
     else if (deviceDark.addListener) deviceDark.addListener(follow);
   }
 
-  paintToggle();
+  /* --------------------------------------------------------------- masthead */
+
+  // The top bar stays at the top of the window (site.css). Two things it needs from here: its
+  // height, so a jump to an anchor lands under it rather than behind it, and on a narrow screen,
+  // where the sections wrap onto rows of their own, folding those rows away while the reader
+  // scrolls down, so the bar keeps to one row. Scrolling back up, or reaching the top, unfolds
+  // them. Folding only paints: the bar keeps its place in the page, so nothing under it moves.
+  var masthead = document.querySelector('.masthead');
+  var sections = masthead && masthead.querySelector('.sections');
+
+  if (masthead && sections) {
+    var folded = false;
+    var lastY = window.scrollY;
+    var full = 0;
+    var fold = 0;
+
+    var measureBar = function () {
+      full = masthead.offsetHeight;
+      fold = 0;
+      // Everything under the row holding the mark and the controls, when the sections have a row
+      // of their own (site.css decides that by width and language).
+      // Layout offsets inside the bar, which a fold's own movement does not change.
+      var brand = masthead.querySelector('.brand');
+      var controls = masthead.querySelector('.controls');
+      var topRow = Math.max(brand.offsetTop + brand.offsetHeight, controls.offsetTop + controls.offsetHeight);
+      if (sections.offsetTop >= topRow) {
+        var pad = parseFloat(getComputedStyle(masthead.firstElementChild).paddingTop) || 0;
+        fold = Math.max(0, Math.round(full - topRow - pad));
+      }
+      masthead.style.setProperty('--masthead-fold', fold + 'px');
+      root.style.setProperty('--masthead-h', full - fold + 'px');
+      if (!fold) setFolded(false);
+    };
+
+    var setFolded = function (on) {
+      if (on === folded) return;
+      folded = on;
+      masthead.toggleAttribute('data-folded', on);
+    };
+
+    var onScroll = function () {
+      var y = window.scrollY;
+      if (fold && !masthead.contains(document.activeElement)) {
+        if (y <= full) setFolded(false);
+        else if (y > lastY + 4) setFolded(true);
+        else if (y < lastY - 8) setFolded(false);
+      }
+      if (Math.abs(y - lastY) > 4 || y <= full) lastY = y;
+    };
+
+    measureBar();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', measureBar);
+    if (typeof ResizeObserver === 'function') new ResizeObserver(measureBar).observe(masthead);
+    if (document.fonts) document.fonts.ready.then(measureBar);
+    // A keyboard reader tabbing into the folded rows gets them back.
+    masthead.addEventListener('focusin', function () {
+      setFolded(false);
+    });
+  }
 
   /* -------------------------------------------------------------- copyright */
 
@@ -164,8 +253,10 @@
   var labelled = Array.prototype.slice.call(document.querySelectorAll('[data-t-aria-label]'));
   var cycler = document.querySelector('[data-lang-cycle]');
 
-  // Each language names itself, and never in translation.
+  // Each language names itself, and never in translation. On hover the control offers the next
+  // one in that language's own words (tools/languages.py has the same lists).
   var NAMES = { ro: 'Română', ru: 'Русский', en: 'English' };
+  var SWITCH = { ro: 'Schimbă în Română', ru: 'Переключить на русский', en: 'Switch to English' };
 
   function nextAfter(lang) {
     return LANGS[(LANGS.indexOf(lang) + 1) % LANGS.length];
@@ -197,6 +288,14 @@
   var catalogues = {};
   catalogues[SOURCE] = source;
   var current = SOURCE;
+
+  // A word in the language on screen, else the page's own.
+  function word(key) {
+    var words = catalogues[current] || source;
+    return typeof words[key] === 'string' ? words[key] : source[key];
+  }
+
+  paintToggle();
 
   function apply(lang) {
     current = lang;
@@ -230,8 +329,11 @@
       cycler.textContent = lang.toUpperCase();
       cycler.setAttribute('lang', lang);
       cycler.setAttribute('aria-label', hint.replace(/\s+/g, ' ').trim());
-      cycler.setAttribute('title', NAMES[next]);
+      cycler.removeAttribute('title');
+      cycler.dataset.tip = SWITCH[next];
     }
+
+    paintToggle();
 
     document.dispatchEvent(new CustomEvent('konta:lang', { detail: { lang: lang } }));
   }

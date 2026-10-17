@@ -31,8 +31,11 @@
   --nav-active: #3d2c4b;
   --nav-text: #3d2c4b;
   --nav-active-text: #ece8e1;
-  /* The top bar: sand in the light, the surface in the dark. */
-  --masthead-bg: #ece8e1;
+  /* The top bar: frosted glass over the page, warm sand in the light and a dark with a touch of
+     aubergine in it in the dark. --masthead-bg is the solid colour for browsers that cannot blur
+     what is behind it; --masthead-glass the same colour, see-through. */
+  --masthead-bg: #f8f2e8;
+  --masthead-glass: rgba(248, 242, 232, 0.76);
 
   --serif: 'Literata', Georgia, 'Times New Roman', serif;
   --sans: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -62,7 +65,8 @@
     --nav-active: #c9b4dd;
     --nav-text: #ece8e1;
     --nav-active-text: #3d2c4b;
-    --masthead-bg: #1d1d22;
+    --masthead-bg: #1e1b22;
+    --masthead-glass: rgba(30, 27, 34, 0.76);
 
     color-scheme: dark;
   }
@@ -89,7 +93,8 @@
   --nav-active: #c9b4dd;
   --nav-text: #ece8e1;
   --nav-active-text: #3d2c4b;
-  --masthead-bg: #1d1d22;
+  --masthead-bg: #1e1b22;
+  --masthead-glass: rgba(30, 27, 34, 0.76);
 
   color-scheme: dark;
 }
@@ -106,6 +111,8 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* A jump to an anchor lands under the top bar, not behind it. site.js keeps the height. */
+  scroll-padding-top: calc(var(--masthead-h, 68px) + 12px);
 }
 
 /* The footer always sits at the bottom of the window: on a short page the room left over goes
@@ -206,7 +213,7 @@ body > main {
   background: var(--surface);
   color: var(--ink);
   padding: 10px 16px;
-  z-index: 10;
+  z-index: 60;
 }
 
 .skip:focus {
@@ -218,11 +225,34 @@ body > main {
    Header
    --------------------------------------------------------------------------- */
 
+/* The top bar stays at the top of the window and the page scrolls under it, seen through frosted
+   glass. Sticky rather than fixed, so it keeps its own place at the top of the page and nothing
+   under it starts hidden or jumps. The glass and the rule are drawn by ::before, which on a narrow
+   screen draws up as far as the first row when the sections fold away (see the end of this part). */
 .masthead {
-  border-bottom: 1px solid var(--rule);
-  background: var(--masthead-bg);
+  position: sticky;
+  top: 0;
+  z-index: 50;
   /* A chip pushed aside never makes the page scroll sideways. */
   overflow-x: clip;
+}
+
+.masthead::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-bottom: 1px solid var(--rule);
+  background: var(--masthead-bg);
+  transition: bottom 0.25s ease;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .masthead::before {
+    background: var(--masthead-glass);
+    -webkit-backdrop-filter: saturate(1.5) blur(16px);
+    backdrop-filter: saturate(1.5) blur(16px);
+  }
 }
 
 .masthead__bar {
@@ -331,6 +361,13 @@ body > main {
   transition: opacity 160ms ease;
 }
 
+/* The chips you are not on read like the text around them: the size of the notice under the bar
+   (.notice__bar), at normal weight. The chosen one keeps its own, smaller and heavier. */
+.jelly__chip:not([aria-current='page']) .jelly__skin {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .jelly__chip:not([aria-current='page']):hover .jelly__skin::before {
     opacity: 0.11;
@@ -373,6 +410,7 @@ body > main {
    On a page with /ru/ and /en/ copies the language control is a link to the next one. */
 
 .control {
+  position: relative;
   display: grid;
   text-decoration: none;
   place-items: center;
@@ -388,10 +426,83 @@ body > main {
   cursor: pointer;
 }
 
-.control:hover {
-  background: var(--sunken);
-  border-color: var(--accent);
-  color: var(--ink);
+/* Hovering changes nothing on the control itself; it says instead what a press would do, in a
+   label under it: the next language, offered in that language, or the next theme. site.js writes
+   data-tip, and the package writes it on the /ru/ and /en/ copies' language link. */
+.control[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  padding: 6px 10px;
+  border-radius: 5px;
+  background: var(--ink);
+  color: var(--bg);
+  font: 400 0.8125rem/1.2 var(--sans);
+  letter-spacing: normal;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-3px);
+  pointer-events: none;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .control[data-tip]:hover::after {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.control[data-tip]:focus-visible::after {
+  opacity: 1;
+  transform: none;
+}
+
+/* The way into the app, beside the controls: the chosen section chip exactly, in each theme, at
+   the size it swells to (site.js scales the chip 1.2 times; this one is drawn at that size). */
+.masthead__app {
+  --swell: 1.2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(28px * var(--swell));
+  padding: 0 calc(12px * var(--swell));
+  border-radius: calc(5px * var(--swell));
+  background: var(--nav-active);
+  color: var(--nav-active-text);
+  font: 500 calc(12px * var(--swell)) / 1 var(--sans);
+  white-space: nowrap;
+  text-decoration: none;
+  outline: none;
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.masthead__app-short {
+  display: none;
+}
+
+/* The narrowest phones get the short word, so the first row never wraps. */
+@media (max-width: 379px) {
+  .masthead__app-long {
+    display: none;
+  }
+
+  .masthead__app-short {
+    display: inline;
+  }
+}
+
+.masthead__app:active {
+  transform: scale(0.97);
+}
+
+.masthead__app:focus-visible {
+  outline: 2px solid var(--nav-text);
+  outline-offset: 2px;
 }
 
 .control svg {
@@ -401,8 +512,9 @@ body > main {
 
 /* The theme control, after Skiper UI's second theme toggle (skiper4): one drawing that is a sun
    in the light and a moon in the dark. A cut slides across the disc to make the crescent while the
-   rays turn away. It follows the same selectors as the colour tokens, so it is right before any
-   script runs and needs none. */
+   rays turn away. In automatic mode it is half of each: the sun's left half, its right half folded
+   away, and a crescent coming in on the right. It follows data-theme-mode, which the page's first
+   script sets, so it is right before site.js runs. */
 
 [data-theme-btn] {
   transition: transform 0.3s;
@@ -419,39 +531,61 @@ body > main {
 
 .sunmoon__cut,
 .sunmoon__disc,
-.sunmoon__rays {
+.sunmoon__rays,
+.sunmoon__half,
+.sunmoon__moon {
   transform-origin: 16px 16px;
   transition:
     transform 0.35s ease-in-out,
     opacity 0.35s ease-in-out;
 }
 
-:root[data-theme='dark'] .sunmoon__cut {
+.sunmoon__half {
+  transform-origin: 0 0;
+}
+
+.sunmoon__moon {
+  transform-origin: 17.5px 16px;
+  transform: translateX(-3px) scale(0.5);
+  opacity: 0;
+}
+
+:root[data-theme='dark']:not([data-theme-mode='auto']) .sunmoon__cut {
   transform: translate(-12px, 10px);
 }
 
-:root[data-theme='dark'] .sunmoon__disc {
+:root[data-theme='dark']:not([data-theme-mode='auto']) .sunmoon__disc {
   transform: scale(1.25);
 }
 
-:root[data-theme='dark'] .sunmoon__rays {
+:root[data-theme='dark']:not([data-theme-mode='auto']) .sunmoon__rays {
   transform: rotate(-100deg) scale(0.5);
   opacity: 0;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .sunmoon__cut {
+  :root:not([data-theme='light']):not([data-theme-mode='auto']) .sunmoon__cut {
     transform: translate(-12px, 10px);
   }
 
-  :root:not([data-theme='light']) .sunmoon__disc {
+  :root:not([data-theme='light']):not([data-theme-mode='auto']) .sunmoon__disc {
     transform: scale(1.25);
   }
 
-  :root:not([data-theme='light']) .sunmoon__rays {
+  :root:not([data-theme='light']):not([data-theme-mode='auto']) .sunmoon__rays {
     transform: rotate(-100deg) scale(0.5);
     opacity: 0;
   }
+}
+
+/* Automatic: the sun up to just left of the middle, the crescent from just right of it. */
+:root[data-theme-mode='auto'] .sunmoon__half {
+  transform: scaleX(0.453);
+}
+
+:root[data-theme-mode='auto'] .sunmoon__moon {
+  transform: none;
+  opacity: 1;
 }
 
 /* Switching theme sweeps the new one across the page as a diagonal, after Skiper UI's theme
@@ -502,15 +636,20 @@ body > main {
   [data-theme-btn],
   .sunmoon__cut,
   .sunmoon__disc,
-  .sunmoon__rays {
+  .sunmoon__rays,
+  .sunmoon__half,
+  .sunmoon__moon,
+  .masthead::before,
+  .masthead .sections {
     transition: none;
   }
 }
 
-/* On a narrow screen the sections move to their own row instead of disappearing: they are pages
-   now, and a phone visitor has to be able to reach them. The row wraps rather than scrolls, so no
-   item sits off the edge where nobody knows to look for it. */
-@media (max-width: 960px) {
+/* Where the bar has no room for one row, the sections move to their own row instead of
+   disappearing: they are pages, and a phone visitor has to be able to reach them. The row wraps
+   rather than scrolls, so no item sits off the edge where nobody knows to look for it. How wide one
+   row has to be depends on the language: Russian's labels are the longest. */
+@media (max-width: 1180px) {
   .masthead__bar {
     row-gap: 6px;
   }
@@ -520,6 +659,68 @@ body > main {
   .sections {
     order: 3;
     width: 100%;
+  }
+}
+
+@media (max-width: 1320px) {
+  :root[lang='ru'] .masthead__bar {
+    row-gap: 6px;
+  }
+
+  :root[lang='ru'] .sections {
+    order: 3;
+    width: 100%;
+  }
+}
+
+/* Scrolling down folds the rows of sections away and the glass draws up to the first row;
+   scrolling up brings them back. site.js measures how far (--masthead-fold) and decides when,
+   only while the sections are on a row of their own. The bar keeps its height in the page, so
+   nothing under it moves. */
+.masthead .sections {
+  transition:
+    opacity 0.2s ease,
+    transform 0.25s ease,
+    visibility 0s linear 0s;
+}
+
+.masthead[data-folded]::before {
+  bottom: var(--masthead-fold, 0px);
+}
+
+/* What shows through where the rows were is the page, and it takes the clicks. */
+.masthead[data-folded] {
+  pointer-events: none;
+}
+
+.masthead[data-folded] .brand,
+.masthead[data-folded] .controls {
+  pointer-events: auto;
+}
+
+.masthead[data-folded] .sections {
+  opacity: 0;
+  transform: translateY(-8px);
+  visibility: hidden;
+  transition:
+    opacity 0.15s ease,
+    transform 0.25s ease,
+    visibility 0s linear 0.25s;
+}
+
+/* On a phone the first row holds the mark, the two controls and the way into the app, so the
+   name beside the mark gives way to it, and the gaps close up a little. */
+@media (max-width: 520px) {
+  .masthead__bar {
+    column-gap: 12px;
+  }
+
+  .brand__name {
+    display: none;
+  }
+
+  .controls {
+    gap: 6px;
   }
 }
 

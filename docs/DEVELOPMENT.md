@@ -212,8 +212,13 @@ to be: from `?lang=`, from a `/ru/` or `/en/` address the 404 page answers, or f
 fetching the catalogue on demand. A key missing from a catalogue leaves the Romanian on screen,
 visible, rather than silently wrong.
 
-The theme control shows the state you would get by pressing it, a sun while you are in the dark;
-the language control shows the language you are reading.
+The theme control shows the mode you are in (a sun, a moon, or half of each for automatic); the
+language control shows the language you are reading. Neither changes colour on hover: each shows a
+label under it instead, saying what a press would do. The language one offers the next language in
+that language's own words ("Schimbă în Română", "Переключить на русский", "Switch to English",
+written by `site.js` and, on the `/ru/` and `/en/` copies, by `tools/languages.py`); the theme one
+names the next mode in the reader's language (`theme.light`, `theme.dark`, `theme.auto`, in every
+page's `data-seed`).
 
 ```bash
 python tools/check-catalogues.py   # every data-t key present in ru and en, nothing empty
@@ -224,16 +229,32 @@ strings get found.
 
 ## Theme
 
-Light and dark, following the system by default and overridable from the header. The
-choice is stored per browser and applied before first paint, so an explicit choice never flashes
-the other theme. The logo swaps too: the aubergine in the mark disappears against a dark ground,
+Three modes: light, dark and automatic, which follows the system and is what nobody having chosen
+means. The header's control cycles them so that the first press always changes what you see: from
+automatic to the opposite of the device, then to the device's own theme chosen for good, then
+back to automatic. The mode is kept in the shared `konta_theme` cookie (`light`, `dark` or `auto`;
+the app reads `auto` as no choice) and applied before first paint as `data-theme-mode` and
+`data-theme` on `<html>`, so an explicit choice never flashes the other theme. The logo swaps too: the aubergine in the mark disappears against a dark ground,
 so `assets/logo-dark.png` is the same file with that colour lifted.
 
 The control is one drawing, a sun that turns into a moon, after Skiper UI's second theme toggle
-(skiper4); CSS picks its state from the same selectors as the colours, so no script draws it.
+(skiper4), and in automatic mode the sun's left half beside a crescent; CSS picks its state from
+`data-theme-mode`, so no script draws it.
 Pressing it sweeps the new theme across the page on a diagonal, after Skiper UI's polygon theme
 transition from the top left (skiper26), through the View Transitions API. Browsers without it,
 and visitors who ask for reduced motion, get the instant switch.
+
+## Header
+
+The top bar stays at the top of the window (`position: sticky`, so it keeps its place in the page
+and nothing under it starts hidden) and the page scrolls under frosted glass: `#F8F2E8` at 76% in
+the light, `#1E1B22` at 76% in the dark, blurred, and the same colours solid where the browser has
+no `backdrop-filter`. `site.js` keeps its height in `--masthead-h` for `scroll-padding-top`, so an
+anchor lands under it. Where one row is too narrow for the mark, the sections, the controls and
+"Intră în aplicație" (below 1180px, or 1320px in Russian), the sections take rows of their own,
+and while the reader scrolls down those rows fold away so the bar keeps to one row; scrolling up
+brings them back. Folding only paints, so nothing under the bar moves. The app button is the chosen
+section chip drawn at its swollen size; on phones under 380px it says just "Intră".
 
 ## Fonts
 

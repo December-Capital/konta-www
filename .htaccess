@@ -90,7 +90,7 @@ RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
   # exist, so style-src is 'self' alone. The form posts to its own handler (form-action), which
   # redirects back to /contact/. Hostinger adds its own "upgrade-insecure-requests" CSP header on
   # this host; a second policy only ever narrows, and it is repeated here so it holds without them.
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-VCpxrelFtcwIxnpNfCSfM3IGONLhtyI2GwxHTL7wqHA='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self' https://app.konta.md; form-action 'self'; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-Ht+p06vXDks9+rEUvYL36bJM3yFfonOrj2sduvri5t8='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self' https://app.konta.md; form-action 'self'; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"
 
   # No page needs a camera, a microphone, the visitor's location, a payment sheet or a USB device,
   # so none can ask, nor anything embedded in it.

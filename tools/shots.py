@@ -33,6 +33,7 @@ META = re.compile(r'(<meta\b[^>]*?data-t="([^"]+)"[^>]*?>)', re.S)
 NEXT_LANG = {'ro': 'ru', 'ru': 'en', 'en': 'ro'}
 OWN_NAME = {'ro': 'Română', 'ru': 'Русский', 'en': 'English'}
 SWITCH_TO = {'ro': 'Treci la', 'ru': 'Переключить на', 'en': 'Switch to'}
+SWITCH_TIP = {'ro': 'Schimbă în Română', 'ru': 'Переключить на русский', 'en': 'Switch to English'}
 
 VARIANTS = [
     ('index.html', 'ro-light', 'ro', 'light', None, 1280),
@@ -106,7 +107,7 @@ def build(page, name, lang, theme, state):
             'aria-label="RO. Treci la %s"' % OWN_NAME['ru'],
             'aria-label="%s. %s %s"' % (lang.upper(), SWITCH_TO[lang], OWN_NAME[nxt]),
         )
-        html = html.replace('title="%s"' % OWN_NAME['ru'], 'title="%s"' % OWN_NAME[nxt])
+        html = html.replace('data-tip="%s"' % SWITCH_TIP['ru'], 'data-tip="%s"' % SWITCH_TIP[nxt])
 
     html = html.replace('<html lang=', '<html data-theme="%s" lang=' % theme)
 

@@ -11,8 +11,8 @@ la 1C, despre parteneri și despre transparență, iar pe pagina de contact ne p
 Pagina [konta.md/status](https://konta.md/status) arată dacă aplicația funcționează în acest
 moment.
 
-Site-ul are o variantă luminoasă și una întunecată, iar limba și varianta aleasă se păstrează și
-în aplicație.
+Site-ul are o variantă luminoasă, una întunecată și una automată, după telefon sau calculator, iar
+limba și varianta aleasă se păstrează și în aplicație.
 
 ## Cum este făcut
 

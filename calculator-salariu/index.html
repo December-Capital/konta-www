@@ -25,11 +25,12 @@
     <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
-    <link rel="stylesheet" href="/assets/site.css?v=8" />
+    <link rel="stylesheet" href="/assets/site.css?v=9" />
     <link rel="stylesheet" href="/assets/salary.css?v=1" />
     <script>
-      // Before first paint, so the theme never flashes the other one. The device's theme unless
-      // one was chosen, here or in the app: konta_theme and konta_lang are cookies shared by
+      // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
+      // which is the device's theme and what nobody choosing means; the choice is made here or in
+      // the app: konta_theme and konta_lang are cookies shared by
       // konta.md and app.konta.md (see assets/site.js), and the old localStorage copies are read
       // for anybody who chose before them. An address without /ru/ or /en/ then moves to the
       // language chosen the same way, or named by ?lang=, when the page has a copy in it.
@@ -45,9 +46,14 @@
             return null; /* private mode: the cookie alone decides */
           }
         }
+        var mode = chosen('theme', 'light|dark|auto') || 'auto';
+        root.dataset.themeMode = mode;
         root.dataset.theme =
-          chosen('theme', 'light|dark') ||
-          (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          mode !== 'auto'
+            ? mode
+            : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
         if (root.lang !== 'ro') return;
         var asked = /[?&]lang=(ro|ru|en)(?:&|$)/.exec(location.search);
         var lang = asked ? asked[1] : chosen('lang', 'ro|ru|en');
@@ -102,7 +108,7 @@
             data-lang-cycle
             lang="ro"
             aria-label="RO. Treci la Русский"
-            title="Русский"
+            data-tip="Переключить на русский"
           >
             RO
           </button>
@@ -118,14 +124,22 @@
               <clipPath id="sunmoon-cut">
                 <path class="sunmoon__cut" d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
               </clipPath>
-              <g clip-path="url(#sunmoon-cut)">
-                <circle class="sunmoon__disc" cx="16" cy="16" r="8" />
-                <g class="sunmoon__rays" stroke="currentColor" stroke-width="1.5">
-                  <path d="M16 5.5v-4M16 30.5v-4M1.5 16h4M26.5 16h4M23.4 8.6l2.8-2.8M5.7 26.3l2.9-2.9M5.8 5.8l2.8 2.8M23.4 23.4l2.9 2.9" />
+              <clipPath id="sunmoon-half">
+                <rect class="sunmoon__half" width="32" height="32" />
+              </clipPath>
+              <g clip-path="url(#sunmoon-half)">
+                <g clip-path="url(#sunmoon-cut)">
+                  <circle class="sunmoon__disc" cx="16" cy="16" r="8" />
+                  <g class="sunmoon__rays" stroke="currentColor" stroke-width="1.5">
+                    <path d="M16 5.5v-4M16 30.5v-4M1.5 16h4M26.5 16h4M23.4 8.6l2.8-2.8M5.7 26.3l2.9-2.9M5.8 5.8l2.8 2.8M23.4 23.4l2.9 2.9" />
+                  </g>
                 </g>
               </g>
+              <path class="sunmoon__moon" d="M17.5 8a8 8 0 0 1 0 16a4.5 8 0 0 0 0-16Z" />
             </svg>
           </button>
+
+          <a class="masthead__app" href="https://app.konta.md"><span class="masthead__app-long" data-t="nav.app">Intră în aplicație</span><span class="masthead__app-short" data-t="nav.app.short">Intră</span></a>
         </div>
       </div>
     </header>
@@ -388,9 +402,9 @@
     </footer>
 
     <script type="application/json" data-seed>
-      {"lang.next": "Treci la"}
+      {"lang.next": "Treci la", "theme.light": "Varianta luminoasă", "theme.dark": "Varianta întunecată", "theme.auto": "Varianta automată"}
     </script>
-    <script src="/assets/site.js?v=9"></script>
+    <script src="/assets/site.js?v=10"></script>
     <script src="/assets/salary.js?v=1"></script>
   </body>
 </html>
