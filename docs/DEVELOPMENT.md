@@ -254,7 +254,7 @@ anchor lands under it. Where one row is too narrow for the mark, the sections, t
 "Intră în aplicație" (below 1180px, or 1320px in Russian), the sections take rows of their own,
 and while the reader scrolls down those rows fold away so the bar keeps to one row; scrolling up
 brings them back. Folding only paints, so nothing under the bar moves. The app button is the chosen
-section chip drawn at its swollen size; on phones under 380px it says just "Intră".
+section chip drawn at its swollen size; on phones under 360px it says just "Intră".
 
 ## Fonts
 

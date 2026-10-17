@@ -486,7 +486,7 @@ body > main {
 }
 
 /* The narrowest phones get the short word, so the first row never wraps. */
-@media (max-width: 379px) {
+@media (max-width: 359px) {
   .masthead__app-long {
     display: none;
   }
