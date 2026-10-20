@@ -1563,8 +1563,8 @@ body > main {
   }
 }
 
-/* What works today on the home page: what is in progress as a strip on top, read first, and what
-   is built under it in up to three columns. */
+/* What works today on the home page: what is built in up to three columns, and what is in
+   progress as a strip under it. */
 .today {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
