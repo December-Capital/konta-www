@@ -1563,37 +1563,37 @@ body > main {
   }
 }
 
-/* What works today on the home page: two lists side by side, built and in progress. */
+/* What works today on the home page: what is in progress as a strip on top, read first, and what
+   is built under it in up to three columns. */
 .today {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
-  gap: 26px 48px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
 }
 
 .today h3 {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .today__list {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--rule-strong);
 }
 
 .today__list li {
   position: relative;
-  padding: 10px 0 10px 22px;
-  border-bottom: 1px solid var(--rule);
+  padding: 4px 0 4px 22px;
   color: var(--ink-2);
   font-size: 0.9375rem;
+  break-inside: avoid;
 }
 
 .today__list li::before {
   content: '';
   position: absolute;
   left: 2px;
-  top: calc(10px + 0.62em);
+  top: calc(4px + 0.62em);
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -1603,6 +1603,39 @@ body > main {
 .today__list--wip li::before {
   background: none;
   border: 1.5px solid var(--gold);
+}
+
+.today__wip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px 24px;
+  align-items: baseline;
+  padding: 12px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--sunken);
+}
+
+.today__wip h3 {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
+.today__list--wip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 0 28px;
+}
+
+@media (min-width: 700px) {
+  .today__wip {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+
+.today__built .today__list {
+  columns: 3 260px;
+  column-gap: 36px;
 }
 
 /* ---------------------------------------------------------------------------
