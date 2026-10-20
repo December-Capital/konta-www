@@ -6,7 +6,8 @@
   dates in full, and the browser prints it. This shows the reader's own month in the middle of the
   page with steps three months back and forward to the last month the page holds. Under it go the
   entries of the day clicked (the day, its number or one of its labels), or of the whole month,
-  as a grid of cards or as a list. The filter and the grid-or-list choice are remembered in this
+  as a grid of cards or as a list. The feeds become one menu with the chosen feed's address and a
+  button that copies it. The filter and the grid-or-list choice are remembered in this
   browser alone (localStorage), never sent anywhere, and forgotten silently where storage is
   refused.
 */
@@ -335,6 +336,77 @@
     }
   }
   apply();
+
+  /* -------------------------------------------------------------------- feeds */
+
+  // Without script the feeds are a list, each with its link and address. With it they are one
+  // menu, built from that list, and the chosen feed's address with a button that copies it. The
+  // menu starts on the one kind of taxpayer the filter holds, if it holds one, until the reader
+  // picks a feed there themselves.
+  var pick = document.querySelector('[data-cal-pick]');
+  var list = document.querySelector('[data-cal-feeds]');
+  if (pick && list) {
+    var menu = pick.querySelector('[data-cal-feed]');
+    var address = pick.querySelector('[data-cal-feed-address]');
+    var open = pick.querySelector('[data-cal-open]');
+    var copied = pick.querySelector('[data-cal-copied]');
+    var picked = false;
+
+    var feeds = all('li', list).map(function (li) {
+      var url = li.querySelector('code').textContent.trim();
+      return {
+        name: li.querySelector('a').textContent.trim(),
+        webcal: li.querySelector('a').getAttribute('href'),
+        url: url,
+        id: url.replace(/^.*\/calendar\//, '').replace(/\.ics$/, '')
+      };
+    });
+    feeds.forEach(function (f, i) {
+      var option = document.createElement('option');
+      option.value = String(i);
+      option.textContent = f.name;
+      menu.appendChild(option);
+    });
+
+    var choose = function (i) {
+      menu.value = String(i);
+      address.value = feeds[i].url;
+      open.setAttribute('href', feeds[i].webcal);
+      copied.textContent = '';
+    };
+    var suggest = function () {
+      if (picked) return;
+      var chosen = selected();
+      var i = chosen.length === 1 ? feeds.map(function (f) { return f.id; }).indexOf(chosen[0]) : -1;
+      choose(i < 0 ? 0 : i);
+    };
+
+    menu.addEventListener('change', function () {
+      picked = true;
+      choose(Number(menu.value));
+    });
+    boxes.forEach(function (b) { b.addEventListener('change', suggest); });
+    address.addEventListener('focus', function () { address.select(); });
+
+    // Where the clipboard is refused (an old browser, a page not served over https), the address
+    // is selected instead, for the reader to copy themselves.
+    pick.querySelector('[data-cal-copy]').addEventListener('click', function () {
+      var fallback = function () {
+        address.focus();
+        address.select();
+        copied.textContent = word('uncopied');
+      };
+      copied.textContent = '';
+      if (!navigator.clipboard || !navigator.clipboard.writeText) return fallback();
+      navigator.clipboard.writeText(address.value).then(function () {
+        copied.textContent = word('copied');
+      }, fallback);
+    });
+
+    suggest();
+    list.hidden = true;
+    pick.hidden = false;
+  }
 
   /* -------------------------------------------------------------------- print */
 
