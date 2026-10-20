@@ -951,6 +951,7 @@ a.cal-day__n:hover {
   .cal-subscribe {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     column-gap: 3rem;
+    align-items: start;
   }
 }
 
@@ -958,9 +959,97 @@ a.cal-day__n:hover {
   margin-top: 0.75rem;
 }
 
+/* The card holds the menu (or, without script, the list) and the steps in each calendar app. */
+.cal-feed-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.1rem 1.2rem 1.2rem;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.cal-pick {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.4rem;
+}
+
+.cal-pick[hidden] {
+  display: none;
+}
+
+.cal-pick__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.cal-pick__label + * {
+  margin-bottom: 0.6rem;
+}
+
+.cal-pick__select,
+.cal-pick__url {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.4rem 0.7rem;
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  border-radius: 8px;
+}
+
+.cal-pick__select {
+  font: inherit;
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.cal-pick__address {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cal-pick__url {
+  flex: 1 1 15rem;
+  width: auto;
+  min-width: 0;
+  font-family: monospace;
+  font-size: 0.88rem;
+  background: var(--sunken);
+}
+
+.cal-pick__copy {
+  min-height: 44px;
+}
+
+.cal-pick__copy svg {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+}
+
+.cal-pick__status:empty {
+  display: none;
+}
+
+.cal-pick__status {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--ok);
+}
+
+.cal-pick__open {
+  justify-self: start;
+}
+
 .cal-howto {
-  margin: 1rem 0 0;
+  margin: 0;
   padding-left: 1.2rem;
+  font-size: 0.9rem;
   color: var(--ink-2);
 }
 
@@ -969,17 +1058,16 @@ a.cal-day__n:hover {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0.5rem;
-  align-content: start;
+  gap: 0.6rem;
+}
+
+.cal-feeds[hidden] {
+  display: none;
 }
 
 .cal-feeds li {
   display: grid;
-  gap: 0.15rem;
-  padding: 0.7rem 0.9rem;
-  border: 1px solid var(--rule);
-  border-radius: 8px;
-  background: var(--surface);
+  gap: 0.1rem;
 }
 
 .cal-feeds a {

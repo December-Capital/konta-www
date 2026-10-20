@@ -248,15 +248,31 @@
           <div>
             <h2 id="abonare-title" data-t="cal.subscribe.title">Abonați-vă în calendarul dumneavoastră</h2>
             <p data-t="cal.subscribe.lead">Copiați adresa unui flux și adăugați-o ca abonament. Calendarul dumneavoastră îl citește din nou singur, așa că un termen mutat sau o zi transferată ajung și la el.</p>
+          </div>
+          <div class="cal-feed-card">
+            <div class="cal-pick" hidden data-cal-pick>
+              <label class="cal-pick__label" for="cal-feed" data-t="cal.feed.choose">Ce termene vă interesează</label>
+              <select class="cal-pick__select" id="cal-feed" data-cal-feed></select>
+              <label class="cal-pick__label" for="cal-feed-address" data-t="cal.feed.address">Adresa fluxului</label>
+              <div class="cal-pick__address">
+                <input class="cal-pick__url" id="cal-feed-address" type="text" readonly spellcheck="false" autocomplete="off" dir="ltr" data-cal-feed-address />
+                <button class="cal-btn cal-pick__copy" type="button" data-cal-copy>
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" width="16" height="16"><rect x="5.5" y="5.5" width="8.5" height="8.5" rx="1.5" /><path d="M10.5 3.5V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v6.5a1 1 0 0 0 1 1h.5" /></svg>
+                  <span data-t="cal.feed.copy">Copiază adresa</span>
+                </button>
+              </div>
+              <p class="cal-pick__status" role="status" data-cal-copied></p>
+              <a class="cal-btn cal-pick__open" href="webcal://konta.md/calendar.ics" data-cal-open data-t="cal.feed.open">Deschide în aplicația de calendar</a>
+            </div>
+            <ul class="cal-feeds" data-cal-feeds>
+<!-- calendar:feeds -->
+            </ul>
             <ul class="cal-howto">
               <li data-t="cal.subscribe.google">Google Calendar: Alte calendare, apoi Din adresa URL.</li>
               <li data-t="cal.subscribe.outlook">Outlook: Adăugare calendar, apoi Abonare de pe web.</li>
               <li data-t="cal.subscribe.apple">Calendar pe iPhone sau Mac: Fișier, apoi Abonament nou la calendar.</li>
             </ul>
           </div>
-          <ul class="cal-feeds">
-<!-- calendar:feeds -->
-          </ul>
         </div>
       </section>
 
@@ -337,6 +353,8 @@
         <span data-js="today" data-t="cal.js.today">Luna aceasta</span>
         <span data-js="selected" data-t="cal.js.selected">{n} selectate</span>
         <span data-js="more" data-t="cal.js.more">încă {n}</span>
+        <span data-js="copied" data-t="cal.js.copied">Adresa este copiată. Adăugați-o în calendar ca abonament.</span>
+        <span data-js="uncopied" data-t="cal.js.uncopied">Adresa este selectată: copiați-o de aici.</span>
       </div>
     </main>
 
