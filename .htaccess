@@ -16,6 +16,19 @@
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 </IfModule>
 
+# PHP2Shell (CVE-2026-109618, CVE-2026-109619, disclosed 21 Oct 2026): bugs in PHP itself,
+# reached while PHP parses a multipart body or runs out of memory doing so, before
+# contact/trimite.php runs a line. The form posts url-encoded (assets/contact.js sends
+# URLSearchParams; the no-JS form has no enctype), so no genuine request here is multipart or
+# anywhere near 1 MB. Both are refused before PHP starts. The fix is a patched PHP at the host
+# (8.2.35 / 8.3.36 / 8.4.27 / 8.5.12); this is the stopgap until then and costs nothing after.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP:Content-Type} multipart/ [NC,OR]
+  RewriteCond %{HTTP:Content-Length} ^[0-9]{7,}$
+  RewriteRule ^ - [F,L]
+</IfModule>
+
 # If the document root is ever a git checkout rather than a copied folder (which it is the
 # moment Hostinger's git integration is pointed at this repository), then the repository's own
 # files are sitting in the web root. None of them are meant to be fetched over HTTP.

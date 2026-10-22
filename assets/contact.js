@@ -37,9 +37,16 @@
     button.disabled = true;
     button.setAttribute('aria-busy', 'true');
 
+    // Url-encoded, not FormData: FormData goes out as multipart, which .htaccess refuses before
+    // PHP starts (PHP2Shell, Oct 2026). The fields are all text, so nothing is lost.
+    var body = new URLSearchParams();
+    new FormData(form).forEach(function (value, key) {
+      body.append(key, value);
+    });
+
     fetch(form.action, {
       method: 'POST',
-      body: new FormData(form),
+      body: body,
       headers: { Accept: 'application/json' },
       credentials: 'same-origin',
     })
