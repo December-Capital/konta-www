@@ -96,7 +96,10 @@ steps three months back and forward to the last. The month stays on top; under i
 of the day clicked (the day, its number or one of its labels, whose entry is outlined) or, with
 "Toată luna", of the whole month, as a grid of cards ("Grilă") or a list ("Listă"), copied from the
 month's own list. An address naming a day (`#d-2026-10-26`, as the .ics events link) opens its
-month and that day. It also filters by kind of taxpayer, from a small menu. The filter and the
+month and that day. It also filters by kind of taxpayer, from a small menu. The feeds, a list
+of links and addresses without script, become one menu built from that list, with the chosen
+feed's address, a button that copies it (or selects it where the clipboard is refused) and a
+webcal: link; the menu starts on the filter's kind of taxpayer when it holds just one. The filter and the
 grid-or-list choice are remembered in this browser only, in `localStorage`, and forgotten
 silently where storage is refused. Without script the page is complete, every month in
 order with its grid and its list. Local days off (a town's patron saint's day, from the
