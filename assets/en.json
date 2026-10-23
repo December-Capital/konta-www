@@ -225,7 +225,7 @@
   "sec.n3.h": "Your signature stays with you",
   "sec.n3.p": "Konta does not keep electronic signatures, USB tokens, mobile signatures or the PINs that unlock them. Once Konta sends invoices to e-Factura, it will send them unsigned, and the director will sign them in SIA e-Factura with their own signature.",
   "sec.n4.h": "The e-Factura API user, encrypted for each company",
-  "sec.n4.p": "The only access of a company that Konta keeps is the API user the director creates in SIA e-Factura. It works only there and cannot sign invoices, and today Konta uses it only to check that it works and to read partners’ details by IDNO. Only the director enters it, after confirming with the second factor again; the password is kept encrypted, tied to the company, and never shown to anyone again.",
+  "sec.n4.p": "The only access of a company that Konta keeps is the API user the director creates in SIA e-Factura. It works only there and cannot sign invoices, and today Konta only reads with it: whether it works, partners’ details by IDNO, and the invoices the company issued and received, which it shows on the e-Factura screen; it sends and changes nothing there. Only the director enters it, after confirming with the second factor again; the password is kept encrypted, tied to the company, and never shown to anyone again.",
   "sec.n5.h": "You can withdraw it without us",
   "sec.n5.p": "If you delete the API user in SIA e-Factura, Konta can no longer work in e-Factura for your company, from that moment on. You do not need to ask us for anything.",
   "sec.n6.h": "Every use, in the trail first",
