@@ -1,61 +1,85 @@
-/* The partners page: the conference banner and the partner logos.
+/* The partners page: the MoldTax banner and the partner logos.
 
-   Colours, corners and type come from konta-design, branch brand-2026-10-23 (0.2.0, not yet
-   released): the brand band (--field and its roles), raised and sunken surfaces, the 4/8/10px
-   radii, pill buttons and the label style. Only the roles this page needs are declared, under
-   names site.css does not use, so nothing else on the site moves. When the site adopts
-   konta-tokens.css these declarations go and the rules below keep working. */
+   The banner is Proactive's, not Konta's: its olive, dark green and near-black come from
+   pro-active.md/moldtax8.0/, so it reads as their conference on our page. On the dark theme it
+   turns to their dark green, with the olive kept for the date.
+
+   The logo tiles' colours, corners and type come from konta-design, branch brand-2026-10-23
+   (0.2.0, not yet released). Only the roles this page needs are declared, under names site.css
+   does not use, so nothing else on the site moves. When the site adopts konta-tokens.css these
+   declarations go and the rules below keep working.
+
+   The page's own layers follow the same brand: the ground and the first panel on Nisip, the
+   quiet bands raised on Hârtie (Grafit 800 and 700 on dark), told apart by the step in tone
+   rather than a rule. site.css's --bg, --surface and --ink-2 are set again here for this page
+   only; the top bar, the notice and the footer stay as every other page has them. */
 
 :root {
-  --field: #3d2c4b; /* Prună 800 */
-  --on-field: #ece8e1; /* Nisip */
-  --on-field-2: #d8c9e6; /* Prună 200 */
-  --field-accent: #c9a46b; /* Aur */
-  --on-field-btn: #3d2c4b; /* Prună 800, on Aur */
-  --field-line: #5e4874; /* Prună 600 */
-  --field-deep: #2a2033; /* Prună 900, behind the picture */
+  --bg: #ece8e1; /* Nisip: page ground */
+  --surface: #f7f5f1; /* Hârtie: raised */
+  --ink-2: #4e3a60; /* Prună 700: secondary text */
+  --mt-field: #d0d183; /* MoldTax olive */
+  --mt-ink: #060607;
+  --mt-pill: #4b5b2e; /* MoldTax dark green */
+  --mt-on-pill: #e1e5d3;
   --tile: #ece8e1; /* Nisip, on the white band */
   --tile-open: #f7f5f1; /* Hârtie */
   --tile-line: #cfc7ba; /* Nisip 300 */
   --tile-text: #5e4874; /* Prună 600 */
-  --radius-s: 4px;
-  --radius-m: 8px;
+  --tile-text-hover: #3d2c4b; /* Prună 800 */
   --radius-l: 10px;
   --radius-pill: 999px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --field: #3c3b44; /* Grafit 600: Prună is a light-theme colour */
-    --on-field: #ece8e1;
-    --on-field-2: #cfc7ba; /* Nisip 300 */
-    --field-accent: #c9a46b;
-    --on-field-btn: #16161a; /* Grafit 900 */
-    --field-line: #79777f; /* Grafit 500 */
-    --field-deep: #2b2b32; /* Grafit 700 */
-    --tile: #2b2b32; /* Grafit 700 */
-    --tile-open: #1d1d22; /* Grafit 800 */
-    --tile-line: #3c3b44; /* Grafit 600 */
+    --bg: #1d1d22; /* Grafit 800 */
+    --surface: #2b2b32; /* Grafit 700 */
+    --ink-2: #cfc7ba; /* Nisip 300 */
+    --mt-field: #4b5b2e;
+    --mt-ink: #e1e5d3;
+    --mt-pill: #d0d183;
+    --mt-on-pill: #060607;
+    --tile: #3c3b44; /* Grafit 600, on the Grafit 700 band */
+    --tile-open: #2b2b32; /* Grafit 700 */
+    --tile-line: #4a4952; /* between Grafit 600 and 500 */
     --tile-text: #cfc7ba; /* Nisip 300 */
+    --tile-text-hover: #ece8e1; /* Nisip */
   }
 }
 
 :root[data-theme='dark'] {
-  --field: #3c3b44;
-  --on-field: #ece8e1;
-  --on-field-2: #cfc7ba;
-  --field-accent: #c9a46b;
-  --on-field-btn: #16161a;
-  --field-line: #79777f;
-  --field-deep: #2b2b32;
-  --tile: #2b2b32;
-  --tile-open: #1d1d22;
-  --tile-line: #3c3b44;
+  --bg: #1d1d22;
+  --surface: #2b2b32;
+  --ink-2: #cfc7ba;
+  --mt-field: #4b5b2e;
+  --mt-ink: #e1e5d3;
+  --mt-pill: #d0d183;
+  --mt-on-pill: #060607;
+  --tile: #3c3b44;
+  --tile-open: #2b2b32;
+  --tile-line: #4a4952;
   --tile-text: #cfc7ba;
+  --tile-text-hover: #ece8e1;
+}
+
+/* The page's bands: a step in tone between them, no rule. */
+main .band {
+  border-top: 0;
+}
+
+/* The buttons belong to "Ce primiți / Ce vă cerem" above them, on the same raised band. */
+.band--quiet + .band--cta {
+  padding-top: 0;
+}
+
+/* "Căutăm firme…" runs the width of the page rather than stopping at site.css's 72ch. */
+.prose--wide p {
+  max-width: none;
 }
 
 /* ---------------------------------------------------------------------------
-   The conference banner: the page's one brand band.
+   The MoldTax banner: text on the left, the hall on the right, the whole of it one link.
    --------------------------------------------------------------------------- */
 
 .conf {
@@ -63,128 +87,94 @@
 }
 
 .conf__banner {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  overflow: hidden;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(20px, 3vw, 40px);
+  padding: clamp(28px, 4.5vw, 56px);
   border-radius: var(--radius-l);
-  background: var(--field);
-  color: var(--on-field);
+  background: var(--mt-field);
+  color: var(--mt-ink);
 }
 
-.conf__text {
-  padding: clamp(28px, 5vw, 64px);
-}
-
-.conf__label {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+.conf__date {
+  display: inline-block;
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--mt-pill);
+  color: var(--mt-on-pill);
+  font: 600 0.875rem/1.2 var(--sans);
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: var(--field-accent);
 }
 
 .conf h2 {
+  margin-top: 18px;
+  color: var(--mt-ink);
+  font-family: var(--sans);
+  font-weight: 600;
+}
+
+.conf__kicker {
+  display: block;
+  font-size: clamp(1.375rem, 1rem + 1.4vw, 2.125rem);
+  line-height: 1.2;
+}
+
+.conf__name {
+  display: block;
+  margin-top: 4px;
+  font-size: clamp(3rem, 1.6rem + 5vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.conf__sub {
   margin-top: 14px;
-  color: var(--on-field);
-  font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem);
-  line-height: 1.16;
-  font-variation-settings: 'opsz' 24;
-}
-
-.conf__lead {
-  margin-top: 16px;
-  max-width: 52ch;
-  color: var(--on-field-2);
-  font-size: 1.0625rem;
-}
-
-.conf__facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px 48px;
-  margin: 28px 0 0;
-  padding-top: 20px;
-  border-top: 1px solid var(--field-line);
-}
-
-.conf__facts dt {
-  font-size: 0.8125rem;
+  font-size: clamp(1.125rem, 0.85rem + 1.1vw, 1.75rem);
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--on-field-2);
+  line-height: 1.25;
 }
 
-/* Large figures on the band are Literata in Aur: the date and the place, once announced. */
-.conf__facts dd {
-  margin: 4px 0 0;
-  font-family: var(--serif);
+.conf__link {
+  display: inline-block;
+  margin-top: clamp(28px, 4vw, 56px);
+  color: var(--mt-ink);
+  font-size: 1.1875rem;
   font-weight: 600;
-  font-size: 1.375rem;
-  line-height: 1.3;
-  font-variant-numeric: tabular-nums;
-  color: var(--field-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
-.conf__btn {
-  display: inline-flex;
-  align-items: center;
-  margin-top: 30px;
-  padding: 13px 24px;
-  border-radius: var(--radius-pill);
-  background: var(--field-accent);
-  color: var(--on-field-btn);
-  font: 600 1rem/1 var(--sans);
-  text-decoration: none;
+/* The link covers the banner, so the picture opens the programme too. */
+.conf__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-l);
 }
 
-.conf__btn:hover {
-  filter: brightness(1.08);
-  text-decoration: none;
+.conf__link:hover {
+  color: var(--mt-ink);
+  text-decoration-thickness: 3px;
 }
 
-.conf__btn:focus-visible {
-  outline-color: var(--on-field);
+.conf__link:focus-visible {
+  outline: none;
 }
 
-/* Until the banner has a picture, the logo's three bars, rising: Bronz, Bronz 500, Aur, steps on
-   the scale rather than transparency. An <img> put here fills it. */
-.conf__art {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(12px, 2vw, 22px);
-  padding: clamp(28px, 5vw, 64px) clamp(28px, 4vw, 56px) 0;
-  background: var(--field-deep);
+.conf__link:focus-visible::after {
+  outline: 2px solid var(--mt-ink);
+  outline-offset: 3px;
 }
 
 .conf__art img {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.conf__bar {
-  flex: 0 1 64px;
-  border-radius: var(--radius-s) var(--radius-s) 0 0;
-  background: var(--field-accent);
-}
-
-.conf__bar:nth-child(1) {
-  height: 38%;
-  background: #a07f54; /* Bronz */
-}
-
-.conf__bar:nth-child(2) {
-  height: 62%;
-  background: #b39060; /* Bronz 500 */
-}
-
-.conf__bar:nth-child(3) {
-  height: 86%;
+  height: auto;
+  filter: drop-shadow(0 10px 22px rgba(6, 6, 7, 0.18));
 }
 
 @media (max-width: 760px) {
@@ -194,41 +184,62 @@
 
   .conf__art {
     order: -1;
-    height: 120px;
-    padding-top: 24px;
   }
 }
 
 /* ---------------------------------------------------------------------------
-   Partner logos.
+   Partner logos: the tiles centred in the row, the last one leading to the contact page.
    --------------------------------------------------------------------------- */
 
 .logos {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 14px;
 }
 
 .logos__item {
+  flex: 0 1 240px;
   display: flex;
-  align-items: center;
-  justify-content: center;
   aspect-ratio: 16 / 9;
-  padding: 18px 22px;
   border-radius: var(--radius-l);
   background: var(--tile);
 }
 
+.logos__item a {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 26px;
+  border-radius: inherit;
+}
+
 .logos__item img {
   display: block;
+  min-width: 0;
   max-width: 100%;
   max-height: 56px;
   width: auto;
   height: auto;
   object-fit: contain;
+}
+
+/* A logo with dark lettering has a light copy for the dark theme. */
+.logos__item .logos__dark {
+  display: none;
+}
+
+:root[data-theme='dark'] .logos__item .logos__light {
+  display: none;
+}
+
+:root[data-theme='dark'] .logos__item .logos__dark {
+  display: block;
 }
 
 .logos__item--open {
@@ -237,19 +248,28 @@
 }
 
 .logos__item--you a {
-  font-size: 0.9375rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
   text-align: center;
   color: var(--tile-text);
+  text-decoration: none;
+}
+
+.logos__item--you a:hover {
+  color: var(--tile-text-hover);
+  text-decoration: none;
 }
 
 @media (max-width: 520px) {
   .logos {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
 
   .logos__item {
+    flex-basis: calc(50% - 5px);
+  }
+
+  .logos__item a {
     padding: 14px;
   }
 }
