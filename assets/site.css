@@ -1360,19 +1360,6 @@ body > main {
   padding-block: clamp(36px, 5vw, 64px) clamp(32px, 4.5vw, 56px);
 }
 
-.crumbs {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 18px;
-  font-size: 0.875rem;
-  color: var(--ink-3);
-}
-
-.crumbs a {
-  color: var(--ink-2);
-}
-
 .lead-in {
   color: var(--ink);
   font-size: 1.0625rem;
