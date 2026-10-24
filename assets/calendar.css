@@ -4,10 +4,6 @@
   padding-block: clamp(20px, 3vw, 36px) clamp(16px, 2.5vw, 28px);
 }
 
-.cal-hero .crumbs {
-  margin-bottom: 0.5rem;
-}
-
 .cal-hero h1 {
   font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.6rem);
 }
@@ -1115,8 +1111,7 @@ a.cal-day__n:hover {
   .foot,
   .skip,
   #abonare,
-  .cal-now,
-  .crumbs {
+  .cal-now {
     display: none !important;
   }
 
