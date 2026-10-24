@@ -20,13 +20,13 @@
     <meta name="twitter:title" content="Trecerea de la 1C la Konta, pas cu pas" />
     <meta name="twitter:description" content="Cum treceți de la 1C la Konta: prima companie o mutăm noi, gratuit, apoi lucrați în paralel în ambele programe până când sumele coincid." />
     <meta name="twitter:image" content="https://konta.md/assets/og.png" />
-    <meta name="theme-color" content="#f6f4f7" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#16161a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#2b2b32" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/assets/favicon.png" type="image/png" />
     <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
-    <link rel="stylesheet" href="/assets/site.css?v=12" />
+    <link rel="stylesheet" href="/assets/site.css?v=14" />
     <script>
       // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
       // which is the device's theme and what nobody choosing means; the choice is made here or in
@@ -95,7 +95,6 @@
         <nav class="sections" aria-label="Secțiuni" data-t-aria-label="nav.label">
           <a class="sections__link" href="/calendar/"><span data-t="nav.calendar">Calendar fiscal</span></a>
           <a class="sections__link" href="/e-factura/"><span data-t="nav.efactura">e-Factura</span></a>
-          <a class="sections__link" href="/fara-programator/"><span data-t="nav.noprog">Fără programator</span></a>
           <a class="sections__link" href="/trecerea-de-la-1c/" aria-current="page"><span data-t="nav.move">Trecerea de la 1C</span></a>
           <a class="sections__link" href="/parteneri/"><span data-t="nav.partners">Parteneri</span></a>
           <a class="sections__link" href="/contact/"><span data-t="nav.contact">Contact</span></a>
@@ -178,6 +177,63 @@
         </div>
       </section>
 
+      <!-- What was the "Fără programator" page: why a new law needs no programmer, with what
+           changes in 2027. /fara-programator/ redirects here (.htaccess). -->
+      <section class="band" id="fara-programator" aria-labelledby="np-title">
+        <div class="shell">
+          <div class="band__head">
+            <h2 id="np-title" data-t="np.title">De ce nu veți mai avea nevoie de un programator</h2>
+            <p data-t="np.p1">Într-un program în care regulile fiscale sunt scrise în cod, fiecare lege nouă înseamnă un programator plătit care vine și rescrie codul, separat pe fiecare instalare. În Konta, legea este păstrată ca date. O modificăm noi o singură dată și ajunge la toți clienții în aceeași zi.</p>
+            <p class="lead-in" data-t="np.p2">Proiectul de lege privind politica fiscală și vamală pentru 2027 (nr. 326) a fost votat în primă lectură la 10 septembrie 2026 și se poate schimba până la lectura a doua. Iată ce schimbă, așa cum este scris acum:</p>
+          </div>
+
+          <table class="changes">
+            <thead>
+              <tr>
+                <th data-t="np.col.change">Schimbarea</th>
+                <th data-t="np.col.since">În vigoare din</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-t="np.c1">Impozitul pe venit al gospodăriilor țărănești crește de la 7% la 12%</td>
+                <td>01.01.2027</td>
+              </tr>
+              <tr>
+                <td data-t="np.c2">Impozitul pe dividende crește de la 6% la 8% pentru profitul obținut începând cu 2027</td>
+                <td>01.01.2027</td>
+              </tr>
+              <tr>
+                <td data-t="np.c3">Amânarea impozitului pe profitul nedistribuit se extinde la firmele cu venituri sau active de până la 200 de milioane de lei, de la 100</td>
+                <td>01.01.2027</td>
+              </tr>
+              <tr>
+                <td data-t="np.c4">Amânarea se prelungește pentru profitul obținut până în 2029 inclusiv</td>
+                <td>01.01.2027</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="prose after-table">
+            <p data-t="np.p3">Într-un program obișnuit, fiecare rând din tabel înseamnă încă o chemare a programatorului. În Konta, le trecem noi în registrul public, cu trimitere la proiectul de lege, unde oricine le poate verifica. Când legea este adoptată, actualizăm valorile o singură dată, pentru toți clienții. Nu plătiți separat pentru ele.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band--quiet">
+        <div class="shell">
+          <div class="band__head">
+            <h2 data-t="easy.title">Ușor de folosit din prima zi</h2>
+          </div>
+
+          <div class="prose">
+            <p data-t="easy.p1">În Konta, o factură arată ca o factură. Vedeți imediat ce trebuie completat, iar ce se calculează singur nu vă mai cere atenția.</p>
+            <p data-t="easy.p2">Interfața este în română și în rusă. Denumirile conturilor din planul de conturi apar deocamdată în română, așa cum le dă ordinul Ministerului Finanțelor, iar varianta rusă urmează. Termenii sunt cei din SNC și din Codul fiscal, așa cum îi folosiți în fiecare zi.</p>
+            <p data-t="easy.p3">Când ceva nu merge, vă răspunde un om la telefon, în română sau în rusă.</p>
+          </div>
+        </div>
+      </section>
+
       <section class="band band--quiet band--cta">
         <div class="shell">
           <div class="hero__actions">
@@ -207,7 +263,6 @@
             <p class="foot__title" id="foot-product" data-t="foot.product">Produs</p>
             <ul>
               <li><a href="/e-factura/" data-t="nav.efactura">e-Factura</a></li>
-              <li><a href="/fara-programator/" data-t="nav.noprog">Fără programator</a></li>
               <li><a href="/trecerea-de-la-1c/" aria-current="page" data-t="nav.move">Trecerea de la 1C</a></li>
               <li><a href="/ghid/" data-t="foot.guide">Ghid</a></li>
             </ul>
