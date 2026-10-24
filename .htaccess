@@ -14,6 +14,10 @@
   # konta.md is canonical; www redirects to it.
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # "Fără programator" became a section of "Trecerea de la 1C" on 2026-10-24; its old address,
+  # in each language, goes to that section. NE keeps the # from being escaped.
+  RewriteRule ^(ru/|en/)?fara-programator/?$ /$1trecerea-de-la-1c/#fara-programator [R=301,NE,L]
 </IfModule>
 
 # PHP2Shell (CVE-2026-109618, CVE-2026-109619, disclosed 21 Oct 2026): bugs in PHP itself,

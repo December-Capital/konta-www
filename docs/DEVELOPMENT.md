@@ -10,7 +10,7 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | Path | Serves |
 | --- | --- |
 | `index.html` | `konta.md` and `www.konta.md` |
-| `e-factura/`, `fara-programator/`, `trecerea-de-la-1c/`, `parteneri/`, `transparenta/` | one topic each, reached from the header and the home page cards |
+| `e-factura/`, `trecerea-de-la-1c/`, `parteneri/`, `transparenta/` | one topic each, reached from the header and the home page cards; `trecerea-de-la-1c/` also holds what was the "Fără programator" page, whose old address `.htaccess` redirects to its section |
 | `contact/index.html`, `contact/trimite.php` | the contact page and the handler its form posts to |
 | `calendar/index.html` | the fiscal calendar's page: header, footer, filters and words only; its months, feeds and RSS are written from `konta-rulebook` when the site is packaged (see "The calendar"); header nav |
 | `calculator-salariu/index.html` | the 2026 salary calculator: the form, the result and the words, with placeholders the package fills from `konta-rulebook` (see "The salary calculator"); footer |
@@ -22,7 +22,7 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `.well-known/security.txt` | where to report a security problem (RFC 9116); renew its `Expires` before 2027-10-14 |
 | `status/index.html` | `konta.md/status`, reachability of the app, checked from the visitor's browser (noindex) |
 | `404.html` | served by `.htaccess` for any missing path, with a real 404 status (noindex) |
-| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the thirteen indexable pages, and the package rewrites it with their `/ru/` and `/en/` copies |
+| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the twelve indexable pages, and the package rewrites it with their `/ru/` and `/en/` copies |
 | `assets/` | stylesheet, scripts, the three language catalogues, logo, fonts, `og.png` (the 1200x630 share image) |
 | `tools/` | scripts that are run by hand, never served; `languages.py` writes the `/ru/` and `/en/` copies when the site is packaged, `fiscal_calendar.py` the calendar, `salary_calculator.py` the salary calculator's figures, after `test-salary.mjs` has run the payroll vectors |
 
@@ -61,7 +61,7 @@ public prices, and the package refuses a page that tries. Take `offers` off `FOR
 `tools/languages.py` the day prices are published; a rating needs real reviews first. A
 `description` in JSON-LD is translated like a `name`, so it must be a `data-t` text on the page.
 
-The packaged `sitemap.xml` lists all thirty-nine addresses, each with its alternates. The package
+The packaged `sitemap.xml` lists all thirty-six addresses, each with its alternates. The package
 refuses to write anything when a catalogue lacks a key a page uses, when JSON-LD carries a name or
 text that is not on the page, or when a page's inline script is not the one whose hash the CSP
 allows. `status/` and `404.html` have no copies: they are noindex.

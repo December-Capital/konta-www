@@ -7,17 +7,10 @@
    The logo tiles' colours, corners and type come from konta-design, branch brand-2026-10-23
    (0.2.0, not yet released). Only the roles this page needs are declared, under names site.css
    does not use, so nothing else on the site moves. When the site adopts konta-tokens.css these
-   declarations go and the rules below keep working.
-
-   The page's own layers follow the same brand: the ground and the first panel on Nisip, the
-   quiet bands raised on Hârtie (Grafit 800 and 700 on dark), told apart by the step in tone
-   rather than a rule. site.css's --bg, --surface and --ink-2 are set again here for this page
-   only; the top bar, the notice and the footer stay as every other page has them. */
+   declarations go and the rules below keep working. The page's own layers (Nisip, Hârtie, no
+   rules between bands) are site.css's, as on every page. */
 
 :root {
-  --bg: #ece8e1; /* Nisip: page ground */
-  --surface: #f7f5f1; /* Hârtie: raised */
-  --ink-2: #4e3a60; /* Prună 700: secondary text */
   --mt-field: #d0d183; /* MoldTax olive */
   --mt-ink: #060607;
   --mt-pill: #4b5b2e; /* MoldTax dark green */
@@ -33,9 +26,6 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #1d1d22; /* Grafit 800 */
-    --surface: #2b2b32; /* Grafit 700 */
-    --ink-2: #cfc7ba; /* Nisip 300 */
     --mt-field: #4b5b2e;
     --mt-ink: #e1e5d3;
     --mt-pill: #d0d183;
@@ -49,9 +39,6 @@
 }
 
 :root[data-theme='dark'] {
-  --bg: #1d1d22;
-  --surface: #2b2b32;
-  --ink-2: #cfc7ba;
   --mt-field: #4b5b2e;
   --mt-ink: #e1e5d3;
   --mt-pill: #d0d183;
@@ -61,16 +48,6 @@
   --tile-line: #4a4952;
   --tile-text: #cfc7ba;
   --tile-text-hover: #ece8e1;
-}
-
-/* The page's bands: a step in tone between them, no rule. */
-main .band {
-  border-top: 0;
-}
-
-/* The buttons belong to "Ce primiți / Ce vă cerem" above them, on the same raised band. */
-.band--quiet + .band--cta {
-  padding-top: 0;
 }
 
 /* "Căutăm firme…" runs the width of the page rather than stopping at site.css's 72ch. */

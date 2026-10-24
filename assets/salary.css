@@ -59,7 +59,7 @@
   background: var(--bg);
   border: 1px solid var(--rule);
   border-top: 3px solid var(--gold-rule);
-  border-radius: 3px;
+  border-radius: var(--radius);
   font-size: 0.9375rem;
 }
 

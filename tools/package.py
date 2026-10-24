@@ -35,7 +35,7 @@ import salary_calculator
 # .well-known/ holds security.txt, and nothing here skips a name for starting with a dot.
 SERVED = [
     'index.html', '404.html', 'robots.txt', 'sitemap.xml', '.htaccess', '.well-known', 'assets',
-    'status', 'e-factura', 'fara-programator', 'trecerea-de-la-1c', 'parteneri', 'transparenta',
+    'status', 'e-factura', 'trecerea-de-la-1c', 'parteneri', 'transparenta',
     'contact', 'privacy', 'intrebari', 'securitate', 'calendar', 'calculator-salariu', 'ghid', 'llms.txt',
 ]
 
