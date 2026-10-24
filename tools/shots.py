@@ -43,7 +43,7 @@ VARIANTS = [
     ('index.html', 'ro-phone', 'ro', 'light', None, 400),
     ('index.html', 'ru-phone', 'ru', 'dark', None, 400),
     ('e-factura/index.html', 'efactura-light', 'ro', 'light', None, 1280),
-    ('fara-programator/index.html', 'noprog-phone', 'ro', 'light', None, 400),
+    ('trecerea-de-la-1c/index.html', 'move-phone', 'ro', 'light', None, 400),
     ('trecerea-de-la-1c/index.html', 'move-dark', 'ru', 'dark', None, 1280),
     ('parteneri/index.html', 'partners-light', 'en', 'light', None, 1280),
     ('transparenta/index.html', 'open-phone', 'ro', 'dark', None, 400),

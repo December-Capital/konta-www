@@ -1,20 +1,7 @@
 /* konta.md/calendar. Only the calendar page links this file; the tokens are site.css's. */
 
-.cal-hero {
-  padding-block: clamp(20px, 3vw, 36px) clamp(16px, 2.5vw, 28px);
-}
-
-.cal-hero .crumbs {
-  margin-bottom: 0.5rem;
-}
-
-.cal-hero h1 {
-  font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.6rem);
-}
-
+/* The title panel is every page's (site.css's .hero--page): the same padding, title and lead. */
 .cal-hero .hero__lead {
-  font-size: 1.02rem;
-  margin-top: 0.5rem;
   max-width: 80ch;
 }
 
@@ -53,11 +40,6 @@
   }
 }
 
-/* The page's sections, closer together than the rest of the site's. */
-.cal-page .band {
-  padding-block: clamp(24px, 3vw, 40px);
-}
-
 .cal-page .band__head {
   margin-bottom: 1rem;
 }
@@ -67,7 +49,7 @@
 .cal-view {
   display: inline-flex;
   border: 1px solid var(--rule-strong);
-  border-radius: 8px;
+  border-radius: var(--radius);
   overflow: hidden;
   background: var(--surface);
 }
@@ -130,7 +112,7 @@
   color: var(--ink);
   background: var(--surface);
   border: 1px solid var(--rule-strong);
-  border-radius: 8px;
+  border-radius: var(--radius);
   text-decoration: none;
   cursor: pointer;
 }
@@ -697,14 +679,6 @@ a.cal-day__n:hover {
     font-size: 0.82rem;
   }
 
-  .cal-hero .hero__lead {
-    font-size: 0.95rem;
-  }
-
-  .cal-hero h1 {
-    font-size: 1.7rem;
-  }
-
   .cal-filter {
     position: static;
   }
@@ -997,7 +971,7 @@ a.cal-day__n:hover {
   padding: 0.4rem 0.7rem;
   color: var(--ink);
   border: 1px solid var(--rule-strong);
-  border-radius: 8px;
+  border-radius: var(--radius);
 }
 
 .cal-pick__select {
@@ -1115,8 +1089,7 @@ a.cal-day__n:hover {
   .foot,
   .skip,
   #abonare,
-  .cal-now,
-  .crumbs {
+  .cal-now {
     display: none !important;
   }
 

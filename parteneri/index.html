@@ -20,13 +20,14 @@
     <meta name="twitter:title" content="Parteneriat pentru firme de contabilitate · Konta" />
     <meta name="twitter:description" content="Căutăm firme de contabilitate din Moldova care vor să construiască Konta cu noi: prima companie mutată gratuit și acces la produs înainte de lansare." />
     <meta name="twitter:image" content="https://konta.md/assets/og.png" />
-    <meta name="theme-color" content="#f6f4f7" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#16161a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#2b2b32" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/assets/favicon.png" type="image/png" />
     <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
-    <link rel="stylesheet" href="/assets/site.css?v=12" />
+    <link rel="stylesheet" href="/assets/site.css?v=15" />
+    <link rel="stylesheet" href="/assets/parteneri.css?v=6" />
     <script>
       // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
       // which is the device's theme and what nobody choosing means; the choice is made here or in
@@ -95,7 +96,6 @@
         <nav class="sections" aria-label="Secțiuni" data-t-aria-label="nav.label">
           <a class="sections__link" href="/calendar/"><span data-t="nav.calendar">Calendar fiscal</span></a>
           <a class="sections__link" href="/e-factura/"><span data-t="nav.efactura">e-Factura</span></a>
-          <a class="sections__link" href="/fara-programator/"><span data-t="nav.noprog">Fără programator</span></a>
           <a class="sections__link" href="/trecerea-de-la-1c/"><span data-t="nav.move">Trecerea de la 1C</span></a>
           <a class="sections__link" href="/parteneri/" aria-current="page"><span data-t="nav.partners">Parteneri</span></a>
           <a class="sections__link" href="/contact/"><span data-t="nav.contact">Contact</span></a>
@@ -154,13 +154,68 @@
     <main id="main">
       <section class="hero hero--page">
         <div class="shell">
-          <nav class="crumbs" aria-label="Breadcrumb">
-            <a href="/" data-t="crumb.home">Acasă</a>
-            <span aria-hidden="true">·</span>
-            <span aria-current="page" data-t="nav.partners">Parteneri</span>
-          </nav>
-          <h1 data-t="part.title">Căutăm firme de contabilitate care vor să construiască Konta cu noi</h1>
-          <p class="hero__lead" data-t="part.p1">Construim Konta împreună cu oamenii care o vor folosi. Dacă aveți o firmă de contabilitate și vreți să lucrați cu noi, ne arătați ce vă consumă timpul astăzi, noi construim în jurul acelor probleme, iar dumneavoastră vedeți rezultatul primii.</p>
+          <h1 data-t="part.head.title">Descoperă Konta la MoldTax 8.0</h1>
+        </div>
+      </section>
+
+      <!-- The conference we take part in: MoldTax 8.0, run by Proactive, in its own colours (see
+           assets/parteneri.css). The picture is the hall from pro-active.md/moldtax8.0/, already
+           cut into its rounded shapes. The whole banner links to the conference's page. -->
+      <section class="conf" aria-labelledby="conf-title">
+        <div class="shell">
+          <div class="conf__banner">
+            <div class="conf__text">
+              <p class="conf__date" data-t="part.conf.date">27 noiembrie 2026</p>
+              <h2 id="conf-title">
+                <span class="conf__kicker" data-t="part.conf.kicker">Conferința Națională</span>
+                <span class="conf__name">MoldTax 8.0</span>
+              </h2>
+              <p class="conf__sub" data-t="part.conf.sub">2027: legislație nouă, realități noi</p>
+              <a class="conf__link" href="https://pro-active.md/moldtax8.0/" target="_blank" rel="noopener" data-t="part.conf.link">Vezi programa</a>
+            </div>
+            <div class="conf__art">
+              <img
+                src="/assets/parteneri/moldtax-720.webp"
+                srcset="/assets/parteneri/moldtax-720.webp 720w, /assets/parteneri/moldtax-1200.webp 1200w"
+                sizes="(max-width: 760px) 92vw, 560px"
+                width="720"
+                height="515"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Partner logos, centred, each linking to the partner's site, with its consent. A new one
+           goes before the last tile, which leads to the contact page:
+           <li class="logos__item"><a href="https://..." target="_blank" rel="noopener"><img src="/assets/parteneri/<firma>.webp" alt="<Numele firmei>" width="480" height="..." /></a></li>
+           A logo with dark lettering gets a light copy for the dark theme, as Proactive's has. -->
+      <section class="band band--quiet" aria-labelledby="logos-title">
+        <div class="shell">
+          <div class="band__head">
+            <h2 id="logos-title" data-t="part.logos.title">Parteneri:</h2>
+          </div>
+          <ul class="logos">
+            <li class="logos__item">
+              <a href="https://pro-active.md/" target="_blank" rel="noopener">
+                <img class="logos__light" src="/assets/parteneri/proactive.webp" alt="Proactive" width="480" height="135" />
+                <img class="logos__dark" src="/assets/parteneri/proactive-dark.webp" alt="Proactive" width="480" height="135" />
+              </a>
+            </li>
+            <li class="logos__item logos__item--open logos__item--you">
+              <a href="/contact/" data-t="part.logos.join">Devino partener</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="band" id="cautam" aria-labelledby="cautam-title">
+        <div class="shell">
+          <div class="prose prose--wide">
+            <h2 id="cautam-title" data-t="part.title">Căutăm firme de contabilitate care vor să construiască Konta cu noi</h2>
+            <p class="lead-in" data-t="part.p1">Construim Konta împreună cu oamenii care o vor folosi. Dacă aveți o firmă de contabilitate și vreți să lucrați cu noi, ne arătați ce vă consumă timpul astăzi, noi construim în jurul acelor probleme, iar dumneavoastră vedeți rezultatul primii.</p>
+          </div>
         </div>
       </section>
 
@@ -169,20 +224,15 @@
           <div class="pair">
             <div>
               <h2 data-t="part.gets.title">Ce primiți</h2>
-              <p data-t="part.gets">Mutăm noi prima companie, aveți acces la produs înainte de lansare și un cuvânt greu de spus în ce construim mai departe.</p>
+              <p data-t="part.gets">Mutăm noi prima companie, aveți acces la produs înainte de lansare și un cuvânt greu de spus în ce construim mai departe. Și până la un an abonament gratuit în Konta după lansare.</p>
             </div>
             <div>
               <h2 data-t="part.asks.title">Ce vă cerem</h2>
-              <p data-t="part.asks">Câteva ore din timpul dumneavoastră și să ne spuneți deschis când ceva nu e bun.</p>
+              <p data-t="part.asks">Câteva ore din timpul Dumneavoastră, să ne spuneți ce funcționează bine, ce poate fi îmbunătățit și tot ce v-ar face munca mai ușoară.</p>
             </div>
-          </div>
-
-          <div class="prose after-table">
-            <p data-t="part.p3">O discuție de un sfert de oră la telefon ajunge ca să vedem dacă are sens pentru amândoi.</p>
           </div>
         </div>
       </section>
-
       <section class="band band--quiet band--cta">
         <div class="shell">
           <div class="hero__actions">
@@ -212,7 +262,6 @@
             <p class="foot__title" id="foot-product" data-t="foot.product">Produs</p>
             <ul>
               <li><a href="/e-factura/" data-t="nav.efactura">e-Factura</a></li>
-              <li><a href="/fara-programator/" data-t="nav.noprog">Fără programator</a></li>
               <li><a href="/trecerea-de-la-1c/" data-t="nav.move">Trecerea de la 1C</a></li>
               <li><a href="/ghid/" data-t="foot.guide">Ghid</a></li>
             </ul>

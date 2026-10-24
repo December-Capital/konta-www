@@ -15,8 +15,7 @@ Romanian at the addresses below; Russian under /ru/ and English under /en/ (for 
 - [Ten questions for any accounting software vendor](https://konta.md/intrebari/): with Konta's own answers, each marked today, in part or planned
 - [Security](https://konta.md/securitate/): what is done, what comes before the first pilot client, what comes later
 - [e-Factura](https://konta.md/e-factura/): what works with e-Factura today, what comes next, and what the law requires now
-- [Moving from 1C](https://konta.md/trecerea-de-la-1c/): the first company moved by Konta, free, then both programs side by side until the sums match
-- [No programmer](https://konta.md/fara-programator/): rates, thresholds and deadlines are data Konta updates once for every client, and what changes in 2027
+- [Moving from 1C](https://konta.md/trecerea-de-la-1c/): the first company moved by Konta, free, then both programs side by side until the sums match; why no programmer is needed, since rates, thresholds and deadlines are data Konta updates once for every client, and what changes in 2027
 - [Partners](https://konta.md/parteneri/): accounting firms invited to build Konta with its makers
 - [Transparency](https://konta.md/transparenta/), [Privacy](https://konta.md/privacy/), [Contact](https://konta.md/contact/)
 
