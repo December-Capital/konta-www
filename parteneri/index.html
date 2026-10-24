@@ -27,6 +27,7 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
     <link rel="stylesheet" href="/assets/site.css?v=12" />
+    <link rel="stylesheet" href="/assets/parteneri.css?v=1" />
     <script>
       // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
       // which is the device's theme and what nobody choosing means; the choice is made here or in
@@ -159,8 +160,71 @@
             <span aria-hidden="true">·</span>
             <span aria-current="page" data-t="nav.partners">Parteneri</span>
           </nav>
-          <h1 data-t="part.title">Căutăm firme de contabilitate care vor să construiască Konta cu noi</h1>
-          <p class="hero__lead" data-t="part.p1">Construim Konta împreună cu oamenii care o vor folosi. Dacă aveți o firmă de contabilitate și vreți să lucrați cu noi, ne arătați ce vă consumă timpul astăzi, noi construim în jurul acelor probleme, iar dumneavoastră vedeți rezultatul primii.</p>
+          <h1 data-t="part.head.title">Partenerii Konta</h1>
+          <p class="hero__lead" data-t="part.head.lead">Firmele de contabilitate cu care lucrăm și locul unde ne întâlnim cu ele.</p>
+        </div>
+      </section>
+
+      <!-- The partner conference. When it is announced, put the date and the place in
+           part.conf.date and part.conf.place (in all three catalogues), and the banner's picture,
+           if there is one, in .conf__art as <img src="/assets/parteneri/conferinta.jpg" alt="" />;
+           until then .conf__art draws the logo's bars. -->
+      <section class="conf" aria-labelledby="conf-title">
+        <div class="shell">
+          <div class="conf__banner">
+            <div class="conf__text">
+              <p class="conf__label" data-t="part.conf.label">Conferința partenerilor</p>
+              <h2 id="conf-title" data-t="part.conf.title">O zi pentru firmele de contabilitate</h2>
+              <p class="conf__lead" data-t="part.conf.lead">Vă arătăm ce am construit și ce urmează, iar dumneavoastră ne spuneți ce lipsește.</p>
+              <dl class="conf__facts">
+                <div>
+                  <dt data-t="part.conf.when">Când</dt>
+                  <dd data-t="part.conf.date">Se anunță în curând</dd>
+                </div>
+                <div>
+                  <dt data-t="part.conf.where">Unde</dt>
+                  <dd data-t="part.conf.place">Se anunță în curând</dd>
+                </div>
+              </dl>
+              <a class="conf__btn" href="/contact/" data-t="part.conf.cta">Anunțați-mă</a>
+            </div>
+            <div class="conf__art" aria-hidden="true">
+              <span class="conf__bar"></span>
+              <span class="conf__bar"></span>
+              <span class="conf__bar"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Partner logos. A partner goes in with its consent, in place of the first open slot:
+           <li class="logos__item"><img src="/assets/parteneri/<firma>.svg" alt="<Numele firmei>" width="160" height="56" /></li>
+           Keep the open slots that are left, and the last one, which leads to the text below. -->
+      <section class="band band--quiet" aria-labelledby="logos-title">
+        <div class="shell">
+          <div class="band__head">
+            <h2 id="logos-title" data-t="part.logos.title">Cu cine construim Konta</h2>
+            <p data-t="part.logos.lead">Fiecare partener apare aici cu acordul lui, după ce începem să lucrăm împreună.</p>
+          </div>
+          <ul class="logos">
+            <li class="logos__item logos__item--open" aria-hidden="true"></li>
+            <li class="logos__item logos__item--open" aria-hidden="true"></li>
+            <li class="logos__item logos__item--open" aria-hidden="true"></li>
+            <li class="logos__item logos__item--open" aria-hidden="true"></li>
+            <li class="logos__item logos__item--open" aria-hidden="true"></li>
+            <li class="logos__item logos__item--open logos__item--you">
+              <a href="#cautam" data-t="part.logos.open">Locul firmei dumneavoastră</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="band" id="cautam" aria-labelledby="cautam-title">
+        <div class="shell">
+          <div class="prose">
+            <h2 id="cautam-title" data-t="part.title">Căutăm firme de contabilitate care vor să construiască Konta cu noi</h2>
+            <p class="lead-in" data-t="part.p1">Construim Konta împreună cu oamenii care o vor folosi. Dacă aveți o firmă de contabilitate și vreți să lucrați cu noi, ne arătați ce vă consumă timpul astăzi, noi construim în jurul acelor probleme, iar dumneavoastră vedeți rezultatul primii.</p>
+          </div>
         </div>
       </section>
 
@@ -182,7 +246,6 @@
           </div>
         </div>
       </section>
-
       <section class="band band--quiet band--cta">
         <div class="shell">
           <div class="hero__actions">
