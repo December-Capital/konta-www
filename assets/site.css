@@ -9,18 +9,25 @@
    --------------------------------------------------------------------------- */
 
 :root {
-  --bg: #f6f4f7;
-  --surface: #ffffff;
-  --sunken: #f1eef3;
+  --bg: #ece8e1;
+  --surface: #f7f5f1;
+  --surface-2: #ffffff; /* Alb: a card on a raised band */
+  /* A task's state, as the brand book pairs them: a pale ground with dark text from the same
+     family (done, in review or in a pilot, planned); deep grounds with light text on dark. */
+  --state-done-bg: #e4ece5;
+  --state-review-bg: #f0e4cf;
+  --state-plan: #5e4874;
+  --state-plan-bg: #e7deef;
+  --sunken: #ded8ce;
   --ink: #241b2e;
-  --ink-2: #5c5266;
-  --ink-3: #857c8d;
-  --rule: #e2dde6;
-  --rule-strong: #cdc4d3;
+  --ink-2: #4e3a60;
+  --ink-3: #5e4874;
+  --rule: #ded8ce;
+  --rule-strong: #cfc7ba;
   --accent: #3d2c4b;
   --btn-bg: #3d2c4b;
   --btn-fg: #ffffff;
-  --gold: #8f6f46;
+  --gold: #7a5e3a; /* Bronz text: small bronze text on Nisip and Hârtie */
   --gold-rule: #a07f54;
   --ok: #3f6b4d;
   --down: #8f3f38;
@@ -31,15 +38,14 @@
   --nav-active: #3d2c4b;
   --nav-text: #3d2c4b;
   --nav-active-text: #ece8e1;
-  /* The top bar: frosted glass over the page, warm sand in the light and a dark with a touch of
-     aubergine in it in the dark. --masthead-bg is the solid colour for browsers that cannot blur
+  /* The top bar: frosted glass over the page, Hârtie in the light and Grafit 700 in the dark, as
+     the brand book's page layers have it. --masthead-bg is the solid colour for browsers that cannot blur
      what is behind it; --masthead-glass the same colour, see-through. */
-  --masthead-bg: #f8f2e8;
-  --masthead-glass: rgba(248, 242, 232, 0.76);
-  /* The contact form: a light card on warm sand, fields and the button in the header's sand and
+  --masthead-bg: #f7f5f1;
+  --masthead-glass: rgba(247, 245, 241, 0.76);
+  /* The contact form: a white card on the raised band, fields and the button in the header's sand and
      aubergine, and each message on its own tint (sent, too many, not sent). */
-  --form-page: #ece8e1;
-  --form-card: #f7f5f1;
+  --form-card: #ffffff; /* Alb, on the Hârtie band */
   --form-field: #ded8ce;
   --form-label: #241b2e;
   --form-hint: #4e3a60;
@@ -50,22 +56,41 @@
   --form-warn-bg: #f0e4cf;
   --form-bad-bg: #f3e3e0;
 
+  /* One corner for everything you press and for the boxes beside them: the header's chips and
+     its way into the app, every button, the form's fields, the register and the cards. */
+  --radius: 6px;
+  /* One padding above a panel's title and below its last line, the page's first panel included:
+     the distance from the notice strip to a page's title is the distance from one panel to the
+     next one's title. */
+  --panel-pad: clamp(44px, 6vw, 76px);
+
   --serif: 'Literata', Georgia, 'Times New Roman', serif;
   --sans: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
-
+  /* The notice strip above the page: the brand book's Prună 800 band, its text in Prună 200 and
+     the flag in Aur; Grafit 600 with Nisip 300 on dark. The footer is Prună 900 in the light and,
+     darker than the brand book's Grafit 700 at the owner's choice, Grafit 900 in the dark. */
+  --notice-bg: #3d2c4b;
+  --notice-ink: #d8c9e6;
+  --notice-flag: #c9a46b;
+  --footer-bg: #2a2033;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #16161a;
-    --surface: #1d1d22;
-    --sunken: #1a1a1f;
-    --ink: #e9e8ec;
-    --ink-2: #a5a3ad;
-    --ink-3: #79777f;
-    --rule: #2b2b32;
-    --rule-strong: #3c3b44;
+    --bg: #1d1d22;
+    --surface: #2b2b32;
+    --surface-2: #1d1d22;
+    --state-done-bg: #1e2b22;
+    --state-review-bg: #3f3020;
+    --state-plan: #cfc7ba;
+    --state-plan-bg: #3c3b44;
+    --sunken: #3c3b44;
+    --ink: #ece8e1;
+    --ink-2: #cfc7ba;
+    --ink-3: #a5a3ad;
+    --rule: #3c3b44;
+    --rule-strong: #79777f;
     --accent: #bda6d4;
     --btn-bg: #c9b4dd;
     --btn-fg: #17161b;
@@ -74,15 +99,14 @@
     --ok: #77a385;
     --down: #cd8880;
     --shade: rgba(0, 0, 0, 0.4);
-    --nav-hover: #302b37;
+    --nav-hover: #3c3b44;
     --nav-active: #c9b4dd;
     --nav-text: #ece8e1;
     --nav-active-text: #3d2c4b;
-    --masthead-bg: #1e1b22;
-    --masthead-glass: rgba(30, 27, 34, 0.76);
-    --form-page: #16161a;
-    --form-card: #1d1d22;
-    --form-field: #2b2b32;
+    --masthead-bg: #2b2b32;
+    --masthead-glass: rgba(43, 43, 50, 0.76);
+    --form-card: #1d1d22; /* Grafit 800, on the Grafit 700 band */
+    --form-field: #3c3b44;
     --form-label: #ece8e1;
     --form-hint: #cfc7ba;
     --form-btn-bg: #c9b4dd;
@@ -91,20 +115,28 @@
     --form-warn: #c9a46b;
     --form-warn-bg: #3f3020;
     --form-bad-bg: #2e1d1b;
-
+    --notice-bg: #3c3b44;
+    --notice-ink: #cfc7ba;
+    --notice-flag: #c9a46b;
+    --footer-bg: #16161a;
     color-scheme: dark;
   }
 }
 
 :root[data-theme='dark'] {
-  --bg: #16161a;
-  --surface: #1d1d22;
-  --sunken: #1a1a1f;
-  --ink: #e9e8ec;
-  --ink-2: #a5a3ad;
-  --ink-3: #79777f;
-  --rule: #2b2b32;
-  --rule-strong: #3c3b44;
+  --bg: #1d1d22;
+  --surface: #2b2b32;
+  --surface-2: #1d1d22;
+  --state-done-bg: #1e2b22;
+  --state-review-bg: #3f3020;
+  --state-plan: #cfc7ba;
+  --state-plan-bg: #3c3b44;
+  --sunken: #3c3b44;
+  --ink: #ece8e1;
+  --ink-2: #cfc7ba;
+  --ink-3: #a5a3ad;
+  --rule: #3c3b44;
+  --rule-strong: #79777f;
   --accent: #bda6d4;
   --btn-bg: #c9b4dd;
   --btn-fg: #17161b;
@@ -113,15 +145,14 @@
   --ok: #77a385;
   --down: #cd8880;
   --shade: rgba(0, 0, 0, 0.4);
-  --nav-hover: #302b37;
+  --nav-hover: #3c3b44;
   --nav-active: #c9b4dd;
   --nav-text: #ece8e1;
   --nav-active-text: #3d2c4b;
-  --masthead-bg: #1e1b22;
-  --masthead-glass: rgba(30, 27, 34, 0.76);
-  --form-page: #16161a;
+  --masthead-bg: #2b2b32;
+  --masthead-glass: rgba(43, 43, 50, 0.76);
   --form-card: #1d1d22;
-  --form-field: #2b2b32;
+  --form-field: #3c3b44;
   --form-label: #ece8e1;
   --form-hint: #cfc7ba;
   --form-btn-bg: #c9b4dd;
@@ -130,7 +161,10 @@
   --form-warn: #c9a46b;
   --form-warn-bg: #3f3020;
   --form-bad-bg: #2e1d1b;
-
+  --notice-bg: #3c3b44;
+  --notice-ink: #cfc7ba;
+  --notice-flag: #c9a46b;
+  --footer-bg: #16161a;
   color-scheme: dark;
 }
 
@@ -330,7 +364,7 @@ body > main {
 .masthead {
   --chip-h: 33.6px;
   --chip-px: 14.4px;
-  --chip-radius: 6px;
+  --chip-radius: var(--radius);
   --chip-font: 14.4px;
 }
 
@@ -716,8 +750,7 @@ body > main {
    --------------------------------------------------------------------------- */
 
 .notice {
-  background: var(--sunken);
-  border-bottom: 1px solid var(--rule);
+  background: var(--notice-bg);
 }
 
 .notice__bar {
@@ -726,12 +759,12 @@ body > main {
   align-items: baseline;
   padding-block: 11px;
   font-size: 0.875rem;
-  color: var(--ink-2);
+  color: var(--notice-ink);
 }
 
 .notice__flag {
   flex: none;
-  color: var(--gold);
+  color: var(--notice-flag);
   font-weight: 500;
 }
 
@@ -741,7 +774,7 @@ body > main {
 
 
 .hero {
-  padding-block: clamp(48px, 7vw, 92px) clamp(40px, 6vw, 72px);
+  padding-block: var(--panel-pad);
 }
 
 .hero__grid {
@@ -784,7 +817,7 @@ body > main {
   font: 500 1rem/1 var(--sans);
   padding: 13px 20px;
   border: 1px solid transparent;
-  border-radius: 3px;
+  border-radius: var(--radius);
   background: var(--btn-bg);
   color: var(--btn-fg);
   text-decoration: none;
@@ -892,7 +925,7 @@ body > main {
   background: var(--surface);
   border: 1px solid var(--rule);
   border-top: 3px solid var(--gold-rule);
-  border-radius: 3px;
+  border-radius: var(--radius);
   box-shadow: 0 1px 2px var(--shade);
   overflow: hidden;
 }
@@ -992,13 +1025,22 @@ body > main {
    Sections
    --------------------------------------------------------------------------- */
 
+/* Bands are told apart by a step in tone (Nisip, then Hârtie for the quiet ones), not by a rule,
+   as the brand book asks. */
 .band {
-  border-top: 1px solid var(--rule);
-  padding-block: clamp(44px, 6vw, 76px);
+  padding-block: var(--panel-pad);
 }
 
 .band--quiet {
-  background: var(--surface);
+  --band-bg: var(--surface);
+  background: var(--band-bg);
+}
+
+/* Inside a raised band, what would be raised (cards, the register, the calendar's feeds) steps
+   once more, to Alb, or to Grafit 800 on dark, rather than vanishing into the band. What must
+   match the band itself uses --band-bg. */
+.band--quiet > * {
+  --surface: var(--surface-2);
 }
 
 .band__head {
@@ -1094,7 +1136,7 @@ body > main {
 }
 
 .band--quiet .claims li {
-  background: var(--surface);
+  background: var(--band-bg);
 }
 
 .claims h3 {
@@ -1158,14 +1200,14 @@ body > main {
    Footer
    --------------------------------------------------------------------------- */
 
-/* The footer is the same aubergine in both themes, so its mark is always the light one: the logo
+/* The footer is Prună 900 in the light and Grafit 900 in the dark, dark in both, so its mark is always the light one: the logo
    for a dark ground, and no data-logo for site.js to swap. A logo and a line under it, three
    columns of pages, then the owner and how to reach us; on a phone the columns stack. */
 .foot {
-  --foot-bg: #2a2033;
+  --foot-bg: var(--footer-bg);
   --foot-ink: #e7eeef;
   --foot-hover: #f4f0f7;
-  --foot-title: #f0e4cf;
+  --foot-title: #c9a46b; /* Aur, as "în verificare" reads on dark grounds */
   --foot-rule: rgba(231, 238, 239, 0.16);
   background: var(--foot-bg);
   color: var(--foot-ink);
@@ -1280,7 +1322,7 @@ body > main {
   margin: 28px 0 0;
   padding: 0;
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: var(--radius);
   background: var(--surface);
 }
 
@@ -1357,20 +1399,7 @@ body > main {
    --------------------------------------------------------------------------- */
 
 .hero--page {
-  padding-block: clamp(36px, 5vw, 64px) clamp(32px, 4.5vw, 56px);
-}
-
-.crumbs {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 18px;
-  font-size: 0.875rem;
-  color: var(--ink-3);
-}
-
-.crumbs a {
-  color: var(--ink-2);
+  padding-block: var(--panel-pad);
 }
 
 .lead-in {
@@ -1380,6 +1409,11 @@ body > main {
 
 .band--cta {
   padding-block: clamp(32px, 4vw, 48px);
+}
+
+/* Buttons after a raised band belong to it: no second padding above them. */
+.band--quiet + .band--cta {
+  padding-top: 0;
 }
 
 .band--cta .hero__actions {
@@ -1401,10 +1435,10 @@ body > main {
   flex-direction: column;
   gap: 10px;
   padding: 22px 22px 20px;
-  background: var(--bg);
+  background: var(--surface);
   border: 1px solid var(--rule);
   border-top: 2px solid var(--gold-rule);
-  border-radius: 3px;
+  border-radius: var(--radius);
 }
 
 .card h2 {
@@ -1494,7 +1528,6 @@ body > main {
   display: inline-block;
   margin: 6px 0 8px;
   padding: 1px 9px;
-  border: 1px solid currentColor;
   border-radius: 999px;
   font-size: 0.78rem;
   font-weight: 500;
@@ -1503,15 +1536,18 @@ body > main {
 
 .state.state--done {
   color: var(--ok);
+  background: var(--state-done-bg);
 }
 
 .state.state--partial,
 .state.state--pilot {
   color: var(--gold);
+  background: var(--state-review-bg);
 }
 
 .state.state--planned {
-  color: var(--ink-2);
+  color: var(--state-plan);
+  background: var(--state-plan-bg);
 }
 
 /* The vendor questions: numbered, the question as the heading, our answer under it. */
@@ -1612,7 +1648,7 @@ body > main {
   align-items: baseline;
   padding: 12px 16px;
   border: 1px solid var(--rule);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--sunken);
 }
 
@@ -1661,17 +1697,12 @@ body > main {
   }
 }
 
-/* The form sits on a card in the colours of the header: the band around it warm sand, the
-   fields and the button in sand and aubergine, every corner rounded like the header's buttons
-   (--chip-radius on .masthead). The card's padding is taken back by a margin as large, so
+/* The form sits on a card on the raised Hârtie band, below the title panel's Nisip: the card
+   white (Grafit 800 on dark), the fields and the button in sand and aubergine, every corner
+   rounded like the header's buttons (--radius). The card's padding is taken back by a margin as large, so
    nothing inside moves; on a phone the card runs to the screen's edges, its padding the page's
    gutter (.shell). */
-.band--quiet:has(> .contact) {
-  background: var(--form-page);
-}
-
 .form {
-  --form-radius: 6px;
   --form-pad: clamp(18px, 4vw, 56px);
   display: grid;
   gap: 16px;
@@ -1684,7 +1715,7 @@ body > main {
 @media (min-width: 960px) {
   .form {
     --form-pad: 24px;
-    border-radius: var(--form-radius);
+    border-radius: var(--radius);
   }
 }
 
@@ -1716,7 +1747,7 @@ body > main {
   color: var(--ink);
   background: var(--form-field);
   border: 1px solid var(--form-field);
-  border-radius: var(--form-radius);
+  border-radius: var(--radius);
   padding: 10px 12px;
   width: 100%;
 }
@@ -1761,7 +1792,7 @@ body > main {
 .form__note {
   padding: 11px 15px;
   border-left: 2px solid var(--down);
-  border-radius: var(--form-radius);
+  border-radius: var(--radius);
   background: var(--form-bad-bg);
   color: var(--ink);
   font-size: 0.9375rem;
@@ -1794,7 +1825,7 @@ body > main {
 }
 
 .form .btn {
-  border-radius: var(--form-radius);
+  border-radius: var(--radius);
   background: var(--form-btn-bg);
   color: var(--form-btn-fg);
 }

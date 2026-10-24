@@ -20,14 +20,14 @@
     <meta name="twitter:title" content="Calendarul fiscal al contabilului: termene, zile nelucrătoare, schimbări în lege · Konta" />
     <meta name="twitter:description" content="Termenele de depunere și de plată la SFS, CNAS și CNAM, zilele nelucrătoare și schimbările din lege în Moldova, lună de lună, fiecare cu actul normativ și articolul din care vine." />
     <meta name="twitter:image" content="https://konta.md/assets/og.png" />
-    <meta name="theme-color" content="#f6f4f7" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#16161a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#2b2b32" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/assets/favicon.png" type="image/png" />
     <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
-    <link rel="stylesheet" href="/assets/site.css?v=12" />
-    <link rel="stylesheet" href="/assets/calendar.css?v=1" />
+    <link rel="stylesheet" href="/assets/site.css?v=15" />
+    <link rel="stylesheet" href="/assets/calendar.css?v=2" />
     <link rel="alternate" type="application/rss+xml" href="/calendar/schimbari.xml" title="Konta · schimbări în lege" />
     <script>
       // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
@@ -77,7 +77,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Calendarul fiscal",
+          "name": "Calendar fiscal",
           "item": "https://konta.md/calendar/"
         }
       ]
@@ -97,7 +97,6 @@
         <nav class="sections" aria-label="Secțiuni" data-t-aria-label="nav.label">
           <a class="sections__link" href="/calendar/" aria-current="page"><span data-t="nav.calendar">Calendar fiscal</span></a>
           <a class="sections__link" href="/e-factura/"><span data-t="nav.efactura">e-Factura</span></a>
-          <a class="sections__link" href="/fara-programator/"><span data-t="nav.noprog">Fără programator</span></a>
           <a class="sections__link" href="/trecerea-de-la-1c/"><span data-t="nav.move">Trecerea de la 1C</span></a>
           <a class="sections__link" href="/parteneri/"><span data-t="nav.partners">Parteneri</span></a>
           <a class="sections__link" href="/contact/"><span data-t="nav.contact">Contact</span></a>
@@ -156,11 +155,6 @@
     <main id="main" class="cal-page">
       <section class="hero hero--page cal-hero">
         <div class="shell">
-          <nav class="crumbs" aria-label="Breadcrumb">
-            <a href="/" data-t="crumb.home">Acasă</a>
-            <span aria-hidden="true">·</span>
-            <span aria-current="page" data-t="cal.crumb">Calendarul fiscal</span>
-          </nav>
           <h1 data-t="cal.title">Calendarul fiscal al contabilului</h1>
           <p class="hero__lead cal-sentences"><span data-t="cal.lead.1">Termenele de depunere și de plată, zilele nelucrătoare și schimbările din lege, lună de lună.</span> <span data-t="cal.lead.2">Fiecare termen are lângă el actul normativ și articolul din care vine, cu link. Niciun termen fără sursă.</span></p>
           <p class="cal-review"><span class="ruleset__state" data-t="set.state">în verificare</span> <span class="cal-sentences"><span data-t="cal.review.1">Datele vin din registrul public konta-rulebook care este în verificare.</span> <span data-t="cal.review.2">Citiți actul de lângă termen înainte să vă bazați pe el.</span></span></p>
@@ -222,7 +216,7 @@
         </div>
       </section>
 
-      <section class="band" id="evenimente" aria-labelledby="evenimente-title">
+      <section class="band band--quiet" id="evenimente" aria-labelledby="evenimente-title">
         <div class="shell">
           <div class="band__head">
             <h2 id="evenimente-title" data-t="cal.events.title">Termene care curg de la un eveniment</h2>
@@ -232,7 +226,7 @@
         </div>
       </section>
 
-      <section class="band band--quiet" id="schimbari" aria-labelledby="schimbari-title">
+      <section class="band" id="schimbari" aria-labelledby="schimbari-title">
         <div class="shell">
           <div class="band__head">
             <h2 id="schimbari-title" data-t="cal.changes.title">Schimbări în lege</h2>
@@ -243,7 +237,7 @@
         </div>
       </section>
 
-      <section class="band" id="abonare" aria-labelledby="abonare-title">
+      <section class="band band--quiet" id="abonare" aria-labelledby="abonare-title">
         <div class="shell cal-subscribe">
           <div>
             <h2 id="abonare-title" data-t="cal.subscribe.title">Abonați-vă în calendarul dumneavoastră</h2>
@@ -276,7 +270,7 @@
         </div>
       </section>
 
-      <section class="band band--quiet" id="metoda" aria-labelledby="metoda-title">
+      <section class="band" id="metoda" aria-labelledby="metoda-title">
         <div class="shell prose">
           <h2 id="metoda-title" data-t="cal.method.title">Cum este făcut</h2>
           <p data-t="cal.method.p1">Nimic din calendar nu este scris de mână. Termenele, zilele nelucrătoare și schimbările din lege sunt date în registrul public konta-rulebook, fiecare cu actul normativ, articolul și locul unde a fost publicat. Pagina și fluxurile sunt generate din el.</p>
@@ -372,7 +366,6 @@
             <p class="foot__title" id="foot-product" data-t="foot.product">Produs</p>
             <ul>
               <li><a href="/e-factura/" data-t="nav.efactura">e-Factura</a></li>
-              <li><a href="/fara-programator/" data-t="nav.noprog">Fără programator</a></li>
               <li><a href="/trecerea-de-la-1c/" data-t="nav.move">Trecerea de la 1C</a></li>
               <li><a href="/ghid/" data-t="foot.guide">Ghid</a></li>
             </ul>
