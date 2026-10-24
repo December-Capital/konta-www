@@ -67,8 +67,8 @@
   --serif: 'Literata', Georgia, 'Times New Roman', serif;
   --sans: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
   /* The notice strip above the page: the brand book's Prună 800 band, its text in Prună 200 and
-     the flag in Aur; Grafit 600 with Nisip 300 on dark. The footer is Prună 900 in the light and
-     Grafit 700 in the dark. */
+     the flag in Aur; Grafit 600 with Nisip 300 on dark. The footer is Prună 900 in the light and,
+     darker than the brand book's Grafit 700 at the owner's choice, Grafit 900 in the dark. */
   --notice-bg: #3d2c4b;
   --notice-ink: #d8c9e6;
   --notice-flag: #c9a46b;
@@ -118,7 +118,7 @@
     --notice-bg: #3c3b44;
     --notice-ink: #cfc7ba;
     --notice-flag: #c9a46b;
-    --footer-bg: #2b2b32;
+    --footer-bg: #16161a;
     color-scheme: dark;
   }
 }
@@ -164,7 +164,7 @@
   --notice-bg: #3c3b44;
   --notice-ink: #cfc7ba;
   --notice-flag: #c9a46b;
-  --footer-bg: #2b2b32;
+  --footer-bg: #16161a;
   color-scheme: dark;
 }
 
@@ -1200,14 +1200,14 @@ body > main {
    Footer
    --------------------------------------------------------------------------- */
 
-/* The footer is Prună 900 in the light and Grafit 700 in the dark, dark in both, so its mark is always the light one: the logo
+/* The footer is Prună 900 in the light and Grafit 900 in the dark, dark in both, so its mark is always the light one: the logo
    for a dark ground, and no data-logo for site.js to swap. A logo and a line under it, three
    columns of pages, then the owner and how to reach us; on a phone the columns stack. */
 .foot {
   --foot-bg: var(--footer-bg);
   --foot-ink: #e7eeef;
   --foot-hover: #f4f0f7;
-  --foot-title: #f0e4cf;
+  --foot-title: #c9a46b; /* Aur, as "în verificare" reads on dark grounds */
   --foot-rule: rgba(231, 238, 239, 0.16);
   background: var(--foot-bg);
   color: var(--foot-ink);
