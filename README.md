@@ -30,7 +30,7 @@ exacți sunt în [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 ## Proiecte înrudite
 
 Aplicația propriu-zisă este în [konta](https://github.com/December-Capital/konta) și rulează la
-[app.konta.md](https://app.konta.md).
+[demo.konta.md](https://demo.konta.md).
 
 ---
 
