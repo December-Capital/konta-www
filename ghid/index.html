@@ -154,7 +154,7 @@
         <div class="shell">
           <h1 data-t="guide.title">Ghidul Konta pentru contabili</h1>
           <p class="hero__lead" data-t="guide.lead">Cum se lucrează în Konta, pas cu pas, așa cum este aplicația azi. Konta este încă în dezvoltare: aplicația de la demo.konta.md este versiunea demo. Ghidul crește cu fiecare funcție nouă.</p>
-          <p class="updated" data-t="guide.updated">Valabil la 15 octombrie 2026</p>
+          <p class="updated" data-t="guide.updated">Valabil la 1 noiembrie 2026</p>
           <nav class="toc" aria-label="Cuprins" data-t-aria-label="guide.toc">
             <ol>
               <li><a href="#utilizator-api" data-t="guide.ef.h">Cum creați utilizatorul API e-Factura</a></li>
@@ -170,8 +170,8 @@
       <section class="band band--quiet guide" id="utilizator-api">
         <div class="shell">
           <h2 data-t="guide.ef.h">Cum creați utilizatorul API e-Factura</h2>
-          <p class="state state--planned" data-t="guide.ef.state">Konta îl va folosi</p>
-          <p data-t="guide.ef.p1">Un program de contabilitate lucrează cu SIA „e-Factura” printr-un utilizator API pe care îl creează compania, nu cu parola dumneavoastră de la SFS. Konta nu transmite încă facturi prin e-Factura: transmiterea este în lucru. Când va fi gata, Konta va folosi acest utilizator, îl va păstra criptat, iar fiecare folosire va apărea în jurnalul companiei. Îl puteți crea de acum.</p>
+          <p class="state state--done" data-t="state.today">Azi</p>
+          <p data-t="guide.ef.p1">Un program de contabilitate lucrează cu SIA „e-Factura” printr-un utilizator API pe care îl creează compania, nu cu parola dumneavoastră de la SFS. Directorul îl introduce în Konta, pe pagina Compania, după ce își confirmă din nou identitatea. Konta îl păstrează criptat și citește cu el facturile emise și primite ale companiei, iar fiecare folosire apare în jurnalul companiei. Facturile nu se transmit încă prin Konta: emiterea este în lucru.</p>
           <ol class="howto">
             <li data-t="guide.ef.s1">Utilizatorul API îl poate crea doar cine are în SIA „e-Factura” rolul de manager al companiei, de obicei directorul.</li>
             <li data-t="guide.ef.s2">Intrați în SIA „e-Factura” prin MPass, cu semnătura electronică.</li>
@@ -214,13 +214,16 @@
             <li data-t="guide.first.s2">Parteneri: clienții și furnizorii. Când scrieți un IDNO, Konta poate propune datele partenerului de la SFS, deocamdată din serviciul de test: denumirea oficială, adresa, codul TVA și conturile înregistrate. Le preluați doar dacă le alegeți.</li>
             <li data-t="guide.first.s3">Facturi emise: o factură se face ca ciornă și se înregistrează. La înregistrare primește numărul următor, fără goluri, și intră în contabilitate creanța, venitul și TVA. O factură înregistrată se anulează doar prin stornare.</li>
             <li data-t="guide.first.s4">Facturi primite: cu seria și numărul furnizorului. Fiecare rând se înregistrează pe contul lui, TVA de dedus pe 534, furnizorul pe 521.</li>
-            <li data-t="guide.first.s5">Încasări și plăți: o plată achită facturile înregistrate ale partenerului, exact suma ei. Avansurile nu sunt încă posibile.</li>
-            <li data-t="guide.first.s6">Salarii, pentru director, contabilul-șef și salarizare: angajații, apoi statul de plată al lunii, calculat prin metoda cumulativă. Se înregistrează, apoi se plătește. Lunile se înregistrează în ordine.</li>
+            <li data-t="guide.first.s5">Încasări și plăți: o plată achită facturile înregistrate ale partenerului, exact suma ei, iar un avans primit sau plătit se decontează mai târziu cu facturile.</li>
+            <li data-t="guide.first.s6">Salarii, pentru director, contabilul-șef și salarizare: angajații, cu salariul de la angajare și modificările lui, apoi borderoul de salarii al lunii, calculat prin metoda cumulativă, cu pontajul și concediile. Se înregistrează, apoi se plătește. Lunile se înregistrează în ordine.</li>
             <li data-t="guide.first.s7">Registrele TVA: livrările și procurările pe cote, cu TVA de plată sau de recuperat. Din ele se completează TVA12; formularul declarației nu este încă în Konta.</li>
             <li data-t="guide.first.s8">Jurnal, Balanța de verificare, Fișa contului și Cartea mare: o înregistrare manuală pentru ce nu vine din documente, și rapoartele pentru verificare.</li>
+            <li data-t="guide.first.s9">Casa: ordinele de încasare și de plată și registrul de casă al zilei.</li>
+            <li data-t="guide.first.s10">Acte de îndeplinire: actul de lucrări cu factura lui sau separat. Facturi proforme: o ofertă care nu intră în contabilitate și devine, la cerere, o ciornă de factură.</li>
+            <li data-t="guide.first.s11">Mijloace fixe, Stocuri, Capital social, Credite și împrumuturi (în Încasări și plăți) și Cheltuieli anticipate (în Facturi primite): fiecare cu documentele lui; un document înregistrat se anulează prin stornare.</li>
           </ol>
           <div class="aside">
-            <p data-t="guide.first.n1">Încă nu există în Konta: declarația TVA12, IPC21, transmiterea prin e-Factura, avansurile, pontajul și concediile, mijloacele fixe și stocurile.</p>
+            <p data-t="guide.first.n1">Încă nu există în Konta: declarațiile TVA12, IPC21 și VEN12, situațiile financiare și emiterea facturilor prin e-Factura.</p>
           </div>
         </div>
       </section>
@@ -231,13 +234,13 @@
           <p class="state state--done" data-t="state.today">Azi</p>
           <p data-t="guide.close.p1">Închiderea blochează luna: după ea, nicio înregistrare, stornare sau sold inițial nu mai intră cu o dată din perioada închisă. Blocarea o face baza de date, nu doar aplicația.</p>
           <ol class="howto">
-            <li data-t="guide.close.s1">Verificați luna: Balanța de verificare, Registrele TVA, plățile rămase ciornă și rândurile extraselor rămase de rezolvat.</li>
-            <li data-t="guide.close.s2">Deschideți Închiderea perioadei și alegeți luna până la care închideți. Se închid doar lunile încheiate, până la ultima lor zi.</li>
-            <li data-t="guide.close.s3">Apăsați Închide perioada. Doar contabilul-șef poate închide.</li>
+            <li data-t="guide.close.s1">Deschideți Închiderea perioadei. Pentru luna aleasă, ecranul arată pașii ei, cei care o privesc: amortizarea mijloacelor fixe, salariile, decontul TVA al lunii pentru un plătitor de TVA, dobânda creditelor, cheltuielile anticipate și, recomandată, reevaluarea soldurilor în valută.</li>
+            <li data-t="guide.close.s2">Faceți fiecare pas. Sub pași, verificările nu blochează nimic, dar arată ce merită privit: registrele comparate cu conturile lor, înregistrările făcute de mână, ciornele rămase în lună.</li>
+            <li data-t="guide.close.s3">Apăsați Închide perioada. Doar contabilul-șef poate închide, și doar după ce pașii obligatorii sunt făcuți.</li>
             <li data-t="guide.close.s4">Dacă trebuie corectat ceva, Redeschide mută data închiderii înapoi. Cere un motiv și confirmarea că sunteți dumneavoastră, iar motivul rămâne în istoric și în jurnalul de audit.</li>
           </ol>
           <div class="aside">
-            <p data-t="guide.close.n1">Închiderea de sfârșit de an nu există încă: conturile de venituri și cheltuieli nu se închid automat în 351 și 333.</p>
+            <p data-t="guide.close.n1">Închiderea anului este pe aceeași pagină: după ce anul s-a încheiat, contabilul-șef înregistrează, pe ultima lui zi, veniturile și cheltuielile în 351 și rezultatul în 333.</p>
           </div>
         </div>
       </section>
@@ -256,7 +259,7 @@
             <li data-t="guide.bank.s6">Pentru un rând rămas de rezolvat, alegeți partenerul și facturile, sau puneți-l deoparte cu un motiv, de exemplu un comision bancar înregistrat în jurnal.</li>
           </ol>
           <div class="aside">
-            <p data-t="guide.bank.n1">Un rând adus deja de un extras anterior care se suprapune este recunoscut și nu devine a doua plată, iar același fișier nu se importă de două ori. Extrasele în altă valută decât a firmei și avansurile nu sunt încă posibile.</p>
+            <p data-t="guide.bank.n1">Un rând adus deja de un extras anterior care se suprapune este recunoscut și nu devine a doua plată, iar același fișier nu se importă de două ori. Un extras poate fi și într-o valută străină.</p>
           </div>
         </div>
       </section>

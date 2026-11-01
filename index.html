@@ -403,8 +403,9 @@
         <div class="shell">
           <div class="band__head">
             <h2 data-t="today.title">Ce funcționează azi</h2>
-            <p class="updated" data-t="today.date">Situația la 17 octombrie 2026</p>
+            <p class="updated" data-t="today.date">Situația la 1 noiembrie 2026</p>
             <p data-t="today.lead">Tot ce este mai jos rulează în versiunea demo a aplicației (demo.konta.md). Date reale ale clienților intră în Konta abia după ce sunt îndeplinite condițiile de pe pagina Securitate.</p>
+            <p data-t="today.sample">În demo puteți începe de la Exemplu SRL, o companie inventată cu un an de date, sau de la compania dumneavoastră.</p>
           </div>
 
           <div class="today">
@@ -413,31 +414,46 @@
               <ul class="today__list">
                 <li data-t="today.b1">Planul general de conturi contabile (Ordinul MF nr. 119/2013), cu subconturile proprii ale companiei</li>
                 <li data-t="today.b2">Jurnalul înregistrărilor contabile, corectat doar prin stornare</li>
-                <li data-t="today.b3">Balanța de verificare, fișa contului și cartea mare</li>
-                <li data-t="today.b4">Facturile de vânzare, numerotate fără goluri, și facturile de achiziție</li>
+                <li data-t="today.b3">Balanța de verificare, fișa contului, cartea mare și ordinele memoriale, pe ecran, tipărite și în Excel</li>
+                <li data-t="today.b4">Facturile de vânzare, numerotate fără goluri, și facturile de achiziție, în lei sau în valută, la cursul BNM</li>
+                <li data-t="today.b15">Actele de îndeplinire a lucrărilor, cu factura lor sau separat, achitate ca o factură, și mai multe acte parțiale pentru o factură</li>
+                <li data-t="today.b16">Facturile proforme, în afara contabilității, transformate la cerere într-o ciornă de factură de vânzare care le menționează</li>
                 <li data-t="today.b5">Registrele TVA de vânzări și de achiziții</li>
-                <li data-t="today.b6">Încasările și plățile, care sting facturile partenerului</li>
-                <li data-t="today.b7">Salariile, calculate lunar prin metoda cumulativă din HG 697/2014, înregistrate și plătite</li>
-                <li data-t="today.b8">Închiderea lunii; redeschiderea cere un motiv și rămâne în jurnalul de audit</li>
-                <li data-t="today.b9">Soldurile inițiale din balanța de verificare din 1C (.xlsx, .csv sau lipite din Excel)</li>
-                <li data-t="today.b10">Firmele de contabilitate lucrează în companiile clienților prin mandat, cu un rol pentru fiecare persoană</li>
-                <li data-t="today.b11">Datele partenerului după IDNO, aduse de la SFS (deocamdată din serviciul de test) și completate doar dacă utilizatorul le alege</li>
+                <li data-t="today.b6">Încasările și plățile prin bancă, inclusiv avansurile, care sting facturile și actele partenerului, și fișa partenerului</li>
+                <li data-t="today.b17">Casa: ordinele de încasare și de plată și registrul de casă, fără ca soldul să scadă sub zero</li>
                 <li data-t="today.b12">Extrasele bancare din fișier (MT940 sau tabel), ca plăți pe care contabilul le verifică și le înregistrează</li>
+                <li data-t="today.b18">Valuta cumpărată și vândută la cursul băncii, diferențele de curs și reevaluarea soldurilor în valută la sfârșitul lunii, la cursul BNM</li>
+                <li data-t="today.b19">Creditele și împrumuturile pe termen scurt (511, 512), cu dobânda calculată pe zile și ratele împărțite în principal și dobândă</li>
+                <li data-t="today.b20">Cheltuielile anticipate: un rând de factură de achiziție pe contul 261 se repartizează lunar pe contul de cheltuieli ales</li>
+                <li data-t="today.b21">Capitalul social: asociații, capitalul subscris și vărsat în bani sau în natură, și cât mai datorează fiecare</li>
+                <li data-t="today.b22">Mijloacele fixe: amortizarea lunară (liniară, degresivă sau pe unități de produs), cu amortizarea fiscală alături, reevaluarea, deprecierea, vânzarea și casarea</li>
+                <li data-t="today.b23">Stocurile pe depozite (conturile 211 și 217), la costul mediu ponderat: intrări din facturile primite, vânzări, consumuri, transferuri și inventarierea, fără să iasă ce nu există</li>
+                <li data-t="today.b7">Salariile, prin metoda cumulativă din HG 697/2014: pontajul, concediile, zilele de boală plătite de angajator, fluturașul, o majorare din mijlocul lunii pe zile lucrătoare și compensația pentru concediul nefolosit la eliberare</li>
+                <li data-t="today.b8">Închiderea lunii pas cu pas (amortizarea, salariile, decontul TVA, dobânzile, cheltuielile anticipate), cu registrele comparate cu conturile lor; redeschiderea cere un motiv și rămâne în jurnalul de audit</li>
+                <li data-t="today.b24">Închiderea anului: veniturile și cheltuielile în 351, rezultatul în 333</li>
+                <li data-t="today.b9">Soldurile inițiale din balanța de verificare din 1C, și pe parteneri (.xlsx, .csv sau lipite din Excel)</li>
+                <li data-t="today.b10">Firmele de contabilitate lucrează în companiile clienților prin mandat, cu un rol pentru fiecare persoană, și văd toți clienții pe un ecran: termenele, extrasele nerezolvate, datele care lipsesc</li>
+                <li data-t="today.b25">Termenele de depunere și de plată ale fiecărei companii, din registrul fiscal, fiecare cu un responsabil și o stare</li>
+                <li data-t="today.b11">Datele partenerului după IDNO, aduse de la SFS (deocamdată din serviciul de test) și completate doar dacă utilizatorul le alege</li>
+                <li data-t="today.b26">Ecranul e-Factura: facturile emise și primite ale companiei, citite cu utilizatorul API al companiei (deocamdată din serviciul de test al SFS); o factură primită devine o ciornă de factură de achiziție</li>
                 <li data-t="today.b13">Exportul complet al datelor companiei, cu fișierele originale</li>
-                <li data-t="today.b14">Tipărirea facturii de vânzare sau salvarea ei ca PDF</li>
+                <li data-t="today.b14">Tipărirea facturii de vânzare, a actelor, a ordinelor de casă și a fluturașului, sau salvarea lor ca PDF</li>
+                <li data-t="today.b27">Ora Moldovei (EET sau EEST) peste tot unde citiți o oră, iar ziua de azi este cea de la Chișinău</li>
               </ul>
             </div>
             <div class="today__wip">
               <h3 data-t="today.wip.h">În lucru</h3>
               <ul class="today__list today__list--wip">
                 <li data-t="today.w2">Declarația TVA12: registrele din care se face există, formularul încă nu</li>
-                <li data-t="today.w3">Emiterea facturilor prin e-Factura: Konta comunică deja cu serviciul de test al SFS, urmează semnarea</li>
+                <li data-t="today.w3">Emiterea facturilor prin e-Factura: o ciornă trimisă prin clientul e-Factura al Konta a fost semnată de director în portalul de test al SFS și citită înapoi; emiterea din Konta urmează</li>
+                <li data-t="today.w4">Situațiile financiare: închiderea anului există, formularele și legătura conturilor cu rândurile lor încă nu</li>
               </ul>
             </div>
           </div>
 
           <div class="aside">
-            <p data-t="today.not">Nu există încă: avansurile, declarația IPC21, pontajul și concediile.</p>
+            <p data-t="today.not">Nu există încă: declarațiile IPC21 și VEN12, regimurile IVAO, IT Park și ÎI, stocurile la FIFO, creditele pe termen lung și în valută.</p>
+            <p data-t="today.founding">Oferta fondatorilor: cine se înregistrează în demo are Konta gratuit șase luni, din ziua în care se înregistrează în aplicație după lansare, cu aceeași adresă de e-mail; pentru o altă adresă ne scrieți. Din exportul demo-ului, „Transfer din demo” aduce în Konta datele firmei, partenerii, angajații, mijloacele fixe și soldurile inițiale.</p>
             <p><a href="/intrebari/" data-t="today.link.q">Zece întrebări pentru orice program de contabilitate</a> · <a href="/securitate/" data-t="today.link.sec">Securitate: ce este făcut și ce urmează</a></p>
           </div>
         </div>
