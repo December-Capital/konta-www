@@ -9,7 +9,7 @@
   --chip-px: 14.4px;
   --chip-radius: var(--radius);
   --chip-font: 14.4px;
-  background: var(--sunken);
+  background: var(--tabs-bg);
   border-bottom: 1px solid var(--rule);
 }
 
