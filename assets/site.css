@@ -43,10 +43,10 @@
      what is behind it; --masthead-glass the same colour, see-through. */
   --masthead-bg: #f7f5f1;
   --masthead-glass: rgba(247, 245, 241, 0.76);
-  /* The contact form: a white card on the raised band, fields and the button in the header's sand and
+  /* The contact form: a sand card on the raised band with white fields, the button in the header's
      aubergine, and each message on its own tint (sent, too many, not sent). */
-  --form-card: #ffffff; /* Alb, on the Hârtie band */
-  --form-field: #ded8ce;
+  --form-card: #ded8ce; /* Nisip, on the Hârtie band */
+  --form-field: #ffffff;
   --form-label: #241b2e;
   --form-hint: #4e3a60;
   --form-btn-bg: #3d2c4b;
@@ -1684,7 +1684,7 @@ body > main {
 }
 
 /* The form sits on a card on the raised Hârtie band, below the title panel's Nisip: the card
-   white (Grafit 800 on dark), the fields and the button in sand and aubergine, every corner
+   sand (Grafit 800 on dark), the fields white and the button aubergine, every corner
    rounded like the header's buttons (--radius). The card's padding is taken back by a margin as large, so
    nothing inside moves; on a phone the card runs to the screen's edges, its padding the page's
    gutter (.shell). */

@@ -1,7 +1,7 @@
-"""konta.md/calculator-salariu, filled in from konta-rulebook at package time.
+"""konta.md/instrumente, the salary calculator's tab, filled in from konta-rulebook at package time.
 
 No rate, exemption, cap or rounding rule is typed into this repository. The page is an ordinary
-page, calculator-salariu/index.html, with its words under data-t like any other, so
+page, instrumente/salariu/index.html, with its words under data-t like any other, so
 tools/languages.py writes its Russian and English copies. Its words carry placeholders this fills
 in each language, after the copies are written:
 
@@ -40,7 +40,7 @@ import sys
 
 import languages
 
-PAGE = '/calculator-salariu/'
+PAGE = '/instrumente/salariu/'
 YEAR = 2026
 VECTORS = os.path.join('vectors', 'payroll-md-2026.json')
 RULES_MARK = '<!-- salary:rules -->'

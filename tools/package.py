@@ -28,6 +28,7 @@ import sys
 import zipfile
 
 import fiscal_calendar
+import instrumente
 import languages
 import salary_calculator
 
@@ -36,7 +37,7 @@ import salary_calculator
 SERVED = [
     'index.html', '404.html', 'robots.txt', 'sitemap.xml', '.htaccess', '.well-known', 'assets',
     'status', 'e-factura', 'trecerea-de-la-1c', 'parteneri', 'transparenta',
-    'contact', 'privacy', 'intrebari', 'securitate', 'calendar', 'calculator-salariu', 'ghid', 'llms.txt',
+    'contact', 'privacy', 'intrebari', 'securitate', 'calendar', 'instrumente', 'ghid', 'llms.txt',
 ]
 
 DEFAULT = os.path.join('..', 'kontamd-deploy')
@@ -107,6 +108,12 @@ def build(out, make_zip=False):
     except salary_calculator.Refused as refusal:
         sys.exit('Not packaged: %s' % refusal)
 
+    # The other tools' rules, days off and tables, from konta-rulebook, once they pass their tests.
+    try:
+        tools = instrumente.build(out)
+    except instrumente.Refused as refusal:
+        sys.exit('Not packaged: %s' % refusal)
+
     total = 0
     for root, dirs, names in os.walk(out):
         dirs[:] = [d for d in dirs if d != '.git']
@@ -124,6 +131,8 @@ def build(out, make_zip=False):
         made['changes'], made['files']))
     print('  salary calculator from konta-rulebook %s%s: %d payroll vectors, %d months, agreed to the ban' % (
         salary['commit'], ' (uncommitted data)' if salary['dirty'] else '', salary['cases'], salary['months']))
+    print('  tools from konta-rulebook %s%s: %d pages, %d checks passed' % (
+        tools['commit'], ' (uncommitted data)' if tools['dirty'] else '', tools['pages'], tools['checks']))
     # Plain ASCII: the Windows console encoding mangles anything else.
     print('\n  .htaccess is a dotfile. The file manager hides it - check it arrived.')
 

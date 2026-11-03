@@ -3,22 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title data-t="sal.meta.title">Calculator de salariu 2026: din brut în net · Konta</title>
-    <meta name="description" data-t="sal.meta.description" content="Din salariul brut, cât primește angajatul și cât plătește angajatorul într-o lună din 2026: prima medicală, scutirile, impozitul pe venit, contribuția socială. Fiecare valoare din registrul public, cu actul ei." />
-    <link rel="canonical" href="https://konta.md/calculator-salariu/" />
+    <title data-t="boala.meta.title">Calculator concediu medical: zilele plătite de angajator · Konta</title>
+    <meta name="description" data-t="boala.meta.description" content="Câte zile ale unui concediu medical plătește angajatorul și ce sumă, din salariul mediu pe trei luni, cu valorile din registrul public konta-rulebook." />
+    <link rel="canonical" href="https://konta.md/instrumente/boala/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Konta" />
     <meta property="og:locale" content="ro_MD" />
-    <meta property="og:url" content="https://konta.md/calculator-salariu/" />
-    <meta property="og:title" content="Calculator de salariu 2026: din brut în net · Konta" />
-    <meta property="og:description" content="Din salariul brut, cât primește angajatul și cât plătește angajatorul într-o lună din 2026: prima medicală, scutirile, impozitul pe venit, contribuția socială. Fiecare valoare din registrul public, cu actul ei." />
+    <meta property="og:url" content="https://konta.md/instrumente/boala/" />
+    <meta property="og:title" content="Calculator concediu medical: zilele plătite de angajator · Konta" />
+    <meta property="og:description" content="Câte zile ale unui concediu medical plătește angajatorul și ce sumă, din salariul mediu pe trei luni, cu valorile din registrul public konta-rulebook." />
     <meta property="og:image" content="https://konta.md/assets/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" data-t="og.image.alt" content="Konta · contabilitate pentru companiile din Moldova" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Calculator de salariu 2026: din brut în net · Konta" />
-    <meta name="twitter:description" content="Din salariul brut, cât primește angajatul și cât plătește angajatorul într-o lună din 2026: prima medicală, scutirile, impozitul pe venit, contribuția socială. Fiecare valoare din registrul public, cu actul ei." />
+    <meta name="twitter:title" content="Calculator concediu medical: zilele plătite de angajator · Konta" />
+    <meta name="twitter:description" content="Câte zile ale unui concediu medical plătește angajatorul și ce sumă, din salariul mediu pe trei luni, cu valorile din registrul public konta-rulebook." />
     <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#2b2b32" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/assets/favicon.png" type="image/png" />
@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
     <link rel="stylesheet" href="/assets/site.css?v=15" />
     <link rel="stylesheet" href="/assets/salary.css?v=2" />
+    <link rel="stylesheet" href="/assets/instrumente.css?v=2" />
     <script>
       // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
       // which is the device's theme and what nobody choosing means; the choice is made here or in
@@ -75,8 +76,8 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Calculator de salariu",
-          "item": "https://konta.md/calculator-salariu/"
+          "name": "Concediul medical plătit de angajator",
+          "item": "https://konta.md/instrumente/boala/"
         }
       ]
     }
@@ -94,6 +95,7 @@
 
         <nav class="sections" aria-label="Secțiuni" data-t-aria-label="nav.label">
           <a class="sections__link" href="/calendar/"><span data-t="nav.calendar">Calendar fiscal</span></a>
+          <a class="sections__link" href="/instrumente/salariu/" aria-current="page"><span data-t="nav.tools">Instrumente</span></a>
           <a class="sections__link" href="/e-factura/"><span data-t="nav.efactura">e-Factura</span></a>
           <a class="sections__link" href="/trecerea-de-la-1c/"><span data-t="nav.move">Trecerea de la 1C</span></a>
           <a class="sections__link" href="/parteneri/"><span data-t="nav.partners">Parteneri</span></a>
@@ -151,113 +153,110 @@
     </div>
 
     <main id="main">
+      <nav class="tabs" aria-label="Calculatoare" data-t-aria-label="foot.salary">
+        <div class="shell tabs__bar">
+          <a class="tabs__link" href="/instrumente/salariu/"><span data-t="tools.tab.salary">Salariu</span></a>
+          <a class="tabs__link" href="/instrumente/tva/"><span data-t="tools.tab.vat">TVA</span></a>
+          <a class="tabs__link" href="/instrumente/concediu/"><span data-t="tools.tab.leave">Concediu de odihnă</span></a>
+          <a class="tabs__link" href="/instrumente/boala/" aria-current="page"><span data-t="tools.tab.sick">Concediu medical</span></a>
+          <a class="tabs__link" href="/instrumente/zile-lucratoare/"><span data-t="tools.tab.days">Zile lucrătoare</span></a>
+          <a class="tabs__link" href="/instrumente/it-park/"><span data-t="tools.tab.itpark">IT Park</span></a>
+        </div>
+      </nav>
+
       <section class="hero hero--page">
         <div class="shell">
-          <h1 data-t="sal.title">Calculator de salariu 2026</h1>
-          <p class="hero__lead" data-t="sal.lead">Din salariul brut, cât primește angajatul și cât plătește angajatorul într-o lună din 2026. Fiecare valoare vine din registrul public din care calculează și aplicația Konta, cu actul normativ din care este luată.</p>
-          <p class="updated" data-t="sal.review">Valorile sunt încă în verificare la un contabil autorizat.</p>
+          <h1 data-t="boala.title">Concediul medical plătit de angajator</h1>
+          <p class="hero__lead" data-t="boala.lead">Primele zile ale unui concediu medical le plătește angajatorul, din salariul mediu pe trei luni. Calculatorul arată câte zile îi revin angajatorului și ce sumă; zilele de după le plătește bugetul asigurărilor sociale.</p>
+          <p class="updated" data-t="tools.review">Valorile sunt încă în verificare la un contabil autorizat.</p>
         </div>
       </section>
 
       <section class="band band--quiet">
-        <div class="shell calc">
-          <form class="calc__form" data-salary novalidate>
+        <div class="shell calc" data-tool="sick">
+          <form class="calc__form" novalidate>
             <div class="field">
-              <label for="gross" data-t="sal.gross">Salariul brut lunar, în lei</label>
-              <input id="gross" name="gross" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="10000" aria-describedby="gross-hint gross-error" />
-              <span id="gross-hint" class="calc__hint" data-t="sal.gross.hint">De exemplu 10000 sau 12 345,50</span>
-              <span id="gross-error" class="calc__error" data-salary-error hidden data-t="sal.gross.error">Scrieți suma în lei, cu cifre, și cel mult doi bani după virgulă.</span>
+              <label for="start" data-t="boala.start">Prima zi a concediului medical</label>
+              <input id="start" name="start" type="date" required />
+            </div>
+            <p class="calc__error" data-el="date-error" hidden data-t="tools.date.error">Alegeți o zi din 2026 sau 2027.</p>
+            <div class="field">
+              <label for="length" data-t="boala.length">Durata, în zile calendaristice</label>
+              <input id="length" name="length" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" value="7" />
+            </div>
+            <div class="field">
+              <label for="used" data-t="boala.used">Zile plătite deja de angajator în acest an, pentru alte concedii medicale</label>
+              <input id="used" name="used" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" value="0" />
             </div>
             <label class="calc__check">
-              <input type="checkbox" name="personal" checked />
-              <span data-t="sal.personal">Angajatul a cerut scutirea personală</span>
+              <input type="checkbox" name="budget" />
+              <span data-t="boala.budget">Boala se plătește din buget din prima zi: tuberculoză, SIDA, cancer, risc de pierdere a sarcinii sau sarcină înregistrată</span>
             </label>
-            <div class="field">
-              <label for="dependants" data-t="sal.dependants">Persoane întreținute</label>
-              <select id="dependants" name="dependants">
-                <option value="0" selected>0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
-            </div>
-            <noscript><p class="calc__hint" data-t="sal.noscript">Fără JavaScript, rezultatul de alături rămâne exemplul de {out:gross} lei, cu scutirea personală.</p></noscript>
+            <fieldset class="tool__months">
+              <legend data-t="tools.months.h">Câștigul din cele trei luni dinainte</legend>
+              <p class="calc__hint" data-t="tools.months.hint">Salariul și primele pentru zilele lucrate, fără plățile pentru concediu sau boală. Zilele lucrate sunt cele lucrate efectiv; o lună fără câștig se lasă goală.</p>
+              <div data-el="months"></div>
+            </fieldset>
+            <noscript><p class="calc__hint" data-t="tools.noscript">Calculatorul are nevoie de JavaScript. Fără el, regulile și valorile de mai jos rămân de citit.</p></noscript>
           </form>
 
           <div class="calc__out">
-            <table class="calc__results" data-salary-results aria-live="polite">
-              <caption data-t="sal.caption">O lună, în lei</caption>
+            <table class="calc__results calc__results--stale" data-results aria-live="polite">
+              <caption data-t="boala.caption">În lei</caption>
               <tbody>
                 <tr>
-                  <th scope="row" data-t="sal.out.gross">Salariul brut</th>
-                  <td data-out="gross">{out:gross}</td>
+                  <th scope="row" data-t="boala.out.days">Zile plătite de angajator</th>
+                  <td data-out="days">–</td>
                 </tr>
                 <tr>
-                  <th scope="row" data-t="sal.out.medical">Prima de asigurare medicală, {rate:cnam}, reținută</th>
-                  <td data-out="medical">{out:medical}</td>
+                  <th scope="row" data-t="boala.out.budget">Zile plătite din bugetul asigurărilor sociale</th>
+                  <td data-out="budgetDays">–</td>
                 </tr>
                 <tr>
-                  <th scope="row" data-t="sal.out.exemption">Scutiri</th>
-                  <td data-out="exemption">{out:exemption}</td>
+                  <th scope="row" data-t="tools.out.earnings">Câștigul din cele trei luni</th>
+                  <td data-out="earnings">–</td>
                 </tr>
                 <tr>
-                  <th scope="row" data-t="sal.out.taxable">Venitul impozabil</th>
-                  <td data-out="taxable">{out:taxable}</td>
+                  <th scope="row" data-t="tools.out.worked">Zile lucrate, din zilele lucrătoare</th>
+                  <td data-out="worked">–</td>
                 </tr>
                 <tr>
-                  <th scope="row" data-t="sal.out.tax">Impozitul pe venit, {rate:tax}, reținut</th>
-                  <td data-out="incomeTax">{out:incomeTax}</td>
+                  <th scope="row" data-t="tools.out.calendar">Zile calendaristice, fără sărbători</th>
+                  <td data-out="calendarDays">–</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-t="tools.out.average">Media pe o zi calendaristică</th>
+                  <td data-out="average">–</td>
                 </tr>
                 <tr class="calc__total">
-                  <th scope="row" data-t="sal.out.net">Salariul net, primit de angajat</th>
-                  <td data-out="net">{out:net}</td>
-                </tr>
-                <tr>
-                  <th scope="row" data-t="sal.out.social">Contribuția de asigurări sociale a angajatorului, {rate:cnas}</th>
-                  <td data-out="social">{out:social}</td>
-                </tr>
-                <tr class="calc__total">
-                  <th scope="row" data-t="sal.out.cost">Costul total pentru angajator</th>
-                  <td data-out="cost">{out:cost}</td>
+                  <th scope="row" data-t="boala.out.pay">Suma plătită de angajator, brut</th>
+                  <td data-out="pay">–</td>
                 </tr>
               </tbody>
             </table>
-            <p class="calc__capped" data-salary-capped hidden data-t="sal.capped">Douăsprezece luni la acest salariu depășesc plafonul anual de {amount:cap} lei, așa că scutirea personală nu se cuvine și nu a fost scăzută.</p>
+            <p class="calc__capped" data-el="no-earnings" hidden data-t="tools.noearnings">Fără câștig în cele trei luni, media se ia din ultimele trei luni cu câștig ale anului dinainte sau, dacă nu sunt, din salariul lunar din contract. Calculatorul nu le face; aplicația Konta, da.</p>
+            <p class="calc__capped" data-el="unknown" hidden data-t="tools.unknown">Pentru acest an registrul nu are încă transferurile zilelor de odihnă; zilele lucrătoare pot să se schimbe.</p>
           </div>
         </div>
       </section>
 
-      <section class="band">
-        <div class="shell prose">
-          <h2 data-t="sal.how.h">Cum se calculează</h2>
-          <p data-t="sal.how.p1">Calculatorul socotește o lună dintr-un an în care angajatul primește același salariu în fiecare lună, din ianuarie, la un singur angajator, fără alte venituri. Din salariul brut se reține prima de asigurare medicală. Din ce rămâne se scad scutirile: scutirea personală, {amount:personalMonth} lei pe lună, dacă angajatul a cerut-o, și {amount:dependantMonth} lei pe lună pentru fiecare persoană întreținută. Rezultatul este venitul impozabil, din care se reține impozitul pe venit. Angajatorul plătește în plus contribuția de asigurări sociale, calculată din salariul brut.</p>
-          <p data-t="sal.how.p2">Impozitul se calculează cumulativ, de la începutul anului, cum cere HG nr. 697/2014; cu același salariu în fiecare lună, fiecare lună iese la fel. Fiecare sumă se rotunjește la ban, iar o jumătate de ban se rotunjește în sus.</p>
-          <p data-t="sal.how.p3">Scutirea personală nu se acordă celui al cărui venit impozabil pe an depășește {amount:cap} lei. Calculatorul o scade doar dacă douăsprezece luni la salariul scris nu depășesc această sumă, adică până la {amount:capMonth} lei pe lună. Codul fiscal socotește venitul din toate sursele, iar cine depășește plafonul regularizează în declarația anuală.</p>
-        </div>
-      </section>
-
       <section class="band band--quiet">
         <div class="shell prose">
-          <h2 data-t="sal.check.h">Verificat cu aplicația Konta</h2>
-          <p data-t="sal.check.p1">Calculatorul de pe această pagină și calculul salariilor din aplicația Konta sunt două programe separate. Amândouă trec aceleași {count:cases} exemple, {count:months} de luni în total, dintr-un singur fișier public al registrului. Primul este exemplul publicat de SFS, cel de alături: brut {out:gross}, primă {out:medical}, scutire {out:exemption}, venit impozabil {out:taxable}, impozit {out:incomeTax}, net {out:net}.</p>
-          <p data-t="sal.check.p2">Dacă cele două ar da rezultate diferite, fie și cu un ban, pagina nu s-ar publica. Sumele se socotesc în bani întregi, fără numere cu virgulă mobilă.</p>
-          <p><a href="https://github.com/December-Capital/konta-rulebook/blob/{commit}/vectors/payroll-md-2026.json" rel="noopener" data-t="sal.check.link">Deschideți fișierul cu exemple</a></p>
+          <h2 data-t="tools.how.h">Cum se calculează</h2>
+          <p data-t="boala.how.p1">Angajatorul plătește primele {val:2026:payroll.sick.employer_days_per_case} zile calendaristice ale fiecărui concediu medical, dar nu mai mult de {val:2026:payroll.sick.employer_days_per_year} zile într-un an calendaristic, pentru toate concediile medicale ale angajatului. Plătește {val:2026:payroll.sick.employer_share} din salariul mediu pe o zi calendaristică, socotit ca pentru concediul de odihnă, din cele trei luni dinaintea lunii în care începe boala.</p>
+          <p data-t="boala.how.p2">Zilele de după le plătește bugetul asigurărilor sociale de stat, după venitul asigurat și stagiul de cotizare, reguli pe care registrul nu le are încă. Calculatorul nu le calculează.</p>
+          <p data-t="boala.how.p3">Din suma plătită de angajator se reține impozitul pe venit și prima de asigurare medicală, ca din salariu, dar pentru ea nu se plătește contribuția de asigurări sociale. Suma de alături este brută. Se rotunjește o singură dată, la ban.</p>
         </div>
       </section>
 
       <section class="band">
         <div class="shell prose">
-          <h2 data-t="sal.not.h">Ce nu calculează</h2>
+          <h2 data-t="tools.not.h">Ce nu calculează</h2>
           <ul class="calc__not">
-            <li data-t="sal.not.1">Doar o lună, cu același salariu tot anul: nu calculează anul întreg, luni cu salarii diferite, zilele lucrate, concediile sau indemnizațiile.</li>
-            <li data-t="sal.not.2">Fără scutirea personală majoră, fără scutirea pentru soț sau soție și fără suma mai mare pentru o persoană întreținută cu dizabilitate.</li>
-            <li data-t="sal.not.3">Doar cota generală a contribuției de asigurări sociale, {rate:cnas}: fără alte categorii de asigurați și fără o bază minimă sau maximă.</li>
-            <li data-t="sal.not.4">Vede doar acest salariu. Alte venituri ale angajatului, care contează pentru plafonul scutirii personale, nu le cunoaște.</li>
-            <li data-t="sal.not.5">Fără avansuri de salariu, prime sau alte plăți în afara salariului lunar.</li>
-            <li data-t="sal.not.6">Nu înlocuiește statul de plată făcut de contabil.</li>
+            <li data-t="boala.not.1">Nu calculează indemnizația plătită din bugetul asigurărilor sociale.</li>
+            <li data-t="boala.not.2">Nu ia media din lunile anterioare sau din salariul lunar când în cele trei luni nu a fost câștig.</li>
+            <li data-t="boala.not.3">Nu reține impozitul pe venit și prima medicală.</li>
+            <li data-t="boala.not.4">Nu verifică certificatul medical și nici dacă angajatul are dreptul la indemnizație.</li>
           </ul>
         </div>
       </section>
@@ -265,7 +264,7 @@
       <section class="band band--quiet">
         <div class="shell">
           <div class="band__head">
-            <h2 data-t="sal.values.h">Valorile folosite</h2>
+            <h2 data-t="tools.values.h">Valorile folosite</h2>
           </div>
           <div class="ruleset">
             <div class="ruleset__head">
@@ -282,55 +281,50 @@
               </thead>
               <tbody>
                 <tr>
-                  <td data-t="sal.v.tax">Impozitul pe venit</td>
-                  <td class="rate">{rate:tax}</td>
-                  <td class="calc__act">{act:payroll.income_tax.rate}</td>
+                  <td data-t="boala.v.case">Zile plătite de angajator pentru un concediu medical</td>
+                  <td class="rate">{val:2026:payroll.sick.employer_days_per_case}</td>
+                  <td class="calc__act">{act:2026:payroll.sick.employer_days_per_case}</td>
                 </tr>
                 <tr>
-                  <td data-t="sal.v.cnam">Prima de asigurare medicală, reținută de la angajat</td>
-                  <td class="rate">{rate:cnam}</td>
-                  <td class="calc__act">{act:payroll.cnam.employee_rate}</td>
+                  <td data-t="boala.v.year">Cel mult, într-un an calendaristic</td>
+                  <td class="rate">{val:2026:payroll.sick.employer_days_per_year}</td>
+                  <td class="calc__act">{act:2026:payroll.sick.employer_days_per_year}</td>
                 </tr>
                 <tr>
-                  <td data-t="sal.v.cnas">Contribuția de asigurări sociale, plătită de angajator</td>
-                  <td class="rate">{rate:cnas}</td>
-                  <td class="calc__act">{act:payroll.cnas.employer_rate}</td>
+                  <td data-t="boala.v.share">Cota din salariul mediu</td>
+                  <td class="rate">{val:2026:payroll.sick.employer_share}</td>
+                  <td class="calc__act">{act:2026:payroll.sick.employer_share}</td>
                 </tr>
                 <tr>
-                  <td data-t="sal.v.personal">Scutirea personală, pe an</td>
-                  <td class="rate">{amount:personal}</td>
-                  <td class="calc__act">{act:payroll.income_tax.personal_deduction_annual}</td>
+                  <td data-t="conc.v.months">Lunile din care se ia media</td>
+                  <td class="rate">{val:2026:payroll.average_earnings.reference_months}</td>
+                  <td class="calc__act">{act:2026:payroll.average_earnings.method}</td>
                 </tr>
                 <tr>
-                  <td data-t="sal.v.cap">Plafonul venitului anual pentru scutirea personală</td>
-                  <td class="rate">{amount:cap}</td>
-                  <td class="calc__act">{act:payroll.income_tax.personal_deduction_income_cap}</td>
+                  <td data-t="boala.v.tax">Impozitul pe venit se reține</td>
+                  <td class="rate"><span data-t="sal.v.yes">da</span></td>
+                  <td class="calc__act">{act:2026:payroll.sick.income_tax}</td>
                 </tr>
                 <tr>
-                  <td data-t="sal.v.dependant">Scutirea pentru o persoană întreținută, pe an</td>
-                  <td class="rate">{amount:dependant}</td>
-                  <td class="calc__act">{act:payroll.income_tax.dependant_deduction_annual}</td>
+                  <td data-t="boala.v.premium">Prima medicală se reține</td>
+                  <td class="rate"><span data-t="sal.v.yes">da</span></td>
+                  <td class="calc__act">{act:2026:payroll.sick.medical_premium}</td>
                 </tr>
                 <tr>
-                  <td data-t="sal.v.premium">Prima medicală se scade înainte de impozit</td>
-                  <td class="rate" data-t="sal.v.yes">da</td>
-                  <td class="calc__act">{act:payroll.income_tax.medical_premium_deductible}</td>
-                </tr>
-                <tr>
-                  <td data-t="sal.v.method">Metoda de calcul a impozitului</td>
-                  <td class="rate" data-t="sal.v.cumulative">cumulativă</td>
-                  <td class="calc__act">{act:payroll.income_tax.withholding_method}</td>
+                  <td data-t="boala.v.social">Contribuția de asigurări sociale se plătește</td>
+                  <td class="rate"><span data-t="tools.v.no">nu</span></td>
+                  <td class="calc__act">{act:2026:payroll.sick.social_contribution}</td>
                 </tr>
                 <tr>
                   <td data-t="sal.v.round">Rotunjirea</td>
-                  <td class="rate" data-t="sal.v.ban">la ban</td>
-                  <td class="calc__act" data-t="sal.v.round.act">Alegerea noastră: actele citite nu dau o regulă de rotunjire.</td>
+                  <td class="rate"><span data-t="sal.v.ban">la ban</span></td>
+                  <td class="calc__act">{act:2026:payroll.average_earnings.rounding}</td>
                 </tr>
               </tbody>
             </table>
             <div class="ruleset__foot">
-              <p data-t="sal.values.note">Valorile sunt cele din setul md-2026 al registrului public konta-rulebook, citite când a fost publicată pagina. Un contabil autorizat le verifică acum și încă nu le-a aprobat. Le puteți verifica singur, rând cu rând, fiecare cu actul din care vine.</p>
-              <a href="https://github.com/December-Capital/konta-rulebook/blob/{commit}/data/2026/md-2026.json" rel="noopener" data-t="sal.values.link">Deschideți setul md-2026</a>
+              <p data-t="tools.values.note">Valorile setului md-2026 al registrului public konta-rulebook; pentru o zi din 2027, calculatorul folosește setul md-2027. Un contabil autorizat le verifică acum și încă nu le-a aprobat.</p>
+              <a href="https://github.com/December-Capital/konta-rulebook/blob/{commit}/data/2026/md-2026.json" rel="noopener" data-t="tools.values.link2026">Deschideți setul md-2026</a>
             </div>
           </div>
         </div>
@@ -344,10 +338,15 @@
           </div>
         </div>
       </section>
+      <div hidden data-tool-words>
+        <span data-w="m1" data-t="cal.m1">ianuarie</span><span data-w="m2" data-t="cal.m2">februarie</span><span data-w="m3" data-t="cal.m3">martie</span><span data-w="m4" data-t="cal.m4">aprilie</span><span data-w="m5" data-t="cal.m5">mai</span><span data-w="m6" data-t="cal.m6">iunie</span><span data-w="m7" data-t="cal.m7">iulie</span><span data-w="m8" data-t="cal.m8">august</span><span data-w="m9" data-t="cal.m9">septembrie</span><span data-w="m10" data-t="cal.m10">octombrie</span><span data-w="m11" data-t="cal.m11">noiembrie</span><span data-w="m12" data-t="cal.m12">decembrie</span>
+        <span data-w="earnings" data-t="tools.w.earnings">Câștigul, în lei</span>
+        <span data-w="worked" data-t="tools.w.worked">Zile lucrate, din {days} lucrătoare</span>
+      </div>
     </main>
 
-    <script type="application/json" id="salary-rules">
-      <!-- salary:rules -->
+    <script type="application/json" id="tool-rules">
+      <!-- tool:rules -->
     </script>
 
     <footer class="foot">
@@ -372,7 +371,7 @@
             <p class="foot__title" id="foot-tools" data-t="foot.tools">Instrumente</p>
             <ul>
               <li><a href="/calendar/" data-t="nav.calendar">Calendar fiscal</a></li>
-              <li><a href="/calculator-salariu/" aria-current="page" data-t="foot.salary">Calculator de salariu</a></li>
+              <li><a href="/instrumente/salariu/" aria-current="page" data-t="foot.salary">Calculatoare</a></li>
               <li><a href="/intrebari/" data-t="foot.questions">Întrebări pentru furnizori</a></li>
               <li><a href="/status/" data-t="foot.status">Starea serviciului</a></li>
             </ul>
@@ -398,6 +397,6 @@
       {"lang.next": "Treci la", "theme.light": "Varianta luminoasă", "theme.dark": "Varianta întunecată", "theme.auto": "Varianta automată"}
     </script>
     <script src="/assets/site.js?v=11"></script>
-    <script src="/assets/salary.js?v=1"></script>
+    <script src="/assets/instrumente.js?v=1"></script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 /*
- * konta.md/calculator-salariu: a month's salary in 2026, from the gross to the net and the
+ * konta.md/instrumente/salariu, the first of the tools: a month's salary in 2026, from the gross to the net and the
  * employer's cost.
  *
  * The arithmetic is Konta's own payroll's (Konta.Domain.Payroll.PayrollArithmetic, the cumulative
