@@ -13,7 +13,7 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `e-factura/`, `trecerea-de-la-1c/`, `parteneri/`, `transparenta/` | one topic each, reached from the header and the home page cards; `trecerea-de-la-1c/` also holds what was the "Fără programator" page, whose old address `.htaccess` redirects to its section |
 | `contact/index.html`, `contact/trimite.php` | the contact page and the handler its form posts to |
 | `calendar/index.html` | the fiscal calendar's page: header, footer, filters and words only; its months, feeds and RSS are written from `konta-rulebook` when the site is packaged (see "The calendar"); header nav |
-| `instrumente/index.html` | the 2026 salary calculator, the first tab of the tools (its old address `calculator-salariu/` redirects here): the form, the result and the words, with placeholders the package fills from `konta-rulebook` (see "The salary calculator"); footer |
+| `instrumente/salariu/index.html` | the 2026 salary calculator, the first tab of the tools (its old address `calculator-salariu/` redirects here, and so does `instrumente/`, which is not a page): the form, the result and the words, with placeholders the package fills from `konta-rulebook` (see "The salary calculator"); footer |
 | `instrumente/tva/`, `concediu/`, `boala/`, `zile-lucratoare/`, `it-park/` | the other tools, each a tab of `instrumente/` linked from the tab bar every tool page repeats: VAT, leave pay and compensation, the employer's sick days, working days and hours, the IT Park single tax, filled from `konta-rulebook` when the site is packaged (see "The tools"); footer |
 | `ghid/index.html` | the guide for accountants: the e-Factura API user, opening balances from 1C, the first month, closing the month, the bank statement; each step true to `HANDOFF.md`; footer |
 | `llms.txt` | a plain summary for language models: what Konta is, the pages, the public repositories, what works and what does not yet, matching the home page's "Ce funcționează azi"; plain ASCII, like `security.txt`, because the host's CDN serves text files without a charset (the package checks) |
@@ -117,7 +117,7 @@ independent readers (Python `icalendar`, `ical.js`).
 
 ## The salary calculator
 
-`konta.md/instrumente`, the tools' first tab, computes one month of 2026 from the gross salary: the medical
+`konta.md/instrumente/salariu`, the tools' first tab, computes one month of 2026 from the gross salary: the medical
 premium, the personal and dependant exemptions with the income ceiling, income tax, the net, the
 employer's social contribution and cost. It is the product's payroll arithmetic
 (`Konta.Domain.Payroll.PayrollArithmetic`, the cumulative method) written again in

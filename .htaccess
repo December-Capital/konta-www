@@ -18,8 +18,10 @@
   # "Fără programator" became a section of "Trecerea de la 1C" on 2026-10-24; its old address,
   # in each language, goes to that section. NE keeps the # from being escaped.
   RewriteRule ^(ru/|en/)?fara-programator/?$ /$1trecerea-de-la-1c/#fara-programator [R=301,NE,L]
-  # The salary calculator became the first tab of /instrumente/ on 2026-11-03.
-  RewriteRule ^(ru/|en/)?calculator-salariu/?$ /$1instrumente/ [R=301,L]
+  # The salary calculator became the first of the tools on 2026-11-03, at /instrumente/salariu/;
+  # /instrumente/ itself is not a page, and goes to that first tab for now (302, so it can become one).
+  RewriteRule ^(ru/|en/)?calculator-salariu/?$ /$1instrumente/salariu/ [R=301,L]
+  RewriteRule ^(ru/|en/)?instrumente/?$ /$1instrumente/salariu/ [R=302,L]
 </IfModule>
 
 # PHP2Shell (CVE-2026-109618, CVE-2026-109619, disclosed 21 Oct 2026): bugs in PHP itself,

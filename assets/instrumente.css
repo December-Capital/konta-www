@@ -1,8 +1,8 @@
 /* konta.md/instrumente: the tabs over every tool, and what the tools add to salary.css's form
    beside its result. The tokens are site.css's. */
 
-/* The tabs: one link per tool, styled as the header's sections, on a band of their own under the
-   notice. They wrap on a narrow screen rather than scroll. */
+/* The tabs: one link per tool, styled as the header's sections, centred on a band of their own
+   under the notice. They wrap on a narrow screen rather than scroll. */
 .tabs {
   /* The header's chip sizes, which site.css sets on .masthead only. */
   --chip-h: 33.6px;
@@ -16,6 +16,7 @@
 .tabs__bar {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 4px;
   padding-block: 10px;
 }
