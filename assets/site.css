@@ -233,7 +233,6 @@ h3 {
 
 p {
   margin: 0;
-  max-width: 72ch;
 }
 
 a {
@@ -768,10 +767,6 @@ body > main {
   font-weight: 500;
 }
 
-.notice p {
-  max-width: none;
-}
-
 
 .hero {
   padding-block: var(--panel-pad);
@@ -1005,10 +1000,6 @@ body > main {
   color: var(--ink-2);
 }
 
-.ruleset__foot p {
-  max-width: none;
-}
-
 .ruleset__foot a {
   display: inline-block;
   margin-top: 9px;
@@ -1066,10 +1057,6 @@ body > main {
   border-left: 2px solid var(--gold-rule);
   font-size: 0.9375rem;
   color: var(--ink-3);
-}
-
-.aside p {
-  max-width: 62ch;
 }
 
 .aside p + p {
@@ -1582,7 +1569,6 @@ body > main {
 
 .qa h2 {
   font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.35rem);
-  max-width: 60ch;
 }
 
 .qa p {
@@ -1796,7 +1782,6 @@ body > main {
   background: var(--form-bad-bg);
   color: var(--ink);
   font-size: 0.9375rem;
-  max-width: none;
 }
 
 .form__note a {
@@ -1886,7 +1871,6 @@ body > main {
 .guide .shell > p:not(.state) {
   margin-top: 12px;
   color: var(--ink-2);
-  max-width: 68ch;
 }
 
 .howto {
@@ -1894,7 +1878,6 @@ body > main {
   margin: 22px 0 0;
   padding: 0;
   counter-reset: howto;
-  max-width: 74ch;
 }
 
 .howto li {
