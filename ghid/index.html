@@ -212,14 +212,14 @@
           <ol class="howto">
             <li data-t="guide.first.s1">Compania: datele firmei care se tipăresc pe documente și pe declarații, cum ar fi denumirea, adresele, contul bancar și codurile. Doar directorul le poate schimba.</li>
             <li data-t="guide.first.s2">Parteneri: clienții și furnizorii. Când scrieți un IDNO, Konta poate propune datele partenerului de la SFS, deocamdată din serviciul de test: denumirea oficială, adresa, codul TVA și conturile înregistrate. Le preluați doar dacă le alegeți.</li>
-            <li data-t="guide.first.s3">Facturi emise: o factură se face ca ciornă și se înregistrează. La înregistrare primește numărul următor, fără goluri, și intră în contabilitate creanța, venitul și TVA. O factură înregistrată se anulează doar prin stornare.</li>
+            <li data-t="guide.first.s3">Facturi emise: o factură se face ca draft și se înregistrează. La înregistrare primește numărul următor, fără goluri, și intră în contabilitate creanța, venitul și TVA. O factură înregistrată se anulează doar prin stornare.</li>
             <li data-t="guide.first.s4">Facturi primite: cu seria și numărul furnizorului. Fiecare rând se înregistrează pe contul lui, TVA de dedus pe 534, furnizorul pe 521.</li>
             <li data-t="guide.first.s5">Încasări și plăți: o plată achită facturile înregistrate ale partenerului, exact suma ei, iar un avans primit sau plătit se decontează mai târziu cu facturile.</li>
             <li data-t="guide.first.s6">Salarii, pentru director, contabilul-șef și salarizare: angajații, cu salariul de la angajare și modificările lui, apoi borderoul de salarii al lunii, calculat prin metoda cumulativă, cu pontajul și concediile. Se înregistrează, apoi se plătește. Lunile se înregistrează în ordine.</li>
             <li data-t="guide.first.s7">Registrele TVA: livrările și procurările pe cote, cu TVA de plată sau de recuperat. Din ele se completează TVA12; formularul declarației nu este încă în Konta.</li>
             <li data-t="guide.first.s8">Jurnal, Balanța de verificare, Fișa contului și Cartea mare: o înregistrare manuală pentru ce nu vine din documente, și rapoartele pentru verificare.</li>
             <li data-t="guide.first.s9">Casa: ordinele de încasare și de plată și registrul de casă al zilei.</li>
-            <li data-t="guide.first.s10">Acte de îndeplinire: actul de lucrări cu factura lui sau separat. Facturi proforme: o ofertă care nu intră în contabilitate și devine, la cerere, o ciornă de factură.</li>
+            <li data-t="guide.first.s10">Acte de îndeplinire: actul de lucrări cu factura lui sau separat. Facturi proforme: o ofertă care nu intră în contabilitate și devine, la cerere, un draft de factură.</li>
             <li data-t="guide.first.s11">Mijloace fixe, Stocuri, Capital social, Credite și împrumuturi (în Încasări și plăți) și Cheltuieli anticipate (în Facturi primite): fiecare cu documentele lui; un document înregistrat se anulează prin stornare.</li>
           </ol>
           <div class="aside">
@@ -235,7 +235,7 @@
           <p data-t="guide.close.p1">Închiderea blochează luna: după ea, nicio înregistrare, stornare sau sold inițial nu mai intră cu o dată din perioada închisă. Blocarea o face baza de date, nu doar aplicația.</p>
           <ol class="howto">
             <li data-t="guide.close.s1">Deschideți Închiderea perioadei. Pentru luna aleasă, ecranul arată pașii ei, cei care o privesc: amortizarea mijloacelor fixe, salariile, decontul TVA al lunii pentru un plătitor de TVA, dobânda creditelor, cheltuielile anticipate și, recomandată, reevaluarea soldurilor în valută.</li>
-            <li data-t="guide.close.s2">Faceți fiecare pas. Sub pași, verificările nu blochează nimic, dar arată ce merită privit: registrele comparate cu conturile lor, înregistrările făcute de mână, ciornele rămase în lună.</li>
+            <li data-t="guide.close.s2">Faceți fiecare pas. Sub pași, verificările nu blochează nimic, dar arată ce merită privit: registrele comparate cu conturile lor, înregistrările făcute de mână, drafturile rămase în lună.</li>
             <li data-t="guide.close.s3">Apăsați Închide perioada. Doar contabilul-șef poate închide, și doar după ce pașii obligatorii sunt făcuți.</li>
             <li data-t="guide.close.s4">Dacă trebuie corectat ceva, Redeschide mută data închiderii înapoi. Cere un motiv și confirmarea că sunteți dumneavoastră, iar motivul rămâne în istoric și în jurnalul de audit.</li>
           </ol>
@@ -255,7 +255,7 @@
             <li data-t="guide.bank.s2">Alegeți formatul: MT940, sau un tabel CSV ori Excel. Formatele proprii ale fiecărei bănci vor veni după ce vom avea extrase reale de la ele.</li>
             <li data-t="guide.bank.s3">Pentru un tabel, spuneți o singură dată ce conține fiecare coloană: data și cum este scrisă, suma (o coloană cu minus pentru ieșiri, sau două coloane, intrări și ieșiri) și, dacă există, numărul documentului, contragentul, codul fiscal, IBAN-ul și destinația plății. Coloanele se păstrează pentru firmă.</li>
             <li data-t="guide.bank.s4">Încărcați fișierul. Este verificat de antivirus, apoi citit rând cu rând. Un extras MT940 al cărui sold inițial, cu mișcările, nu dă soldul final este refuzat întreg.</li>
-            <li data-t="guide.bank.s5">Un rând care numește un partener, după IDNO sau după IBAN, și facturile lui, după numărul din destinația plății sau ca singura factură deschisă cu exact acea sumă, devine o plată ciornă. Nimic nu se înregistrează singur: verificați ciorna și apăsați Înregistrează plata.</li>
+            <li data-t="guide.bank.s5">Un rând care numește un partener, după IDNO sau după IBAN, și facturile lui, după numărul din destinația plății sau ca singura factură deschisă cu exact acea sumă, devine un draft de plată. Nimic nu se înregistrează singur: verificați draftul și apăsați Înregistrează plata.</li>
             <li data-t="guide.bank.s6">Pentru un rând rămas de rezolvat, alegeți partenerul și facturile, sau puneți-l deoparte cu un motiv, de exemplu un comision bancar înregistrat în jurnal.</li>
           </ol>
           <div class="aside">
