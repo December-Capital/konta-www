@@ -50,11 +50,6 @@
   --tile-text-hover: #ece8e1;
 }
 
-/* "Căutăm firme…" runs the width of the page rather than stopping at site.css's 72ch. */
-.prose--wide p {
-  max-width: none;
-}
-
 /* ---------------------------------------------------------------------------
    The MoldTax banner: text on the left, the hall on the right, the whole of it one link.
    --------------------------------------------------------------------------- */

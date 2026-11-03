@@ -114,7 +114,6 @@
   background: var(--sunken);
   font-size: 0.9375rem;
   color: var(--ink);
-  max-width: none;
 }
 
 .calc__not {
