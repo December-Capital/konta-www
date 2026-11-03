@@ -62,7 +62,7 @@
   /* One padding above a panel's title and below its last line, the page's first panel included:
      the distance from the notice strip to a page's title is the distance from one panel to the
      next one's title. */
-  --panel-pad: clamp(44px, 6vw, 76px);
+  --panel-pad: clamp(32px, 4vw, 52px);
 
   --serif: 'Literata', Georgia, 'Times New Roman', serif;
   --sans: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -73,6 +73,9 @@
   --notice-ink: #d8c9e6;
   --notice-flag: #c9a46b;
   --footer-bg: #2a2033;
+  /* The tools' tabs under the notice: Nisip 200 in the light, Grafit 700 in the dark, so the
+     strip, the tabs and the first panel are three steps either way. */
+  --tabs-bg: #ded8ce;
   color-scheme: light;
 }
 
@@ -119,6 +122,7 @@
     --notice-ink: #cfc7ba;
     --notice-flag: #c9a46b;
     --footer-bg: #16161a;
+    --tabs-bg: #2b2b32;
     color-scheme: dark;
   }
 }
@@ -165,6 +169,7 @@
   --notice-ink: #cfc7ba;
   --notice-flag: #c9a46b;
   --footer-bg: #16161a;
+  --tabs-bg: #2b2b32;
   color-scheme: dark;
 }
 
@@ -327,9 +332,9 @@ body > main {
   display: flex;
   align-items: center;
   gap: 20px;
-  min-height: 68px;
+  min-height: 84px;
   flex-wrap: wrap;
-  padding-block: 12px;
+  padding-block: 18px;
 }
 
 .brand {
