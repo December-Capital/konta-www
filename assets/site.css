@@ -67,8 +67,10 @@
   --serif: 'Literata', Georgia, 'Times New Roman', serif;
   --sans: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
   /* The notice strip above the page: the brand book's Prună 800 band, its text in Prună 200 and
-     the flag in Aur; Grafit 600 with Nisip 300 on dark. The footer is Prună 900 in the light and,
-     darker than the brand book's Grafit 700 at the owner's choice, Grafit 900 in the dark. */
+     the flag in Aur; on dark, Grafit 900 with Nisip 300, the darkest strip as Prună is in the
+     light, between the Grafit 700 of the header and of the tools' tabs (the owner, 2026-11-03;
+     the brand book has Grafit 600). The footer is Prună 900 in the light and, darker than the
+     brand book's Grafit 700 at the owner's choice, Grafit 900 in the dark. */
   --notice-bg: #3d2c4b;
   --notice-ink: #d8c9e6;
   --notice-flag: #c9a46b;
@@ -118,7 +120,7 @@
     --form-warn: #c9a46b;
     --form-warn-bg: #3f3020;
     --form-bad-bg: #2e1d1b;
-    --notice-bg: #3c3b44;
+    --notice-bg: #16161a;
     --notice-ink: #cfc7ba;
     --notice-flag: #c9a46b;
     --footer-bg: #16161a;
@@ -165,7 +167,7 @@
   --form-warn: #c9a46b;
   --form-warn-bg: #3f3020;
   --form-bad-bg: #2e1d1b;
-  --notice-bg: #3c3b44;
+  --notice-bg: #16161a;
   --notice-ink: #cfc7ba;
   --notice-flag: #c9a46b;
   --footer-bg: #16161a;
