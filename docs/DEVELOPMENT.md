@@ -13,7 +13,8 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `e-factura/`, `trecerea-de-la-1c/`, `parteneri/`, `transparenta/` | one topic each, reached from the header and the home page cards; `trecerea-de-la-1c/` also holds what was the "Fără programator" page, whose old address `.htaccess` redirects to its section |
 | `contact/index.html`, `contact/trimite.php` | the contact page and the handler its form posts to |
 | `calendar/index.html` | the fiscal calendar's page: header, footer, filters and words only; its months, feeds and RSS are written from `konta-rulebook` when the site is packaged (see "The calendar"); header nav |
-| `calculator-salariu/index.html` | the 2026 salary calculator: the form, the result and the words, with placeholders the package fills from `konta-rulebook` (see "The salary calculator"); footer |
+| `instrumente/index.html` | the 2026 salary calculator, the first tab of the tools (its old address `calculator-salariu/` redirects here): the form, the result and the words, with placeholders the package fills from `konta-rulebook` (see "The salary calculator"); footer |
+| `instrumente/tva/`, `concediu/`, `boala/`, `zile-lucratoare/`, `it-park/` | the other tools, each a tab of `instrumente/` linked from the tab bar every tool page repeats: VAT, leave pay and compensation, the employer's sick days, working days and hours, the IT Park single tax, filled from `konta-rulebook` when the site is packaged (see "The tools"); footer |
 | `ghid/index.html` | the guide for accountants: the e-Factura API user, opening balances from 1C, the first month, closing the month, the bank statement; each step true to `HANDOFF.md`; footer |
 | `llms.txt` | a plain summary for language models: what Konta is, the pages, the public repositories, what works and what does not yet, matching the home page's "Ce funcționează azi"; plain ASCII, like `security.txt`, because the host's CDN serves text files without a charset (the package checks) |
 | `intrebari/index.html` | ten questions to put to any accounting software vendor, each with Konta's answer and where it stands (FAQPage JSON-LD); footer |
@@ -22,7 +23,7 @@ contributors (design and marketing, not only engineers), and a much faster relea
 | `.well-known/security.txt` | where to report a security problem (RFC 9116); renew its `Expires` before 2027-10-14 |
 | `status/index.html` | `konta.md/status`, reachability of the app, checked from the visitor's browser (noindex) |
 | `404.html` | served by `.htaccess` for any missing path, with a real 404 status (noindex) |
-| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the twelve indexable pages, and the package rewrites it with their `/ru/` and `/en/` copies |
+| `sitemap.xml`, `robots.txt` | for search engines; the sitemap lists the seventeen indexable pages, and the package rewrites it with their `/ru/` and `/en/` copies |
 | `assets/` | stylesheet, scripts, the three language catalogues, logo, fonts, `og.png` (the 1200x630 share image) |
 | `tools/` | scripts that are run by hand, never served; `languages.py` writes the `/ru/` and `/en/` copies when the site is packaged, `fiscal_calendar.py` the calendar, `salary_calculator.py` the salary calculator's figures, after `test-salary.mjs` has run the payroll vectors |
 
@@ -61,7 +62,7 @@ public prices, and the package refuses a page that tries. Take `offers` off `FOR
 `tools/languages.py` the day prices are published; a rating needs real reviews first. A
 `description` in JSON-LD is translated like a `name`, so it must be a `data-t` text on the page.
 
-The packaged `sitemap.xml` lists all thirty-six addresses, each with its alternates. The package
+The packaged `sitemap.xml` lists all fifty-one addresses, each with its alternates. The package
 refuses to write anything when a catalogue lacks a key a page uses, when JSON-LD carries a name or
 text that is not on the page, or when a page's inline script is not the one whose hash the CSP
 allows. `status/` and `404.html` have no copies: they are noindex.
@@ -116,7 +117,7 @@ independent readers (Python `icalendar`, `ical.js`).
 
 ## The salary calculator
 
-`konta.md/calculator-salariu` computes one month of 2026 from the gross salary: the medical
+`konta.md/instrumente`, the tools' first tab, computes one month of 2026 from the gross salary: the medical
 premium, the personal and dependant exemptions with the income ceiling, income tax, the net, the
 employer's social contribution and cost. It is the product's payroll arithmetic
 (`Konta.Domain.Payroll.PayrollArithmetic`, the cumulative method) written again in
@@ -144,6 +145,35 @@ calendar:
 The rulebook must be committed (`data/`, `vectors/`) or the package refuses, unless
 `KONTA_RULEBOOK_DIRTY=1` is set for a local look. What it leaves out is on the page: one month
 only, no major or spouse exemption, no other CNAS categories, no other income.
+
+## The tools
+
+The other tabs of `konta.md/instrumente` are pages like the salary calculator's, with the same
+rule: no rate, day count or rounding is in this repository. `assets/instrumente.js` holds their
+arithmetic over BigInt bani and exact fractions, the average salary per calendar day and the
+employer's sick days written again from the product's `Konta.Domain.Payroll.AverageEarnings` and
+`EmployerSickDays`. `tools/instrumente.py`, called by `package.py` after the salary calculator:
+
+- reads, for every day from 2026-01-01 to 2027-12-31, the keys each tool needs, resolved as the
+  salary calculator resolves them, and writes them into the page's
+  `<script type="application/json" id="tool-rules">` as periods, a new one wherever a value
+  changes (the VAT rates of 2027, marked provisional while the rulebook says so);
+- checks what the pages say in words against the rulebook's texts (the three-month average,
+  leave paid in calendar days less holidays, sick pay taxed with the premium and without the social
+  contribution, the IT Park minimum at 30% of the forecast average wage, roundings to the ban) and
+  refuses a value no longer "unverified";
+- reads the days off from `konta-rulebook`'s `tools/calendar.mjs`, as the calendar does, and
+  writes the working days' tables in each language from the page's hidden `data-tool-words`;
+- runs `node tools/test-instrumente.mjs` over the product's own worked examples
+  (`AverageEarningsTests`), VAT and IT Park cases, the tables against the script's own calendar
+  and 2026's published working-time balance; one ban or one day of difference and nothing is
+  packaged. `python tools/instrumente.py --check` runs it alone;
+- fills `{val:<year>:<key>}`, `{act:<year>:<key>}`, `{prov:<year>:<key>}` and `{commit}` in each
+  language. A key named for a year must keep one value all year.
+
+What each tool leaves out is on its page. Considered and left out because the rulebook does not
+hold their figures: the social insurance budget's sick, maternity, paternity and child-care
+benefits, pensions, the annual income tax return (CET18), road tax, and late-payment interest.
 
 ## The contact form
 

@@ -13,7 +13,7 @@ import json
 import re
 import sys
 
-PAGES = glob.glob('*.html') + glob.glob('*/index.html')
+PAGES = glob.glob('*.html') + glob.glob('*/index.html') + glob.glob('*/*/index.html')
 CATALOGUES = {'ru': 'assets/ru.json', 'en': 'assets/en.json'}
 
 KEY = re.compile(r'data-t(?:-aria-label)?="([^"]+)"')

@@ -1,0 +1,204 @@
+/* konta.md/instrumente: the tabs over every tool, and what the tools add to salary.css's form
+   beside its result. The tokens are site.css's. */
+
+/* The tabs: one link per tool, styled as the header's sections, on a band of their own under the
+   notice. They wrap on a narrow screen rather than scroll. */
+.tabs {
+  /* The header's chip sizes, which site.css sets on .masthead only. */
+  --chip-h: 33.6px;
+  --chip-px: 14.4px;
+  --chip-radius: var(--radius);
+  --chip-font: 14.4px;
+  background: var(--sunken);
+  border-bottom: 1px solid var(--rule);
+}
+
+.tabs__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding-block: 10px;
+}
+
+.tabs__link {
+  display: inline-flex;
+  align-items: center;
+  height: var(--chip-h);
+  padding: 0 var(--chip-px);
+  border-radius: var(--chip-radius);
+  color: var(--nav-text);
+  font: 400 var(--chip-font) / 1 var(--sans);
+  white-space: nowrap;
+  text-decoration: none;
+  outline: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tabs__link:hover {
+    background: var(--bg);
+  }
+}
+
+.tabs__link[aria-current='page'] {
+  background: var(--nav-active);
+  color: var(--nav-active-text);
+  font-weight: 500;
+}
+
+.tabs__link:focus-visible {
+  outline: 2px solid var(--nav-active);
+  outline-offset: 2px;
+}
+
+/* A choice between two ways of computing, and the three months of an average. */
+.tool__choice,
+.tool__months {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.tool__choice legend,
+.tool__months legend {
+  padding: 0;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.tool__part {
+  display: grid;
+  gap: 18px;
+}
+
+.tool__part[hidden],
+.calc__capped[hidden],
+.calc__error[hidden] {
+  display: none;
+}
+
+.tool__months [data-el='months'] {
+  display: grid;
+  gap: 14px;
+}
+
+.tool__month {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+}
+
+.tool__month-name {
+  grid-column: 1 / -1;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.tool__month-name::first-letter,
+.tool__mname::first-letter {
+  text-transform: uppercase;
+}
+
+.tool__prov {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: var(--radius);
+  background: var(--sunken);
+  color: var(--ink-2);
+  font-size: 0.75rem;
+}
+
+/* The working days: one year shown, chosen with buttons once script runs; without it, all. */
+.tool__years {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.tool__years[hidden],
+.tool__year[hidden] {
+  display: none;
+}
+
+.tool__year-btn {
+  font: 500 0.9375rem / 1 var(--sans);
+  height: 34px;
+  padding: 0 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.tool__year-btn[aria-pressed='true'] {
+  background: var(--nav-active);
+  border-color: var(--nav-active);
+  color: var(--nav-active-text);
+}
+
+.tool__year-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.tool__year + .tool__year {
+  margin-top: 40px;
+}
+
+.tool__year h2 {
+  margin-bottom: 14px;
+}
+
+.tool__year h3 {
+  margin: 26px 0 10px;
+}
+
+.tool__scroll {
+  overflow-x: auto;
+}
+
+.tool__table td {
+  text-align: right;
+}
+
+.tool__holidays {
+  margin: 0;
+  padding-left: 1.2em;
+  display: grid;
+  gap: 6px;
+}
+
+.tool__hdate {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+.tool__weekend {
+  color: var(--ink-3);
+  font-size: 0.875rem;
+}
+
+.tool__reduced {
+  margin-top: 14px;
+  color: var(--ink-2);
+}
+
+@media (max-width: 560px) {
+  .tool__month {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* A second rule set under the first, in the same band. */
+.tool__next {
+  margin-top: 24px;
+}
