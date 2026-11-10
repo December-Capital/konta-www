@@ -904,7 +904,7 @@ a.cal-day__n:hover {
 }
 
 /* The card holds the menu (or, without script, the list) and the steps in each calendar app. */
-/* Drawn like the contact form: its card and white fields (site.css, --form-*), Grafit on dark. */
+/* Drawn like the contact form: its card and white fields (site.css, --form-*), Mauve on dark. */
 .cal-feed-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

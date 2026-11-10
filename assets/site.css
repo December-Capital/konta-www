@@ -38,8 +38,8 @@
   --nav-active: #3d2c4b;
   --nav-text: #3d2c4b;
   --nav-active-text: #ece8e1;
-  /* The top bar: frosted glass over the page, Hârtie in the light and Grafit 700 in the dark, as
-     the brand book's page layers have it. --masthead-bg is the solid colour for browsers that cannot blur
+  /* The top bar: frosted glass over the page, Hârtie in the light and Mauve 6 in the dark, lighter than the
+     strip and the page under it. --masthead-bg is the solid colour for browsers that cannot blur
      what is behind it; --masthead-glass the same colour, see-through. */
   --masthead-bg: #f7f5f1;
   --masthead-glass: rgba(247, 245, 241, 0.76);
@@ -69,38 +69,31 @@
   --serif: 'Literata', Georgia, 'Times New Roman', serif;
   --sans: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
   /* The notice strip above the page: the brand book's Prună 800 band, its text in Prună 200 and
-     the flag in Aur; on dark, Grafit 900 with Nisip 300, the darkest strip as Prună is in the
-     light, between the Grafit 700 of the header and of the tools' tabs (the owner, 2026-11-03;
-     the brand book has Grafit 600). The footer is Prună 900 in the light and, darker than the
-     brand book's Grafit 700 at the owner's choice, Grafit 900 in the dark. */
+     the flag in Aur; on dark, Mauve 3 with Nisip 300, darker than the Mauve 6
+     header under it. The footer is Prună 900 in the light and Mauve 3 in the dark (the owner,
+     2026-11-10). */
   --notice-bg: #3d2c4b;
   --notice-ink: #d8c9e6;
   --notice-flag: #c9a46b;
   --footer-bg: #2a2033;
-  /* The tools' tabs, a second row of the header that stays with it: one step deeper than the
-     bar, Nisip 100 under its Hârtie and Grafit 600 under its Grafit 700, frosted like it; a tab
-     under the pointer shades one step more (the owner, 2026-11-10). */
-  --tabs-bg: #ece8e1;
-  --tabs-glass: rgba(236, 232, 225, 0.76);
-  --tabs-hover: #ded8ce;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #1d1d22;
-    --surface: #2b2b32;
-    --surface-2: #1d1d22;
-    --state-done-bg: #1e2b22;
+    --bg: #232225;
+    --surface: #2b292d;
+    --surface-2: #2b292d;
+    --state-done-bg: #1b2a1e;
     --state-review-bg: #3f3020;
     --state-plan: #cfc7ba;
-    --state-plan-bg: #3c3b44;
-    --sunken: #3c3b44;
+    --state-plan-bg: #323035;
+    --sunken: #323035;
     --ink: #ece8e1;
     --ink-2: #cfc7ba;
-    --ink-3: #a5a3ad;
-    --rule: #3c3b44;
-    --rule-strong: #79777f;
+    --ink-3: #b5b2bc;
+    --rule: #3c393f;
+    --rule-strong: #7c7a85;
     --accent: #bda6d4;
     --btn-bg: #c9b4dd;
     --btn-fg: #17161b;
@@ -109,14 +102,18 @@
     --ok: #77a385;
     --down: #cd8880;
     --shade: rgba(0, 0, 0, 0.4);
-    --nav-hover: #3c3b44;
+    --nav-hover: #49474e;
     --nav-active: #c9b4dd;
     --nav-text: #ece8e1;
     --nav-active-text: #3d2c4b;
-    --masthead-bg: #2b2b32;
-    --masthead-glass: rgba(43, 43, 50, 0.76);
-    --form-card: #1d1d22; /* Grafit 800, on the Grafit 700 band */
-    --form-field: #3c3b44;
+    --masthead-bg: #3c393f;
+    --masthead-glass: rgba(60, 57, 63, 0.76);
+    --results-bg: #2b292d;
+    --offer-bg: #2b292d;
+    --band-quiet: #1a191b;
+    --masthead-line: #49474e;
+    --form-card: #2b292d;
+    --form-field: #49474e;
     --form-label: #ece8e1;
     --form-hint: #cfc7ba;
     --form-btn-bg: #c9b4dd;
@@ -125,31 +122,32 @@
     --form-warn: #c9a46b;
     --form-warn-bg: #3f3020;
     --form-bad-bg: #2e1d1b;
-    --notice-bg: #16161a;
+    --notice-bg: #232225;
     --notice-ink: #cfc7ba;
     --notice-flag: #c9a46b;
-    --footer-bg: #16161a;
-    --tabs-bg: #3c3b44;
-    --tabs-glass: rgba(60, 59, 68, 0.76);
-    --tabs-hover: #2b2b32;
+    --footer-bg: #232225;
     color-scheme: dark;
   }
 }
 
 :root[data-theme='dark'] {
-  --bg: #1d1d22;
-  --surface: #2b2b32;
-  --surface-2: #1d1d22;
-  --state-done-bg: #1e2b22;
+  /* Dark is Radix Mauve (radix-ui.com/colors), the neutral nearest the brand: page Mauve 3,
+     quiet bands Mauve 2, panels Mauve 4, sunken rows Mauve 5, the bar and lines Mauve 6, hover and
+     fields Mauve 7, outlines Mauve 10, tertiary text Mauve 11. Liliac, Aur, Nisip, Salvie and
+     Cărămidă keep their brand values (the owner, 2026-11-10). */
+  --bg: #232225;
+  --surface: #2b292d;
+  --surface-2: #2b292d;
+  --state-done-bg: #1b2a1e;
   --state-review-bg: #3f3020;
   --state-plan: #cfc7ba;
-  --state-plan-bg: #3c3b44;
-  --sunken: #3c3b44;
+  --state-plan-bg: #323035;
+  --sunken: #323035;
   --ink: #ece8e1;
   --ink-2: #cfc7ba;
-  --ink-3: #a5a3ad;
-  --rule: #3c3b44;
-  --rule-strong: #79777f;
+  --ink-3: #b5b2bc;
+  --rule: #3c393f;
+  --rule-strong: #7c7a85;
   --accent: #bda6d4;
   --btn-bg: #c9b4dd;
   --btn-fg: #17161b;
@@ -158,14 +156,18 @@
   --ok: #77a385;
   --down: #cd8880;
   --shade: rgba(0, 0, 0, 0.4);
-  --nav-hover: #3c3b44;
+  --nav-hover: #49474e;
   --nav-active: #c9b4dd;
   --nav-text: #ece8e1;
   --nav-active-text: #3d2c4b;
-  --masthead-bg: #2b2b32;
-  --masthead-glass: rgba(43, 43, 50, 0.76);
-  --form-card: #1d1d22;
-  --form-field: #3c3b44;
+  --masthead-bg: #3c393f;
+  --masthead-glass: rgba(60, 57, 63, 0.76);
+  --results-bg: #2b292d;
+  --offer-bg: #2b292d;
+  --band-quiet: #1a191b;
+  --masthead-line: #49474e;
+  --form-card: #2b292d;
+  --form-field: #49474e;
   --form-label: #ece8e1;
   --form-hint: #cfc7ba;
   --form-btn-bg: #c9b4dd;
@@ -174,13 +176,10 @@
   --form-warn: #c9a46b;
   --form-warn-bg: #3f3020;
   --form-bad-bg: #2e1d1b;
-  --notice-bg: #16161a;
+  --notice-bg: #232225;
   --notice-ink: #cfc7ba;
   --notice-flag: #c9a46b;
-  --footer-bg: #16161a;
-  --tabs-bg: #3c3b44;
-  --tabs-glass: rgba(60, 59, 68, 0.76);
-  --tabs-hover: #2b2b32;
+  --footer-bg: #232225;
   color-scheme: dark;
 }
 
@@ -234,6 +233,12 @@ h3 {
 h1 {
   font-size: clamp(2rem, 1.25rem + 2.9vw, 3.15rem);
   line-height: 1.16;
+}
+
+/* A word the page wants seen as good news, in the brand's Salvie (trecerea-de-la-1c/: "Gratis"). */
+.free {
+  color: var(--ok);
+  font-weight: 600;
 }
 
 h2 {
@@ -327,7 +332,8 @@ body > main {
   position: absolute;
   inset: 0;
   z-index: -1;
-  border-bottom: 1px solid var(--rule);
+  /* The bar's own rule, which a theme may set apart from --rule when its rule is the bar's colour. */
+  border-bottom: 1px solid var(--masthead-line, var(--rule));
   background: var(--masthead-bg);
   transition: bottom 0.25s ease;
 }
@@ -1040,12 +1046,13 @@ body > main {
 }
 
 .band--quiet {
-  --band-bg: var(--surface);
+  /* On dark, a quiet band is the darker step (--band-quiet), so its panels stand out. */
+  --band-bg: var(--band-quiet, var(--surface));
   background: var(--band-bg);
 }
 
 /* Inside a raised band, what would be raised (cards, the register, the calendar's feeds) steps
-   once more, to Alb, or to Grafit 800 on dark, rather than vanishing into the band. What must
+   once more, to Alb, or to Mauve 4 on dark, where the quiet band itself is the darker Mauve 2. What must
    match the band itself uses --band-bg. */
 .band--quiet > * {
   --surface: var(--surface-2);
@@ -1053,6 +1060,11 @@ body > main {
 
 .band__head {
   margin-bottom: 26px;
+}
+
+/* Two parts of one band, each with its title (trecerea-de-la-1c/: the demo, then the steps). */
+.band__part + .band__part {
+  margin-top: var(--panel-pad);
 }
 
 .band__head p {
@@ -1209,7 +1221,7 @@ body > main {
    Footer
    --------------------------------------------------------------------------- */
 
-/* The footer is Prună 900 in the light and Grafit 900 in the dark, dark in both, so its mark is always the light one: the logo
+/* The footer is Prună 900 in the light and Mauve 3 in the dark, dark in both, so its mark is always the light one: the logo
    for a dark ground, and no data-logo for site.js to swap. A logo and a line under it, three
    columns of pages, then the owner and how to reach us; on a phone the columns stack. */
 .foot {
@@ -1473,7 +1485,7 @@ body > main {
 /* The founding offer, a band of its own above the cards: the notice strip's colours, so it reads
    as the same promise the strip makes, the title in Aur beside the terms (the owner, 2026-11-10). */
 .band--offer {
-  background: var(--notice-bg);
+  background: var(--offer-bg, var(--notice-bg));
   color: var(--notice-ink);
 }
 
@@ -1754,7 +1766,7 @@ body > main {
 }
 
 /* The form sits on a card on the raised Hârtie band, below the title panel's Nisip: the card
-   light sand (Grafit 800 on dark), as the calendar's feed card is, the fields white and the button aubergine, every corner
+   light sand (Mauve 4 on dark, its fields Mauve 7), as the calendar's feed card is, the fields white and the button aubergine, every corner
    rounded like the header's buttons (--radius). The card's padding is taken back by a margin as large, so
    nothing inside moves; on a phone the card runs to the screen's edges, its padding the page's
    gutter (.shell). */
