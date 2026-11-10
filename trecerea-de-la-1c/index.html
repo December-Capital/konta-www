@@ -4,21 +4,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title data-t="move.meta.title">Trecerea de la 1C la Konta, pas cu pas</title>
-    <meta name="description" data-t="move.meta.description" content="Cum treceți de la 1C la Konta: prima companie o mutăm noi, gratuit, apoi lucrați în paralel în ambele programe până când sumele coincid." />
+    <meta name="description" data-t="move.meta.description" content="Cum treceți de la 1C la Konta: încercați întâi Konta Demo, cu balanța din 1C sau cu Exemplu SRL, apoi lucrați în paralel până când sumele coincid." />
     <link rel="canonical" href="https://konta.md/trecerea-de-la-1c/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Konta" />
     <meta property="og:locale" content="ro_MD" />
     <meta property="og:url" content="https://konta.md/trecerea-de-la-1c/" />
     <meta property="og:title" content="Trecerea de la 1C la Konta, pas cu pas" />
-    <meta property="og:description" content="Cum treceți de la 1C la Konta: prima companie o mutăm noi, gratuit, apoi lucrați în paralel în ambele programe până când sumele coincid." />
+    <meta property="og:description" content="Cum treceți de la 1C la Konta: încercați întâi Konta Demo, cu balanța din 1C sau cu Exemplu SRL, apoi lucrați în paralel până când sumele coincid." />
     <meta property="og:image" content="https://konta.md/assets/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" data-t="og.image.alt" content="Konta · contabilitate pentru companiile din Moldova" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Trecerea de la 1C la Konta, pas cu pas" />
-    <meta name="twitter:description" content="Cum treceți de la 1C la Konta: prima companie o mutăm noi, gratuit, apoi lucrați în paralel în ambele programe până când sumele coincid." />
+    <meta name="twitter:description" content="Cum treceți de la 1C la Konta: încercați întâi Konta Demo, cu balanța din 1C sau cu Exemplu SRL, apoi lucrați în paralel până când sumele coincid." />
     <meta name="twitter:image" content="https://konta.md/assets/og.png" />
     <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#2b2b32" media="(prefers-color-scheme: dark)" />
@@ -26,7 +26,7 @@
     <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
-    <link rel="stylesheet" href="/assets/site.css?v=18" />
+    <link rel="stylesheet" href="/assets/site.css?v=23" />
     <script>
       // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
       // which is the device's theme and what nobody choosing means; the choice is made here or in
@@ -155,25 +155,43 @@
       <section class="hero hero--page">
         <div class="shell">
           <h1 data-t="move.title">Trecerea de la 1C</h1>
-          <p class="hero__lead" data-t="move.p1">Ne trimiteți balanța de verificare din 1C la data trecerii, iar noi deschidem compania în Konta cu aceleași solduri. Prima companie a fiecărei firme de contabilitate o mutăm noi, gratuit. Pe următoarele le puteți muta singuri, din același fel de fișier, pe pagina Solduri inițiale.</p>
+          <p class="hero__lead"><span data-t="move.p1">Nu trebuie să renunțați la 1C ca să încercați Konta.</span><br /><span data-t="move.p1b">Încercați cu datele companiei Dvstră sau o companie Exemplu cu un an de date - ca să vedeți cum funcționează.</span></p>
         </div>
       </section>
 
       <section class="band band--quiet">
-        <div class="shell">
+        <div class="shell band__part">
           <div class="band__head">
-            <h2 data-t="move.steps.title">Cum decurge</h2>
+            <h2 id="demo-title" data-t="move.demo.title">Încercați Konta Demo</h2>
+          </div>
+
+          <div class="prose">
+            <p><span data-t="move.demo.p1">Este</span> <strong class="free" data-t="move.demo.free">Gratis</strong> <span data-t="move.demo.p1b">și puteți s-o folosiți cât aveți nevoie.</span></p>
+            <p data-t="move.demo.p2">Puteți începe cu o companie a Dvstră: exportați din 1C balanța de verificare, o încărcați în Konta Demo și lucrați cu soldurile ei. Sau alegeți la intrare Exemplu SRL, o companie inventată cu un an de date, și vedeți cum arată un an întreg de contabilitate în Konta.</p>
+            <p data-t="move.demo.p3">În Demo, de asemenea, este un Tutorial care vă arată ce și unde se află, pentru o orientare și utilizare mai ușoară.</p>
+            <p data-t="move.demo.p4">Tot ce faceți în varianta Demo nu se pierde: după lansare, veți avea posibilitatea să transferați din Demo în Konta oficială toate datele companiei, partenerii, angajații, mijloacele fixe și soldurile inițiale.</p>
+          </div>
+
+          <div class="hero__actions">
+            <a class="btn" href="https://demo.konta.md" data-t="hero.app">Încearcă Demo</a>
+          </div>
+        </div>
+
+        <div class="shell band__part">
+          <div class="band__head">
+            <h2 id="steps-title" data-t="move.steps.title">Cum aduceți o companie din 1C</h2>
           </div>
 
           <ol class="steps">
-            <li data-t="move.s1">Exportați din 1C balanța de verificare la data aleasă (xlsx sau csv).</li>
-            <li data-t="move.s2">Deschidem compania în Konta cu aceleași solduri.</li>
-            <li data-t="move.s3">Lucrați în paralel în ambele programe și comparați sumele.</li>
-            <li data-t="move.s4">Renunțați la 1C abia când cifrele coincid.</li>
+            <li data-t="move.s1">În 1C, faceți balanța de verificare pe ultima lună lucrată, cu subconturile, și salvați-o ca .xlsx sau .csv.</li>
+            <li data-t="move.s2">În Konta, pe pagina Solduri inițiale, încărcați fișierul sau lipiți celulele copiate din Excel. Konta ia din el soldurile finale ale conturilor.</li>
+            <li data-t="move.s3">Lucrați o perioadă în ambele programe și comparați sumele.</li>
+            <li data-t="move.s4">Vă convingeți cât de ușor este lucrul în Konta și renunțați la 1C.</li>
           </ol>
 
           <div class="prose after-table">
-            <p data-t="move.p2">Perioada în paralel durează cât aveți nevoie. Konta preia soldurile conturilor la data trecerii, iar documentele de dinainte rămân în 1C. Trecerea se sprijină pe cifre reconciliate, pe care le puteți verifica singur.</p>
+            <p><span data-t="move.p2">Perioada în paralel durează cât aveți nevoie.</span><br /><span data-t="move.p2b">Konta pornește de la soldurile din balanță și nu citește baza de date 1C, așa că documentele de dinainte rămân în 1C.</span></p>
+            <p><a href="/ghid/#solduri-1c" data-t="move.guide">Toți pașii, în detaliu, sunt în ghid</a></p>
           </div>
         </div>
       </section>
@@ -184,7 +202,7 @@
         <div class="shell">
           <div class="band__head">
             <h2 id="np-title" data-t="np.title">De ce nu veți mai avea nevoie de un programator</h2>
-            <p data-t="np.p1">Într-un program în care regulile fiscale sunt scrise în cod, fiecare lege nouă înseamnă un programator plătit care vine și rescrie codul, separat pe fiecare instalare. În Konta, legea este păstrată ca date. O modificăm noi o singură dată și ajunge la toți clienții în aceeași zi.</p>
+            <p data-t="np.p1">Când regulile fiscale sunt scrise în codul programului, fiecare lege nouă cere un programator plătit, care rescrie codul pe fiecare instalare în parte. În Konta, legea e ținută ca date: o schimbăm noi o dată și ajunge la toți clienții în aceeași zi.</p>
             <p class="lead-in" data-t="np.p2">Legea privind politica fiscală și vamală pentru 2027 (proiectul nr. 326) a fost adoptată de Parlament la 22 octombrie 2026, ca Legea nr. 247, dar nu este încă publicată în Monitorul Oficial. Iată ce schimbă:</p>
           </div>
 
@@ -216,7 +234,7 @@
           </table>
 
           <div class="prose after-table">
-            <p data-t="np.p3">Într-un program obișnuit, fiecare rând din tabel înseamnă încă o chemare a programatorului. În Konta, le trecem noi în registrul public, cu trimitere la lege, unde oricine le poate verifica. Când legea apare în Monitorul Oficial, verificăm fiecare valoare în textul publicat și o actualizăm, dacă e nevoie, o singură dată, pentru toți clienții. Nu plătiți separat pentru ele.</p>
+            <p data-t="np.p3">Într-un program obișnuit, fiecare rând din tabel înseamnă încă o vizită a programatorului. În Konta, le trecem noi în registrul public, cu trimitere la lege, unde le poate verifica oricine. Când legea apare în Monitorul Oficial, comparăm fiecare valoare cu textul publicat și o corectăm, dacă e nevoie, o singură dată pentru toți clienții. Nu plătiți nimic în plus.</p>
           </div>
         </div>
       </section>
