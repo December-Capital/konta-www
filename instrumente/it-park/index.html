@@ -3,22 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title data-t="itp.meta.title">Calculator impozit unic IT Park 2026 · Konta</title>
-    <meta name="description" data-t="itp.meta.description" content="Impozitul unic al unui rezident IT Park într-o lună din 2026: cota din venitul din vânzări sau minimul pe angajat, din registrul public konta-rulebook." />
+    <title data-t="itp.meta.title">Calculator IT Park sau regim general 2026 · Konta</title>
+    <meta name="description" data-t="itp.meta.description" content="Impozitele unei luni din 2026 în IT Park și în regimul general, cu aceleași vânzări și salarii, din registrul public konta-rulebook." />
     <link rel="canonical" href="https://konta.md/instrumente/it-park/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Konta" />
     <meta property="og:locale" content="ro_MD" />
     <meta property="og:url" content="https://konta.md/instrumente/it-park/" />
-    <meta property="og:title" content="Calculator impozit unic IT Park 2026 · Konta" />
-    <meta property="og:description" content="Impozitul unic al unui rezident IT Park într-o lună din 2026: cota din venitul din vânzări sau minimul pe angajat, din registrul public konta-rulebook." />
+    <meta property="og:title" content="Calculator IT Park sau regim general 2026 · Konta" />
+    <meta property="og:description" content="Impozitele unei luni din 2026 în IT Park și în regimul general, cu aceleași vânzări și salarii, din registrul public konta-rulebook." />
     <meta property="og:image" content="https://konta.md/assets/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" data-t="og.image.alt" content="Konta · contabilitate pentru companiile din Moldova" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Calculator impozit unic IT Park 2026 · Konta" />
-    <meta name="twitter:description" content="Impozitul unic al unui rezident IT Park într-o lună din 2026: cota din venitul din vânzări sau minimul pe angajat, din registrul public konta-rulebook." />
+    <meta name="twitter:title" content="Calculator IT Park sau regim general 2026 · Konta" />
+    <meta name="twitter:description" content="Impozitele unei luni din 2026 în IT Park și în regimul general, cu aceleași vânzări și salarii, din registrul public konta-rulebook." />
     <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#2b2b32" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/assets/favicon.png" type="image/png" />
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
     <link rel="stylesheet" href="/assets/site.css?v=17" />
     <link rel="stylesheet" href="/assets/salary.css?v=2" />
-    <link rel="stylesheet" href="/assets/instrumente.css?v=3" />
+    <link rel="stylesheet" href="/assets/instrumente.css?v=4" />
     <script>
       // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
       // which is the device's theme and what nobody choosing means; the choice is made here or in
@@ -76,7 +76,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Impozitul unic IT Park, 2026",
+          "name": "IT Park sau regimul general, 2026",
           "item": "https://konta.md/instrumente/it-park/"
         }
       ]
@@ -166,8 +166,8 @@
 
       <section class="hero hero--page">
         <div class="shell">
-          <h1 data-t="itp.title">Impozitul unic IT Park, 2026</h1>
-          <p class="hero__lead" data-t="itp.lead">Cât plătește într-o lună un rezident al unui parc pentru tehnologia informației: {val:2026:itpark.single_tax.rate} din venitul din vânzări, dar nu mai puțin de {val:2026:itpark.single_tax.min_per_employee_monthly} lei pentru fiecare angajat.</p>
+          <h1 data-t="itp.title">IT Park sau regimul general, 2026</h1>
+          <p class="hero__lead" data-t="itp.lead">Cât plătește firma într-o lună ca rezident al unui parc IT și cât ar plăti în regimul general, cu aceleași vânzări și aceleași salarii. În parc plătește {val:2026:itpark.single_tax.rate} din venitul din vânzări, dar nu mai puțin de {val:2026:itpark.single_tax.min_per_employee_monthly} lei pentru fiecare angajat.</p>
           <p class="updated" data-t="tools.review">Valorile sunt încă în verificare la un contabil autorizat.</p>
         </div>
       </section>
@@ -185,28 +185,94 @@
               <label for="employees" data-t="itp.employees">Numărul de angajați</label>
               <input id="employees" name="employees" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" value="2" />
             </div>
+            <div class="field">
+              <label for="salaries" data-t="itp.salaries">Salariile brute ale tuturor angajaților în lună, în lei</label>
+              <input id="salaries" name="salaries" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="40000" />
+            </div>
+            <p class="calc__error" data-el="salaries-error" hidden data-t="sal.gross.error">Scrieți suma în lei, cu cifre, și cel mult doi bani după virgulă.</p>
+            <p class="calc__error" data-el="nobody-error" hidden data-t="itp.nobody">Salariile cer cel puțin un angajat.</p>
+            <div class="field">
+              <label for="costs" data-t="itp.costs">Alte cheltuieli deductibile în lună, în lei</label>
+              <input id="costs" name="costs" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="0" />
+              <span class="calc__hint" data-t="itp.costs.hint">Chiria, serviciile, echipamentul: în regimul general scad profitul impozabil.</span>
+            </div>
+            <p class="calc__error" data-el="costs-error" hidden data-t="sal.gross.error">Scrieți suma în lei, cu cifre, și cel mult doi bani după virgulă.</p>
+            <label class="calc__check">
+              <input type="checkbox" name="personal" checked />
+              <span data-t="itp.personal">Fiecare angajat a cerut scutirea personală</span>
+            </label>
+            <fieldset class="tool__choice">
+              <legend data-t="itp.regime">Impozitul pe venit al firmei în regimul general</legend>
+              <label class="calc__check">
+                <input type="radio" name="regime" value="profit" checked />
+                <span data-t="itp.regime.profit">{val:2026:tax.profit.standard_rate} din profit</span>
+              </label>
+              <label class="calc__check">
+                <input type="radio" name="regime" value="ivao" />
+                <span data-t="itp.regime.ivao">IVAO: {val:2026:tax.profit.ivao_rate} din venit, pentru un venit de până la {val:2026:tax.profit.ivao_revenue_ceiling} lei pe an</span>
+              </label>
+            </fieldset>
             <noscript><p class="calc__hint" data-t="tools.noscript">Calculatorul are nevoie de JavaScript. Fără el, regulile și valorile de mai jos rămân de citit.</p></noscript>
           </form>
 
           <div class="calc__out">
-            <table class="calc__results calc__results--stale" data-results aria-live="polite">
-              <caption data-t="itp.caption">O lună, în lei</caption>
-              <tbody>
-                <tr>
-                  <th scope="row" data-t="itp.out.share">{val:2026:itpark.single_tax.rate} din venit</th>
-                  <td data-out="share">–</td>
-                </tr>
-                <tr>
-                  <th scope="row" data-t="itp.out.floor">Minimul, {val:2026:itpark.single_tax.min_per_employee_monthly} lei pentru fiecare angajat</th>
-                  <td data-out="floor">–</td>
-                </tr>
-                <tr class="calc__total">
-                  <th scope="row" data-t="itp.out.tax">Impozitul unic de plată</th>
-                  <td data-out="tax">–</td>
-                </tr>
-              </tbody>
-            </table>
-            <p class="calc__capped" data-el="by-floor" hidden data-t="itp.byfloor">Se plătește minimul, fiindcă este mai mare decât cota din venit.</p>
+            <p class="tool__verdict" data-el="verdict" aria-live="polite" hidden></p>
+            <div class="tool__scroll">
+              <table class="calc__results calc__results--stale tool__table tool__compare" data-results aria-live="polite">
+                <caption data-t="itp.caption">O lună, în lei</caption>
+                <thead>
+                  <tr>
+                    <td></td>
+                    <th scope="col" data-t="itp.col.general">Regimul general</th>
+                    <th scope="col" data-t="itp.col.park">IT Park</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" data-t="itp.out.social">Contribuția de asigurări sociale a angajatorului, {val:2026:payroll.cnas.employer_rate}</th>
+                    <td data-out="social">–</td>
+                    <td>–</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-t="itp.out.medical">Primele de asigurare medicală, {val:2026:payroll.cnam.employee_rate}, reținute din salarii</th>
+                    <td data-out="medical">–</td>
+                    <td>–</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-t="itp.out.incometax">Impozitul pe venit din salarii, {val:2026:payroll.income_tax.rate}, reținut</th>
+                    <td data-out="incomeTax">–</td>
+                    <td>–</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <span data-el="company-profit" data-t="itp.out.profit">Impozitul pe venit al firmei, {val:2026:tax.profit.standard_rate} din profit</span>
+                      <span data-el="company-ivao" hidden data-t="itp.out.ivao">IVAO, {val:2026:tax.profit.ivao_rate} din venit</span>
+                    </th>
+                    <td data-out="company">–</td>
+                    <td>–</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-t="itp.out.share">Impozitul unic, {val:2026:itpark.single_tax.rate} din venit</th>
+                    <td>–</td>
+                    <td data-out="share">–</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-t="itp.out.floor">Minimul impozitului unic, {val:2026:itpark.single_tax.min_per_employee_monthly} lei pentru fiecare angajat</th>
+                    <td>–</td>
+                    <td data-out="floor">–</td>
+                  </tr>
+                  <tr class="calc__total">
+                    <th scope="row" data-t="itp.out.total">Total de plată</th>
+                    <td data-out="general">–</td>
+                    <td data-out="tax">–</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="calc__capped" data-el="by-floor" hidden data-t="itp.byfloor">În IT Park se plătește minimul, fiindcă este mai mare decât cota din venit.</p>
+            <p class="calc__capped" data-el="loss" hidden data-t="itp.loss">În regimul general firma are pierdere, deci nu plătește impozit pe profit.</p>
+            <p class="calc__capped" data-el="over-ivao" hidden data-t="itp.overivao">Cu acest venit firma trece de {val:2026:tax.profit.ivao_revenue_ceiling} lei pe an și nu poate aplica IVAO.</p>
+            <p class="calc__capped" data-el="capped" hidden data-t="itp.capped">Salariul unui angajat trece de {val:2026:payroll.income_tax.personal_deduction_income_cap} lei pe an, așa că el nu are scutirea personală.</p>
           </div>
         </div>
       </section>
@@ -216,6 +282,8 @@
           <h2 data-t="tools.how.h">Cum se calculează</h2>
           <p data-t="itp.how.p1">Impozitul unic este cota din venitul din vânzări al lunii, dar nu mai puțin decât minimul înmulțit cu numărul de angajați. Minimul pe angajat este 30% din salariul mediu lunar pe economie prognozat pentru anul respectiv: 30% din {val:2026:payroll.average_wage.forecast_monthly} lei.</p>
           <p data-t="itp.how.p2">Impozitul unic ține loc de impozitul pe venit al firmei, de impozitul pe venit din salarii, de contribuțiile de asigurări sociale și de primele de asigurare medicală; după SFS, și de impozitele locale, de impozitul pe bunurile imobiliare și de taxa pentru drumuri. TVA se plătește separat.</p>
+          <p data-t="itp.how.p4">În regimul general, salariile se impozitează ca în calculatorul de salariu: angajatorul plătește contribuția de asigurări sociale de {val:2026:payroll.cnas.employer_rate}, iar din salariul fiecărui angajat se rețin prima de asigurare medicală de {val:2026:payroll.cnam.employee_rate} și impozitul pe venit de {val:2026:payroll.income_tax.rate}, după scutirea personală. Salariile se împart în mod egal între angajați. Ce se reține din salarii intră în total, fiindcă în IT Park impozitul unic ține loc și de acestea.</p>
+          <p data-t="itp.how.p5">Profitul este venitul din vânzări minus salariile brute, contribuția angajatorului și celelalte cheltuieli deductibile. Firma plătește {val:2026:tax.profit.standard_rate} din profit, iar o pierdere nu se impozitează. Cu IVAO, firma plătește în schimb {val:2026:tax.profit.ivao_rate} din venit, oricât ar fi profitul.</p>
           <p data-t="itp.how.p3">Suma se rotunjește la ban, iar o jumătate de ban se rotunjește în sus: alegerea noastră, actele citite nu dau o regulă de rotunjire.</p>
         </div>
       </section>
@@ -226,7 +294,9 @@
           <ul class="calc__not">
             <li data-t="itp.not.1">Nu verifică dacă firma poate fi rezidentă a unui parc IT sau dacă activitățile ei se încadrează.</li>
             <li data-t="itp.not.2">Doar pentru 2026: registrul nu are încă minimul pentru 2027.</li>
-            <li data-t="itp.not.3">Nu calculează TVA și nici salariile nete ale angajaților.</li>
+            <li data-t="itp.not.3">Nu calculează TVA, care se plătește separat în ambele regimuri.</li>
+            <li data-t="itp.not.4">În regimul general nu ține cont de facilitățile la impozitul pe venit al firmei, de pierderile din anii trecuți și nici de condițiile IVAO, în afară de plafonul venitului.</li>
+            <li data-t="itp.not.5">Nu adaugă la regimul general impozitele locale, impozitul pe bunurile imobiliare și taxa pentru drumuri, de care, după SFS, impozitul unic ține loc.</li>
           </ul>
         </div>
       </section>
@@ -266,6 +336,46 @@
                   <td class="calc__act">{act:2026:payroll.average_wage.forecast_monthly}</td>
                 </tr>
                 <tr>
+                  <td data-t="sal.v.cnas">Contribuția de asigurări sociale, plătită de angajator</td>
+                  <td class="rate">{val:2026:payroll.cnas.employer_rate}</td>
+                  <td class="calc__act">{act:2026:payroll.cnas.employer_rate}</td>
+                </tr>
+                <tr>
+                  <td data-t="sal.v.cnam">Prima de asigurare medicală, reținută de la angajat</td>
+                  <td class="rate">{val:2026:payroll.cnam.employee_rate}</td>
+                  <td class="calc__act">{act:2026:payroll.cnam.employee_rate}</td>
+                </tr>
+                <tr>
+                  <td data-t="sal.v.tax">Impozitul pe venit</td>
+                  <td class="rate">{val:2026:payroll.income_tax.rate}</td>
+                  <td class="calc__act">{act:2026:payroll.income_tax.rate}</td>
+                </tr>
+                <tr>
+                  <td data-t="sal.v.personal">Scutirea personală, pe an</td>
+                  <td class="rate">{val:2026:payroll.income_tax.personal_deduction_annual}</td>
+                  <td class="calc__act">{act:2026:payroll.income_tax.personal_deduction_annual}</td>
+                </tr>
+                <tr>
+                  <td data-t="sal.v.cap">Plafonul venitului anual pentru scutirea personală</td>
+                  <td class="rate">{val:2026:payroll.income_tax.personal_deduction_income_cap}</td>
+                  <td class="calc__act">{act:2026:payroll.income_tax.personal_deduction_income_cap}</td>
+                </tr>
+                <tr>
+                  <td data-t="itp.v.profit">Impozitul pe venit al firmei, din profit</td>
+                  <td class="rate">{val:2026:tax.profit.standard_rate}</td>
+                  <td class="calc__act">{act:2026:tax.profit.standard_rate}</td>
+                </tr>
+                <tr>
+                  <td data-t="itp.v.ivao">IVAO, din venitul din activitatea operațională</td>
+                  <td class="rate">{val:2026:tax.profit.ivao_rate}</td>
+                  <td class="calc__act">{act:2026:tax.profit.ivao_rate}</td>
+                </tr>
+                <tr>
+                  <td data-t="itp.v.ivaocap">Plafonul venitului anual pentru IVAO</td>
+                  <td class="rate">{val:2026:tax.profit.ivao_revenue_ceiling}</td>
+                  <td class="calc__act">{act:2026:tax.profit.ivao_revenue_ceiling}</td>
+                </tr>
+                <tr>
                   <td data-t="sal.v.round">Rotunjirea</td>
                   <td class="rate"><span data-t="sal.v.ban">la ban</span></td>
                   <td class="calc__act"><span data-t="sal.v.round.act">Alegerea noastră: actele citite nu dau o regulă de rotunjire.</span></td>
@@ -290,6 +400,9 @@
       </section>
       <div hidden data-tool-words>
         <span data-w="provisional" data-t="tools.w.provisional">provizoriu</span>
+        <span data-w="verdict.less" data-t="itp.w.less">În IT Park firma plătește cu {month} lei mai puțin pe lună, {year} lei pe an.</span>
+        <span data-w="verdict.more" data-t="itp.w.more">În IT Park firma plătește cu {month} lei mai mult pe lună, {year} lei pe an.</span>
+        <span data-w="verdict.same" data-t="itp.w.same">Firma plătește la fel în ambele regimuri.</span>
       </div>
     </main>
 
@@ -345,6 +458,7 @@
       {"lang.next": "Treci la", "theme.light": "Varianta luminoasă", "theme.dark": "Varianta întunecată", "theme.auto": "Varianta automată"}
     </script>
     <script src="/assets/site.js?v=11"></script>
-    <script src="/assets/instrumente.js?v=1"></script>
+    <script src="/assets/salary.js?v=2"></script>
+    <script src="/assets/instrumente.js?v=2"></script>
   </body>
 </html>

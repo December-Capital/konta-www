@@ -199,6 +199,50 @@
   }
 }
 
+/* IT Park beside the general regime: the difference first, then the two columns. */
+.tool__verdict {
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--gold-rule);
+  background: var(--sunken);
+  border-radius: var(--radius);
+  color: var(--ink);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.tool__verdict[hidden] {
+  display: none;
+}
+
+.tool__compare thead th {
+  text-align: right;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.tool__compare td {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.tool__compare th[scope='row'] {
+  min-width: 9em;
+}
+
+@media (max-width: 560px) {
+  .tool__compare thead th {
+    white-space: normal;
+  }
+}
+
+.tool__compare + .calc__capped,
+.tool__scroll + .calc__capped {
+  margin-top: 14px;
+}
+
 /* A second rule set under the first, in the same band. */
 .tool__next {
   margin-top: 24px;

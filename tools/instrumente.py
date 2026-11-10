@@ -8,7 +8,7 @@ tools/languages.py writes their Russian and English copies first:
     instrumente/concediu/         leave pay and the compensation for unused leave
     instrumente/boala/            the employer's days of a sick leave
     instrumente/zile-lucratoare/  working days and hours, month by month
-    instrumente/it-park/          the IT Park single tax
+    instrumente/it-park/          the IT Park single tax beside the general regime's taxes
 
 No rate, day count or rounding is typed into this repository. Each page gets the rules it needs in
 <script type="application/json" id="tool-rules">, where assets/instrumente.js reads them, as
@@ -79,6 +79,7 @@ SICK = AVERAGE + [
 ]
 WORKING_TIME = ['labour.working_time.daily_hours', 'labour.working_time.pre_holiday_reduction_hours']
 ITPARK = ['itpark.single_tax.rate', 'itpark.single_tax.min_per_employee_monthly', 'payroll.average_wage.forecast_monthly']
+GENERAL = ['tax.profit.standard_rate', 'tax.profit.ivao_rate', 'tax.profit.ivao_revenue_ceiling']
 
 
 class Refused(Exception):
@@ -215,16 +216,29 @@ def sick_rules(sets, cal):
     return {'from': iso(FIRST), 'to': iso(LAST), 'periods': out, 'calendar': cal['js']}
 
 
-def itpark_rules(sets):
-    """One year: the page shows the tax for 2026, the only year the rulebook has the minimum for."""
-    year = year_values(sets, ITPARK, 2026)
+def itpark_rules(sets, rulebook):
+    """One year: the page shows the tax for 2026, the only year the rulebook has the minimum for,
+    beside the same month in the general regime: the salary calculator's payroll rules for its
+    salaries, and the company's income tax on its profit or, under IVAO, on its revenue."""
+    year = year_values(sets, ITPARK + GENERAL, 2026)
     rate = number(ITPARK[0], year[ITPARK[0]][1])
     minimum = number(ITPARK[1], year[ITPARK[1]][1])
     wage = number(ITPARK[2], year[ITPARK[2]][1])
     # Art. 370 alin. (2): the minimum is 30% of the forecast average wage. The page says so.
     if salary.cents(minimum) * 10 != salary.cents(wage) * 3:
         raise Refused('the page says the IT Park minimum is 30%% of the forecast average wage; the rulebook has %s and %s' % (minimum, wage))
-    return {'year': 2026, 'rate': rate, 'minimum': minimum}
+    # The salary calculator's own rules, refused as it refuses them, and for the same year.
+    if salary.YEAR != 2026:
+        raise Refused('the IT Park page compares 2026; the salary calculator computes %d' % salary.YEAR)
+    resolved = salary.year_rules(rulebook)
+    payroll = salary.raw_rules(resolved)
+    salary.check_page_words(resolved, payroll)
+    return {
+        'year': 2026, 'rate': rate, 'minimum': minimum, 'payroll': payroll,
+        'profitRate': number(GENERAL[0], year[GENERAL[0]][1]),
+        'ivaoRate': number(GENERAL[1], year[GENERAL[1]][1]),
+        'ivaoCeiling': number(GENERAL[2], year[GENERAL[2]][1]),
+    }
 
 
 def year_values(sets, keys, year):
@@ -453,7 +467,7 @@ def gather(rulebook):
         'vat': vat_rules(sets),
         'leave': leave_rules(sets, cal),
         'sick': sick_rules(sets, cal),
-        'itpark': itpark_rules(sets),
+        'itpark': itpark_rules(sets, rulebook),
     }
     tables = days_tables(sets, cal)
     return sets, all_rules, tables

@@ -10,7 +10,8 @@
  * this file and the product both pass konta-rulebook's vectors/payroll-md-2026.json to the ban
  * (tools/test-salary.mjs).
  *
- * Loaded by the page as a plain script, and by tools/test-salary.mjs through require().
+ * Loaded by the page as a plain script, by the IT Park tab before assets/instrumente.js, and by
+ * tools/test-salary.mjs and tools/test-instrumente.mjs through require().
  */
 (function () {
   'use strict';
@@ -165,6 +166,10 @@
     module.exports = api;
     return;
   }
+
+  // The IT Park tab compares with the general regime and taxes its salaries with this arithmetic
+  // (assets/instrumente.js), so it loads this file first.
+  window.KontaSalary = api;
 
   // --- The page ------------------------------------------------------------------------------
 
