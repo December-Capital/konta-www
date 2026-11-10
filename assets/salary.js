@@ -188,7 +188,10 @@
 
   function out(name, amount) {
     var cell = document.querySelector('[data-out="' + name + '"]');
-    if (cell) cell.textContent = format(amount, lang);
+    if (!cell) return;
+    // The digits roll to the new figure where assets/roll.js is loaded (the tools' pages).
+    if (window.kontaRoll) window.kontaRoll(cell, format(amount, lang));
+    else cell.textContent = format(amount, lang);
   }
 
   function show() {

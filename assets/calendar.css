@@ -1,15 +1,5 @@
 /* konta.md/calendar. Only the calendar page links this file; the tokens are site.css's. */
 
-.cal-review {
-  margin-top: 0.6rem;
-  color: var(--ink-2);
-  font-size: 0.88rem;
-}
-
-.cal-review .ruleset__state {
-  margin-right: 0.4rem;
-}
-
 .cal-months {
   border-top: 0;
 }
@@ -914,14 +904,14 @@ a.cal-day__n:hover {
 }
 
 /* The card holds the menu (or, without script, the list) and the steps in each calendar app. */
+/* Drawn like the contact form: its card and white fields (site.css, --form-*), Grafit on dark. */
 .cal-feed-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   padding: 1.1rem 1.2rem 1.2rem;
-  border: 1px solid var(--rule);
   border-radius: 10px;
-  background: var(--surface);
+  background: var(--form-card);
 }
 
 .cal-pick {
@@ -950,13 +940,13 @@ a.cal-day__n:hover {
   min-height: 44px;
   padding: 0.4rem 0.7rem;
   color: var(--ink);
-  border: 1px solid var(--rule-strong);
+  background: var(--form-field);
+  border: 1px solid var(--form-field);
   border-radius: var(--radius);
 }
 
 .cal-pick__select {
   font: inherit;
-  background: var(--bg);
   cursor: pointer;
 }
 
@@ -972,7 +962,6 @@ a.cal-day__n:hover {
   min-width: 0;
   font-family: monospace;
   font-size: 0.88rem;
-  background: var(--sunken);
 }
 
 .cal-pick__copy {

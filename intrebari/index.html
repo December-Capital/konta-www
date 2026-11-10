@@ -26,7 +26,7 @@
     <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
-    <link rel="stylesheet" href="/assets/site.css?v=17" />
+    <link rel="stylesheet" href="/assets/site.css?v=18" />
     <script>
       // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
       // which is the device's theme and what nobody choosing means; the choice is made here or in
@@ -174,6 +174,13 @@
   <body>
     <a class="skip" href="#main" data-t="skip">Sari la conținut</a>
 
+    <div class="notice">
+      <div class="shell notice__bar">
+        <span class="notice__flag" data-t="dev.flag">În dezvoltare.</span>
+        <p data-t="dev.text">Konta este încă în lucru. Puteți încerca varianta Demo până produsul final este lansat pe piață. Scrieți-ne și puteți beneficia începând cu jumătate de an Gratis după lansare.</p>
+      </div>
+    </div>
+
     <header class="masthead">
       <div class="shell masthead__bar">
         <a class="brand" href="/">
@@ -228,24 +235,17 @@
             </svg>
           </button>
 
-          <a class="masthead__app" href="https://demo.konta.md"><span class="masthead__app-long" data-t="nav.app">Intră în aplicație</span><span class="masthead__app-short" data-t="nav.app.short">Intră</span></a>
+          <a class="masthead__app" href="https://demo.konta.md"><span class="masthead__app-long" data-t="nav.app">Încearcă Demo</span><span class="masthead__app-short" data-t="nav.app.short">Demo</span></a>
         </div>
       </div>
     </header>
 
-    <div class="notice">
-      <div class="shell notice__bar">
-        <span class="notice__flag" data-t="dev.flag">În dezvoltare</span>
-        <p data-t="dev.text">Konta este încă în lucru. Pe acest site descriem produsul pe care îl construim și cât am avansat. Deocamdată nu se poate cumpăra.</p>
-      </div>
-    </div>
-
     <main id="main">
       <section class="hero hero--page">
         <div class="shell">
-          <h1 data-t="faq.title">Zece întrebări pentru orice program de contabilitate</h1>
-          <p class="hero__lead" data-t="faq.p1">Puneți-le oricărui furnizor înainte să-i încredințați contabilitatea, nouă inclusiv. Un răspuns bun se poate verifica: un document, un act normativ, o regulă pe care o aplică baza de date. Sub fiecare întrebare este răspunsul nostru. Unde scrie „Planificat”, nu există încă.</p>
-          <p class="updated" data-t="faq.updated">Răspunsuri valabile la 1 noiembrie 2026</p>
+          <h1 class="title--full" data-t="faq.title">Zece întrebări pentru orice program de contabilitate</h1>
+          <p class="hero__lead"><span data-t="faq.p1">Puneți-le oricărui furnizor înainte să-i încredințați contabilitatea, nouă inclusiv.</span><br /><span data-t="faq.p1b">Un răspuns bun se poate verifica: un document, un act normativ, o regulă pe care o aplică baza de date.</span><br /><span data-t="faq.p1c">Sub fiecare întrebare este răspunsul nostru „Aplicat”, „Parțial”, „Planificat”.</span></p>
+          <p class="updated updated--edit" data-t="faq.updated">ultima editare: 1 noiembrie 2026</p>
         </div>
       </section>
 
@@ -259,35 +259,34 @@
             </li>
             <li id="q2">
               <h2 data-t="faq.q2">De unde vine fiecare cotă și fiecare termen? Pot vedea actul normativ?</h2>
-              <p class="state state--partial" data-t="state.partial">În parte</p>
+              <p class="state state--partial" data-t="faq.state.partial">Parțial</p>
               <p data-t="faq.a2">Pentru cote, plafoane, conturi și termene, da. În codul Konta nu este scrisă nicio cotă: programul le citește dintr-un registru public, în care fiecare valoare are data de la care se aplică și actul normativ din care vine. Termenele de depunere și de plată sunt în același registru, fiecare cu actul și articolul lui, iar calendarul fiscal de pe acest site le arată lună de lună. Registrul este încă în verificare la un contabil autorizat. În aplicație, fiecare companie are termenele ei din același registru, fiecare cu un responsabil și o stare.</p>
-              <p><a href="/calendar/" data-t="faq.a2.cal">Deschideți calendarul fiscal</a></p>
-              <p><a href="https://github.com/December-Capital/konta-rulebook" rel="noopener" data-t="set.link">Deschideți registrul public</a></p>
+              <p><a href="/calendar/" data-t="faq.a2.cal">Deschideți calendarul fiscal</a> · <a href="https://github.com/December-Capital/konta-rulebook" rel="noopener" data-t="set.link">Deschideți registrul public</a></p>
             </li>
             <li id="q3">
               <h2 data-t="faq.q3">Cine din firma dumneavoastră îmi poate deschide contabilitatea, și aflu eu când se întâmplă?</h2>
-              <p class="state state--done" data-t="state.today">Azi</p>
+              <p class="state state--done" data-t="state.applied">Aplicat în Konta</p>
               <p data-t="faq.a3">Nimeni, fără acordul directorului companiei. Când suportul are nevoie să vadă ceva, cere acces; directorul îl acordă în fila „Acces Konta”, doar pentru citire și pe un timp limitat, îl poate închide oricând, iar accesul apare în jurnalul de audit al companiei. Există o singură excepție, pentru urgențe: proprietarul platformei poate deschide accesul fără acord, cu un motiv scris și pentru cel mult o zi. Și aceasta se înregistrează în jurnalul companiei, iar directorii primesc un e-mail. Regulile le aplică baza de date, nu doar aplicația.</p>
             </li>
             <li id="q4">
               <h2 data-t="faq.q4">Separarea datelor între clienți o face baza de date sau doar codul aplicației?</h2>
-              <p class="state state--done" data-t="state.today">Azi</p>
+              <p class="state state--done" data-t="state.applied">Aplicat în Konta</p>
               <p data-t="faq.a4">Baza de date. Fiecare tabel cu date ale clienților poartă identificatorul companiei și este protejat de securitatea la nivel de rând din PostgreSQL (row-level security): o interogare vede doar rândurile companiilor la care are acces omul conectat, chiar dacă în cod lipsește un filtru. Aplicația se conectează cu un rol care nu poate ocoli această regulă, iar un test automat eșuează dacă apare un tabel fără ea.</p>
             </li>
             <li id="q5">
               <h2 data-t="faq.q5">O înregistrare contabilă poate fi modificată sau ștearsă după ce a fost înregistrată?</h2>
-              <p class="state state--done" data-t="state.today">Azi</p>
+              <p class="state state--done" data-t="state.applied">Aplicat în Konta</p>
               <p data-t="faq.a5">Nu. Baza de date refuză modificarea și ștergerea unei înregistrări, a unei facturi înregistrate sau a unei plăți. O greșeală se corectează prin stornare și o înregistrare nouă, amândouă la vedere. Într-o lună închisă nu mai intră nimic; redeschiderea cere un motiv și rămâne în jurnalul de audit. Jurnalul de audit este un lanț de amprente (hash), așa că un rând schimbat pe ascuns se vede la verificare. Planificat: publicarea capătului lanțului într-un loc pe care nu-l putem rescrie, ca nici noi să nu putem rescrie tot lanțul fără să se vadă.</p>
             </li>
             <li id="q6">
               <h2 data-t="faq.q6">Unde sunt găzduite datele și cine le prelucrează? Vreau lista completă.</h2>
-              <p class="state state--partial" data-t="state.partial">În parte</p>
+              <p class="state state--partial" data-t="faq.state.partial">Parțial</p>
               <p data-t="faq.a6">Azi Konta rulează ca demo, la demo.konta.md, și ca versiune de previzualizare, la app.konta.md, pe servere închiriate de la furnizorul nostru de găzduire. La același furnizor sunt site-ul konta.md și căsuțele de e-mail prin care aplicația trimite mesaje. Altcineva nu prelucrează date: nici aplicația, nici site-ul nu încarcă nimic de la terți. Înainte de primul client pilot, aplicația se mută pe un server de producție separat, în Uniunea Europeană, cu copii de siguranță criptate înainte să plece de pe server și copiate zilnic în Moldova. Pagina Securitate ține lista la zi.</p>
               <p><a href="/securitate/" data-t="faq.a6.link">Securitate: cine prelucrează datele</a></p>
             </li>
             <li id="q7">
               <h2 data-t="faq.q7">Pot exporta toate datele, oricând, fără taxă?</h2>
-              <p class="state state--done" data-t="state.today">Azi</p>
+              <p class="state state--done" data-t="state.applied">Aplicat în Konta</p>
               <p data-t="faq.a7">Da. Oricine are acces la contabilitatea unei companii o descarcă din aplicație, după ce își confirmă din nou identitatea: fiecare tabel la care are acces, în .xlsx și în JSON, cu sumele exacte, extrasele bancare așa cum au fost primite și lista fișierelor cu amprentele lor. Exportul merge și când organizația este suspendată, rămâne în jurnalul companiei și nu costă nimic.</p>
             </li>
             <li id="q8">
@@ -297,12 +296,12 @@
             </li>
             <li id="q9">
               <h2 data-t="faq.q9">Țineți parolele mele de la SFS, de la bancă sau semnătura mea electronică?</h2>
-              <p class="state state--done" data-t="state.today">Azi</p>
+              <p class="state state--done" data-t="state.applied">Aplicat în Konta</p>
               <p data-t="faq.a9">Nu, și nu le vom cere. Konta nu păstrează parola de la portalul SFS, datele de acces la bancă sau semnătura electronică: semnați dumneavoastră. Pentru e-Factura, Konta folosește un utilizator API pe care directorul îl creează în SIA e-Factura și îl introduce în Konta. Un astfel de utilizator poate face tot ce permite e-Factura, așa că Konta îl păstrează criptat, iar fiecare folosire intră în jurnalul companiei înainte să fie făcută. Extrasele bancare se importă din fișier.</p>
             </li>
             <li id="q10">
               <h2 data-t="faq.q10">Aplicația încarcă scripturi de analiză sau de înregistrare a ecranului?</h2>
-              <p class="state state--done" data-t="state.today">Azi</p>
+              <p class="state state--done" data-t="state.applied">Aplicat în Konta</p>
               <p data-t="faq.a10">Nu. Nici aplicația, nici site-ul nu încarcă scripturi de analiză, de înregistrare a ecranului sau de pe alte site-uri. Politica de securitate a conținutului (CSP) pe care o trimit amândouă îi permite browserului să ruleze doar scripturile lor proprii. Puteți verifica singur, în fila Rețea a browserului.</p>
             </li>
           </ol>
@@ -375,6 +374,6 @@
     <script type="application/json" data-seed>
       {"lang.next": "Treci la", "theme.light": "Varianta luminoasă", "theme.dark": "Varianta întunecată", "theme.auto": "Varianta automată"}
     </script>
-    <script src="/assets/site.js?v=11"></script>
+    <script src="/assets/site.js?v=12"></script>
   </body>
 </html>

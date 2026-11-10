@@ -25,7 +25,7 @@
     <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
-    <link rel="stylesheet" href="/assets/site.css?v=17" />
+    <link rel="stylesheet" href="/assets/site.css?v=18" />
     <script>
       // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
       // which is the device's theme and what nobody choosing means; the choice is made here or in
@@ -84,6 +84,13 @@
   <body>
     <a class="skip" href="#main" data-t="skip">Sari la conținut</a>
 
+    <div class="notice">
+      <div class="shell notice__bar">
+        <span class="notice__flag" data-t="dev.flag">În dezvoltare.</span>
+        <p data-t="dev.text">Konta este încă în lucru. Puteți încerca varianta Demo până produsul final este lansat pe piață. Scrieți-ne și puteți beneficia începând cu jumătate de an Gratis după lansare.</p>
+      </div>
+    </div>
+
     <header class="masthead">
       <div class="shell masthead__bar">
         <a class="brand" href="/">
@@ -138,17 +145,10 @@
             </svg>
           </button>
 
-          <a class="masthead__app" href="https://demo.konta.md"><span class="masthead__app-long" data-t="nav.app">Intră în aplicație</span><span class="masthead__app-short" data-t="nav.app.short">Intră</span></a>
+          <a class="masthead__app" href="https://demo.konta.md"><span class="masthead__app-long" data-t="nav.app">Încearcă Demo</span><span class="masthead__app-short" data-t="nav.app.short">Demo</span></a>
         </div>
       </div>
     </header>
-
-    <div class="notice">
-      <div class="shell notice__bar">
-        <span class="notice__flag" data-t="dev.flag">În dezvoltare</span>
-        <p data-t="dev.text">Konta este încă în lucru. Pe acest site descriem produsul pe care îl construim și cât am avansat. Deocamdată nu se poate cumpăra.</p>
-      </div>
-    </div>
 
     <main id="main">
       <section class="hero hero--page">
@@ -325,6 +325,6 @@
     <script type="application/json" data-seed>
       {"lang.next": "Treci la", "theme.light": "Varianta luminoasă", "theme.dark": "Varianta întunecată", "theme.auto": "Varianta automată"}
     </script>
-    <script src="/assets/site.js?v=11"></script>
+    <script src="/assets/site.js?v=12"></script>
   </body>
 </html>

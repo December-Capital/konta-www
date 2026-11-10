@@ -421,7 +421,10 @@
 
   function out(name, text) {
     var cell = root.querySelector('[data-out="' + name + '"]');
-    if (cell) cell.textContent = text;
+    if (!cell) return;
+    // The digits roll to the new figure where assets/roll.js is loaded (the tools' pages).
+    if (window.kontaRoll) window.kontaRoll(cell, text);
+    else cell.textContent = text;
   }
 
   function invalid(input, bad) {

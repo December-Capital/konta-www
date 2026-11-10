@@ -171,6 +171,14 @@ employer's sick days written again from the product's `Konta.Domain.Payroll.Aver
 - fills `{val:<year>:<key>}`, `{act:<year>:<key>}`, `{prov:<year>:<key>}` and `{commit}` in each
   language. A key named for a year must keep one value all year.
 
+When a result changes, its digits roll to the new figure, each on its own wheel, after the rolling
+numbers of Skiper UI's Animated number and Aave token swap (skiper37, skiper22, both drawn with
+the Number Flow library), written again in `assets/roll.js` without either. The five pages with
+results load it before `salary.js` or `instrumente.js`, whose `out()` hands it each figure; the
+browser caches it once for all of them, and it is not loaded anywhere else. While the wheels
+turn, screen readers get the new text; once they stop, about 0.7 s later, the cell holds plain
+text again, so a figure can be copied. Reduced motion gets the text at once.
+
 What each tool leaves out is on its page. Considered and left out because the rulebook does not
 hold their figures: the social insurance budget's sick, maternity, paternity and child-care
 benefits, pensions, the annual income tax return (CET18), road tax, and late-payment interest.
@@ -284,7 +292,7 @@ and nothing under it starts hidden) and the page scrolls under frosted glass: `#
 the light, `#1E1B22` at 76% in the dark, blurred, and the same colours solid where the browser has
 no `backdrop-filter`. `site.js` keeps its height in `--masthead-h` for `scroll-padding-top`, so an
 anchor lands under it. Where one row is too narrow for the mark, the sections, the controls and
-"Intră în aplicație" (below 1160px, or 1290px in Russian), the sections take rows of their own,
+"Încearcă Demo" (below 1160px, or 1290px in Russian), the sections take rows of their own,
 and while the reader scrolls down those rows fold away so the bar keeps to one row; scrolling up
 brings them back. Folding only paints, so nothing under the bar moves. The sections and the app
 button are one shape (`--chip-*` on `.masthead`), and nothing in the bar moves on its own: the app
@@ -292,7 +300,11 @@ button and the page you are on are filled aubergine (lilac in the dark), the oth
 their text alone at normal weight and shade to `#DED8CE` (`#302B37` in the dark) under the
 pointer. The last section sits 8px from the language control, as the controls and the app button
 sit from each other. On phones under
-360px the app button says just "Intră".
+360px the app button says just "Demo". The "În dezvoltare" notice strip sits above the bar, so it
+scrolls away and the bar alone stays. On the tools' pages the tabs are the bar's second row: sticky
+under it, frosted one brand step deeper (Nisip 100, Grafit 600 in the dark), the header's rule
+moved under them, and rising with the bar when its rows fold (`--masthead-full`, `--tabs-h`
+from `site.js`).
 
 ## Fonts
 

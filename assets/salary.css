@@ -107,6 +107,65 @@
   color: var(--ink-3);
 }
 
+/* Rolling digits (assets/roll.js): while a result changes, each digit is a wheel of 0 to 9 one
+   line tall, turned to the new digit. The line's height comes from the cell (--roll-h), so the
+   row keeps its size and the digits sit where the plain text sits once the wheels stop. */
+.roll {
+  display: inline-flex;
+  vertical-align: top;
+  height: var(--roll-h);
+  line-height: var(--roll-h);
+  user-select: none;
+}
+
+.roll__c,
+.roll__d {
+  display: block;
+  height: var(--roll-h);
+}
+
+.roll__d {
+  overflow: hidden;
+  /* The digits rolling past fade at the wheel's edges rather than being cut by them. */
+  -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent);
+}
+
+.roll__strip,
+.roll__strip > span {
+  display: block;
+}
+
+.roll__strip > span {
+  height: var(--roll-h);
+  text-align: center;
+}
+
+.roll__d--go .roll__strip {
+  /* A spring's settle: quick out of the old digit, a slight run past the new one, back. */
+  transition: transform var(--roll-time, 650ms) cubic-bezier(0.22, 1.18, 0.36, 1);
+}
+
+.roll__d--new {
+  animation: roll-in var(--roll-time, 650ms) ease-out;
+}
+
+@keyframes roll-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* What screen readers are given while the wheels turn. */
+.roll__said {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .calc__capped {
   margin-top: 14px;
   padding: 11px 15px;

@@ -45,7 +45,9 @@
   --masthead-glass: rgba(247, 245, 241, 0.76);
   /* The contact form: a sand card on the raised band with white fields, the button in the header's
      aubergine, and each message on its own tint (sent, too many, not sent). */
-  --form-card: #ded8ce; /* Nisip, on the Hârtie band */
+  /* The contact form and the calendar's feed card: a light sand card with white fields on the
+     Hârtie band (the owner, 2026-11-10; it was Nisip adânc). */
+  --form-card: #ece8e1; /* Nisip */
   --form-field: #ffffff;
   --form-label: #241b2e;
   --form-hint: #4e3a60;
@@ -75,9 +77,12 @@
   --notice-ink: #d8c9e6;
   --notice-flag: #c9a46b;
   --footer-bg: #2a2033;
-  /* The tools' tabs under the notice: Nisip 200 in the light, Grafit 700 in the dark, so the
-     strip, the tabs and the first panel are three steps either way. */
-  --tabs-bg: #ded8ce;
+  /* The tools' tabs, a second row of the header that stays with it: one step deeper than the
+     bar, Nisip 100 under its Hârtie and Grafit 600 under its Grafit 700, frosted like it; a tab
+     under the pointer shades one step more (the owner, 2026-11-10). */
+  --tabs-bg: #ece8e1;
+  --tabs-glass: rgba(236, 232, 225, 0.76);
+  --tabs-hover: #ded8ce;
   color-scheme: light;
 }
 
@@ -124,7 +129,9 @@
     --notice-ink: #cfc7ba;
     --notice-flag: #c9a46b;
     --footer-bg: #16161a;
-    --tabs-bg: #2b2b32;
+    --tabs-bg: #3c3b44;
+    --tabs-glass: rgba(60, 59, 68, 0.76);
+    --tabs-hover: #2b2b32;
     color-scheme: dark;
   }
 }
@@ -171,7 +178,9 @@
   --notice-ink: #cfc7ba;
   --notice-flag: #c9a46b;
   --footer-bg: #16161a;
-  --tabs-bg: #2b2b32;
+  --tabs-bg: #3c3b44;
+  --tabs-glass: rgba(60, 59, 68, 0.76);
+  --tabs-hover: #2b2b32;
   color-scheme: dark;
 }
 
@@ -187,8 +196,9 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  /* A jump to an anchor lands under the top bar, not behind it. site.js keeps the height. */
-  scroll-padding-top: calc(var(--masthead-h, 68px) + 12px);
+  /* A jump to an anchor lands under the top bar, and the tools' tabs under it, not behind them.
+     site.js keeps both heights. */
+  scroll-padding-top: calc(var(--masthead-h, 68px) + var(--tabs-h, 0px) + 12px);
 }
 
 /* The footer always sits at the bottom of the window: on a short page the room left over goes
@@ -361,7 +371,7 @@ body > main {
   letter-spacing: -0.015em;
 }
 
-/* The sections: links drawn like "Intră în aplicație" beside the controls, the same size, font
+/* The sections: links drawn like "Încearcă Demo" beside the controls, the same size, font
    and corners (--chip-* on .masthead). The page you are on is filled like it; the others are
    their text alone at normal weight, and a hover shades them in sand. No movement. On one row
    the last section sits as far from the language control as the theme control from the app
@@ -1159,6 +1169,11 @@ body > main {
   color: var(--ink-3);
 }
 
+/* The home page's "ultima editare" line, in italics (the owner, 2026-11-10). */
+.updated--edit {
+  font-style: italic;
+}
+
 /* Contact */
 .reach {
   display: flex;
@@ -1396,6 +1411,12 @@ body > main {
   padding-block: var(--panel-pad);
 }
 
+/* A page title that fills the line before it wraps, rather than balancing into two short halves
+   (intrebari/, the owner, 2026-11-10). */
+.title--full {
+  text-wrap: wrap;
+}
+
 .lead-in {
   color: var(--ink);
   font-size: 1.0625rem;
@@ -1447,6 +1468,48 @@ body > main {
 
 .card a {
   font-size: 0.9375rem;
+}
+
+/* The founding offer, a band of its own above the cards: the notice strip's colours, so it reads
+   as the same promise the strip makes, the title in Aur beside the terms (the owner, 2026-11-10). */
+.band--offer {
+  background: var(--notice-bg);
+  color: var(--notice-ink);
+}
+
+.offer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px 40px;
+}
+
+.offer__title {
+  font-size: 1.5rem;
+  color: var(--notice-flag);
+}
+
+/* The terms in Nisip, sand on the plum band and on the dark one alike (the owner, 2026-11-10). */
+.offer__body p {
+  font-size: 1rem;
+  color: #ded8ce;
+}
+
+/* The free months in Salvie, the brand's "done" green as the dark theme has it (#77A385), on
+   both themes: the light theme's #3F6B4D would vanish into the plum band (the owner, 2026-11-10). */
+.offer__free {
+  color: #77a385;
+  font-weight: 600;
+}
+
+.offer__body p + p {
+  margin-top: 8px;
+}
+
+@media (min-width: 860px) {
+  .offer {
+    grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr);
+    align-items: baseline;
+  }
 }
 
 /* Moving from 1C, as numbered steps. */
@@ -1691,7 +1754,7 @@ body > main {
 }
 
 /* The form sits on a card on the raised Hârtie band, below the title panel's Nisip: the card
-   sand (Grafit 800 on dark), the fields white and the button aubergine, every corner
+   light sand (Grafit 800 on dark), as the calendar's feed card is, the fields white and the button aubergine, every corner
    rounded like the header's buttons (--radius). The card's padding is taken back by a margin as large, so
    nothing inside moves; on a phone the card runs to the screen's edges, its padding the page's
    gutter (.shell). */
