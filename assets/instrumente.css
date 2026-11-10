@@ -246,7 +246,7 @@
    Cărămidă when it costs more, and the two totals likewise, the smaller green and the larger red
    (the owner, 2026-11-10). --ok and --down are those brand colours, each theme's own. */
 .tool__verdict[data-verdict='less'] .tool__amount {
-  color: var(--ok);
+  color: var(--ok-strong);
 }
 
 .tool__verdict[data-verdict='more'] .tool__amount {
@@ -259,7 +259,7 @@
 }
 
 .calc__results:not(.calc__results--stale) td.calc__low {
-  color: var(--ok);
+  color: var(--ok-strong);
 }
 
 .calc__results:not(.calc__results--stale) td.calc__high {
