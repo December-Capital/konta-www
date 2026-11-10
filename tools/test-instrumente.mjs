@@ -15,6 +15,7 @@ import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
 const t = require('../assets/instrumente.js');
+const salary = require('../assets/salary.js');
 
 const input = JSON.parse(readFileSync(0, 'utf8'));
 const { rules, days } = input;
@@ -99,6 +100,35 @@ for (const p of rules.vat.periods) {
   same('IT Park, 70 000 lei and 2 employees', `${lei(low.share)} ${lei(low.floor)} ${lei(low.tax)} ${low.byFloor}`, '4900.00 10440.00 10440.00 true');
   const high = t.itPark(bani('200000'), 2, rate, minimum, halfUp);
   same('IT Park, 200 000 lei and 2 employees', `${lei(high.tax)} ${high.byFloor}`, '14000.00 false');
+}
+
+// The same month in the general regime, worked by hand from the 2026 rates: CNAS 24%, CNAM 9%,
+// income tax 12% after the premium and the personal exemption of 2 475 a month, profit tax 12%,
+// IVAO 4% up to 1 500 000 a year.
+{
+  const general = {
+    profitRate: rules.itpark.profitRate,
+    ivaoRate: rules.itpark.ivaoRate,
+    ivaoCeiling: rules.itpark.ivaoCeiling,
+    payroll: salary.rules(rules.itpark.payroll),
+  };
+  const run = (revenue, employees, salaries, costs, personal, regime) =>
+    t.generalRegime({ revenue: bani(revenue), employees, salaries: bani(salaries), costs: bani(costs), personal, regime }, general, salary, halfUp);
+  const lines = (g) => [g.social, g.medical, g.incomeTax, g.company, g.total].map(lei).join(' ');
+
+  // 2 × 10 000: CNAS 2 400, CNAM 900 and tax 12% of (10 000 − 900 − 2 475) = 795 each; the
+  // profit is 70 000 − 20 000 − 4 800.
+  same('general regime, 70 000 lei, 2 employees, 20 000 of salaries', lines(run('70000', 2, '20000', '0', true, 'profit')), '4800.00 1800.00 1590.00 5424.00 13614.00');
+  same('general regime under IVAO, 4% of 70 000', lines(run('70000', 2, '20000', '0', true, 'ivao')), '4800.00 1800.00 1590.00 2800.00 10990.00');
+  same('the other costs come off the profit', lines(run('70000', 2, '20000', '15200', true, 'profit')), '4800.00 1800.00 1590.00 3600.00 11790.00');
+  // Without the exemption: 12% of 9 100.
+  same('general regime, no personal exemption', lines(run('50000', 1, '10000', '0', false, 'profit')), '2400.00 900.00 1092.00 4512.00 8904.00');
+  const loss = run('20000', 1, '30000', '0', true, 'profit');
+  same('a loss pays no profit tax', `${lei(loss.company)} ${lei(loss.profit)}`, '0.00 -17200.00');
+  // 10 000.01 between 3: 3 333.33 once and 3 333.34 twice, every ban kept.
+  const split = run('100000', 3, '10000.01', '0', true, 'profit');
+  same('salaries split to the ban', lei(split.profit), lei(bani('100000') - bani('10000.01') - split.social));
+  same('the IVAO ceiling, a year of 125 000 and of 125 000.01', `${run('125000', 0, '0', '0', true, 'ivao').overIvao} ${run('125000.01', 0, '0', '0', true, 'ivao').overIvao}`, 'false true');
 }
 
 // --- Working days ----------------------------------------------------------------------------

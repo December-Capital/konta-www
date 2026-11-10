@@ -301,6 +301,63 @@
     return { share: share, floor: floor, tax: share > floor ? share : floor, byFloor: floor > share };
   }
 
+  /*
+   * The same month outside the park, in the general regime: the salaries taxed as Konta's payroll
+   * taxes them (assets/salary.js's month(), passed in as `salary`), split evenly between the
+   * employees, every one with or without the personal exemption, and the company's income tax,
+   * either the rate of the profit (sales less the salaries, the employer's contribution and the
+   * other deductible costs, nothing when that is a loss) or IVAO's rate of the sales revenue.
+   *
+   *   input: { revenue, salaries, costs: BigInt bani; employees: number; personal: boolean;
+   *            regime: 'profit' | 'ivao' }
+   *   rules: { profitRate, ivaoRate, ivaoCeiling: strings; payroll: salary.rules() of the page's }
+   */
+  function generalRegime(input, rules, salary, r) {
+    var n = BigInt(input.employees);
+    if (input.revenue < ZERO || input.salaries < ZERO || input.costs < ZERO || n < ZERO) {
+      throw new Error('A negative amount or number of employees');
+    }
+    if (n === ZERO && input.salaries > ZERO) throw new Error('Salaries without employees');
+
+    var social = ZERO;
+    var medical = ZERO;
+    var incomeTax = ZERO;
+    var capped = false;
+    if (n > ZERO) {
+      // The bani that do not divide evenly go one each to the first employees.
+      var each = input.salaries / n;
+      var more = input.salaries % n;
+      [[each, n - more], [each + ONE, more]].forEach(function (group) {
+        if (group[1] === ZERO) return;
+        var m = salary.month(group[0], input.personal, 0, rules.payroll);
+        social += m.slip.social * group[1];
+        medical += m.slip.medical * group[1];
+        incomeTax += m.slip.incomeTax * group[1];
+        capped = capped || m.capped;
+      });
+    }
+
+    var profit = input.revenue - input.salaries - social - input.costs;
+    var company;
+    if (input.regime === 'ivao') {
+      var ivao = fraction(rules.ivaoRate);
+      company = round(input.revenue * ivao.n, ivao.d, r);
+    } else {
+      var rate = fraction(rules.profitRate);
+      company = profit > ZERO ? round(profit * rate.n, rate.d, r) : ZERO;
+    }
+    return {
+      social: social,
+      medical: medical,
+      incomeTax: incomeTax,
+      profit: profit,
+      company: company,
+      total: social + medical + incomeTax + company,
+      capped: capped,
+      overIvao: input.revenue * BigInt(12) > bani(rules.ivaoCeiling),
+    };
+  }
+
   var api = {
     fraction: fraction,
     bani: bani,
@@ -322,6 +379,7 @@
     pay: pay,
     employerSickDays: employerSickDays,
     itPark: itPark,
+    generalRegime: generalRegime,
   };
 
   if (typeof module === 'object' && module.exports) {
@@ -646,22 +704,56 @@
     var form = root.querySelector('form');
     var revenue = form.querySelector('[name="revenue"]');
     var employees = form.querySelector('[name="employees"]');
+    var salaries = form.querySelector('[name="salaries"]');
+    var costs = form.querySelector('[name="costs"]');
+    var personal = form.querySelector('[name="personal"]');
     var r = rounding('half_away_from_zero', 2);
+    var salary = window.KontaSalary;
+    var general = { profitRate: rules.profitRate, ivaoRate: rules.ivaoRate, ivaoCeiling: rules.ivaoCeiling, payroll: salary.rules(rules.payroll) };
 
     function show() {
       var sum = parse(revenue.value, lang);
       var people = count(employees.value, 100000);
+      var paid = parse(salaries.value, lang);
+      var other = costs.value.trim() === '' ? ZERO : parse(costs.value, lang);
       invalid(revenue, sum === null);
       invalid(employees, people === null);
+      invalid(salaries, paid === null || (people === 0 && paid > ZERO));
+      invalid(costs, other === null);
       say('revenue-error', sum === null);
-      var bad = sum === null || people === null;
+      say('salaries-error', paid === null);
+      say('nobody-error', paid !== null && people === 0 && paid > ZERO);
+      say('costs-error', other === null);
+      var bad = sum === null || people === null || paid === null || other === null || (people === 0 && paid > ZERO);
       stale(bad);
+      say('verdict', !bad);
       if (bad) return;
-      var result = itPark(sum, people, fraction(rules.rate), bani(rules.minimum), r);
-      out('share', format(result.share, lang));
-      out('floor', format(result.floor, lang));
-      out('tax', format(result.tax, lang));
-      say('by-floor', result.byFloor);
+
+      var regime = form.querySelector('[name="regime"]:checked').value;
+      var park = itPark(sum, people, fraction(rules.rate), bani(rules.minimum), r);
+      var std = generalRegime({ revenue: sum, salaries: paid, costs: other, employees: people, personal: personal.checked, regime: regime }, general, salary, r);
+      out('social', format(std.social, lang));
+      out('medical', format(std.medical, lang));
+      out('incomeTax', format(std.incomeTax, lang));
+      out('company', format(std.company, lang));
+      out('general', format(std.total, lang));
+      out('share', format(park.share, lang));
+      out('floor', format(park.floor, lang));
+      out('tax', format(park.tax, lang));
+      el('company-profit').hidden = regime !== 'profit';
+      el('company-ivao').hidden = regime !== 'ivao';
+      say('by-floor', park.byFloor);
+      say('capped', std.capped);
+      say('over-ivao', regime === 'ivao' && std.overIvao);
+      say('loss', regime === 'profit' && std.profit < ZERO);
+
+      var difference = std.total - park.tax;
+      var key = difference > ZERO ? 'less' : difference < ZERO ? 'more' : 'same';
+      say('verdict', true, word('verdict.' + key, {
+        month: format(abs(difference), lang),
+        year: format(abs(difference) * BigInt(12), lang),
+      }));
+      el('verdict').setAttribute('data-verdict', key);
     }
 
     wire(form, show);
