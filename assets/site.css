@@ -30,6 +30,9 @@
   --gold: #7a5e3a; /* Bronz text: small bronze text on Nisip and Hârtie */
   --gold-rule: #a07f54;
   --ok: #3f6b4d;
+  /* Salvie 700: green figures on a sunken Nisip adânc ground (the IT Park totals and verdict),
+     where Salvie 600 is 4.33:1; this is 4.7:1 (the owner, 2026-11-10). */
+  --ok-strong: #3c6549;
   --down: #8f3f38;
   --shade: rgba(36, 27, 46, 0.07);
   /* The header's sections: aubergine text, a darker sand under the pointer, the page you are
@@ -100,6 +103,7 @@
     --gold: #c9a46b;
     --gold-rule: #96794f;
     --ok: #77a385;
+    --ok-strong: #77a385;
     --down: #cd8880;
     --shade: rgba(0, 0, 0, 0.4);
     --nav-hover: #49474e;
@@ -154,6 +158,7 @@
   --gold: #c9a46b;
   --gold-rule: #96794f;
   --ok: #77a385;
+  --ok-strong: #77a385;
   --down: #cd8880;
   --shade: rgba(0, 0, 0, 0.4);
   --nav-hover: #49474e;
