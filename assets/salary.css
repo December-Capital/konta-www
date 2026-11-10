@@ -53,10 +53,15 @@
   outline-offset: 2px;
 }
 
+/* A results table is a panel like the register: rounded corners, which a table only draws when
+   its cells keep their own borders (separate, no spacing) and the corner cells are rounded too, so
+   a row's background (the total) follows the corner. */
 .calc__results {
   width: 100%;
-  border-collapse: collapse;
-  background: var(--bg);
+  border-collapse: separate;
+  border-spacing: 0;
+  /* On dark, a panel like the register (--results-bg); on light, the page's own ground. */
+  background: var(--results-bg, var(--bg));
   border: 1px solid var(--rule);
   border-top: 3px solid var(--gold-rule);
   border-radius: var(--radius);
@@ -96,6 +101,22 @@
   border-bottom: 0;
 }
 
+.calc__results tr:first-child > :first-child {
+  border-top-left-radius: calc(var(--radius) - 3px);
+}
+
+.calc__results tr:first-child > :last-child {
+  border-top-right-radius: calc(var(--radius) - 3px);
+}
+
+.calc__results tr:last-child > :first-child {
+  border-bottom-left-radius: calc(var(--radius) - 1px);
+}
+
+.calc__results tr:last-child > :last-child {
+  border-bottom-right-radius: calc(var(--radius) - 1px);
+}
+
 .calc__results .calc__total th,
 .calc__results .calc__total td {
   color: var(--ink);
@@ -122,6 +143,12 @@
 .roll__d {
   display: block;
   height: var(--roll-h);
+}
+
+/* The space between thousands is a box of its own while the digits roll: kept, not collapsed,
+   so the figure has its final width from the first frame. */
+.roll__c {
+  white-space: pre;
 }
 
 .roll__d {
@@ -170,6 +197,7 @@
   margin-top: 14px;
   padding: 11px 15px;
   border-left: 2px solid var(--gold-rule);
+  border-radius: var(--radius);
   background: var(--sunken);
   font-size: 0.9375rem;
   color: var(--ink);

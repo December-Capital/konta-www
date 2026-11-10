@@ -1,12 +1,12 @@
 /* konta.md/instrumente: the tabs over every tool, and what the tools add to salary.css's form
    beside its result. The tokens are site.css's. */
 
-/* The tabs: one link per tool, styled as the header's sections, centred on a band of their own
-   under the notice. They wrap on a narrow screen rather than scroll. */
-/* The tabs are the header's second row on the tools' pages: they stay under it while the page
-   scrolls, frosted like it, and the header's rule moves under them. Where the header folds its
-   rows of sections away (site.js), the tabs rise with it: --masthead-full is the bar's whole
-   height, --masthead-h what is left of it folded. */
+/* The tabs: one link per tool, styled as the header's sections and centred; they wrap on a narrow
+   screen rather than scroll. They are the header's second row on the tools' pages: the same colour
+   and frosted glass, the header's thin rule between the two and another under the tabs, and they
+   stay under it while the page scrolls (the owner, 2026-11-10). Where the header folds its rows of
+   sections away (site.js), the tabs rise with it: --masthead-full is the bar's whole height,
+   --masthead-h what is left of it folded. */
 .tabs {
   /* The header's chip sizes, which site.css sets on .masthead only. */
   --chip-h: 33.6px;
@@ -16,14 +16,14 @@
   position: sticky;
   top: var(--masthead-full, 0px);
   z-index: 49;
-  background: var(--tabs-bg);
-  border-bottom: 1px solid var(--rule);
+  background: var(--masthead-bg);
+  border-bottom: 1px solid var(--masthead-line, var(--rule));
   transition: top 0.25s ease;
 }
 
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .tabs {
-    background: var(--tabs-glass);
+    background: var(--masthead-glass);
     -webkit-backdrop-filter: saturate(1.5) blur(16px);
     backdrop-filter: saturate(1.5) blur(16px);
   }
@@ -31,10 +31,6 @@
 
 .masthead[data-folded] ~ main .tabs {
   top: var(--masthead-h, 0px);
-}
-
-.masthead--tabs::before {
-  border-bottom-color: transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -66,7 +62,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .tabs__link:hover {
-    background: var(--tabs-hover);
+    background: var(--nav-hover);
   }
 }
 
@@ -244,6 +240,30 @@
 
 .tool__verdict[hidden] {
   display: none;
+}
+
+/* IT Park against the general regime: the difference in Salvie when the park costs less, in
+   Cărămidă when it costs more, and the two totals likewise, the smaller green and the larger red
+   (the owner, 2026-11-10). --ok and --down are those brand colours, each theme's own. */
+.tool__verdict[data-verdict='less'] .tool__amount {
+  color: var(--ok);
+}
+
+.tool__verdict[data-verdict='more'] .tool__amount {
+  color: var(--down);
+}
+
+.tool__amount {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.calc__results:not(.calc__results--stale) td.calc__low {
+  color: var(--ok);
+}
+
+.calc__results:not(.calc__results--stale) td.calc__high {
+  color: var(--down);
 }
 
 .tool__compare thead th {
