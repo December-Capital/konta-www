@@ -26,7 +26,7 @@
     <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
-    <link rel="stylesheet" href="/assets/site.css?v=17" />
+    <link rel="stylesheet" href="/assets/site.css?v=18" />
     <script>
       // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
       // which is the device's theme and what nobody choosing means; the choice is made here or in
@@ -131,6 +131,13 @@
   <body>
     <a class="skip" href="#main" data-t="skip">Sari la conținut</a>
 
+    <div class="notice">
+      <div class="shell notice__bar">
+        <span class="notice__flag" data-t="dev.flag">În dezvoltare.</span>
+        <p data-t="dev.text">Konta este încă în lucru. Puteți încerca varianta Demo până produsul final este lansat pe piață. Scrieți-ne și puteți beneficia începând cu jumătate de an Gratis după lansare.</p>
+      </div>
+    </div>
+
     <header class="masthead">
       <div class="shell masthead__bar">
         <a class="brand" href="/">
@@ -185,17 +192,10 @@
             </svg>
           </button>
 
-          <a class="masthead__app" href="https://demo.konta.md"><span class="masthead__app-long" data-t="nav.app">Intră în aplicație</span><span class="masthead__app-short" data-t="nav.app.short">Intră</span></a>
+          <a class="masthead__app" href="https://demo.konta.md"><span class="masthead__app-long" data-t="nav.app">Încearcă Demo</span><span class="masthead__app-short" data-t="nav.app.short">Demo</span></a>
         </div>
       </div>
     </header>
-
-    <div class="notice">
-      <div class="shell notice__bar">
-        <span class="notice__flag" data-t="dev.flag">În dezvoltare</span>
-        <p data-t="dev.text">Konta este încă în lucru. Pe acest site descriem produsul pe care îl construim și cât am avansat. Deocamdată nu se poate cumpăra.</p>
-      </div>
-    </div>
 
     <main id="main">
       <section class="hero">
@@ -203,21 +203,21 @@
           <div>
             <h1 data-t="hero.title">Contabilitate care nu cere un programator.</h1>
 
-            <p class="hero__lead" data-t="hero.lead">Când se schimbă legea, programul Konta îl actualizăm noi. Dvstră nu trebuie să schimbați nimic - intrați și lucrați ca de obicei.</p>
+            <p class="hero__lead"><span data-t="hero.lead">Când se schimbă legea, programul Konta îl actualizăm noi.</span><br /><span data-t="hero.lead2">Dvstră nu trebuie să schimbați nimic - intrați și lucrați ca de obicei.</span></p>
 
             <div class="hero__actions">
-              <a class="btn" href="https://demo.konta.md" data-t="hero.app">Intrare în aplicație</a>
-              <a class="btn btn--plain" href="/contact/" data-t="hero.demo">Programați un demo</a>
+              <a class="btn" href="https://demo.konta.md" data-t="hero.app">Încearcă Demo</a>
+              <a class="btn btn--plain" href="/contact/" data-t="hero.demo">Încercați aplicația</a>
             </div>
 
-            <p class="hero__soon" data-t="hero.soon">Aplicația se deschide în curând, mai întâi pentru firmele partenere.</p>
+            <p class="hero__soon" data-t="hero.soon">Încercați varianta Demo și scrieți-ne orice feedback. Aplicația oficială va fi lansată în curând.</p>
 
             <div class="contrast">
               <p class="contrast__q" data-t="vs.q">La 1 ianuarie se schimbă o cotă.</p>
               <dl>
                 <div>
                   <dt data-t="vs.old">Cu 1C</dt>
-                  <dd data-t="vs.oldBody">Chemați programatorul, plătiți vizita și așteptați. Pe fiecare instalare, în fiecare an.</dd>
+                  <dd data-t="vs.oldBody">Trebuie să sunați programatorul, să așteptați să vă facă modificări în program. De fiecare dată trebuie să-i explicați ce anume să schimbe etc.</dd>
                 </div>
                 <div class="ours">
                   <dt data-t="vs.new">Cu Konta</dt>
@@ -378,6 +378,16 @@
         </div>
       </section>
 
+      <section class="band band--offer" id="oferta">
+        <div class="shell offer">
+          <h2 class="offer__title" data-t="offer.title">Oferta fondatorilor</h2>
+          <div class="offer__body">
+            <p><span data-t="offer.body">La înregistrarea în varianta Demo vă oferim după lansarea oficială Konta - cel puțin</span> <strong class="offer__free" data-t="offer.free">șase luni Gratuit</strong><span data-t="offer.body2">, din ziua înregistrării în aplicația oficială după lansare.</span></p>
+            <p data-t="offer.transfer">Din Demo veți putea face export „Transfer din Demo” și aduce în Konta datele firmei, partenerii, angajații, mijloacele fixe, soldurile inițiale și toate datele.</p>
+          </div>
+        </div>
+      </section>
+
       <section class="band">
         <div class="shell">
           <ul class="cards">
@@ -388,7 +398,7 @@
             </li>
             <li class="card">
               <h2 data-t="card.move.title">Trecerea de la 1C</h2>
-              <p data-t="card.move.body">Prima companie o mutăm noi, gratuit. Lucrați în paralel până când sumele coincid.</p>
+              <p data-t="card.move.body">Veți putea lucra gratis 3 luni pentru a transfera compania în Konta.</p>
               <a href="/trecerea-de-la-1c/" data-t="card.move.link">Cum trecem de la 1C</a>
             </li>
             <li class="card">
@@ -404,9 +414,8 @@
         <div class="shell">
           <div class="band__head">
             <h2 data-t="today.title">Ce funcționează azi</h2>
-            <p class="updated" data-t="today.date">Situația la 1 noiembrie 2026</p>
-            <p data-t="today.lead">Tot ce este mai jos rulează în versiunea demo a aplicației (demo.konta.md). Date reale ale clienților intră în Konta abia după ce sunt îndeplinite condițiile de pe pagina Securitate.</p>
-            <p data-t="today.sample">În demo puteți începe de la Exemplu SRL, o companie inventată cu un an de date, sau de la compania dumneavoastră.</p>
+            <p class="updated updated--edit" data-t="today.date">ultima editare: 1 noiembrie 2026</p>
+            <p><span data-t="today.lead">Tot ce este mai jos rulează în versiunea demo a aplicației (demo.konta.md) și a aplicației după lansare.</span><br /><span data-t="today.sample">Puteți introduce date reale sau puteți începe de la Exemplu SRL, cu un an de date inventate, pentru a testa cum funcționează.</span></p>
           </div>
 
           <div class="today">
@@ -448,13 +457,12 @@
                 <li data-t="today.w2">Declarația TVA12: registrele din care se face există, formularul încă nu</li>
                 <li data-t="today.w3">Emiterea facturilor prin e-Factura: un draft trimis prin clientul e-Factura al Konta a fost semnat de director în portalul de test al SFS și citit înapoi; emiterea din Konta urmează</li>
                 <li data-t="today.w4">Situațiile financiare: închiderea anului există, formularele și legătura conturilor cu rândurile lor încă nu</li>
+                <li data-t="today.w5">Declarațiile IPC21 și VEN12, regimurile IVAO, IT Park și ÎI, stocurile la FIFO, creditele pe termen lung și în valută</li>
               </ul>
             </div>
           </div>
 
           <div class="aside">
-            <p data-t="today.not">Nu există încă: declarațiile IPC21 și VEN12, regimurile IVAO, IT Park și ÎI, stocurile la FIFO, creditele pe termen lung și în valută.</p>
-            <p data-t="today.founding">Oferta fondatorilor: cine se înregistrează în demo are Konta gratuit cel puțin șase luni, din ziua în care se înregistrează în aplicație după lansare, cu aceeași adresă de e-mail; pentru o altă adresă ne scrieți. Din exportul demo-ului, „Transfer din demo” aduce în Konta datele firmei, partenerii, angajații, mijloacele fixe și soldurile inițiale.</p>
             <p><a href="/intrebari/" data-t="today.link.q">Zece întrebări pentru orice program de contabilitate</a> · <a href="/securitate/" data-t="today.link.sec">Securitate: ce este făcut și ce urmează</a></p>
           </div>
         </div>
@@ -508,6 +516,6 @@
     <script type="application/json" data-seed>
       {"lang.next": "Treci la", "theme.light": "Varianta luminoasă", "theme.dark": "Varianta întunecată", "theme.auto": "Varianta automată"}
     </script>
-    <script src="/assets/site.js?v=11"></script>
+    <script src="/assets/site.js?v=12"></script>
   </body>
 </html>

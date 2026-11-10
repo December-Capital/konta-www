@@ -26,8 +26,8 @@
     <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
-    <link rel="stylesheet" href="/assets/site.css?v=17" />
-    <link rel="stylesheet" href="/assets/calendar.css?v=2" />
+    <link rel="stylesheet" href="/assets/site.css?v=18" />
+    <link rel="stylesheet" href="/assets/calendar.css?v=3" />
     <link rel="alternate" type="application/rss+xml" href="/calendar/schimbari.xml" title="Konta · schimbări în lege" />
     <script>
       // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
@@ -87,6 +87,13 @@
   <body>
     <a class="skip" href="#main" data-t="skip">Sari la conținut</a>
 
+    <div class="notice">
+      <div class="shell notice__bar">
+        <span class="notice__flag" data-t="dev.flag">În dezvoltare.</span>
+        <p data-t="dev.text">Konta este încă în lucru. Puteți încerca varianta Demo până produsul final este lansat pe piață. Scrieți-ne și puteți beneficia începând cu jumătate de an Gratis după lansare.</p>
+      </div>
+    </div>
+
     <header class="masthead">
       <div class="shell masthead__bar">
         <a class="brand" href="/">
@@ -141,24 +148,16 @@
             </svg>
           </button>
 
-          <a class="masthead__app" href="https://demo.konta.md"><span class="masthead__app-long" data-t="nav.app">Intră în aplicație</span><span class="masthead__app-short" data-t="nav.app.short">Intră</span></a>
+          <a class="masthead__app" href="https://demo.konta.md"><span class="masthead__app-long" data-t="nav.app">Încearcă Demo</span><span class="masthead__app-short" data-t="nav.app.short">Demo</span></a>
         </div>
       </div>
     </header>
-
-    <div class="notice">
-      <div class="shell notice__bar">
-        <span class="notice__flag" data-t="dev.flag">În dezvoltare</span>
-        <p data-t="dev.text">Konta este încă în lucru. Pe acest site descriem produsul pe care îl construim și cât am avansat. Deocamdată nu se poate cumpăra.</p>
-      </div>
-    </div>
 
     <main id="main" class="cal-page">
       <section class="hero hero--page cal-hero">
         <div class="shell">
           <h1 data-t="cal.title">Calendarul fiscal al contabilului</h1>
-          <p class="hero__lead"><span data-t="cal.lead.1">Termenele de depunere și de plată, zilele nelucrătoare și schimbările din lege, lună de lună.</span> <span data-t="cal.lead.2">Fiecare termen are lângă el actul normativ și articolul din care vine, cu link. Niciun termen fără sursă.</span></p>
-          <p class="cal-review"><span class="ruleset__state" data-t="set.state">în verificare</span> <span data-t="cal.review.1">Datele vin din registrul public konta-rulebook care este în verificare.</span> <span data-t="cal.review.2">Citiți actul de lângă termen înainte să vă bazați pe el.</span></p>
+          <p class="hero__lead"><span data-t="cal.lead.1">Termenele de depunere și de plată, zilele nelucrătoare și schimbările din lege, lună de lună.</span><br /><span data-t="cal.lead.2">Fiecare termen are lângă el actul normativ și articolul din care vine, cu link. Niciun termen fără sursă.</span></p>
         </div>
       </section>
 
@@ -187,7 +186,7 @@
                   </fieldset>
                 </form>
               </details>
-              <a class="cal-btn" href="#abonare" data-t="cal.subscribe.short">Abonare în calendar</a>
+              <a class="cal-btn" href="#abonare" data-t="cal.subscribe.short">Adăugați în calendar</a>
               <a class="cal-btn" href="#schimbari" data-t="cal.changes.short">Schimbări în lege</a>
               <button type="button" class="cal-btn" data-cal-print hidden data-t="cal.print">Tipăriți</button>
             </div>
@@ -220,8 +219,8 @@
       <section class="band band--quiet" id="evenimente" aria-labelledby="evenimente-title">
         <div class="shell">
           <div class="band__head">
-            <h2 id="evenimente-title" data-t="cal.events.title">Termene care curg de la un eveniment</h2>
-            <p data-t="cal.events.lead">Nu au o dată în calendar: încep când se întâmplă ceva în firmă.</p>
+            <h2 id="evenimente-title" data-t="cal.events.title">Termene care vin de la un eveniment</h2>
+            <p data-t="cal.events.lead">Nu au o dată în calendar: încep când se întâmplă ceva în companie.</p>
           </div>
 <!-- calendar:events -->
         </div>
@@ -241,14 +240,14 @@
       <section class="band band--quiet" id="abonare" aria-labelledby="abonare-title">
         <div class="shell cal-subscribe">
           <div>
-            <h2 id="abonare-title" data-t="cal.subscribe.title">Abonați-vă în calendarul dumneavoastră</h2>
-            <p data-t="cal.subscribe.lead">Copiați adresa unui flux și adăugați-o ca abonament. Calendarul dumneavoastră îl citește din nou singur, așa că un termen mutat sau o zi transferată ajung și la el.</p>
+            <h2 id="abonare-title" data-t="cal.subscribe.title">Adăugați în calendarul dumneavoastră</h2>
+            <p><span data-t="cal.subscribe.lead">Copiați adresa unui flux și adăugați-o în calendar.</span><br /><span data-t="cal.subscribe.lead2">Calendarul dumneavoastră îl va citi automat, iar un termen mutat sau o zi transferată se mută automat și în calendarul Dvstră.</span></p>
           </div>
           <div class="cal-feed-card">
             <div class="cal-pick" hidden data-cal-pick>
               <label class="cal-pick__label" for="cal-feed" data-t="cal.feed.choose">Ce termene vă interesează</label>
               <select class="cal-pick__select" id="cal-feed" data-cal-feed></select>
-              <label class="cal-pick__label" for="cal-feed-address" data-t="cal.feed.address">Adresa fluxului</label>
+              <label class="cal-pick__label" for="cal-feed-address" data-t="cal.feed.address">Adresa fluxului de date</label>
               <div class="cal-pick__address">
                 <input class="cal-pick__url" id="cal-feed-address" type="text" readonly spellcheck="false" autocomplete="off" dir="ltr" data-cal-feed-address />
                 <button class="cal-btn cal-pick__copy" type="button" data-cal-copy>
@@ -277,7 +276,7 @@
           <p data-t="cal.method.p1">Nimic din calendar nu este scris de mână. Termenele, zilele nelucrătoare și schimbările din lege sunt date în registrul public konta-rulebook, fiecare cu actul normativ, articolul și locul unde a fost publicat. Pagina și fluxurile sunt generate din el.</p>
           <p data-t="cal.method.p2">Când un termen fiscal cade într-o zi de odihnă sau de sărbătoare, îl mutăm pe prima zi lucrătoare următoare, cum cere Codul fiscal la art. 129 pct. 8), și verificăm data cu cea publicată de SFS sau de CNAS. Termenele BNS, ale situațiilor financiare și ale primei CNAM în sumă fixă nu sunt obligații fiscale: dacă unul cade într-o zi nelucrătoare, o spunem lângă el, fără să-l mutăm. Zilele de sărbătoare sunt cele din Codul muncii, art. 111; ziua hramului unei localități nu apare, fiindcă e nelucrătoare doar acolo.</p>
           <p data-t="cal.method.p3">Un termen pe care l-am găsit doar în surse secundare nu apare cu dată. Îl trecem la „Termene pe care nu le arătăm încă” până când îl citim în actul normativ.</p>
-          <p data-t="cal.method.p4">Calendarul arată obligațiile generale. O firmă poate avea și altele, după activitate, regim sau decizia unei autorități, iar rapoartele statistice se depun doar de unitățile incluse de Biroul Național de Statistică în cercetare.</p>
+          <p data-t="cal.method.p4">Calendarul arată obligațiile generale. O companie poate avea și altele, după activitate, regim sau decizia unei autorități, iar rapoartele statistice se depun doar de unitățile incluse de Biroul Național de Statistică în cercetare.</p>
           <p class="updated cal-built"><!-- calendar:built --></p>
         </div>
       </section>
@@ -400,7 +399,7 @@
     <script type="application/json" data-seed>
       {"lang.next": "Treci la", "theme.light": "Varianta luminoasă", "theme.dark": "Varianta întunecată", "theme.auto": "Varianta automată"}
     </script>
-    <script src="/assets/site.js?v=11"></script>
+    <script src="/assets/site.js?v=12"></script>
     <script src="/assets/calendar.js?v=1"></script>
   </body>
 </html>

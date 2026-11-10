@@ -191,6 +191,7 @@
     var lastY = window.scrollY;
     var full = 0;
     var fold = 0;
+    var tabs = document.querySelector('.tabs');
 
     var measureBar = function () {
       full = masthead.offsetHeight;
@@ -207,6 +208,10 @@
       }
       masthead.style.setProperty('--masthead-fold', fold + 'px');
       root.style.setProperty('--masthead-h', full - fold + 'px');
+      // The tools' tabs stay under the bar (instrumente.css): its whole height while unfolded,
+      // and their own height for an anchor to land under them too.
+      root.style.setProperty('--masthead-full', full + 'px');
+      if (tabs) root.style.setProperty('--tabs-h', tabs.offsetHeight + 'px');
       if (!fold) setFolded(false);
     };
 
@@ -229,7 +234,11 @@
     measureBar();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', measureBar);
-    if (typeof ResizeObserver === 'function') new ResizeObserver(measureBar).observe(masthead);
+    if (typeof ResizeObserver === 'function') {
+      var watch = new ResizeObserver(measureBar);
+      watch.observe(masthead);
+      if (tabs) watch.observe(tabs);
+    }
     if (document.fonts) document.fonts.ready.then(measureBar);
     // A keyboard reader tabbing into the folded rows gets them back.
     masthead.addEventListener('focusin', function () {

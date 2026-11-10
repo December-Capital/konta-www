@@ -3,14 +3,44 @@
 
 /* The tabs: one link per tool, styled as the header's sections, centred on a band of their own
    under the notice. They wrap on a narrow screen rather than scroll. */
+/* The tabs are the header's second row on the tools' pages: they stay under it while the page
+   scrolls, frosted like it, and the header's rule moves under them. Where the header folds its
+   rows of sections away (site.js), the tabs rise with it: --masthead-full is the bar's whole
+   height, --masthead-h what is left of it folded. */
 .tabs {
   /* The header's chip sizes, which site.css sets on .masthead only. */
   --chip-h: 33.6px;
   --chip-px: 14.4px;
   --chip-radius: var(--radius);
   --chip-font: 14.4px;
+  position: sticky;
+  top: var(--masthead-full, 0px);
+  z-index: 49;
   background: var(--tabs-bg);
   border-bottom: 1px solid var(--rule);
+  transition: top 0.25s ease;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .tabs {
+    background: var(--tabs-glass);
+    -webkit-backdrop-filter: saturate(1.5) blur(16px);
+    backdrop-filter: saturate(1.5) blur(16px);
+  }
+}
+
+.masthead[data-folded] ~ main .tabs {
+  top: var(--masthead-h, 0px);
+}
+
+.masthead--tabs::before {
+  border-bottom-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs {
+    transition: none;
+  }
 }
 
 .tabs__bar {
@@ -36,7 +66,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .tabs__link:hover {
-    background: var(--bg);
+    background: var(--tabs-hover);
   }
 }
 
