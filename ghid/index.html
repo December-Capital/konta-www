@@ -25,7 +25,7 @@
     <link rel="icon" href="/assets/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/assets/fonts.css?v=5" />
-    <link rel="stylesheet" href="/assets/site.css?v=18" />
+    <link rel="stylesheet" href="/assets/site.css?v=23" />
     <script>
       // Before first paint, so the theme never flashes the other one. Light, dark or automatic,
       // which is the device's theme and what nobody choosing means; the choice is made here or in
@@ -154,8 +154,8 @@
       <section class="hero hero--page">
         <div class="shell">
           <h1 data-t="guide.title">Ghidul Konta pentru contabili</h1>
-          <p class="hero__lead" data-t="guide.lead">Cum se lucrează în Konta, pas cu pas, așa cum este aplicația azi. Konta este încă în dezvoltare: aplicația de la demo.konta.md este versiunea demo. Ghidul crește cu fiecare funcție nouă.</p>
-          <p class="updated" data-t="guide.updated">Valabil la 1 noiembrie 2026</p>
+          <p class="hero__lead" data-t="guide.lead">Cum se lucrează în Konta, pas cu pas, așa cum este aplicația azi. Konta este încă în dezvoltare, iar tot ce descriem aici puteți încerca în Konta Demo, la demo.konta.md. Ghidul se completează cu fiecare funcție nouă.</p>
+          <p class="updated updated--edit" data-t="guide.updated">ultima editare: 1 noiembrie 2026</p>
           <nav class="toc" aria-label="Cuprins" data-t-aria-label="guide.toc">
             <ol>
               <li><a href="#utilizator-api" data-t="guide.ef.h">Cum creați utilizatorul API e-Factura</a></li>
@@ -171,7 +171,7 @@
       <section class="band band--quiet guide" id="utilizator-api">
         <div class="shell">
           <h2 data-t="guide.ef.h">Cum creați utilizatorul API e-Factura</h2>
-          <p class="state state--done" data-t="state.today">Azi</p>
+          <p class="state state--done" data-t="state.applied">Aplicat în Konta</p>
           <p data-t="guide.ef.p1">Un program de contabilitate lucrează cu SIA „e-Factura” printr-un utilizator API pe care îl creează compania, nu cu parola dumneavoastră de la SFS. Directorul îl introduce în Konta, pe pagina Compania, după ce își confirmă din nou identitatea. Konta îl păstrează criptat și citește cu el facturile emise și primite ale companiei, iar fiecare folosire apare în jurnalul companiei. Facturile nu se transmit încă prin Konta: emiterea este în lucru.</p>
           <ol class="howto">
             <li data-t="guide.ef.s1">Utilizatorul API îl poate crea doar cine are în SIA „e-Factura” rolul de manager al companiei, de obicei directorul.</li>
@@ -190,7 +190,7 @@
       <section class="band guide" id="solduri-1c">
         <div class="shell">
           <h2 data-t="guide.open.h">Soldurile inițiale din 1C</h2>
-          <p class="state state--done" data-t="state.today">Azi</p>
+          <p class="state state--done" data-t="state.applied">Aplicat în Konta</p>
           <p data-t="guide.open.p1">Konta nu citește baza de date 1C. Pornește de la soldurile finale din balanța de verificare a ultimei luni lucrate în 1C.</p>
           <ol class="howto">
             <li data-t="guide.open.s1">În 1C, faceți balanța de verificare pe ultima lună, cu subconturile, și salvați-o ca .xlsx sau .csv. Un fișier .xls vechi se salvează mai întâi ca .xlsx din Excel.</li>
@@ -208,7 +208,7 @@
       <section class="band band--quiet guide" id="prima-luna">
         <div class="shell">
           <h2 data-t="guide.first.h">Prima lună în Konta</h2>
-          <p class="state state--partial" data-t="state.partial">În parte</p>
+          <p class="state state--partial" data-t="state.partial">Parțial</p>
           <p data-t="guide.first.p1">După soldurile inițiale, luna se ține din documente. Ce se poate face azi în aplicație:</p>
           <ol class="howto">
             <li data-t="guide.first.s1">Compania: datele firmei care se tipăresc pe documente și pe declarații, cum ar fi denumirea, adresele, contul bancar și codurile. Doar directorul le poate schimba.</li>
@@ -232,10 +232,10 @@
       <section class="band guide" id="inchiderea-lunii">
         <div class="shell">
           <h2 data-t="guide.close.h">Închiderea lunii</h2>
-          <p class="state state--done" data-t="state.today">Azi</p>
+          <p class="state state--done" data-t="state.applied">Aplicat în Konta</p>
           <p data-t="guide.close.p1">Închiderea blochează luna: după ea, nicio înregistrare, stornare sau sold inițial nu mai intră cu o dată din perioada închisă. Blocarea o face baza de date, nu doar aplicația.</p>
           <ol class="howto">
-            <li data-t="guide.close.s1">Deschideți Închiderea perioadei. Pentru luna aleasă, ecranul arată pașii ei, cei care o privesc: amortizarea mijloacelor fixe, salariile, decontul TVA al lunii pentru un plătitor de TVA, dobânda creditelor, cheltuielile anticipate și, recomandată, reevaluarea soldurilor în valută.</li>
+            <li data-t="guide.close.s1">Deschideți Închiderea perioadei. Pentru luna aleasă, ecranul arată doar pașii care o privesc: amortizarea mijloacelor fixe, salariile, decontul TVA al lunii pentru un plătitor de TVA, dobânda creditelor, cheltuielile anticipate și, recomandată, reevaluarea soldurilor în valută.</li>
             <li data-t="guide.close.s2">Faceți fiecare pas. Sub pași, verificările nu blochează nimic, dar arată ce merită privit: registrele comparate cu conturile lor, înregistrările făcute de mână, drafturile rămase în lună.</li>
             <li data-t="guide.close.s3">Apăsați Închide perioada. Doar contabilul-șef poate închide, și doar după ce pașii obligatorii sunt făcuți.</li>
             <li data-t="guide.close.s4">Dacă trebuie corectat ceva, Redeschide mută data închiderii înapoi. Cere un motiv și confirmarea că sunteți dumneavoastră, iar motivul rămâne în istoric și în jurnalul de audit.</li>
@@ -249,7 +249,7 @@
       <section class="band band--quiet guide" id="extras-bancar">
         <div class="shell">
           <h2 data-t="guide.bank.h">Importul extrasului bancar</h2>
-          <p class="state state--partial" data-t="state.partial">În parte</p>
+          <p class="state state--partial" data-t="state.partial">Parțial</p>
           <p data-t="guide.bank.p1">Konta nu se conectează la bancă și nu vă cere datele de acces la bancă. Descărcați extrasul din banca dumneavoastră și îl încărcați în Konta.</p>
           <ol class="howto">
             <li data-t="guide.bank.s1">Deschideți Încasări și plăți, apoi Extrase bancare.</li>
@@ -260,7 +260,7 @@
             <li data-t="guide.bank.s6">Pentru un rând rămas de rezolvat, alegeți partenerul și facturile, sau puneți-l deoparte cu un motiv, de exemplu un comision bancar înregistrat în jurnal.</li>
           </ol>
           <div class="aside">
-            <p data-t="guide.bank.n1">Un rând adus deja de un extras anterior care se suprapune este recunoscut și nu devine a doua plată, iar același fișier nu se importă de două ori. Un extras poate fi și într-o valută străină.</p>
+            <p data-t="guide.bank.n1">Când două extrase se suprapun, un rând adus deja de primul este recunoscut și nu devine a doua plată, iar același fișier nu se importă de două ori. Extrasul poate fi și în valută străină.</p>
           </div>
         </div>
       </section>
@@ -268,10 +268,10 @@
       <section class="band band--quiet band--cta">
         <div class="shell">
           <div class="aside">
-            <p data-t="guide.outro">Dacă un pas de aici nu mai este adevărat în aplicație, este o greșeală. Scrieți-ne și o corectăm.</p>
+            <p data-t="guide.outro">Dacă un pas de aici nu se mai potrivește cu aplicația, greșeala este a noastră. Scrieți-ne și o corectăm.</p>
           </div>
           <div class="hero__actions">
-            <a class="btn" href="https://demo.konta.md" data-t="foot.app">Intrare în aplicație</a>
+            <a class="btn" href="https://demo.konta.md" data-t="hero.app">Încearcă Demo</a>
             <a class="btn btn--plain" href="/contact/" data-t="cta.write">Scrieți-ne</a>
           </div>
         </div>

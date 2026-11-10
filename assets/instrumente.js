@@ -710,6 +710,46 @@
     var salaries = form.querySelector('[name="salaries"]');
     var costs = form.querySelector('[name="costs"]');
     var personal = form.querySelector('[name="personal"]');
+    var shownVerdict = null;
+
+    // Which regime costs less, in words: the month's and the year's difference are amounts of
+    // their own, green when the park costs less and red when it costs more (instrumente.css), and
+    // they roll like the table's figures while the verdict stays the same; the year's clause goes
+    // on a line of its own, after the comma that leads to it.
+    function verdict(key, month, year) {
+      var note = el('verdict');
+      note.hidden = false;
+      note.setAttribute('data-verdict', key);
+      var amounts = { month: month, year: year };
+      if (key !== shownVerdict) {
+        shownVerdict = key;
+        var text = words['verdict.' + key] || '';
+        var at = text.indexOf('{year}');
+        var comma = at < 0 ? -1 : text.lastIndexOf(', ', at);
+        if (comma >= 0) text = text.slice(0, comma + 1) + '{br}' + text.slice(comma + 2);
+        note.textContent = '';
+        text.split(/(\{month\}|\{year\}|\{br\})/).forEach(function (part) {
+          if (!part) return;
+          if (part === '{br}') {
+            note.appendChild(document.createElement('br'));
+          } else if (part === '{month}' || part === '{year}') {
+            var amount = document.createElement('span');
+            amount.className = 'tool__amount';
+            amount.setAttribute('data-amount', part.slice(1, -1));
+            amount.textContent = amounts[part.slice(1, -1)];
+            note.appendChild(amount);
+          } else {
+            note.appendChild(document.createTextNode(part));
+          }
+        });
+        return;
+      }
+      Array.prototype.forEach.call(note.querySelectorAll('[data-amount]'), function (amount) {
+        var text = amounts[amount.getAttribute('data-amount')];
+        if (window.kontaRoll) window.kontaRoll(amount, text);
+        else amount.textContent = text;
+      });
+    }
     var r = rounding('half_away_from_zero', 2);
     var salary = window.KontaSalary;
     var general = { profitRate: rules.profitRate, ivaoRate: rules.ivaoRate, ivaoCeiling: rules.ivaoCeiling, payroll: salary.rules(rules.payroll) };
@@ -752,11 +792,14 @@
 
       var difference = std.total - park.tax;
       var key = difference > ZERO ? 'less' : difference < ZERO ? 'more' : 'same';
-      say('verdict', true, word('verdict.' + key, {
-        month: format(abs(difference), lang),
-        year: format(abs(difference) * BigInt(12), lang),
-      }));
-      el('verdict').setAttribute('data-verdict', key);
+      verdict(key, format(abs(difference), lang), format(abs(difference) * BigInt(12), lang));
+      // The two totals: the smaller green, the larger red, neither when they are equal.
+      var generalCell = root.querySelector('[data-out="general"]');
+      var parkCell = root.querySelector('[data-out="tax"]');
+      generalCell.classList.toggle('calc__low', key === 'more');
+      generalCell.classList.toggle('calc__high', key === 'less');
+      parkCell.classList.toggle('calc__low', key === 'less');
+      parkCell.classList.toggle('calc__high', key === 'more');
     }
 
     wire(form, show);

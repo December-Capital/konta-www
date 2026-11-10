@@ -270,6 +270,12 @@ strings get found.
 
 ## Theme
 
+The dark theme is built on Radix Mauve (radix-ui.com/colors), the neutral nearest the brand,
+each step in the role Radix gives it: the page Mauve 3, quiet bands Mauve 2 so their panels
+stand out, panels Mauve 4, sunken rows Mauve 5, the bar and lines Mauve 6, hover and form
+fields Mauve 7, outlines Mauve 10, tertiary text Mauve 11. Nisip, Liliac, Aur, Salvie and
+Cărămidă keep their brand values. The values are in `site.css`, both dark blocks.
+
 Three modes: light, dark and automatic, which follows the system and is what nobody having chosen
 means. The header's control cycles them so that the first press always changes what you see: from
 automatic to the opposite of the device, then to the device's own theme chosen for good, then
@@ -289,7 +295,7 @@ and visitors who ask for reduced motion, get the instant switch.
 
 The top bar stays at the top of the window (`position: sticky`, so it keeps its place in the page
 and nothing under it starts hidden) and the page scrolls under frosted glass: `#F8F2E8` at 76% in
-the light, `#1E1B22` at 76% in the dark, blurred, and the same colours solid where the browser has
+the light, `#3C393F` (Radix Mauve 6) at 76% in the dark, blurred, and the same colours solid where the browser has
 no `backdrop-filter`. `site.js` keeps its height in `--masthead-h` for `scroll-padding-top`, so an
 anchor lands under it. Where one row is too narrow for the mark, the sections, the controls and
 "Încearcă Demo" (below 1160px, or 1290px in Russian), the sections take rows of their own,
@@ -297,13 +303,13 @@ and while the reader scrolls down those rows fold away so the bar keeps to one r
 brings them back. Folding only paints, so nothing under the bar moves. The sections and the app
 button are one shape (`--chip-*` on `.masthead`), and nothing in the bar moves on its own: the app
 button and the page you are on are filled aubergine (lilac in the dark), the other sections are
-their text alone at normal weight and shade to `#DED8CE` (`#302B37` in the dark) under the
+their text alone at normal weight and shade to `#DED8CE` (`#49474E`, Mauve 7, in the dark) under the
 pointer. The last section sits 8px from the language control, as the controls and the app button
 sit from each other. On phones under
 360px the app button says just "Demo". The "În dezvoltare" notice strip sits above the bar, so it
 scrolls away and the bar alone stays. On the tools' pages the tabs are the bar's second row: sticky
-under it, frosted one brand step deeper (Nisip 100, Grafit 600 in the dark), the header's rule
-moved under them, and rising with the bar when its rows fold (`--masthead-full`, `--tabs-h`
+under it, the same colour and frosted glass as the bar, the bar's thin rule between them and
+another under the tabs, and rising with the bar when its rows fold (`--masthead-full`, `--tabs-h`
 from `site.js`).
 
 ## Fonts
