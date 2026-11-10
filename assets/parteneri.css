@@ -115,9 +115,9 @@
   color: var(--mt-ink);
   font-size: 1.1875rem;
   font-weight: 600;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
+  /* No underline: the whole card is the link (the ::after below), so the words need no mark of
+     their own (the owner, 2026-11-10). */
+  text-decoration: none;
 }
 
 /* The link covers the banner, so the picture opens the programme too. */
@@ -130,7 +130,6 @@
 
 .conf__link:hover {
   color: var(--mt-ink);
-  text-decoration-thickness: 3px;
 }
 
 .conf__link:focus-visible {
