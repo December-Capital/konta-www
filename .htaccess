@@ -22,6 +22,11 @@
   # /instrumente/ itself is not a page, and goes to that first tab for now (302, so it can become one).
   RewriteRule ^(ru/|en/)?calculator-salariu/?$ /$1instrumente/salariu/ [R=301,L]
   RewriteRule ^(ru/|en/)?instrumente/?$ /$1instrumente/salariu/ [R=302,L]
+  # konta.md/qr is the address in the QR code on the stand banner (2026-11-27 conference) and is
+  # printed, so it can never change: only where it leads can. For now that is the demo's sign-up;
+  # later it becomes registration on app.konta.md. 302 and no-store, never 301, so no phone or
+  # browser remembers the target and a new one takes effect on the next scan.
+  RewriteRule ^qr/?$ https://demo.konta.md/inregistrare [R=302,L,E=KONTA_NOSTORE:1]
 </IfModule>
 
 # PHP2Shell (CVE-2026-109618, CVE-2026-109619, disclosed 21 Oct 2026): bugs in PHP itself,
@@ -91,6 +96,9 @@ RedirectMatch 404 (?i)\.(md|py|yml|yaml|lock)$
   # The PHP version is nobody's business. trimite.php also removes it itself, since expose_php
   # cannot be switched off from here.
   Header always unset X-Powered-By
+
+  # The /qr redirect above must reach the server on every scan, so no browser or CDN keeps it.
+  Header always set Cache-Control "no-store" env=KONTA_NOSTORE
 
   # A year of https only, after the first visit. Without includeSubDomains, on purpose:
   # autoconfig.konta.md and autodiscover.konta.md point at Hostinger's mail servers, which hold no
