@@ -304,8 +304,8 @@ function branded(
   <div style="display:none; max-height:0; overflow:hidden; opacity:0; mso-hide:all;">{$e($name)}: {$e(mb_substr($message, 0, 90))}</div>
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f6f4f7;">
     <tr>
-      <td align="center" style="padding:32px 12px;">
-        <!--[if mso]><table role="presentation" width="760" align="center" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
+      <td align="left" style="padding:32px 12px;">
+        <!--[if mso]><table role="presentation" width="760" align="left" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%; max-width:760px; background-color:#ffffff; border:1px solid #e2dde6; border-radius:6px; overflow:hidden;">
           <tr>
             <td style="background-color:#3d2c4b; background-image:linear-gradient(135deg, #2c1f38 0%, #3d2c4b 55%, #4e3a5f 100%); padding:24px 36px;">
