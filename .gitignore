@@ -10,3 +10,4 @@ dist/
 Thumbs.db
 shots/
 kontamd-deploy/
+__pycache__/
