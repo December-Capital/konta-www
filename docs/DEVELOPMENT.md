@@ -188,7 +188,7 @@ benefits, pensions, the annual income tax return (CET18), road tax, and late-pay
 `contact/trimite.php` mails the message to `mail@konta.md` through the host's own `mail()`, with
 `Reply-To` set to the sender. The subject reads
 `[konta.md] <Name> from <Company> on <Topic>`; the body is multipart, a plain-text part and an HTML
-part in Konta's mail layout (the same one as `/root/agent/konta_email_template.html` and the app's
+part in Konta's mail layout (the same one as the operator's own mail template and the app's
 invitation mail), with every typed value HTML-escaped. It refuses a post whose `Origin` is not exactly
 `https://konta.md` (a missing one included), counts every attempt before sending and allows five
 an hour from one IP, drops anything that fills the hidden `website` field, validates lengths and
@@ -207,7 +207,8 @@ It keeps state in `konta-private/`, beside `public_html` rather than in it (on H
   `app.konta.md/api/v1/leads` carries `X-Konta-Lead-Timestamp`, `X-Konta-Lead-For` (the visitor's
   address) and `X-Konta-Lead-Signature`, the hex HMAC-SHA256 of `timestamp \n for \n body` under
   that key. A `KONTA_LEAD_KEY` environment variable takes precedence. With neither, leads go
-  unsigned. The same key goes into the app's configuration.
+  unsigned, and each post writes one line to the host's PHP log saying the key is missing. The
+  same key goes into the app's configuration.
 
 To try it locally with the mail captured to files instead of sent:
 

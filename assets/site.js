@@ -42,7 +42,13 @@
 
   function read(name) {
     var match = new RegExp('(?:^|;\\s*)konta_' + name + '=([^;]*)').exec(document.cookie);
-    if (match) return decodeURIComponent(match[1]);
+    if (match) {
+      try {
+        return decodeURIComponent(match[1]);
+      } catch (e) {
+        // A malformed value (a stray %) throws URIError: treat it as no cookie at all.
+      }
+    }
     try {
       return localStorage.getItem('konta.' + name);
     } catch (e) {

@@ -69,7 +69,10 @@ function privateDir(): ?string
     return $root === '' ? null : dirname($root) . '/konta-private';
 }
 
-/** The key that signs leads, or null when none has been placed: the lead then goes unsigned. */
+/**
+ * The key that signs leads, or null when none has been placed: the lead then goes unsigned, and
+ * one line in the host's PHP log says so, so the operator can see that the key is missing.
+ */
 function leadKey(): ?string
 {
     $env = getenv('KONTA_LEAD_KEY');
@@ -79,13 +82,14 @@ function leadKey(): ?string
 
     $dir = privateDir();
     $file = $dir === null ? null : $dir . '/lead-key';
-    if ($file === null || !is_readable($file)) {
+    $key = $file !== null && is_readable($file) ? trim((string) file_get_contents($file)) : '';
+    if ($key === '') {
+        error_log('konta contact: no lead signing key (KONTA_LEAD_KEY or konta-private/lead-key), posting the lead unsigned');
+
         return null;
     }
 
-    $key = trim((string) file_get_contents($file));
-
-    return $key === '' ? null : $key;
+    return $key;
 }
 
 /**
@@ -250,7 +254,7 @@ function e(string $value): string
 }
 
 /**
- * The message laid out in Konta's mail template: the same layout as /root/agent/konta_email_template.html
+ * The message laid out in Konta's mail template: the same layout as the operator's own mail template
  * and the app's invitation mail. Every value the visitor typed goes through e() first.
  */
 function branded(
